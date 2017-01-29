@@ -106,9 +106,9 @@ Erroneous cases will be shown to users using pop-up windows (erroneous cases wil
 
 ###### Move to the next generation: update all cells in a simulation from their current state to their next state and display the result graphically
 
-Simulation class will call updateGrid() method on its Grid object. This method returns an Cell[][] array to main. Main will make a new Rectangle[][] array based on the cell types and set the color accordingly. This Rectangle[][] array is passed to GUI class for rendering by JavaFX.
+Simulation class will call updateGrid() method on its Grid object. This method returns an `Cell[][]` array to main. Main will make a new `Rectangle[][]` array based on the cell types and set the color accordingly. This `Rectangle[][]` array is passed to GUI class for rendering by JavaFX.
 
-updateGrid() in the Grid class calls checkAndMakeAction(ArrayList<CellInfo> neighborInfo) on all the cells in the Cell[][] array.
+updateGrid() in the Grid class calls checkAndMakeAction(ArrayList<CellInfo> neighborInfo) on all the cells in the `Cell[][]` array.
 
 
 For each cell checkAndMakeAction(ArrayList<CellInfo> neighborInfo) we will call makeAction(result) method and based on the checkNeighbors(ArrayList<CellInfo> neighborInfo)  `result` to determine if this cell will move to the next generation.
@@ -117,7 +117,7 @@ For each cell checkAndMakeAction(ArrayList<CellInfo> neighborInfo) we will call 
 In the GUI, the user will pick the TreeFire simulation, so the TreeFireSimulation subclass will be initialized and will take in the XML file. probCatch will be an instance field within TreeFireSimulation, and will be read in from the file upon initialization of the class.
 
 ###### Switch simulations: use the GUI to change the current simulation from Game of Life to Wator
-The ControlPanel in the GUI will have a "Open new simulation" button which will then allow the use to pick a simulation, and then pick whether to use the default XML file or select a new one. A new Simulation subclass object will be initialized with the given XML file and will replace the current one in the main, at which point the GUI object will receive a different `Grid` object to process and render from.
+The ControlPanel in the GUI will have a "Open new simulation" button which will then allow the use to pick a simulation, and then pick whether to use the default XML file or select a new one. A new Simulation subclass object will be initialized with the given XML file and will replace the current one in the main, at which point the GUI object will receive a different `Rectangle[][]` object to render.
 
 ## Design Considerations 
 As a group we addressed how to make our code as extendable as foreseeably possible. After some discussion, we decided that the best course of action (in regards to various kinds of cells and simulations specifically) would be to make a Simulation and CellType package with the base code extendable so many different kinds can be accounted for. Abstract classes make the code much more flexible. The pros of this decision include the ability for the code to account for various kinds of items of the same base “type” and future extendibility. There would not be many cons to making the class abstract, besides not being able to create something of the abstract class itself, which does not seem like an issue since additional classes can always be added.
@@ -131,7 +131,7 @@ We debated the pros and cons of having the Cell class be able to see its neighbo
 - Based on the information of its neighbors, make a decision on what to do
 - Take action on the decision
 
-As for collecting information for its neighbors, Grid has direct access to the Cell[][] array so it will be easier to know who are the cell’s neighbors through indexing. It will be much harder for the cell to know who its neighbors are since cell does not contain the Cell[][] array it is in. Thus, we leave the work to Grid class. “Tell the other guy” at work. The cons for this might be that if Grid’s code for determining neighbors is wrong, the information passed to all cells will be wrong, which is catastrophic to the whole simulation.
+As for collecting information for its neighbors, Grid has direct access to the `Cell[][]` array so it will be easier to know who are the cell’s neighbors through indexing. It will be much harder for the cell to know who its neighbors are since cell does not contain the `Cell[][]` array it is in. Thus, we leave the work to Grid class. “Tell the other guy” at work. The cons for this might be that if Grid’s code for determining neighbors is wrong, the information passed to all cells will be wrong, which is catastrophic to the whole simulation.
 
 We also discussed the Simulation class. The Main class will read data in through the XML file (by means of another class) and the inputted data will determine what simulation class is called and set up. This is how the simulation package and main class will interact. From the simulation class the grid class will be called (which will deal with the information by receiving the information about each cell through each iteration passed on by the simulation class. The simulation class will also contain the information for the initial state of the cell since that is passed in through the XML file. We decided on this setup because it follows good coding principles and practice, as no one class is taking on jobs other than its own.
 
