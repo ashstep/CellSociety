@@ -11,7 +11,7 @@ import javafx.util.Duration;
 public class Main extends Application
 {
 	public static final String TITLE = "Simulator";
-	public static final int SIZE = 500;
+	public static final int SIZE = 600;
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -24,10 +24,10 @@ public class Main extends Application
 	 * Initialize what will be displayed and how it will be updated.
 	 */
 	public void start (Stage s)
-	{
-		GUI container = new GUI();
-		//Scene scene = new Scene();
-		//s.setScene(scene);
+	{	
+		GUI container = new GUI(SIZE,SIZE);
+		Scene scene = container.setScene();
+		s.setScene(scene);
 		s.setTitle(TITLE);
 		s.show();
 
@@ -41,7 +41,7 @@ public class Main extends Application
 
 	private void step (double elapsedTime, GUI inContainer)
 	{
-
+		//inContainer.renderGrid(colors);
 	}
 
 	/**
