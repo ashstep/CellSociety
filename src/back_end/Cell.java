@@ -1,5 +1,44 @@
 package back_end;
 
-public abstract class Cell {
+import javafx.scene.paint.Color;
 
+/**
+ * Abstract super class that describes the properties shared by cells of all simulations
+ * @author Yuxiang He
+ *
+ */
+public abstract class Cell {
+	/**
+	 * reprsents the type of the cell in the simulation, starts from 0
+	 */
+	private int myType;
+	
+	private Color myColor;
+	
+	/**
+	 * checks the information about 
+	 * @param neighbors
+	 */
+	public abstract void checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo);
+
+	/**
+	 * getter
+	 * @return
+	 */
+	public int getMyType() {
+		return myType;
+	}
+
+	/**
+	 * setter
+	 * @param type
+	 */
+	public void setMyType(int newType) {
+		myType=newType;
+	}
+	
+	
+	public abstract Color getColor();
+	
+	
 }
