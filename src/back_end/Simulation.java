@@ -12,7 +12,7 @@ public abstract class Simulation{
 	 * @return the updated myGrid
 	 */
 	//changed to void
-	public abstract void updateGrid();
+	public abstract Cell[][] updateGrid();
 	
 	
 	/**
