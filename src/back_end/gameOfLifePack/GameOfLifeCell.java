@@ -15,7 +15,7 @@ public class GameOfLifeCell extends Cell{
 	private final Color ALIVE_COLOR=Color.GREEN;
 	
 	@Override
-	public void checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo) {
+	public boolean checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo) {
 		int aliveNeighbors=0;
 		for(Cell neighbor: neighbors){
 			if(neighbor.getMyType()==ALIVE_TYPE) aliveNeighbors++;
@@ -29,7 +29,7 @@ public class GameOfLifeCell extends Cell{
 		} else if(aliveNeighbors==3){
 			revive();
 		}
-		
+		return false;
 	}
 	
 	/**

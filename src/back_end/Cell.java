@@ -17,10 +17,9 @@ public abstract class Cell {
 	
 	/**
 	 * checks the information about 
-	 * @param neighbors
+	 * @param true if the cell wants to move
 	 */
-	public abstract void checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo);
-
+	public abstract boolean checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo);
 	/**
 	 * getter
 	 * @return
