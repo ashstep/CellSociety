@@ -1,5 +1,6 @@
 import front_end.GUI;
 import back_end.Simulation;
+import back_end.gameOfLifePack.GameOfLifeSim;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,28 +26,29 @@ public class Main extends Application
 	{	
 		GUI container = new GUI(SIZE,SIZE);
 		Scene scene = container.setScene();
-		Simulation simulation;
+		Simulation simulation = new GameOfLifeSim();
 		s.setScene(scene);
 		s.setTitle(TITLE);
 		s.show();
 
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> step(SECOND_DELAY, container));
+				e -> step(SECOND_DELAY, container, simulation));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		container.initButtons(() -> animation.play(),
+		container.initButtons(
+				() -> animation.play(),
 				() -> animation.pause(),
 				() -> 
 				{
-					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container);
+					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container, simulation);
 				}
 		);
 	}    
 
-	private void step (double elapsedTime, GUI inContainer)
+	private void step (double elapsedTime, GUI inContainer, Simulation inSimulation)
 	{
-		//inContainer.renderGrid(simulation.upDateGrid());
+		inContainer.renderGrid(inSimulation.updateGrid());
 	}
 
 	/**

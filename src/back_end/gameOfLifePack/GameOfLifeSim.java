@@ -6,6 +6,24 @@ import back_end.Simulation;
 import back_end.SimulationInfo;
 
 public class GameOfLifeSim extends Simulation{
+
+	@Override
+	public Cell[][] upDateGrid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Cell[] getNeighbors(int row, int col) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int[] move(Cell[][] newGrid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
 	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
@@ -38,7 +56,8 @@ public class GameOfLifeSim extends Simulation{
 	
 
 	@Override
-	protected int[] move(Cell[][] newGrid) {
+	protected int[] move(Cell[][] newGrid)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

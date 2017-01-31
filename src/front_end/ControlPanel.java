@@ -1,16 +1,16 @@
 package front_end;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.BorderPane;
 
 public class ControlPanel
 {
 	private Button play, pause, step;
 	private ToolBar bar;
 	
-	public ControlPanel(Group root)
+	public ControlPanel(BorderPane inRoot)
 	{
 		bar = new ToolBar();
 		play = new Button("Play");
@@ -18,7 +18,7 @@ public class ControlPanel
 		step = new Button("Step");
 		
 		bar.getItems().addAll(play, pause, step);
-		root.getChildren().add(bar);
+        inRoot.setTop(bar);
 	}
 
 	public void setPause(Runnable r)
