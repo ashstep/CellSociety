@@ -1,6 +1,8 @@
 package back_end;
 
 
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -19,7 +21,8 @@ public abstract class Cell {
 	 * checks the information about 
 	 * @param true if the cell wants to move
 	 */
-	public abstract boolean checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo);
+	public abstract boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo);
+	
 	/**
 	 * getter
 	 * @return
