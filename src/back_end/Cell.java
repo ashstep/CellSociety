@@ -1,6 +1,6 @@
 package back_end;
 
-<<<<<<< HEAD
+
 import javafx.scene.paint.Color;
 
 /**
@@ -10,11 +10,10 @@ import javafx.scene.paint.Color;
  */
 public abstract class Cell {
 	/**
-	 * reprsents the type of the cell in the simulation, starts from 0
+	 * represents the type of the cell in the simulation, starts from 0
 	 */
 	private int myType;
-	
-	private Color myColor;
+
 	
 	/**
 	 * checks the information about 
@@ -28,16 +27,6 @@ public abstract class Cell {
 	 */
 	public int getMyType() {
 		return myType;
-=======
-import javafx.scene.paint.Paint;
-
-public abstract class Cell
-{
-
-	public Paint getColor() {
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> 3a1daddffc05036da590e9bf6c37dd73f81399de
 	}
 
 	/**
