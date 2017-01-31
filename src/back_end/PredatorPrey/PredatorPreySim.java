@@ -1,9 +1,9 @@
-package back_end.gameOfLifePack;
+package back_end.PredatorPrey;
 
 import back_end.Cell;
 import back_end.Simulation;
 
-public class GameOfLifeSim extends Simulation{
+public class PredatorPreySim extends Simulation {
 
 	@Override
 	public Cell[][] upDateGrid() {
@@ -22,5 +22,5 @@ public class GameOfLifeSim extends Simulation{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
