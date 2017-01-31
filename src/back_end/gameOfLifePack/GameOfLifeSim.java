@@ -9,11 +9,13 @@ public class GameOfLifeSim extends Simulation{
 	private final int[] ROW_OFFSET={-1, -1, -1, 0, 0, 1, 1, 1};
 	private final int[] COL_OFFSET={-1, 0, 1, -1, 1, -1, 0, 1};
 	
-	
-	@Override
-	public Cell[][] updateGrid() {
-		for(int row=0; row<getGrid().length; row++){
-			for(int col=0; col<getGrid()[0].length; col++){
+
+	public Cell[][] updateGrid()
+	{
+		for(int row=0; row<getGrid().length; row++)
+		{
+			for(int col=0; col<getGrid()[0].length; col++)
+			{
 				getGrid()[row][col].checkAndTakeAction(getNeighbors(row, col), getSimInfo());
 			}
 		}
@@ -21,10 +23,12 @@ public class GameOfLifeSim extends Simulation{
 	}
 
 	@Override
-	protected Cell[] getNeighbors(int row, int col) {
-		Cell[]output=new Cell[ROW_OFFSET.length];
+	protected Cell[] getNeighbors(int row, int col)
+	{
+		Cell[]output = new Cell[ROW_OFFSET.length];
 		
-		for(int i=0; i<ROW_OFFSET.length; i++){
+		for(int i=0; i<ROW_OFFSET.length; i++)
+		{
 				output[i]=getGrid()[row+ROW_OFFSET[i]][col+COL_OFFSET[i]];
 		}
 		return output;
@@ -33,13 +37,15 @@ public class GameOfLifeSim extends Simulation{
 	
 
 	@Override
-	protected int[] move(Cell[][] newGrid) {
+	protected int[] move(Cell[][] newGrid)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setSimInfo(SimulationInfo newInfo) {
+	public void setSimInfo(SimulationInfo newInfo)
+	{
 		
 	}
 	

@@ -3,12 +3,14 @@ package front_end;
 import back_end.Cell;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class GUI
 {
-	private Group root;
+	private BorderPane root;
+	private Group gridContainer;
 	private int sceneWidth, sceneHeight;
 	private Rectangle[][] grid;
 	private ControlPanel panel;
@@ -17,7 +19,7 @@ public class GUI
 	{
 		this.sceneWidth = sceneWidth;
 		this.sceneHeight = sceneHeight;
-		root = new Group();
+		root = new BorderPane();
 	}
 	
 	public Scene setScene()
@@ -30,6 +32,9 @@ public class GUI
 	public void initGrid(int gridWidth, int gridLength, int cellSize)
 	{
 		grid = new Rectangle[gridLength][gridWidth];
+		gridContainer = new Group();
+		root.setCenter(gridContainer);
+		
 		for (int x = 0; x < gridLength; x++)
 		{
 			for (int y = 0; y < gridWidth; y++)
@@ -37,7 +42,7 @@ public class GUI
 				grid[x][y] = new Rectangle(cellSize, cellSize);
 				grid[x][y].setX(y*cellSize);
 				grid[x][y].setY(x*cellSize);
-				root.getChildren().add(grid[x][y]);
+				gridContainer.getChildren().add(grid[x][y]);
 			}
 		}
 	}
