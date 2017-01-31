@@ -2,6 +2,7 @@ package back_end.gameOfLifePack;
 
 import back_end.Cell;
 import back_end.Simulation;
+import back_end.SimulationInfo;
 
 public class GameOfLifeSim extends Simulation{
 	
@@ -38,8 +39,7 @@ public class GameOfLifeSim extends Simulation{
 	}
 
 	@Override
-	public void setSimInfo() {
-		// TODO Auto-generated method stub
+	public void setSimInfo(SimulationInfo newInfo) {
 		
 	}
 	

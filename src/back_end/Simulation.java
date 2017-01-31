@@ -50,5 +50,6 @@ public abstract class Simulation{
 		return myInfo;
 	}
 	
-	public abstract void setSimInfo();
+	public abstract void setSimInfo(SimulationInfo newInfo);
+
 }
