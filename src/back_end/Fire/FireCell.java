@@ -18,6 +18,15 @@ import javafx.scene.paint.Color;
  *
  */
 public class FireCell extends Cell {
+<<<<<<< HEAD
+
+	
+	
+	@Override
+	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+		for(){
+			
+=======
 	private final int STATE_EMPTY = 0;
 	private final int STATE_TREE = 1;
 	private final int STATE_BURNING = 2;
@@ -116,8 +125,18 @@ public class FireCell extends Cell {
 			}
 
 			return false;
+>>>>>>> 70d84eff6fe3310151a3c94bf5c95009db1cc5da
 		}
 		return false;
 	}
 
+<<<<<<< HEAD
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+=======
+>>>>>>> 70d84eff6fe3310151a3c94bf5c95009db1cc5da
 }
