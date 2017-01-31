@@ -1,6 +1,8 @@
 package back_end;
 
 
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -62,11 +64,18 @@ public abstract class Cell {
 	
 
 	
+	public Cell(int type){
+		myType=type;
+	}
+	
 	/**
-	 * checks the information about 
-	 * @param true if the cell wants to move
+	 * checks the information about neighbors change the cell's attributes.
+	 * NOTE this method MODIFIES THE CELL.
+	 * DO NOT call this method on the cells in myGrid
+	 * @see updateGrid() in Simulation
+	 * @return true if the cell wants to move
 	 */
-	public abstract boolean checkAndTakeAction(Cell cell, Cell[] neighbors, SimulationInfo simInfo);
+	public abstract boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo);
 	
 	/**
 	 * getter
