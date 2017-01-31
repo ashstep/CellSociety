@@ -10,11 +10,7 @@ import javafx.scene.paint.Color;
  * Class that implements the unique properties of each cell in the fire simulation
  * @author Ashka Stephen
  *
- *
- * kept for clarification as of now, once code is connected we can remove:
- *	 STATE_EMPTY = 0;
-	 STATE_TREE = 1;
-	 STATE_BURNING = 2;
+ *test changedfkadsjfkjdsfkjasdkl;
  */
 public class FireCell extends Cell {
 	private final int STATE_EMPTY = 0;
