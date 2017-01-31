@@ -1,5 +1,3 @@
-
-
 import front_end.GUI;
 import back_end.Simulation;
 import javafx.animation.Animation;
@@ -17,8 +15,6 @@ public class Main extends Application
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	public static final int KEY_INPUT_SPEED = 5;
-	public static final double GROWTH_RATE = 1.1;
 
 	// some things we need to remember during our game
 
@@ -39,23 +35,18 @@ public class Main extends Application
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		container.initButtons(() -> { animation.play(); 
-		System.out.println("test1");},
-				() -> {animation.pause();
-				System.out.println("test2");
-				}, 
+		container.initButtons(() -> animation.play(),
+				() -> animation.pause(),
 				() -> 
 				{
 					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container);
-					System.out.println("test3");
 				}
 		);
 	}    
 
 	private void step (double elapsedTime, GUI inContainer)
 	{
-		//simulation.updateState();
-		//inContainer.renderGrid(simulation.getColors());
+		//inContainer.renderGrid(simulation.upDateGrid());
 	}
 
 	/**
