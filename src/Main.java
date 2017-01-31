@@ -1,4 +1,4 @@
-package main;
+
 
 import front_end.GUI;
 import back_end.Simulation;
