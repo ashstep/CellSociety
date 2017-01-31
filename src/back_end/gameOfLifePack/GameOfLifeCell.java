@@ -8,16 +8,33 @@ import javafx.scene.paint.Color;
 public class GameOfLifeCell extends Cell{
 	/*
 	 * note regarding myType in Cell class
+	 * 0: dead
+	 * 1: alive
+	 */
+	private final int ALIVE_TYPE=1;
+	private final int DEAD_TYPE=0;
+	private final Color DEAD_COLOR=Color.WHITE;
+	private final Color ALIVE_COLOR=Color.GREEN;
+	
+	/**
+	 * constructor
+	 * @param type type of the GameOfLife cell
 	 * 1: dead
 	 * 2: alive
-	 * 0: empty
 	 */
+<<<<<<< HEAD
 	private final int ALIVE_TYPE=2;
 	private final int DEAD_TYPE=1;
 	private final Color DEAD_COLOR=Color.WHITE;
 	private final Color ALIVE_COLOR=Color.GREEN;
 	
 	
+=======
+	public GameOfLifeCell(int type){
+		super(type);
+	}
+	
+>>>>>>> cceac68ba56f1d7330bda0f0557fd29f650bd193
 	/**
 	 * only need to check status of neighbors, simInfo is unused
 	 * returns false because game of life cells do not move
