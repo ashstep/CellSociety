@@ -28,17 +28,13 @@ public class FireSim extends Simulation {
 		return null;
 	}
 
+	
+	//check what is up and use similar idea to shorten code
 	@Override
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
 
 			ArrayList<Cell> allNeighbors = new ArrayList<Cell>();
-			Cell neighbor1 = null, neighbor2 = null, neighbor3 = null, neighbor4 = null;
-
-
-			//NOTE need to check if the "neighbor" is out of bounds of the grid or not
-			//need to refactor
-			
-			
+			Cell neighbor1 = null, neighbor2 = null, neighbor3 = null, neighbor4 = null;			
 			neighbor1.
 			neighbor1.setCellX(originalX + 1);
 			neighbor1.setCellY(originalY);
