@@ -17,9 +17,16 @@ public abstract class Cell {
 	private int myType;
 
 	
+	public Cell(int type){
+		myType=type;
+	}
+	
 	/**
-	 * checks the information about 
-	 * @param true if the cell wants to move
+	 * checks the information about neighbors change the cell's attributes.
+	 * NOTE this method MODIFIES THE CELL.
+	 * DO NOT call this method on the cells in myGrid
+	 * @see updateGrid() in Simulation
+	 * @return true if the cell wants to move
 	 */
 	public abstract boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo);
 	

@@ -8,18 +8,19 @@ public abstract class Simulation{
 	private SimulationInfo myInfo;
 	
 	/**
-	 * update the grid based on the cells' current state
-	 * @return the updated myGrid
+	 * update the grid based on the cells' current states.
+	 * create a new grid Cell[][],
+	 * and then call checkAndTakeAction on the cells in the new grid.
+	 * DO NOT call checkAndTakeAction on cells in myGrid.
+	 * @return the new updated grid
 	 */
-	//changed to void
-	public abstract void updateGrid();
+	public abstract Cell[][] updateGrid();
 	
 	
 	/**
-	 * 
 	 * @param row the row of the current cell
-	 * @param col the col of the current cell
-	 * @return the Cell neighbors of the current cell
+	 * @param col the column of the current cell
+	 * @return the Cell neighbors of the current cell in myGrid
 	 */
 	//changed from Cell[] to AL<Cell>
 	protected abstract ArrayList<Cell> getNeighbors(int row, int col);

@@ -1,7 +1,6 @@
 package back_end.gameOfLifePack;
 
 import java.util.ArrayList;
-
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
@@ -13,7 +12,7 @@ public class GameOfLifeSim extends Simulation{
 	
 	
 	@Override
-	public void updateGrid() {
+	public Cell[][] updateGrid() {
 		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
 		for(int row=0; row<getGrid().length; row++){
 			for(int col=0; col<getGrid()[0].length; col++){
@@ -22,6 +21,7 @@ public class GameOfLifeSim extends Simulation{
 			}
 		}
 		setGrid(newGrid);
+		return newGrid;
 	}
 
 	@Override
