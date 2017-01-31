@@ -9,7 +9,7 @@ public abstract class Simulation{
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
 	 */
-	public abstract Cell[][] upDateGrid();
+	public abstract Cell[][] updateGrid();
 	
 	
 	/**
@@ -33,5 +33,22 @@ public abstract class Simulation{
 	public Cell[][] getGrid(){
 		return myGrid;
 	}
-
+	
+	
+	/**
+	 * setter method for myGrid
+	 */
+	public void setGrid(Cell[][] newGrid){
+		myGrid=newGrid;
+	}
+	
+	/**
+	 * getter method
+	 * @return myInfo
+	 */
+	public SimulationInfo getSimInfo(){
+		return myInfo;
+	}
+	
+	public abstract void setSimInfo();
 }
