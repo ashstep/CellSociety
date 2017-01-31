@@ -2,7 +2,7 @@ package back_end.Fire;
 
 import back_end.SimulationInfo;
 /**
- * Class that retrievs basic simulation information
+ * Class that gets basic simulation information
  * @author Ashka Stephen
  *
  */

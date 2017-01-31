@@ -15,52 +15,7 @@ public abstract class Cell {
 	private int myType;
 	private double size;
 	public static final double CELL_SIZE = 20;
-	private double xLocation;
-	private double yLocation;
-
-
 	
-
-	/**
-	 * getter for size of cell
-	 */
-	public double getCellSize()
-	{
-		return this.size;
-	}
-	
-	/**
-	 * getter for x value
-	 */
-	public double getCellX() {
-		return this.xLocation;
-	}
-	
-	/**
-	 * getter for y value
-	 */
-	public double getCellY() {
-		return this.yLocation;
-	}
-	
-	/**
-	 * setter for x value
-	 */
-	public void setCellX(double next) {
-		xLocation = next;
-	}
-	
-	/**
-	 * setter for y value
-	 */
-	public void setCellY(double next) {
-		yLocation = next;
-	}
-
-
-	
-	
-
 	
 	/**
 	 * checks the information about 

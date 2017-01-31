@@ -26,17 +26,11 @@ public class FireCell extends Cell {
 	private double probCatch;
 	public static final double CELL_SIZE = 20;
 
-
-	
-	private String state;
-
 	//must input a 0 1 or 2 into cellType 
 	public FireCell(double probCatch, int cellType) {
 		this.probCatch = probCatch;
 		this.setMyType(cellType);
 	}
-	
-	
 	
 	
 	/**
@@ -66,35 +60,9 @@ public class FireCell extends Cell {
 	private boolean isBurning(){
 		return getMyType() == STATE_BURNING;
 	}
+
 	
 	
-	public ArrayList<Cell> getDirectNeighbors(Cell cell){
-		ArrayList<Cell> allNeighbors = new ArrayList<Cell>();
-		Cell neighbor1 = null, neighbor2 = null, neighbor3 = null, neighbor4 = null;
-		
-		double originalX = cell.getCellX();
-		double originalY = cell.getCellY();
-		
-		//NOTE need to check if the "neighbor" is out of bounds of the grid or not
-		//need to refactor
-		neighbor1.setCellX(originalX + CELL_SIZE);
-		neighbor1.setCellY(originalY);
-		allNeighbors.add(neighbor1);
-		
-		neighbor2.setCellX(originalX - CELL_SIZE);
-		neighbor2.setCellY(originalY);
-		allNeighbors.add(neighbor2);
-
-		neighbor3.setCellX(originalX);
-		neighbor3.setCellY(originalY + CELL_SIZE);
-		allNeighbors.add(neighbor3);
-
-		neighbor4.setCellX(originalX);
-		neighbor4.setCellY(originalY - CELL_SIZE);
-		allNeighbors.add(neighbor4);
-		
-		return allNeighbors;
-	}
 	
 	
 	@Override
@@ -127,7 +95,6 @@ public class FireCell extends Cell {
 			if (burningCount/4 >= firecell.probCatch()){
 				return true;
 			}
-
 			return false;
 		}
 		return false;
