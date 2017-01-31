@@ -1,5 +1,13 @@
 package back_end;
 
-public abstract class Cell {
+import javafx.scene.paint.Paint;
+
+public abstract class Cell
+{
+
+	public Paint getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

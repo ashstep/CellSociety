@@ -1,6 +1,8 @@
 package main;
 
 import front_end.GUI;
+import back_end.Simulation;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -27,6 +29,7 @@ public class Main extends Application
 	{	
 		GUI container = new GUI(SIZE,SIZE);
 		Scene scene = container.setScene();
+		Simulation simulation;
 		s.setScene(scene);
 		s.setTitle(TITLE);
 		s.show();
@@ -36,12 +39,23 @@ public class Main extends Application
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		animation.play();
+		container.initButtons(() -> { animation.play(); 
+		System.out.println("test1");},
+				() -> {animation.pause();
+				System.out.println("test2");
+				}, 
+				() -> 
+				{
+					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container);
+					System.out.println("test3");
+				}
+		);
 	}    
 
 	private void step (double elapsedTime, GUI inContainer)
 	{
-		//inContainer.renderGrid(colors);
+		//simulation.updateState();
+		//inContainer.renderGrid(simulation.getColors());
 	}
 
 	/**
