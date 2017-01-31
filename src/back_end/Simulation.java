@@ -1,5 +1,6 @@
 package back_end;
 
-public abstract class Simulation {
+public abstract class Simulation
+{
 
 }

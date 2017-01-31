@@ -1,5 +1,6 @@
 package front_end;
 
+import back_end.Cell;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -10,6 +11,7 @@ public class GUI
 	private Group root;
 	private int sceneWidth, sceneHeight;
 	private Rectangle[][] grid;
+	private ControlPanel panel;
 	
 	public GUI (int sceneWidth, int sceneHeight)
 	{
@@ -21,8 +23,7 @@ public class GUI
 	public Scene setScene()
 	{
 		Scene myScene = new Scene(root, sceneWidth, sceneHeight, Color.WHITE);
-		ControlPanel panel = new ControlPanel();
-		panel.addPanel(root);
+		panel = new ControlPanel(root);
 		return myScene;
 	}
 	
@@ -40,14 +41,21 @@ public class GUI
 			}
 		}
 	}
-	public void renderGrid(Color[][] cells)
+	
+	public void renderGrid(Cell[][] cells)
 	{
 		for (int x = 0; x < cells.length; x++)
 		{
 			for (int y = 0; y < cells[0].length; y++)
 			{
-				grid[x][y].setFill(cells[x][y]);
+				grid[x][y].setFill(cells[x][y].getColor());
 			}
 		}
+	}
+	public void initButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
+	{
+		panel.setPlay(playMethod);
+		panel.setPause(pauseMethod);
+		panel.setStep(stepMethod);
 	}
 }
