@@ -11,28 +11,47 @@ import javafx.scene.paint.Color;
  * @author Ashka Stephen
  *
  *
- * kept for clarification as of now, once code is connected we can remove:
- *	 STATE_EMPTY = 0;
-	 STATE_TREE = 1;
-	 STATE_BURNING = 2;
+ *
+ *
+ *
+ *
+ *
  */
 public class FireCell extends Cell {
+<<<<<<< HEAD
+
+	
+	
+	@Override
+	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+		for(){
+			
+=======
 	private final int STATE_EMPTY = 0;
 	private final int STATE_TREE = 1;
 	private final int STATE_BURNING = 2;
 	private final Color BURNING_COLOR = Color.RED;
 	private final Color TREE_COLOR = Color.GREEN;
 	private final Color EMPTY_COLOR = Color.WHITE;
-	private double probCatch;
-	public static final double CELL_SIZE = 20;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 58258192ed11197eb219b4490362c3710c3a5ab7
 	//must input a 0 1 or 2 into cellType 
 	public FireCell(double probCatch, int cellType) {
 		this.probCatch = probCatch;
 		this.setMyType(cellType);
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+
+
+
+>>>>>>> 58258192ed11197eb219b4490362c3710c3a5ab7
 	/**
 	 * Getters and setters for the state of the tree
 	 *
@@ -40,34 +59,58 @@ public class FireCell extends Cell {
 	private void setTreeAlive(){
 		setMyType(STATE_TREE);
 	}
-	
+
 	private boolean isAlive(){
 		return getMyType() == STATE_TREE;
 	}
-	
+
 	private void setTreeEmpty(){
 		setMyType(STATE_EMPTY);
 	}
-	
+
 	private boolean isEmpty(){
 		return getMyType() == STATE_EMPTY;
 	}
-	
+
 	private void setTreeBurning(){
 		setMyType(STATE_BURNING);
 	}
-	
+
 	private boolean isBurning(){
 		return getMyType() == STATE_BURNING;
 	}
 
+<<<<<<< HEAD
 	
 	
 	
 	
+=======
+
+
+
+
+
+
 	@Override
-	public boolean checkAndTakeAction(Cell firecell, Cell[] neighbors, SimulationInfo simInfo) {
-		
+	public Color getColor() {
+		if(isAlive()){
+			return TREE_COLOR;
+		} 
+		if(isBurning()){
+			return BURNING_COLOR;
+		} 
+		else {
+			return EMPTY_COLOR;
+		}
+	}
+
+
+
+	//gives a boolean and then changes the corresponding cell in the updated grid
+>>>>>>> 58258192ed11197eb219b4490362c3710c3a5ab7
+	@Override
+	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		//if there is no tree or a dead tree, the cell remains empty
 		if (isEmpty()){
 			return false;
@@ -96,23 +139,18 @@ public class FireCell extends Cell {
 				return true;
 			}
 			return false;
+>>>>>>> 70d84eff6fe3310151a3c94bf5c95009db1cc5da
 		}
 		return false;
 	}
 
-
-
+<<<<<<< HEAD
 	@Override
 	public Color getColor() {
-		if(isAlive()){
-			return TREE_COLOR;
-		} 
-		if(isBurning()){
-			return BURNING_COLOR;
-		} 
-		else {
-			return EMPTY_COLOR;
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
-
+	
+=======
+>>>>>>> 70d84eff6fe3310151a3c94bf5c95009db1cc5da
 }
