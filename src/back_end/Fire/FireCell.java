@@ -40,13 +40,13 @@ public class FireCell extends Cell {
 
 		//if a tree was burning on the last time step, it will be empty on the following
 		if (isBurning()){
-			isEmpty();
-			return true;
+			setTreeEmpty();
+			return false;
 		}
 
 		if(isAlive() && burningNeighbors > 0 && Math.random() >= simInfo.getSimInfo() ){
-			isBurning();
-			return true;
+			setTreeBurning();
+			return false;
 		}
 		return false;
 	}

@@ -7,7 +7,7 @@ import back_end.SimulationInfo;
  *
  */
 public class FireSimInfo extends SimulationInfo{
-	double probCatch;
+	private double probCatch;
 	
 	public FireSimInfo(double probCatch) {
 		probCatch = probCatch;
