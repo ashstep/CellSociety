@@ -1,6 +1,5 @@
 import front_end.GUI;
 import back_end.Simulation;
-import back_end.gameOfLifePack.GameOfLifeSim;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,6 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utilities.XMLReader;
 
 public class Main extends Application
 {
@@ -17,7 +17,7 @@ public class Main extends Application
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-	// some things we need to remember during our game
+	private Simulation simulation;
 
 	/**
 	 * Initialize what will be displayed and how it will be updated.
@@ -26,29 +26,36 @@ public class Main extends Application
 	{	
 		GUI container = new GUI(SIZE,SIZE);
 		Scene scene = container.setScene();
-		Simulation simulation = new GameOfLifeSim();
 		s.setScene(scene);
 		s.setTitle(TITLE);
 		s.show();
 
+		XMLReader reader = new XMLReader();
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> step(SECOND_DELAY, container, simulation));
+				e -> step(SECOND_DELAY, container));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
+		
 		container.initButtons(
 				() -> animation.play(),
 				() -> animation.pause(),
 				() -> 
 				{
-					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container, simulation);
-				}
-		);
+					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container);
+				},
+				() ->
+				{
+						animation.pause();
+						reader.chooseFile(s);
+						simulation = reader.getSimulation();
+				});
 	}    
 
-	private void step (double elapsedTime, GUI inContainer, Simulation inSimulation)
+	private void step (double elapsedTime, GUI inContainer)
 	{
-		inContainer.renderGrid(inSimulation.updateGrid());
+		inContainer.renderGrid(simulation.updateGrid());
 	}
 
 	/**

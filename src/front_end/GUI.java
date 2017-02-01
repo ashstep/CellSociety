@@ -57,10 +57,11 @@ public class GUI
 			}
 		}
 	}
-	public void initButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
+	public void initButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod, Runnable newSimMethod)
 	{
 		panel.setPlay(playMethod);
 		panel.setPause(pauseMethod);
 		panel.setStep(stepMethod);
+		panel.setNewSim(newSimMethod);
 	}
 }
