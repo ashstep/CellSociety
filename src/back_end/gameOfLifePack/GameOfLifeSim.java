@@ -1,11 +1,8 @@
 package back_end.gameOfLifePack;
-
 import java.util.ArrayList;
-
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-
 public class GameOfLifeSim extends Simulation{
 	
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
@@ -13,7 +10,7 @@ public class GameOfLifeSim extends Simulation{
 	
 	
 	@Override
-	public void updateGrid() {
+	public Cell[][] updateGrid() {
 		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
 		for(int row=0; row<getGrid().length; row++){
 			for(int col=0; col<getGrid()[0].length; col++){
@@ -22,8 +19,8 @@ public class GameOfLifeSim extends Simulation{
 			}
 		}
 		setGrid(newGrid);
+		return newGrid;
 	}
-
 	@Override
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
 		ArrayList<Cell> output=new ArrayList<Cell>();	
@@ -36,13 +33,11 @@ public class GameOfLifeSim extends Simulation{
 		return output;
 	}
 	
-
 	@Override
 	protected int[] move(Cell[][] newGrid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
 		//TODO Auto-generated method stub

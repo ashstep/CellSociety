@@ -5,101 +5,52 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-<<<<<<< HEAD
 /**
  * Class that implements the unique properties of the fire simulation
  * @author Ashka Stephen
  *
  */
-=======
->>>>>>> 58258192ed11197eb219b4490362c3710c3a5ab7
 
 public class FireSim extends Simulation {
 
+	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
+	private final int[] COL_OFFSET = {0, 0,-1, 1};
 	@Override
 	public Cell[][] updateGrid() {
-		// TODO Auto-generated method stub
-		return null;
+		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
+		for(int row=0; row<getGrid().length; row++){
+			for(int col=0; col<getGrid()[0].length; col++){
+				newGrid[row][col]=getGrid()[row][col];
+				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), getSimInfo());
+			}
+		}
+		setGrid(newGrid);
+		return newGrid;
 	}
-
 	
-	//check what is up and use similar idea to shorten code
 	@Override
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
-<<<<<<< HEAD
-
-			ArrayList<Cell> allNeighbors = new ArrayList<Cell>();
-			Cell neighbor1 = null, neighbor2 = null, neighbor3 = null, neighbor4 = null;			
-			neighbor1.
-			neighbor1.setCellX(originalX + 1);
-			neighbor1.setCellY(originalY);
-			allNeighbors.add(neighbor1);
-
-			neighbor2.setCellX(originalX - 1);
-			neighbor2.setCellY(originalY);
-			allNeighbors.add(neighbor2);
-
-			neighbor3.setCellX(originalX);
-			neighbor3.setCellY(originalY + 1);
-			allNeighbors.add(neighbor3);
-
-			neighbor4.setCellX(originalX);
-			neighbor4.setCellY(originalY - 1);
-			allNeighbors.add(neighbor4);
-
-			return allNeighbors;
-		
-
+		ArrayList<Cell> output=new ArrayList<Cell>();	
+		for(int i = 0; i<ROW_OFFSET.length; i++){
+			int resultant_row = row+ROW_OFFSET[i], resultant_col = col+COL_OFFSET[i];
+			if(isValidPosition(resultant_row, resultant_col)){
+				output.add(getGrid()[resultant_row][resultant_col]);
+			}
+		}
+		return output;
 	}
+	
 
 	@Override
 	protected int[] move(Cell[][] newGrid) {
 		// TODO Auto-generated method stub
 		return null;
-=======
-		ArrayList<Cell> allNeighbors = new ArrayList<Cell>();
-		Cell neighbor1 = null, neighbor2 = null, neighbor3 = null, neighbor4 = null;
-
-		//NOTE need to check if the "neighbor" is out of bounds of the grid or not
-		neighbor1.setCellX(row + 1);
-		neighbor1.setCellY(originalY);
-		allNeighbors.add(neighbor1);
-
-		neighbor2.setCellX(originalX - 1);
-		neighbor2.setCellY(originalY);
-		allNeighbors.add(neighbor2);
-
-		neighbor3.setCellX(originalX);
-		neighbor3.setCellY(originalY + 1);
-		allNeighbors.add(neighbor3);
-
-		neighbor4.setCellX(originalX);
-		neighbor4.setCellY(originalY - 1);
-		allNeighbors.add(neighbor4);
-
-		return allNeighbors;
-
->>>>>>> 58258192ed11197eb219b4490362c3710c3a5ab7
 	}
-
-	@Override
-	public Cell[][] updateGrid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
 		// TODO Auto-generated method stub
-		
 	}
 
-<<<<<<< HEAD
-	
-=======
 
 
-
-
->>>>>>> 58258192ed11197eb219b4490362c3710c3a5ab7
 }
