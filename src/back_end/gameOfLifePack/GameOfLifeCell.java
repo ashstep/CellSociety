@@ -17,7 +17,13 @@ public class GameOfLifeCell extends Cell{
 	private final Color DEAD_COLOR=Color.WHITE;
 	private final Color ALIVE_COLOR=Color.GREEN;
 	
+	public GameOfLifeCell(GameOfLifeCell anotherCell){
+		super(anotherCell.getMyType());
+	}
 	
+	public GameOfLifeCell(int type) {
+		super(type);
+	}
 	/**
 	 * only need to check status of neighbors, simInfo is unused
 	 * @return false because game of life cells do not move
@@ -34,7 +40,7 @@ public class GameOfLifeCell extends Cell{
 			} else{
 				liveOn();
 			}
-		} else if(aliveNeighbors==3){
+		} else if(aliveNeighbors==3 && isDead()){
 			revive();
 		}
 		return false;

@@ -19,6 +19,7 @@ public class SegregationSim extends Simulation{
 	 * @param typeGrid int[][] that specifies the type of SegregationCell at the corresponding position in myGrid
 	 * @param threshold satisfaction threshold for each cell, environment attribute
 	 */
+	//repeated code for setting up Grid?
 	public SegregationSim(int[][] typeGrid, int threshold){
 		myInfo=new SegregationSimInfo(threshold);
 		
@@ -45,7 +46,7 @@ public class SegregationSim extends Simulation{
 		SegregationCell[][] newGrid=new SegregationCell[numRows][numCols];
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
-				SegregationCell cell=(SegregationCell) super.getGrid()[row][col];
+				SegregationCell cell=new SegregationCell( (SegregationCell) super.getGrid()[row][col]);
 				boolean isMoving=cell.checkAndTakeAction(getNeighbors(row, col), myInfo);
 				if(isMoving){
 					moveToNewSpot(newGrid, row, col, cell);
@@ -73,7 +74,7 @@ public class SegregationSim extends Simulation{
 
 	
 	/**
-	 * get the neighbors
+	 * get the neighbors from the original grid
 	 * top, down, left, right
 	 * top-left, top-right
 	 * bottom-left, bottom-right

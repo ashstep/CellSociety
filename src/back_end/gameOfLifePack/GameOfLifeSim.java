@@ -11,6 +11,21 @@ public class GameOfLifeSim extends Simulation{
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
 	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
 	
+	//repeated code for setting up Grid?
+	public GameOfLifeSim(int[][] typeGrid){
+		int numRows = typeGrid.length;
+		int numCols = typeGrid[0].length;
+		GameOfLifeCell[][] cellGrid=new GameOfLifeCell[numRows][numCols];
+		
+		for(int row=0; row<numRows; row++){
+			for(int col=0; col<numCols; col++){
+				cellGrid[row][col]=new GameOfLifeCell(typeGrid[row][col]);
+			}
+		}
+		super.setGrid(cellGrid);
+	}
+	
+	
 	/**
 	 * updates the grid. No cells move in position in this simulation
 	 */
@@ -19,7 +34,7 @@ public class GameOfLifeSim extends Simulation{
 		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
 		for(int row=0; row<getGrid().length; row++){
 			for(int col=0; col<getGrid()[0].length; col++){
-				newGrid[row][col]=getGrid()[row][col];
+				newGrid[row][col]=new GameOfLifeCell((GameOfLifeCell)getGrid()[row][col]);
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), null);
 			}
 		}
@@ -28,7 +43,7 @@ public class GameOfLifeSim extends Simulation{
 	}
 
 	/**
-	 * get the neighbors
+	 * get the neighbors from the original grid
 	 * top, down, left, right
 	 * top-left, top-right
 	 * bottom-left, bottom-right

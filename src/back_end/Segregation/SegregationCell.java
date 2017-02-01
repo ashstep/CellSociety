@@ -23,6 +23,9 @@ public class SegregationCell extends Cell {
 		super(myType);
 	}
 	
+	public SegregationCell(SegregationCell anotherCell){
+		super(anotherCell.getMyType());
+	}
 	
 	/**
 	 * Assumes simInfo is in fact a SegregationSimInfo object. 
