@@ -12,15 +12,15 @@ public class GameOfLifeCell extends Cell{
 	 * 2: alive
 	 * 0: empty
 	 */
-	private final int ALIVE_TYPE=2;
-	private final int DEAD_TYPE=1;
+	private final int ALIVE_TYPE=1;
+	private final int DEAD_TYPE=0;
 	private final Color DEAD_COLOR=Color.WHITE;
 	private final Color ALIVE_COLOR=Color.GREEN;
 	
 	
 	/**
 	 * only need to check status of neighbors, simInfo is unused
-	 * returns false because game of life cells do not move
+	 * @return false because game of life cells do not move
 	 */
 	@Override
 	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
