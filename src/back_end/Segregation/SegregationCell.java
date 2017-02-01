@@ -25,7 +25,8 @@ public class SegregationCell extends Cell {
 	
 	
 	/**
-	 * Assumes simInfo is in fact a SegregationSimInfo object
+	 * Assumes simInfo is in fact a SegregationSimInfo object. 
+	 * Also assumes neighbors is just an ArrayList of SegregationCell
 	 */
 	@Override
 	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
@@ -35,7 +36,8 @@ public class SegregationCell extends Cell {
 		int threshold=((SegregationSimInfo) simInfo).getThreshold();
 		int totalNeighbors=0;
 		int myTypeCells=0;
-		for(Cell neighbor: neighbors){
+		for(Cell neighborCell: neighbors){
+			SegregationCell neighbor=(SegregationCell) neighborCell;
 			if(neighbor.getMyType()==this.getMyType()) {
 				myTypeCells++;
 			} if (neighbor.getMyType()!=TYPE_EMPTY){

@@ -11,12 +11,14 @@ public class SegregationSim extends Simulation{
 	
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
 	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
-	private final int TYPE_ONE=1;
-	private final int TYPE_TWO=2;
 	private final int TYPE_EMPTY=0;
 	private SegregationSimInfo myInfo;
 	
-	
+	/**
+	 * 
+	 * @param typeGrid int[][] that specifies the type of SegregationCell at the corresponding position in myGrid
+	 * @param threshold satisfaction threshold for each cell, environment attribute
+	 */
 	public SegregationSim(int[][] typeGrid, int threshold){
 		myInfo=new SegregationSimInfo(threshold);
 		
@@ -29,19 +31,21 @@ public class SegregationSim extends Simulation{
 				cellGrid[row][col]=new SegregationCell(typeGrid[row][col]);
 			}
 		}
-		setGrid(cellGrid);
+		super.setGrid(cellGrid);
 	}
 	
 	
 	/**
 	 * updates the grid and returns the new Cell[][] grid
+	 * be careful about the casting
 	 */
 	@Override
 	public Cell[][] updateGrid() {
-		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
-		for(int row=0; row<getGrid().length; row++){
-			for(int col=0; col<getGrid()[0].length; col++){
-				Cell cell=getGrid()[row][col];
+		int numRows = super.getGrid().length,  numCols = super.getGrid()[0].length;
+		SegregationCell[][] newGrid=new SegregationCell[numRows][numCols];
+		for(int row=0; row<numRows; row++){
+			for(int col=0; col<numCols; col++){
+				SegregationCell cell=(SegregationCell) super.getGrid()[row][col];
 				boolean isMoving=cell.checkAndTakeAction(getNeighbors(row, col), myInfo);
 				if(isMoving){
 					moveToNewSpot(newGrid, row, col, cell);
@@ -50,7 +54,7 @@ public class SegregationSim extends Simulation{
 				}
 			}
 		}
-		setGrid(newGrid);
+		super.setGrid(newGrid);
 		return newGrid;
 	}
 
@@ -61,7 +65,7 @@ public class SegregationSim extends Simulation{
 	 * @param col current column
 	 * @param cell the cell
 	 */
-	private void moveToNewSpot(Cell[][] newGrid, int row, int col, Cell cell) {
+	private void moveToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
 		int[] newPos=move(newGrid);
 		newGrid[row][col]=new SegregationCell(TYPE_EMPTY);
 		newGrid[newPos[0]][newPos[1]]=cell;
@@ -79,8 +83,8 @@ public class SegregationSim extends Simulation{
 		ArrayList<Cell> output=new ArrayList<Cell>();	
 		for(int i=0; i<ROW_OFFSET.length; i++){
 			int resultant_row=row+ROW_OFFSET[i], resultant_col=col+COL_OFFSET[i];
-			if(isValidPosition(resultant_row, resultant_col)){
-				output.add(getGrid()[resultant_row][resultant_col]);
+			if(super.isValidPosition(resultant_row, resultant_col)){
+				output.add(super.getGrid()[resultant_row][resultant_col]);
 			}
 		}
 		return output;
@@ -111,7 +115,8 @@ public class SegregationSim extends Simulation{
 
 	
 	/**
-	 * updates the threshold for the cells to be satisfied. Overloads setSimInfo(SimulationInfo newInfo)
+	 * Overloads setSimInfo(SimulationInfo newInfo). 
+	 * updates the threshold for the cells to be satisfied.
 	 * @param newThreshold new value for threshold
 	 */
 	public void setSimInfo(int newThreshold) {
