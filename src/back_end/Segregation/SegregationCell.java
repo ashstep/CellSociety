@@ -19,12 +19,22 @@ public class SegregationCell extends Cell {
 	private final Color TYPE_TWO_COLOR=Color.BLUE;
 	private final Color TYPE_EMPTY_COLOR=Color.WHITE;
 	
-	public SegregationCell(int myType){
-		super(myType);
+	
+	/**
+	 * default constructor
+	 * @param type
+	 */
+	public SegregationCell(int type){
+		super(type);
 	}
 	
+	/**
+	 * makes a copy of another SegregationCell
+	 * @param anotherCell
+	 */
+	//refactor to abstract class?
 	public SegregationCell(SegregationCell anotherCell){
-		super(anotherCell.getMyType());
+		this(anotherCell.getMyType());
 	}
 	
 	/**
@@ -33,7 +43,7 @@ public class SegregationCell extends Cell {
 	 */
 	@Override
 	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
-		if(super.getMyType()==TYPE_EMPTY){
+		if(isTypeEmpty()){
 			return false;
 		}
 		int threshold=((SegregationSimInfo) simInfo).getThreshold();
@@ -72,7 +82,7 @@ public class SegregationCell extends Cell {
 	 * 
 	 * @return true if cell is type empty
 	 */
-	public boolean isTypeeEmpty(){
+	public boolean isTypeEmpty(){
 		return getMyType()==TYPE_EMPTY;
 	}
 	

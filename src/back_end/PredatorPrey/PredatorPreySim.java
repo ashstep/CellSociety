@@ -1,18 +1,21 @@
 package back_end.PredatorPrey;
 
+import java.util.ArrayList;
+
 import back_end.Cell;
 import back_end.Simulation;
+import back_end.SimulationInfo;
 
 public class PredatorPreySim extends Simulation {
 
 	@Override
-	public Cell[][] upDateGrid() {
+	public Cell[][] updateGrid() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Cell[] getNeighbors(int row, int col) {
+	protected ArrayList<Cell> getNeighbors(int row, int col) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -23,4 +26,9 @@ public class PredatorPreySim extends Simulation {
 		return null;
 	}
 
+	@Override
+	public void setSimInfo(SimulationInfo newInfo) {
+		// TODO Auto-generated method stub
+		
+	}
 }
