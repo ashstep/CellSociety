@@ -33,7 +33,7 @@ public class SegregationCell extends Cell {
 	 */
 	@Override
 	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
-		if(getMyType()==TYPE_EMPTY){
+		if(super.getMyType()==TYPE_EMPTY){
 			return false;
 		}
 		int threshold=((SegregationSimInfo) simInfo).getThreshold();
