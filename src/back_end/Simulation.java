@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Simulation{
 	
 	private Cell[][] myGrid;
-	private SimulationInfo myInfo;
+//	private SimulationInfo myInfo;
 	
 	/**
 	 * update the grid based on the cells' current state
@@ -45,13 +45,13 @@ public abstract class Simulation{
 		myGrid=newGrid;
 	}
 	
-	/**
-	 * getter method
-	 * @return myInfo
-	 */
-	public SimulationInfo getSimInfo(){
-		return myInfo;
-	}
+//	/**
+//	 * getter method
+//	 * @return myInfo
+//	 */
+//	public SimulationInfo getSimInfo(){
+//		return myInfo;
+//	}
 	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
