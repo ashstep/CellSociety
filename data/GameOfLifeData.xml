@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation type = "Game of Life">
+  <title>test</title>
+  <author>Juan Philippe, Askha Stephe, Yuxiang He</author>
+  <SimParameters>
+
+  </SimParameters>
+  <Dimensions>
+    <GridWidth>400</GridWidth>
+    <GridHeight>400</GridHeight>
+  </Dimensions>
+  <InitialGridState>
+
+  </InitialGridState>
+</Simulation>
