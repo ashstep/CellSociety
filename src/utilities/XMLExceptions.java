@@ -2,9 +2,7 @@ package utilities;
 
 import org.xml.sax.SAXException;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
-
- jdk.internal.org.xml.sax.SAXParseException;
+import jdk.internal.org.xml.sax.SAXParseException;
 
 public class XMLExceptions extends Exception{
 
@@ -20,7 +18,7 @@ public class XMLExceptions extends Exception{
 	}
 
 
-	private String getParseExceptionInfo(ParseException exception) {
+	private String getParseExceptionInfo(SAXParseException exception) {
 		String systemId = exception.getSystemId();
 		
 		String message = exception.getMessage();
@@ -29,10 +27,9 @@ public class XMLExceptions extends Exception{
 			systemId = "null";
 		}
 
-		String errorInfo = "SystemID=" + systemId + " Line =" + exception.getLineNumber() + ": " + message;
+		String errorInfo = "Error at line =" + exception.getLineNumber() + ": " + message;
 		return errorInfo;
 	}
-
 
 
 	public void error(SAXParseException exception) throws SAXException {

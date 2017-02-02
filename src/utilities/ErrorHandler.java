@@ -6,10 +6,14 @@ package utilities;
  * source: https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html
  */
 public class ErrorHandler extends Throwable {
-    private String output;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String output;
     
-    public ErrorHandler(String output) {
-        this.output = output;
+    public ErrorHandler(String message) {
+        this.output = message;
     }
     
 }
