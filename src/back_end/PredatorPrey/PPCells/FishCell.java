@@ -1,9 +1,12 @@
-package back_end.PredatorPrey;
+package back_end.PredatorPrey.PPCells;
 
 import java.util.ArrayList;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.ActionByPPSim;
+import back_end.PredatorPrey.PredatorPreyCell;
+import back_end.PredatorPrey.PredatorPreySimInfo;
 
 public class FishCell extends PredatorPreyCell{
 	private final int MY_TYPE=1;
