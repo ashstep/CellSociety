@@ -43,14 +43,15 @@ public class Main extends Application
 				() -> animation.pause(),
 				() -> 
 				{
-					if (animation.getStatus() == Animation.Status.PAUSED) step(SECOND_DELAY,container);
+					if (animation.getStatus() == Animation.Status.PAUSED || animation.getStatus() == Animation.Status.STOPPED)
+						step(SECOND_DELAY,container);
 				},
 				() ->
 				{
 						animation.pause();
 						reader.chooseFile(s);
 						simulation = reader.getSimulation();
-						container.initGrid(10, 10);
+						container.initGrid(simulation.getGrid().length, simulation.getGrid()[0].length);
 				});
 	}    
 
