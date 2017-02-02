@@ -15,6 +15,7 @@ public class FireSim extends Simulation {
 
 	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
 	private final int[] COL_OFFSET = {0, 0,-1, 1};
+	private FireSimInfo myInfo;
 	
 	
 	@Override
@@ -22,8 +23,9 @@ public class FireSim extends Simulation {
 		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
 		for(int row=0; row<getGrid().length; row++){
 			for(int col=0; col<getGrid()[0].length; col++){
-				newGrid[row][col]=getGrid()[row][col];
-				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), getSimInfo());
+				FireCell add = new FireCell((FireCell) getGrid()[row][col]);
+				newGrid[row][col] = add;
+				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
 			}
 		}
 		setGrid(newGrid);

@@ -2,6 +2,7 @@ package back_end.Fire;
 
 import java.util.ArrayList;
 
+import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
@@ -28,6 +29,15 @@ public class FireCell extends Cell {
 		super(type);
 	}
 
+	/**
+	 * makes copy
+	 * @param type type of the cell
+	 */
+	public FireCell(FireCell anotherCell) {
+		this(anotherCell.getMyType());
+	}
+
+	
 
 	/**
 	 * only need to check status of neighbors, simInfo is unused
@@ -35,7 +45,7 @@ public class FireCell extends Cell {
 	 */
 
 	@Override
-	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		int burningNeighbors = 0;
 		for(Cell neighbor: neighbors){
 			if(neighbor.getMyType() == STATE_BURNING){
@@ -45,20 +55,20 @@ public class FireCell extends Cell {
 		
 		//if there is no tree or a dead tree, the cell remains empty
 		if (isEmpty()){
-			return false;
+			return new ActionBySim(false);
 		}
 
 		//if a tree was burning on the last time step, it will be empty on the following
 		if (isBurning()){
 			setTreeEmpty();
-			return false;
+			return new ActionBySim(false);
 		}
 
 		if(isAlive() && burningNeighbors > 0 && Math.random() >= ((FireSimInfo)simInfo).getSimInfo() ){
 			setTreeBurning();
-			return false;
+			return new ActionBySim(false);
 		}
-		return false;
+		return new ActionBySim(false);
 	}
 
 
