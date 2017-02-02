@@ -1,7 +1,10 @@
 package utilities;
 
 import org.xml.sax.SAXException;
-import jdk.internal.org.xml.sax.SAXParseException;
+
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
+
+ jdk.internal.org.xml.sax.SAXParseException;
 
 public class XMLExceptions extends Exception{
 
@@ -17,14 +20,16 @@ public class XMLExceptions extends Exception{
 	}
 
 
-	private String getParseExceptionInfo(SAXParseException exception) {
+	private String getParseExceptionInfo(ParseException exception) {
 		String systemId = exception.getSystemId();
+		
+		String message = exception.getMessage();
 
 		if (systemId == null) {
 			systemId = "null";
 		}
 
-		String errorInfo = "SystemID=" + systemId + " Line =" + exception.getLineNumber() + ": " + exception.getMessage();
+		String errorInfo = "SystemID=" + systemId + " Line =" + exception.getLineNumber() + ": " + message;
 		return errorInfo;
 	}
 
