@@ -50,6 +50,7 @@ public class Main extends Application
 						animation.pause();
 						reader.chooseFile(s);
 						simulation = reader.getSimulation();
+						container.initGrid(10, 10);
 				});
 	}    
 

@@ -7,7 +7,6 @@ import org.w3c.dom.Document;
 import back_end.Simulation;
 import back_end.Fire.FireSim;
 import back_end.PredatorPrey.PredatorPreySim;
-import back_end.Segregation.SegregationSim;
 import back_end.gameOfLifePack.GameOfLifeSim;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -53,9 +52,10 @@ public class XMLReader
 
 	private Simulation createSegregationSim()
 	{
-		SegregationSim simulation = new SegregationSim();
+		//SegregationSim simulation = new SegregationSim();
 		
-		return simulation;
+		//return simulation;
+		return null;
 	}
 
 	private Simulation createPredatorPreySim()
@@ -74,7 +74,15 @@ public class XMLReader
 
 	private Simulation createGameOfLifeSim()
 	{
-		GameOfLifeSim simulation = new GameOfLifeSim();
+		int[][] testGrid = new int[10][10];
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				testGrid[i][j] = i/4;
+			}
+		}
+		GameOfLifeSim simulation = new GameOfLifeSim(testGrid);
 		
 		return simulation;
 	}
