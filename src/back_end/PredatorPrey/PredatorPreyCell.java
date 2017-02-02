@@ -14,6 +14,7 @@ public class PredatorPreyCell extends Cell{
 	 * 2: type 2
 	 * 0: empty
 	 */
+	
 	private final int FISH=1;
 	private final int SHARK=2;
 	private final int EMPTY=0;
