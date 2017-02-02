@@ -29,11 +29,12 @@ public class GUI
 		return myScene;
 	}
 	
-	public void initGrid(int gridWidth, int gridLength, int cellSize)
+	public void initGrid(int gridWidth, int gridLength)
 	{
 		grid = new Rectangle[gridLength][gridWidth];
 		gridContainer = new Group();
 		root.setCenter(gridContainer);
+		int cellSize = (sceneWidth-100)/gridWidth;
 		
 		for (int x = 0; x < gridLength; x++)
 		{

@@ -6,8 +6,8 @@
 
   </SimParameters>
   <Dimensions>
-    <GridWidth>400</GridWidth>
-    <GridHeight>400</GridHeight>
+    <GridWidth>10</GridWidth>
+    <GridHeight>10</GridHeight>
   </Dimensions>
   <InitialGridState>
 

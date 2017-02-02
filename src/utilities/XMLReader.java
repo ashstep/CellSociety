@@ -1,12 +1,9 @@
 package utilities;
 
 import java.io.File;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
-
 import back_end.Simulation;
 import back_end.Fire.FireSim;
 import back_end.PredatorPrey.PredatorPreySim;
@@ -26,6 +23,7 @@ public class XMLReader
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
+		fileChooser.setInitialDirectory(new File("./data"));
 	}
 
 	public Simulation getSimulation()
@@ -96,8 +94,5 @@ public class XMLReader
 		{
 			e.printStackTrace();
 		}
-
 	}
-
 }
-//need setmethods for different parameters (for different sims)
