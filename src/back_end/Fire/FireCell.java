@@ -19,7 +19,6 @@ public class FireCell extends Cell {
 	private final Color BURNING_COLOR = Color.RED;
 	private final Color TREE_COLOR = Color.GREEN;
 	private final Color EMPTY_COLOR = Color.WHITE;
-	private double probCatch;
 	
 	/**
 	 * default constructor

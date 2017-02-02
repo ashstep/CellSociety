@@ -17,6 +17,7 @@ public class FireSim extends Simulation {
 	private final int[] COL_OFFSET = {0, 0,-1, 1};
 	private FireSimInfo myInfo;
 	
+<<<<<<< HEAD
 	/**
 	 * Constructor
 	 */
@@ -27,14 +28,29 @@ public class FireSim extends Simulation {
 		for(int row = 0; row<numRows; row++){
 			for(int col = 0; col<numCols; col++){
 				cellGrid[row][col] = new FireCell(typeGrid[row][col]);
+=======
+	public FireSim(int[][] typeGrid){
+		int numRows = typeGrid.length + 2 ;
+		int numCols = typeGrid[0].length + 2 ;
+		FireCell[][] cellGrid = new FireCell[numRows][numCols];
+		
+		for(int row=0; row<numRows; row++){
+			for(int col=0; col<numCols; col++){
+				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
+>>>>>>> 8b6e99a4bc8fbc20a1154c7fbc89629ae41257df
 			}
 		}
 		super.setGrid(cellGrid);
 	}
+<<<<<<< HEAD
 
 	/**
 	 * Update the grid by creating copies of existing cells
 	 */
+=======
+	
+	
+>>>>>>> 8b6e99a4bc8fbc20a1154c7fbc89629ae41257df
 	@Override
 	public Cell[][] updateGrid() {
 		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
