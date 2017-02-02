@@ -8,6 +8,7 @@ package back_end;
 public class ActionBySim {
 	private boolean move;
 	
+	
 	/**
 	 * constructor
 	 * @param toMove true if the object is to tell Simulation to move the cell
