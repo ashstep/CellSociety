@@ -24,7 +24,8 @@ public class GameOfLifeSim extends Simulation{
 	
 	
 	/**
-	 * updates the grid. No cells move in position in this simulation
+	 * updates and returns the grid. No cells move in position in this simulation
+	 * @return the updated grid
 	 */
 	@Override
 	public Cell[][] updateGrid() {

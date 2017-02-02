@@ -116,11 +116,10 @@ public class SegregationSim extends Simulation{
 
 	
 	/**
-	 * Overloads setSimInfo(SimulationInfo newInfo). 
 	 * updates the threshold for the cells to be satisfied.
 	 * @param newThreshold new value for threshold
 	 */
-	public void setSimInfo(int newThreshold) {
+	public void setThreshold(int newThreshold) {
 		myInfo.setThreshold(newThreshold);
 	}
 

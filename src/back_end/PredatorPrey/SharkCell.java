@@ -1,8 +1,89 @@
 package back_end.PredatorPrey;
 
-public class SharkCell extends PredatorPreyCell{
+import java.util.ArrayList;
+import back_end.ActionBySim;
+import back_end.Cell;
+import back_end.SimulationInfo;
 
-	public SharkCell(int type) {
-		super(type);
-	}	
+public class SharkCell extends PredatorPreyCell{
+	
+	private int timeSinceDinner;
+	private final int MY_TYPE=2;
+	private final int FISH=1;
+	private final int EMPTY=0;
+	
+	/**
+	 * default constructor
+	 */
+	public SharkCell() {
+		super(2);
+		timeSinceDinner=0;
+	}
+	
+	/**
+	 * makes a copy of another SharkCell
+	 */
+	public SharkCell(SharkCell anotherSharkCell) {
+		super(2);
+		this.timeSinceDinner=anotherSharkCell.timeSinceDinner;
+	}
+
+	@Override
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+		timeSinceDinner++;
+		super.incrementTimeSinceBreed();	
+		int starveThreshold=((PredatorPreySimInfo) simInfo).getSharkStarveTime(),
+				breedTime=((PredatorPreySimInfo) simInfo).getSharkBreedTime();
+		if(isStarvedToDeath(starveThreshold)){
+			super.die();
+			return new ActionByPPSim(false, false, false, true, MY_TYPE);
+		} else {
+			int fishNeighbors=0;
+			int emptyNeighbors=0;
+			for(Cell neighbor: neighbors){
+				if(neighbor.getMyType()==FISH){
+					fishNeighbors++;
+				}
+				if(neighbor.getMyType()==EMPTY){
+					emptyNeighbors++;
+				}
+			}
+			boolean reproducing = checkThenReproduce(breedTime);
+			boolean moving=false;
+			boolean eating=false;	
+			//if there is a fish adjacent to a shark the shark eats it
+			//If there are no adjacent fish the shark moves
+			if(fishNeighbors>0){
+				eating=true;
+				timeSinceDinner=0;
+				moving=false;
+			} else if(emptyNeighbors>0){
+				moving=true;
+			}
+			return new ActionByPPSim(reproducing, moving, eating, false, MY_TYPE);
+		}
+	}
+
+	/**
+	 * 
+	 * @param breedTime time between breeding of a shark
+	 * @param emptyNeighbors  number of empty neighbors
+	 * @return true if breeding
+	 */
+	private boolean checkThenReproduce(int breedTime) {
+		boolean reproducing=super.getTimeSinceBreed()>breedTime;
+		return reproducing;
+	}
+
+	
+	/**
+	 * 
+	 * @param starveThreshold
+	 * @return true if the shark has died
+	 */
+	private boolean isStarvedToDeath(int starveThreshold){
+		return timeSinceDinner>starveThreshold;
+	}
+	
+	
 }
