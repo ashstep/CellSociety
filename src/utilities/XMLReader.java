@@ -86,6 +86,7 @@ public class XMLReader
 		
 		return simulation;
 	}
+	
 
 	public void chooseFile(Stage s)
 	{

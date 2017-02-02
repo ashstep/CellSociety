@@ -3,8 +3,6 @@ import java.util.ArrayList;
 public abstract class Simulation{
 	
 	private Cell[][] myGrid;
-//	private SimulationInfo myInfo;
-	
 	
 	/**
 	 * update the grid based on the cells' current state
@@ -43,13 +41,6 @@ public abstract class Simulation{
 		myGrid=newGrid;
 	}
 	
-//	/**
-//	 * getter method
-//	 * @return myInfo
-//	 */
-//	public SimulationInfo getSimInfo(){
-//		return myInfo;
-//	}
 	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
@@ -63,6 +54,22 @@ public abstract class Simulation{
 	 * @param col
 	 * @return true if the position is valid
 	 */
+	
+	/**
+	 * 
+	 * @return number of rows in myGrid
+	 */
+	public int getNumRows(){
+		return myGrid.length;
+	}
+	
+	/**
+	 * 
+	 * @return number of columns in myGrid
+	 */
+	public int getNumCols(){
+		return myGrid[0].length;
+	}
 	
 	//added this util method. helpful for all subclass simulations as they need to check for boundaries
 	protected boolean isValidPosition(int row, int col){
