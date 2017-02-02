@@ -15,6 +15,8 @@ public class FireSim extends Simulation {
 
 	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
 	private final int[] COL_OFFSET = {0, 0,-1, 1};
+	
+	
 	@Override
 	public Cell[][] updateGrid() {
 		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];

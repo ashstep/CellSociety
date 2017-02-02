@@ -18,12 +18,22 @@ public class FireCell extends Cell {
 	private final Color BURNING_COLOR = Color.RED;
 	private final Color TREE_COLOR = Color.GREEN;
 	private final Color EMPTY_COLOR = Color.WHITE;
+	private double probCatch;
+	
+	/**
+	 * default constructor
+	 * @param type type of the cell
+	 */
+	public FireCell(int type) {
+		super(type);
+	}
 
 
 	/**
 	 * only need to check status of neighbors, simInfo is unused
 	 * returns false because game of life cells do not move
 	 */
+
 	@Override
 	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		int burningNeighbors = 0;
@@ -44,7 +54,7 @@ public class FireCell extends Cell {
 			return false;
 		}
 
-		if(isAlive() && burningNeighbors > 0 && Math.random() >= simInfo.getSimInfo() ){
+		if(isAlive() && burningNeighbors > 0 && Math.random() >= ((FireSimInfo)simInfo).getSimInfo() ){
 			setTreeBurning();
 			return false;
 		}
