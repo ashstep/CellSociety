@@ -2,6 +2,7 @@ package back_end.PredatorPrey;
 
 import java.util.ArrayList;
 
+import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
@@ -42,9 +43,9 @@ public class PredatorPreyCell extends Cell{
 	
 	
 	@Override
-	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		if(isEmpty()){
-			return false;
+			return new ActionByPPSim(false, false, false);
 		}
 		
 		

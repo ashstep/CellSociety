@@ -1,6 +1,8 @@
 package back_end.Segregation;
 
 import java.util.ArrayList;
+
+import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
@@ -42,9 +44,9 @@ public class SegregationCell extends Cell {
 	 * Also assumes neighbors is just an ArrayList of SegregationCell
 	 */
 	@Override
-	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		if(isTypeEmpty()){
-			return false;
+			return new ActionBySim(false);
 		}
 		int threshold=((SegregationSimInfo) simInfo).getThreshold();
 		int totalNeighbors=0;
@@ -58,7 +60,7 @@ public class SegregationCell extends Cell {
 			}
 		}
 		int percentage=100*myTypeCells/totalNeighbors;
-		return percentage<threshold;
+		return new ActionBySim(percentage<threshold);
 	}
 	
 	

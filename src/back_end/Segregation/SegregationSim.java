@@ -47,7 +47,7 @@ public class SegregationSim extends Simulation{
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
 				SegregationCell cell=new SegregationCell( (SegregationCell) super.getGrid()[row][col]);
-				boolean isMoving=cell.checkAndTakeAction(getNeighbors(row, col), myInfo);
+				boolean isMoving=cell.checkAndTakeAction(getNeighbors(row, col), myInfo).toMove();
 				if(isMoving){
 					moveToNewSpot(newGrid, row, col, cell);
 				} else {
