@@ -1,11 +1,8 @@
 package back_end.gameOfLifePack;
-
 import java.util.ArrayList;
-
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-
 public class GameOfLifeSim extends Simulation{
 	
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};

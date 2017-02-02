@@ -1,8 +1,5 @@
 package back_end;
-
-
 import java.util.ArrayList;
-
 import javafx.scene.paint.Color;
 /**
  * Abstract super class that describes the properties shared by cells of all simulations
@@ -34,7 +31,6 @@ public abstract class Cell {
 	public int getMyType() {
 		return myType;
 	}
-
 	/**
 	 * setter
 	 * @param type
