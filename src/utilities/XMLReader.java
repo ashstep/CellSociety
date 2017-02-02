@@ -67,9 +67,10 @@ public class XMLReader
 
 	private Simulation createFireSim()
 	{
-		FireSim simulation = new FireSim();
+		//FireSim simulation = new FireSim();
 		
-		return simulation;
+		//return simulation;
+		return null;
 	}
 
 	private Simulation createGameOfLifeSim()
@@ -79,13 +80,14 @@ public class XMLReader
 		{
 			for (int j = 0; j < 10; j++)
 			{
-				testGrid[i][j] = i/4;
+				testGrid[i][j] = j/4;
 			}
 		}
 		GameOfLifeSim simulation = new GameOfLifeSim(testGrid);
 		
 		return simulation;
 	}
+	
 
 	public void chooseFile(Stage s)
 	{
