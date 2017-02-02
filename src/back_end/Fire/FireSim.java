@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import back_end.gameOfLifePack.GameOfLifeCell;
 /**
  * Class that implements the unique properties of the fire simulation
  * @author Ashka Stephen
@@ -19,8 +18,8 @@ public class FireSim extends Simulation {
 	private FireSimInfo myInfo;
 	
 	public FireSim(int[][] typeGrid){
-		int numRows = typeGrid.length;
-		int numCols = typeGrid[0].length;
+		int numRows = typeGrid.length + 2 ;
+		int numCols = typeGrid[0].length + 2 ;
 		FireCell[][] cellGrid = new FireCell[numRows][numCols];
 		
 		for(int row=0; row<numRows; row++){
