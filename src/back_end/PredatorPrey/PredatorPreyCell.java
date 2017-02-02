@@ -2,32 +2,103 @@ package back_end.PredatorPrey;
 
 import java.util.ArrayList;
 
+import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
 
-public class PredatorPreyCell extends Cell {
-	private final int TYPE_ONE=1;
-	private final int TYPE_TWO=2;
-	private final int TYPE_EMPTY=0;
-	private final Color TYPE_ONE_COLOR = Color.RED;
-	private final Color TYPE_TWO_COLOR = Color.BLUE;
-	private final Color TYPE_EMPTY_COLOR = Color.WHITE;
+public class PredatorPreyCell extends Cell{
+	/*
+	 * note regarding myType in Cell class
+	 * 1: type 1
+	 * 2: type 2
+	 * 0: empty
+	 */
+	private final int FISH=1;
+	private final int SHARK=2;
+	private final int EMPTY=0;
+	private final Color FISH_COLOR=Color.GREEN;
+	private final Color SHARK_COLOR=Color.YELLOW;
+	private final Color EMPTY_COLOR=Color.BLUE;
 	
-	public PredatorPreyCell(int myType){
-		super();
+	private int age;
+	
+	/**
+	 * default constructor
+	 * @param type type of the cell
+	 */
+	public PredatorPreyCell(int type) {
+		super(type);
+		age=0;
 	}
-
+	
+	/**
+	 * makes a copy of another PredatorPreyCell 
+	 * @param anotherCell
+	 */
+	//refactor to abstract class?
+	public PredatorPreyCell(PredatorPreyCell anotherCell) {
+		this(anotherCell.getMyType());
+	}
+	
+	
 	@Override
-	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
-		// TODO Auto-generated method stub
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+		if(isEmpty()){
+			return new ActionByPPSim(false, false, false);
+		}
+		
+		
 		return false;
 	}
-
+	
+	
+	
+	/**
+	 * kills a cell (fish or shark)
+	 */
+	public void kill(){
+		super.setMyType(EMPTY);
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @return true if cell is fish
+	 */
+	public boolean isFish(){
+		return super.getMyType()==FISH;
+	}
+	
+	/**
+	 * 
+	 * @return true if cell is shark
+	 */
+	public boolean isShark(){
+		return super.getMyType()==SHARK;
+	}
+	
+	/**
+	 * 
+	 * @return true if cell is empty
+	 */
+	public boolean isEmpty(){
+		return super.getMyType()==EMPTY;
+	}
+	
+	
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
-		return null;
+		if(isFish()){
+			return FISH_COLOR;
+		} else if(isShark()){
+			return SHARK_COLOR;
+		} else {
+			return EMPTY_COLOR;
+		}
 	}
 
 }

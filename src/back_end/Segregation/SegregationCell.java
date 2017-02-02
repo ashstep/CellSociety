@@ -1,21 +1,103 @@
 package back_end.Segregation;
 
+import java.util.ArrayList;
+
+import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
 
 public class SegregationCell extends Cell {
-
-	@Override
-	public boolean checkAndTakeAction(Cell[] neighbors, SimulationInfo simInfo) {
-		// TODO Auto-generated method stub
-		return false;
+	/*
+	 * note regarding myType in Cell class
+	 * 1: type 1
+	 * 2: type 2
+	 * 0: empty
+	 */
+	private final int TYPE_ONE=1;
+	private final int TYPE_TWO=2;
+	private final int TYPE_EMPTY=0;
+	private final Color TYPE_ONE_COLOR=Color.RED;
+	private final Color TYPE_TWO_COLOR=Color.BLUE;
+	private final Color TYPE_EMPTY_COLOR=Color.WHITE;
+	
+	
+	/**
+	 * default constructor
+	 * @param type
+	 */
+	public SegregationCell(int type){
+		super(type);
 	}
-
+	
+	/**
+	 * makes a copy of another SegregationCell
+	 * @param anotherCell
+	 */
+	//refactor to abstract class?
+	public SegregationCell(SegregationCell anotherCell){
+		this(anotherCell.getMyType());
+	}
+	
+	/**
+	 * Assumes simInfo is in fact a SegregationSimInfo object. 
+	 * Also assumes neighbors is just an ArrayList of SegregationCell
+	 */
+	@Override
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+		if(isTypeEmpty()){
+			return new ActionBySim(false);
+		}
+		int threshold=((SegregationSimInfo) simInfo).getThreshold();
+		int totalNeighbors=0;
+		int myTypeCells=0;
+		for(Cell neighborCell: neighbors){
+			SegregationCell neighbor=(SegregationCell) neighborCell;
+			if(neighbor.getMyType()==this.getMyType()) {
+				myTypeCells++;
+			} if (neighbor.getMyType()!=TYPE_EMPTY){
+				totalNeighbors++;
+			}
+		}
+		int percentage=100*myTypeCells/totalNeighbors;
+		return new ActionBySim(percentage<threshold);
+	}
+	
+	
+	/**
+	 * 
+	 * @return true if cell is type 1
+	 */
+	public boolean isTypeOne(){
+		return getMyType()==TYPE_ONE;
+	}
+	
+	/**
+	 * 
+	 * @return true if cell is type 2
+	 */
+	public boolean isTypeTwo(){
+		return getMyType()==TYPE_TWO;
+	}
+	
+	/**
+	 * 
+	 * @return true if cell is type empty
+	 */
+	public boolean isTypeEmpty(){
+		return getMyType()==TYPE_EMPTY;
+	}
+	
+	/**
+	 * calculates the color depending on the myType
+	 */
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
-		return null;
+		if(isTypeOne()){
+			return TYPE_ONE_COLOR;
+		} else if(isTypeTwo()){
+			return TYPE_TWO_COLOR;
+		}
+		return TYPE_EMPTY_COLOR;
 	}
-
 }

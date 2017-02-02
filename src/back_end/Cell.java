@@ -12,11 +12,17 @@ public abstract class Cell {
 	 */
 	private int myType;
 	
+	
+	
+	public Cell(int type) {
+		myType=type;
+	}
+
 	/**
 	 * checks the information about 
 	 * @param true if the cell wants to move
 	 */
-	public abstract boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo);
+	public abstract ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo);
 	
 	/**
 	 * getter

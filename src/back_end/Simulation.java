@@ -3,13 +3,13 @@ import java.util.ArrayList;
 public abstract class Simulation{
 	
 	private Cell[][] myGrid;
-	private SimulationInfo myInfo;
+//	private SimulationInfo myInfo;
+	
 	
 	/**
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
 	 */
-	//changed to void
 	public abstract Cell[][] updateGrid();
 	
 	
@@ -19,13 +19,13 @@ public abstract class Simulation{
 	 * @param col the col of the current cell
 	 * @return the Cell neighbors of the current cell
 	 */
-	//changed from Cell[] to AL<Cell>
 	protected abstract ArrayList<Cell> getNeighbors(int row, int col);
 	
 	/**
 	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell
 	 * @return int[]. 0 position is row,1 position is column
 	 */
+	//TODO rename move to findEmptySpot
 	protected abstract int[] move(Cell[][] newGrid);
 	
 	/**
@@ -43,13 +43,13 @@ public abstract class Simulation{
 		myGrid=newGrid;
 	}
 	
-	/**
-	 * getter method
-	 * @return myInfo
-	 */
-	public SimulationInfo getSimInfo(){
-		return myInfo;
-	}
+//	/**
+//	 * getter method
+//	 * @return myInfo
+//	 */
+//	public SimulationInfo getSimInfo(){
+//		return myInfo;
+//	}
 	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo

@@ -1,6 +1,7 @@
 package back_end.gameOfLifePack;
 import java.util.ArrayList;
 
+import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
@@ -12,17 +13,24 @@ public class GameOfLifeCell extends Cell{
 	 * 2: alive
 	 * 0: empty
 	 */
-	private final int ALIVE_TYPE=2;
-	private final int DEAD_TYPE=1;
+	private final int ALIVE_TYPE=1;
+	private final int DEAD_TYPE=0;
 	private final Color DEAD_COLOR=Color.WHITE;
 	private final Color ALIVE_COLOR=Color.GREEN;
-
+	
+	public GameOfLifeCell(GameOfLifeCell anotherCell){
+		super(anotherCell.getMyType());
+	}
+	
+	public GameOfLifeCell(int type) {
+		super(type);
+	}
 	/**
 	 * only need to check status of neighbors, simInfo is unused
-	 * returns false because game of life cells do not move
+	 * @return false because game of life cells do not move
 	 */
 	@Override
-	public boolean checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		int aliveNeighbors=0;
 		for(Cell neighbor: neighbors){
 			if(neighbor.getMyType()==ALIVE_TYPE) aliveNeighbors++;
@@ -33,10 +41,10 @@ public class GameOfLifeCell extends Cell{
 			} else{
 				liveOn();
 			}
-		} else if(aliveNeighbors==3){
+		} else if(aliveNeighbors==3 && isDead()){
 			revive();
 		}
-		return false;
+		return new ActionBySim(false);
 	}
 	
 	/**
