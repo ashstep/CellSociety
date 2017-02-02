@@ -67,9 +67,10 @@ public class XMLReader
 
 	private Simulation createFireSim()
 	{
-		FireSim simulation = new FireSim();
+		//FireSim simulation = new FireSim();
 		
-		return simulation;
+		//return simulation;
+		return null;
 	}
 
 	private Simulation createGameOfLifeSim()
