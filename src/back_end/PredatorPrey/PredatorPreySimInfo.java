@@ -8,12 +8,17 @@ public class PredatorPreySimInfo extends SimulationInfo {
 	private int mySharkStarveTime;
 	private int myFishBreedTime;
 	
+	/**
+	 * constructor
+	 * @param sharkBreedTime
+	 * @param sharkStarveTime
+	 * @param fishBreedTime
+	 */
 	public PredatorPreySimInfo(int sharkBreedTime, int sharkStarveTime, int fishBreedTime){
 		mySharkBreedTime=sharkBreedTime;
 		mySharkStarveTime=sharkStarveTime;
-		fishBreedTime=myFishBreedTime;
+		myFishBreedTime=fishBreedTime;
 	}
-	
 	
 	/**
 	 * getter for sharkBreedTime
@@ -62,8 +67,4 @@ public class PredatorPreySimInfo extends SimulationInfo {
 	public void setFishBreedTime(int newBreedTime){
 		myFishBreedTime=newBreedTime;
 	}
-	
-	
-	
-	
 }

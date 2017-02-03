@@ -55,6 +55,7 @@ public class GUI
 			for (int y = 0; y < cells[0].length; y++)
 			{
 				grid[x][y].setFill(cells[x][y].getColor());
+				grid[x][y].setStroke(Color.BLACK);
 			}
 		}
 	}
