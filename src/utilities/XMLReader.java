@@ -8,7 +8,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import back_end.Simulation;
-import back_end.Fire.FireSim;
 import back_end.PredatorPrey.PredatorPreySim;
 import back_end.Segregation.SegregationSim;
 import back_end.gameOfLifePack.GameOfLifeSim;
