@@ -71,7 +71,7 @@ public class SharkCell extends PredatorPreyCell{
 	 * 
 	 * @param breedTime time between breeding of a shark
 	 * @param emptyNeighbors  number of empty neighbors
-	 * @return true if breeding
+	 * @return true if wants to breeding
 	 */
 	private boolean checkThenReproduce(int breedTime) {
 		boolean reproducing=super.getTimeSinceBreed()>breedTime;

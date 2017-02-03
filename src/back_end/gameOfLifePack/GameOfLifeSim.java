@@ -29,9 +29,10 @@ public class GameOfLifeSim extends Simulation{
 	 */
 	@Override
 	public Cell[][] updateGrid() {
-		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
-		for(int row=0; row<getGrid().length; row++){
-			for(int col=0; col<getGrid()[0].length; col++){
+		int numRows = super.getNumRows(), numCols = super.getNumCols();
+		Cell[][] newGrid=new Cell[numRows][numCols];
+		for(int row=0; row<numRows; row++){
+			for(int col=0; col<numCols; col++){
 				newGrid[row][col]=new GameOfLifeCell((GameOfLifeCell)getGrid()[row][col]);
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), null);
 			}

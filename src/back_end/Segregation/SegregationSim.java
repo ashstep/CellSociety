@@ -42,7 +42,7 @@ public class SegregationSim extends Simulation{
 	 */
 	@Override
 	public Cell[][] updateGrid() {
-		int numRows = super.getGrid().length,  numCols = super.getGrid()[0].length;
+		int numRows = super.getNumRows(),  numCols = super.getNumCols();
 		SegregationCell[][] newGrid=new SegregationCell[numRows][numCols];
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
@@ -94,7 +94,6 @@ public class SegregationSim extends Simulation{
 	/**
 	 * generates a position where newGrid contains null, or an empty type cell
 	 */
-	@Override
 	protected int[] move(Cell[][] newGrid) {
 		int row=0, col=0;
 		Random rn=new Random();
@@ -122,5 +121,6 @@ public class SegregationSim extends Simulation{
 	public void setThreshold(int newThreshold) {
 		myInfo.setThreshold(newThreshold);
 	}
+
 
 }

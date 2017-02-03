@@ -37,10 +37,10 @@ public class ActionByPPSim extends ActionBySim{
 	}
 	
 	/**
-	 * 
-	 * @return true if cell is reproducing
+	 * @return true if cell is old enough to reproduce.
+	 * MUST further check if there are empty cells around it
 	 */
-	public boolean toReproduce(){
+	public boolean wantsToReproduce(){
 		return reproduce;
 	}
 	
