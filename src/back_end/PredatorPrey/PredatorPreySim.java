@@ -54,7 +54,7 @@ public class PredatorPreySim extends Simulation {
 				}
 			}
 		}
-		super.setGrid(cellGrid);
+		super.setArrayGrid(cellGrid);
 	}
 	
 	
@@ -106,7 +106,7 @@ public class PredatorPreySim extends Simulation {
 			}
 		}
 		
-		setGrid(newGrid);
+		setArrayGrid(newGrid);
 		return newGrid;
 	}
 	

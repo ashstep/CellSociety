@@ -6,6 +6,7 @@ import java.util.Random;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
 
 public class SegregationSim extends Simulation{
 	
@@ -32,7 +33,7 @@ public class SegregationSim extends Simulation{
 				cellGrid[row][col]=new SegregationCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(cellGrid);
+		super.setArrayGrid(cellGrid);
 	}
 	
 	
@@ -41,12 +42,12 @@ public class SegregationSim extends Simulation{
 	 * be careful about the casting
 	 */
 	@Override
-	public Cell[][] updateGrid() {
+	public Grid updateGrid() {
 		int numRows = super.getNumRows(),  numCols = super.getNumCols();
 		SegregationCell[][] newGrid=new SegregationCell[numRows][numCols];
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
-				SegregationCell cell=new SegregationCell( (SegregationCell) super.getGrid()[row][col]);
+				SegregationCell cell=new SegregationCell( (SegregationCell) super.getArrayGrid()[row][col]);
 				boolean isMoving=cell.checkAndTakeAction(getNeighbors(row, col), myInfo).toMove();
 				if(isMoving){
 					moveToNewSpot(newGrid, row, col, cell);
@@ -55,8 +56,8 @@ public class SegregationSim extends Simulation{
 				}
 			}
 		}
-		super.setGrid(newGrid);
-		return newGrid;
+		super.setArrayGrid(newGrid);
+		return new Grid(newGrid);
 	}
 
 	/**
@@ -85,7 +86,7 @@ public class SegregationSim extends Simulation{
 		for(int i=0; i<ROW_OFFSET.length; i++){
 			int resultant_row=row+ROW_OFFSET[i], resultant_col=col+COL_OFFSET[i];
 			if(super.isValidPosition(resultant_row, resultant_col)){
-				output.add(super.getGrid()[resultant_row][resultant_col]);
+				output.add(super.getArrayGrid()[resultant_row][resultant_col]);
 			}
 		}
 		return output;
