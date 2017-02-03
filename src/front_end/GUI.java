@@ -58,11 +58,16 @@ public class GUI
 			}
 		}
 	}
-	public void initButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod, Runnable newSimMethod)
+	public void initPPSButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
 	{
 		panel.setPlay(playMethod);
 		panel.setPause(pauseMethod);
 		panel.setStep(stepMethod);
+		panel.setSlider();
+	}
+
+	public void initNewSimButton(Runnable newSimMethod) {
 		panel.setNewSim(newSimMethod);
+		
 	}
 }
