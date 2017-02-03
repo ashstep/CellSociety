@@ -1,5 +1,7 @@
 package back_end;
 import java.util.ArrayList;
+
+import utilities.Grid;
 public abstract class Simulation{
 	
 	private Cell[][] myGrid;
@@ -8,7 +10,7 @@ public abstract class Simulation{
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
 	 */
-	public abstract Cell[][] updateGrid();
+	public abstract Grid updateGrid();
 	
 	
 	/**
@@ -31,16 +33,25 @@ public abstract class Simulation{
 	
 	/**
 	 * getter method
+	 * @return Grid containing cell info
+	 */
+	public Grid getGrid(){
+		return new Grid(myGrid);
+	}
+	
+	
+	/**
+	 * getter method
 	 * @return myGrid
 	 */
-	public Cell[][] getGrid(){
+	protected Cell[][] getArrayGrid(){
 		return myGrid;
 	}
 	
 	/**
 	 * setter method for myGrid
 	 */
-	public void setGrid(Cell[][] newGrid){
+	protected void setArrayGrid(Cell[][] newGrid){
 		myGrid=newGrid;
 	}
 	
