@@ -5,7 +5,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import back_end.Simulation;
-import back_end.Fire.FireSim;
 import back_end.PredatorPrey.PredatorPreySim;
 import back_end.gameOfLifePack.GameOfLifeSim;
 import javafx.stage.FileChooser;
@@ -29,7 +28,7 @@ public class XMLReader
 	{
 		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life"))
 		{
-			System.out.println("game of life file selected");
+			System.out.println("Game of life file selected");
 			return createGameOfLifeSim();
 		}
 		else if (doc.getDocumentElement().getAttribute("type").equals("Tree Fire"))
