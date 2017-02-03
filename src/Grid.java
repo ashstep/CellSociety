@@ -1,7 +1,9 @@
+import back_end.Cell;
+import javafx.scene.paint.Color;
 
 public class Grid {
 
-	private String[][] myGrid;
+	private Cell[][] myGrid;
 
 	public int getRow(){
 		return myGrid.length;
@@ -11,12 +13,8 @@ public class Grid {
 		return myGrid[0].length;
 	}
 
-	public String getItem(int x, int y){
-		return myGrid[x][y];
+	public Color getColor(int x, int y){
+		return myGrid[x][y].getColor();
 	}
-	
-	
-	//error checking
-
 
 }
