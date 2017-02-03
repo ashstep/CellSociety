@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import utilities.Grid;
 
 public class GUI
 {
@@ -48,13 +49,13 @@ public class GUI
 		}
 	}
 	
-	public void renderGrid(Cell[][] cells)
+	public void renderGrid(Grid cellGrid)
 	{
-		for (int x = 0; x < cells.length; x++)
+		for (int x = 0; x <cellGrid.getNumRows(); x++)
 		{
-			for (int y = 0; y < cells[0].length; y++)
+			for (int y = 0; y < cellGrid.getNumCols(); y++)
 			{
-				grid[x][y].setFill(cells[x][y].getColor());
+				grid[x][y].setFill(cellGrid.getColorAt(x, y));
 				grid[x][y].setStroke(Color.BLACK);
 			}
 		}
