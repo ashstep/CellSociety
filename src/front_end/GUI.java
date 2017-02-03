@@ -10,7 +10,6 @@ import javafx.scene.shape.Rectangle;
 public class GUI
 {
 	private BorderPane root;
-	private Group gridContainer;
 	private int sceneWidth, sceneHeight;
 	private Rectangle[][] grid;
 	private ControlPanel panel;
@@ -29,20 +28,21 @@ public class GUI
 		return myScene;
 	}
 	
-	public void initGrid(int gridWidth, int gridLength)
+	public void initGrid(int gridHeight, int gridWidth)
 	{
-		grid = new Rectangle[gridLength][gridWidth];
-		gridContainer = new Group();
+		grid = new Rectangle[gridHeight][gridWidth];
+		Group gridContainer = new Group();
 		root.setCenter(gridContainer);
-		int cellSize = (sceneWidth-100)/gridWidth;
+		int cellSize = Math.min((sceneWidth-100)/gridWidth, (sceneHeight-100)/gridHeight);
 		
-		for (int x = 0; x < gridLength; x++)
+		for (int x = 0; x < gridHeight; x++)
 		{
 			for (int y = 0; y < gridWidth; y++)
 			{
 				grid[x][y] = new Rectangle(cellSize, cellSize);
 				grid[x][y].setX(y*cellSize);
 				grid[x][y].setY(x*cellSize);
+				grid[x][y].setStroke(Color.BLACK);
 				gridContainer.getChildren().add(grid[x][y]);
 			}
 		}
