@@ -42,15 +42,15 @@ public class XMLReader
 	{
 		NodeList nList = doc.getElementsByTagName("threshold");
 		int threshold = Integer.parseInt(nList.item(0).getTextContent());
-		System.out.println(threshold);
 		return new SegregationSim(createGrid(), threshold);
 	}
 
 	private Simulation createPredatorPreySim()
 	{
-		PredatorPreySim simulation = new PredatorPreySim();
+		//PredatorPreySim simulation = new PredatorPreySim();
 		
-		return simulation;
+		//return simulation;
+		return null;
 	}
 
 	private Simulation createFireSim()
