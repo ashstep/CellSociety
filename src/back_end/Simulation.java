@@ -26,6 +26,9 @@ public abstract class Simulation{
 	//TODO rename move to findEmptySpot
 	protected abstract int[] move(Cell[][] newGrid);
 	
+	
+	
+	
 	/**
 	 * getter method
 	 * @return myGrid
@@ -41,19 +44,12 @@ public abstract class Simulation{
 		myGrid=newGrid;
 	}
 	
-	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
 	 * @param newInfo
 	 */
 	public abstract void setSimInfo(SimulationInfo newInfo);
-	/**
-	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
-	 * Assumes each row of myGrid has the same number of columns
-	 * @param row
-	 * @param col
-	 * @return true if the position is valid
-	 */
+
 	
 	/**
 	 * 
@@ -71,6 +67,13 @@ public abstract class Simulation{
 		return myGrid[0].length;
 	}
 	
+	/**
+	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
+	 * Assumes each row of myGrid has the same number of columns
+	 * @param row
+	 * @param col
+	 * @return true if the position is valid
+	 */
 	//added this util method. helpful for all subclass simulations as they need to check for boundaries
 	protected boolean isValidPosition(int row, int col){
 		return row < myGrid.length && row>=0 

@@ -74,14 +74,21 @@ public class XMLReader
 
 	private Simulation createGameOfLifeSim()
 	{
-		int[][] testGrid = new int[10][10];
-		for (int i = 0; i < 10; i++)
-		{
-			for (int j = 0; j < 10; j++)
-			{
-				testGrid[i][j] = j/4;
-			}
-		}
+		int[][] testGrid = new int[][]{
+			{0, 0, 0, 0, 0, 0},
+			{0, 1, 1, 0, 0, 0},
+			{0, 1, 1, 0, 0, 0},
+			{0, 0, 0, 1, 1, 0},
+			{0, 0, 0, 1, 1, 0},
+			{0, 0, 0, 0, 0, 0}
+		};
+//		for (int i = 0; i < 10; i++)
+//		{
+//			for (int j = 0; j < 10; j++)
+//			{
+//				testGrid[i][j] = j/4;
+//			}
+//		}
 		GameOfLifeSim simulation = new GameOfLifeSim(testGrid);
 		
 		return simulation;

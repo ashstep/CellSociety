@@ -19,7 +19,7 @@ public class GameOfLifeCell extends Cell{
 	private final Color ALIVE_COLOR=Color.GREEN;
 	
 	public GameOfLifeCell(GameOfLifeCell anotherCell){
-		super(anotherCell.getMyType());
+		this(anotherCell.getMyType());
 	}
 	
 	public GameOfLifeCell(int type) {

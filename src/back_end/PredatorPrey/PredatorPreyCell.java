@@ -1,27 +1,26 @@
 package back_end.PredatorPrey;
 
 import java.util.ArrayList;
-
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
 
-public class PredatorPreyCell extends Cell{
+public abstract class PredatorPreyCell extends Cell{
 	/*
 	 * note regarding myType in Cell class
 	 * 1: type 1
 	 * 2: type 2
 	 * 0: empty
 	 */
+	
 	private final int FISH=1;
 	private final int SHARK=2;
 	private final int EMPTY=0;
 	private final Color FISH_COLOR=Color.GREEN;
 	private final Color SHARK_COLOR=Color.YELLOW;
 	private final Color EMPTY_COLOR=Color.BLUE;
-	
-	private int age;
+	private int timeSinceBreed;
 	
 	/**
 	 * default constructor
@@ -29,41 +28,30 @@ public class PredatorPreyCell extends Cell{
 	 */
 	public PredatorPreyCell(int type) {
 		super(type);
-		age=0;
+		timeSinceBreed=0;
 	}
 	
-	/**
-	 * makes a copy of another PredatorPreyCell 
-	 * @param anotherCell
-	 */
-	//refactor to abstract class?
-	public PredatorPreyCell(PredatorPreyCell anotherCell) {
-		this(anotherCell.getMyType());
-	}
+//	/**
+//	 * makes a copy of another PredatorPreyCell 
+//	 * @param anotherCell
+//	 */
+//	//refactor to abstract class?
+//	public PredatorPreyCell(PredatorPreyCell anotherCell) {
+//		this(anotherCell.getMyType());
+//	}
 	
 	
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
-		if(isEmpty()){
-			return new ActionByPPSim(false, false, false);
-		}
-		
-		
-		return false;
-	}
+	public abstract ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) ;
 	
 	
 	
 	/**
 	 * kills a cell (fish or shark)
 	 */
-	public void kill(){
+	public void die(){
 		super.setMyType(EMPTY);
 	}
-	
-	
-	
-	
 	
 	/**
 	 * 
@@ -89,7 +77,31 @@ public class PredatorPreyCell extends Cell{
 		return super.getMyType()==EMPTY;
 	}
 	
+	/**
+	 * getter for timeSinceBreed
+	 * @return
+	 */
+	protected int getTimeSinceBreed(){
+		return timeSinceBreed;
+	}
 	
+	/**
+	 * re-setter for timeSinceBreed
+	 */
+	public void resetTimeSinceBreed(){
+		timeSinceBreed=0;
+	}
+	
+	/**
+	 * setter for timeSinceBreed
+	 */
+	protected void incrementTimeSinceBreed(){
+		timeSinceBreed++;
+	}
+	
+	/**
+	 * calculates color of the cell based on type
+	 */
 	@Override
 	public Color getColor() {
 		if(isFish()){
