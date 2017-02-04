@@ -23,10 +23,13 @@ public abstract class Simulation{
 	
 	/**
 	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell
+	 * AND (row, column) is not its current position
+	 * 
+	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
 	//TODO rename move to findEmptySpot
-	protected abstract int[] move(Cell[][] newGrid);
+	protected abstract int[] move(Cell[][] newGrid, int currentRow, int currentCol);
 	
 	
 	
