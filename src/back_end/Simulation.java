@@ -2,6 +2,7 @@ package back_end;
 import java.util.ArrayList;
 
 import utilities.Grid;
+import utilities.GridLocation;
 public abstract class Simulation{
 	
 	private Cell[][] myGrid;
@@ -29,7 +30,7 @@ public abstract class Simulation{
 	 * @return int[]. 0 position is row,1 position is column
 	 */
 	//TODO rename move to findEmptySpot
-	protected abstract int[] move(Cell[][] newGrid, int currentRow, int currentCol);
+	protected abstract GridLocation move(Cell[][] newGrid, int currentRow, int currentCol);
 	
 	
 	

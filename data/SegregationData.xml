@@ -3,7 +3,7 @@
   <title>test</title>
   <author>Juan Philippe, Askha Stephe, Yuxiang He</author>
   <SimParameters>
-	<threshold>90</threshold>
+	<threshold>100</threshold>
   </SimParameters>
   <Dimensions>
     <GridWidth>5</GridWidth>
