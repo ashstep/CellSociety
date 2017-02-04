@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
 /**
  * Class that implements the unique properties of the fire simulation
  * @author Ashka Stephen
@@ -30,21 +31,22 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(cellGrid);
+		super.setArrayGrid(cellGrid);
 	}
 
 	@Override
-	public Cell[][] updateGrid() {
-		Cell[][] newGrid=new Cell[getGrid().length][getGrid()[0].length];
-		for(int row=0; row<getGrid().length; row++){
-			for(int col=0; col<getGrid()[0].length; col++){
-				FireCell add = new FireCell((FireCell) getGrid()[row][col]);
+	public Grid updateGrid() {
+		int numRows=super.getNumRows(), numCols=super.getNumRows();
+		Cell[][] newGrid=new Cell[numRows][numCols];
+		for(int row=0; row<numRows; row++){
+			for(int col=0; col<numCols; col++){
+				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
 				newGrid[row][col] = add;
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
 			}
 		}
-		setGrid(newGrid);
-		return newGrid;
+		setArrayGrid(newGrid);
+		return new Grid(newGrid);
 	}
 	
 	/**
@@ -56,7 +58,7 @@ public class FireSim extends Simulation {
 		for(int i = 0; i<ROW_OFFSET.length; i++){
 			int resultant_row = row+ROW_OFFSET[i], resultant_col = col+COL_OFFSET[i];
 			if(isValidPosition(resultant_row, resultant_col)){
-				output.add(getGrid()[resultant_row][resultant_col]);
+				output.add(getArrayGrid()[resultant_row][resultant_col]);
 			}
 		}
 		return output;

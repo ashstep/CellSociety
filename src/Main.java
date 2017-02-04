@@ -1,4 +1,5 @@
 import front_end.GUI;
+
 import back_end.Simulation;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -14,8 +15,8 @@ public class Main extends Application
 	public static final String TITLE = "Simulator";
 	public static final int SIZE = 600;
 	public static final int FRAMES_PER_SECOND = 60;
-	public static final int MILLISECOND_DELAY = 20000 / FRAMES_PER_SECOND;
-	public static final double SECOND_DELAY = 20.0 / FRAMES_PER_SECOND;
+	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
 	private Simulation simulation;
 
@@ -33,30 +34,30 @@ public class Main extends Application
 		XMLReader reader = new XMLReader();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> step(SECOND_DELAY, container));
+				e -> step(container));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		
-		container.initButtons(
-				() -> animation.play(),
-				() -> animation.pause(),
-				() -> 
-				{
-					if (animation.getStatus() == Animation.Status.PAUSED || animation.getStatus() == Animation.Status.STOPPED)
-						step(SECOND_DELAY,container);
-				},
-				() ->
-				{
-						animation.pause();
-						reader.chooseFile(s);
-						simulation = reader.getSimulation();
-						container.initGrid(simulation.getNumRows(), simulation.getNumCols());
-						container.renderGrid(simulation.getGrid());
-				});
+		container.initNewSimButton(() ->
+		{
+			animation.pause();
+			reader.chooseFile(s);
+			simulation = reader.getSimulation();
+			container.initPPSButtons(
+					() -> animation.play(),
+					() -> animation.pause(),
+					() -> 
+					{
+						if (animation.getStatus() == Animation.Status.PAUSED || animation.getStatus() == Animation.Status.STOPPED)
+							step(container);
+					});
+			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
+			container.renderGrid(simulation.getGrid());
+		});
 	}    
 
-	private void step (double elapsedTime, GUI inContainer)
+	private void step (GUI inContainer)
 	{
 		inContainer.renderGrid(simulation.updateGrid());
 	}

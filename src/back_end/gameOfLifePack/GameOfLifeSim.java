@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
 public class GameOfLifeSim extends Simulation{
 	
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
@@ -19,7 +20,7 @@ public class GameOfLifeSim extends Simulation{
 				cellGrid[row][col]=new GameOfLifeCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(cellGrid);
+		super.setArrayGrid(cellGrid);
 	}
 	
 	
@@ -28,17 +29,17 @@ public class GameOfLifeSim extends Simulation{
 	 * @return the updated grid
 	 */
 	@Override
-	public Cell[][] updateGrid() {
+	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		Cell[][] newGrid=new Cell[numRows][numCols];
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
-				newGrid[row][col]=new GameOfLifeCell((GameOfLifeCell)getGrid()[row][col]);
+				newGrid[row][col]=new GameOfLifeCell((GameOfLifeCell)getArrayGrid()[row][col]);
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), null);
 			}
 		}
-		setGrid(newGrid);
-		return newGrid;
+		setArrayGrid(newGrid);
+		return new Grid(newGrid);
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class GameOfLifeSim extends Simulation{
 		for(int i=0; i<ROW_OFFSET.length; i++){
 			int resultant_row=row+ROW_OFFSET[i], resultant_col=col+COL_OFFSET[i];
 			if(isValidPosition(resultant_row, resultant_col)){
-				output.add(getGrid()[resultant_row][resultant_col]);
+				output.add(super.getArrayGrid()[resultant_row][resultant_col]);
 			}
 		}
 		return output;
