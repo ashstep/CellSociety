@@ -67,8 +67,8 @@ public class GUI
 		panel.setSlider();
 	}
 
-	public void initNewSimButton(Runnable newSimMethod) {
+	public void initNewSimButton(Runnable newSimMethod)
+	{
 		panel.setNewSim(newSimMethod);
-		
 	}
 }

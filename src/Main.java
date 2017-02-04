@@ -1,4 +1,5 @@
 import front_end.GUI;
+
 import back_end.Simulation;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -31,14 +32,12 @@ public class Main extends Application
 		s.show();
 
 		XMLReader reader = new XMLReader();
-		int millisecondDelay = MILLISECOND_DELAY;
 		
-		KeyFrame frame = new KeyFrame(Duration.millis(millisecondDelay),
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(container));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		animation.
 		
 		container.initNewSimButton(() ->
 		{
@@ -55,10 +54,7 @@ public class Main extends Application
 					});
 			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
 			container.renderGrid(simulation.getGrid());
-		}
-				);
-		
-		
+		});
 	}    
 
 	private void step (GUI inContainer)

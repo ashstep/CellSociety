@@ -46,9 +46,10 @@ public class XMLReader
 
 	private Simulation createPredatorPreySim()
 	{
-		PredatorPreySim simulation = new PredatorPreySim();
+		//PredatorPreySim simulation = new PredatorPreySim();
 		
-		return simulation;
+		//return simulation;
+		return null;
 	}
 
 	private Simulation createFireSim()

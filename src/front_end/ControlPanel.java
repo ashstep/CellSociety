@@ -1,5 +1,7 @@
 package front_end;
-import java.util.concurrent.Callable;
+
+import java.io.IOException;
+import java.util.Properties;
 
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,17 +16,26 @@ public class ControlPanel
 	private Button play, pause, step, newSim;
 	private ToolBar bar;
 	private Slider slider;
+	private Properties appProps;
 	
 	public ControlPanel(BorderPane inRoot)
 	{
 		bar = new ToolBar();
-		play = new Button("Play");
-		pause = new Button("Pause");
-		step = new Button("Step");
-		newSim = new Button("New Simulation");
-		
-		bar.getItems().addAll(play, pause, step, newSim);
         inRoot.setTop(bar);
+		
+        appProps = new Properties();
+		try {
+			appProps.load(getClass().getClassLoader().getResourceAsStream("gameText.properties"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		pause = new Button(appProps.getProperty("pauseButton"));
+		play = new Button(appProps.getProperty("playButton"));
+		step = new Button(appProps.getProperty("stepButton"));
+		newSim = new Button(appProps.getProperty("newSimButton"));
+		bar.getItems().addAll(play,pause,step,newSim);
 	}
 
 	public void setPause(Runnable r)
@@ -45,7 +56,6 @@ public class ControlPanel
 			public void handle(ActionEvent arg0) {
 				r.run();
 			}
-			
 		});
 	}
 	public void setPlay(Runnable r)
@@ -56,7 +66,6 @@ public class ControlPanel
 			public void handle(ActionEvent arg0) {
 				r.run();
 			}
-			
 		});
 	}
 
@@ -68,7 +77,6 @@ public class ControlPanel
 			public void handle(ActionEvent arg0) {
 				r.run();
 			}
-			
 		});
 	}
 	public void setSlider()
@@ -76,10 +84,8 @@ public class ControlPanel
 		slider = new Slider(50, 1000, 300);
 		slider.valueProperty().addListener((
 	            ObservableValue<? extends Number> ov, Number old_val, 
-	            Number new_val) -> {
-	            	
+	            Number new_val) -> { 
+	           	
 	        });
-		bar.getItems().add(slider);
 	}
-	
 }
