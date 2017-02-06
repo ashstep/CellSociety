@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import utilities.Grid;
 
 public class GUI
 {
@@ -48,22 +49,27 @@ public class GUI
 		}
 	}
 	
-	public void renderGrid(Cell[][] cells)
+	public void renderGrid(Grid cellGrid)
 	{
-		for (int x = 0; x < cells.length; x++)
+		for (int x = 0; x <cellGrid.getNumRows(); x++)
 		{
-			for (int y = 0; y < cells[0].length; y++)
+			for (int y = 0; y < cellGrid.getNumCols(); y++)
 			{
-				grid[x][y].setFill(cells[x][y].getColor());
+				grid[x][y].setFill(cellGrid.getColorAt(x, y));
 				grid[x][y].setStroke(Color.BLACK);
 			}
 		}
 	}
-	public void initButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod, Runnable newSimMethod)
+	public void initPPSButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
 	{
 		panel.setPlay(playMethod);
 		panel.setPause(pauseMethod);
 		panel.setStep(stepMethod);
+		panel.setSlider();
+	}
+
+	public void initNewSimButton(Runnable newSimMethod)
+	{
 		panel.setNewSim(newSimMethod);
 	}
 }

@@ -5,7 +5,6 @@ import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import back_end.Simulation;
 import back_end.Fire.FireSim;
@@ -43,7 +42,6 @@ public class XMLReader
 	{
 		NodeList nList = doc.getElementsByTagName("threshold");
 		int threshold = Integer.parseInt(nList.item(0).getTextContent());
-		System.out.println(threshold);
 		return new SegregationSim(createGrid(), threshold);
 	}
 
@@ -51,7 +49,8 @@ public class XMLReader
 	{
 		PredatorPreySim simulation = new PredatorPreySim(null, 0, 0, 0);
 		
-		return simulation;
+		//return simulation;
+		return null;
 	}
 
 	private Simulation createFireSim()
@@ -68,14 +67,12 @@ public class XMLReader
 	private int[][] createGrid()
 	{
 		Scanner scanner;
-		Node nNode;
 		NodeList nList = doc.getElementsByTagName("row");
 
 		int[][] testGrid = new int[getNumRows()][getNumCols()];
 		for (int i = 0; i < getNumRows(); i++)
 		{
-			nNode = nList.item(i);
-			scanner = new Scanner(nNode.getTextContent());
+			scanner = new Scanner(nList.item(i).getTextContent());
 			for (int j = 0; j < getNumCols(); j++)
 			{
 				testGrid[i][j] = scanner.nextInt();

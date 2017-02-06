@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation type = "Segregation">
+  <title>test</title>
+  <author>Juan Philippe, Askha Stephe, Yuxiang He</author>
+  <SimParameters>
+	<threshold>90</threshold>
+  </SimParameters>
+  <Dimensions>
+    <GridWidth>2</GridWidth>
+    <GridHeight>2</GridHeight>
+  </Dimensions>
+  <InitialGridState>
+	<row>1 2</row>
+	<row>0 0</row>
+  </InitialGridState>
+</Simulation>

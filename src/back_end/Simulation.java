@@ -1,5 +1,9 @@
 package back_end;
 import java.util.ArrayList;
+
+import back_end.Segregation.SegregationCell;
+import utilities.Grid;
+import utilities.ArrayLocation;
 public abstract class Simulation{
 	
 	private Cell[][] myGrid;
@@ -8,7 +12,7 @@ public abstract class Simulation{
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
 	 */
-	public abstract Cell[][] updateGrid();
+	public abstract Grid updateGrid();
 	
 	
 	/**
@@ -21,26 +25,38 @@ public abstract class Simulation{
 	
 	/**
 	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell
+	 * AND (row, column) is not its current position
+	 * 
+	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
 	//TODO rename move to findEmptySpot
-	protected abstract int[] move(Cell[][] newGrid);
+	protected abstract ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
 	
 	
 	
 	
 	/**
 	 * getter method
+	 * @return Grid containing cell info
+	 */
+	public Grid getGrid(){
+		return new Grid(myGrid);
+	}
+	
+	
+	/**
+	 * getter method
 	 * @return myGrid
 	 */
-	public Cell[][] getGrid(){
+	protected Cell[][] getArrayGrid(){
 		return myGrid;
 	}
 	
 	/**
 	 * setter method for myGrid
 	 */
-	public void setGrid(Cell[][] newGrid){
+	protected void setArrayGrid(Cell[][] newGrid){
 		myGrid=newGrid;
 	}
 	
@@ -49,6 +65,12 @@ public abstract class Simulation{
 	 * @param newInfo
 	 */
 	public abstract void setSimInfo(SimulationInfo newInfo);
+	
+	/**
+	 * setter method. Sets sim's myInfo to newInfo
+	 * @param newInfo
+	 */
+	public abstract SimulationInfo getSimInfo();
 
 	
 	/**
@@ -78,5 +100,24 @@ public abstract class Simulation{
 	protected boolean isValidPosition(int row, int col){
 		return row < myGrid.length && row>=0 
 				&& col<myGrid[0].length &&     col>=0;
+	}
+	
+	
+	/**
+	 * makes a copy of an old array. Each element is also points to a new copy
+	 * 
+	 * @param oldArray
+	 * @return newArray
+	 */
+	protected Cell[][] copyArray(Cell[][] oldArray) {
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		SegregationCell[][] copiedArray = new SegregationCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				copiedArray[row][col] = new SegregationCell((SegregationCell) oldArray[row][col]);
+			}
+		}
+		return copiedArray;
 	}
 }

@@ -59,8 +59,14 @@ public class SegregationCell extends Cell {
 				totalNeighbors++;
 			}
 		}
-		int percentage=100*myTypeCells/totalNeighbors;
-		return new ActionBySim(percentage<threshold);
+		if(totalNeighbors!=0){
+			int percentage=100*myTypeCells/totalNeighbors;
+			return new ActionBySim(percentage<threshold);
+		} else {
+			//no neighbors, move to new place
+			return new ActionBySim(true);
+		}
+		
 	}
 	
 	

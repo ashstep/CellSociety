@@ -6,121 +6,186 @@ import java.util.Random;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
+import utilities.ArrayLocation;
 
-public class SegregationSim extends Simulation{
-	
-	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
-	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
-	private final int TYPE_EMPTY=0;
+public class SegregationSim extends Simulation {
+
+	private final int[] ROW_OFFSET = { -1, -1, -1, 0, 0, 1, 1, 1 };
+	private final int[] COL_OFFSET = { -1, 0, 1, -1, 1, -1, 0, 1 };
+	private final int TYPE_EMPTY = 0;
 	private SegregationSimInfo myInfo;
-	
+	private final int RANDOM_ITER_LIMIT = 2000;
+
 	/**
 	 * 
-	 * @param typeGrid int[][] that specifies the type of SegregationCell at the corresponding position in myGrid
-	 * @param threshold satisfaction threshold for each cell, environment attribute
+	 * @param typeGrid
+	 *            int[][] that specifies the type of SegregationCell at the
+	 *            corresponding position in myGrid
+	 * @param threshold
+	 *            satisfaction threshold for each cell, environment attribute
 	 */
-	//repeated code for setting up Grid?
-	public SegregationSim(int[][] typeGrid, int threshold){
-		myInfo=new SegregationSimInfo(threshold);
-		
+	// repeated code for setting up Grid?
+	public SegregationSim(int[][] typeGrid, int threshold) {
+		myInfo = new SegregationSimInfo(threshold);
+
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
-		SegregationCell[][] cellGrid=new SegregationCell[numRows][numCols];
-		
-		for(int row=0; row<numRows; row++){
-			for(int col=0; col<numCols; col++){
-				cellGrid[row][col]=new SegregationCell(typeGrid[row][col]);
+		SegregationCell[][] cellGrid = new SegregationCell[numRows][numCols];
+
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				cellGrid[row][col] = new SegregationCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(cellGrid);
+		super.setArrayGrid(cellGrid);
 	}
-	
-	
+
+
 	/**
-	 * updates the grid and returns the new Cell[][] grid
-	 * be careful about the casting
+	 * makes a copy of the old grid, and do updates on that copy.
+	 * After updating, set the grid to be the modified copy.
 	 */
 	@Override
-	public Cell[][] updateGrid() {
-		int numRows = super.getNumRows(),  numCols = super.getNumCols();
-		SegregationCell[][] newGrid=new SegregationCell[numRows][numCols];
-		for(int row=0; row<numRows; row++){
-			for(int col=0; col<numCols; col++){
-				SegregationCell cell=new SegregationCell( (SegregationCell) super.getGrid()[row][col]);
-				boolean isMoving=cell.checkAndTakeAction(getNeighbors(row, col), myInfo).toMove();
-				if(isMoving){
-					moveToNewSpot(newGrid, row, col, cell);
+	public Grid updateGrid() {
+		int numRows = super.getNumRows(), numCols = super.getNumCols();
+		SegregationCell[][] oldGridCopy = (SegregationCell[][]) super.copyArray(super.getArrayGrid());
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				if ((super.getArrayGrid()[row][col]).getMyType() == TYPE_EMPTY) {
+					continue;
+				}
+				SegregationCell cell = new SegregationCell(oldGridCopy[row][col]);
+				boolean isMoving = cell.checkAndTakeAction(getNeighbors(row, col), myInfo).toMove();
+				if (isMoving) {
+					moveToNewSpot(oldGridCopy, row, col, cell);
+				} else if (!isMoving && oldGridCopy[row][col].getMyType() == TYPE_EMPTY) {
+					relocateToNewSpot(oldGridCopy, row, col, cell);
 				} else {
-					newGrid[row][col]=cell;
+					oldGridCopy[row][col] = cell;
 				}
 			}
 		}
-		super.setGrid(newGrid);
-		return newGrid;
+		super.setArrayGrid(oldGridCopy);
+		return new Grid(oldGridCopy);
+	}
+
+	private void relocateToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
+		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
+		System.out.printf("relocating type %d from %d, %d to %d, %d\n", cell.getMyType(), row, col, newPos.getRow(),
+				newPos.getCol());
+		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell);
 	}
 
 	/**
-	 * given the current position of the cell, move it to a new position in newGrid
+	 * given the current position of the cell, move it to a new position in
+	 * newGrid
+	 * 
 	 * @param newGrid
 	 * @param row current row
 	 * @param col current column
-	 * @param cell the cell
+	 * @param cell  the cell
 	 */
 	private void moveToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
-		int[] newPos=move(newGrid);
-		newGrid[row][col]=new SegregationCell(TYPE_EMPTY);
-		newGrid[newPos[0]][newPos[1]]=cell;
+		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
+		System.out.printf("moving type %d from %d, %d to %d, %d\n", cell.getMyType(), row, col, newPos.getRow(),
+				newPos.getCol());
+		newGrid[row][col] = new SegregationCell(TYPE_EMPTY);
+		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell.getMyType());
 	}
 
 	
 	/**
-	 * get the neighbors from the original grid
-	 * top, down, left, right
-	 * top-left, top-right
-	 * bottom-left, bottom-right
+	 * generates a position where newGrid contains an empty type cell
+	 */
+	protected ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
+		int iter = 0;
+		Random rn = new Random();
+		ArrayList<ArrayLocation> emptySpaces = findEmptySpaces(grid);
+		ArrayLocation location=emptySpaces.get(rn.nextInt(emptySpaces.size()));
+		int row=location.getRow(), col=location.getCol();
+		while (!(row != currentRow && col != currentCol) && iter < RANDOM_ITER_LIMIT) {
+			iter++;
+			location = emptySpaces.get(rn.nextInt(emptySpaces.size()));
+			row=location.getRow();
+			col=location.getCol();
+		}
+		if (!(row != currentRow && col != currentCol)) {
+			for(ArrayLocation loopLocation : emptySpaces){
+				if(!(grid[loopLocation.getRow()][loopLocation.getCol()].getMyType() == TYPE_EMPTY && loopLocation.getRow() != currentRow && loopLocation.getCol() != currentCol)){
+					return loopLocation;
+				}
+			}
+		}
+		return new ArrayLocation(row, col);
+	}
+
+	/**
+	 * finds all empty spaces in the current grid
+	 * 
+	 * @param grid
+	 * @return an ArrayList of GridLocation specifying the locations
+	 */
+	private ArrayList<ArrayLocation> findEmptySpaces(Cell[][] grid) {
+		ArrayList<ArrayLocation> locations = new ArrayList<ArrayLocation>();
+		int numRows = grid.length, numCols = grid[0].length;
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				if (grid[row][col].getMyType() == TYPE_EMPTY) {
+					locations.add(new ArrayLocation(row, col));
+				}
+			}
+		}
+		return locations;
+	}
+
+	/**
+	 * get the neighbors from the original grid top, down, left, right top-left,
+	 * top-right bottom-left, bottom-right
 	 */
 	@Override
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
-		ArrayList<Cell> output=new ArrayList<Cell>();	
-		for(int i=0; i<ROW_OFFSET.length; i++){
-			int resultant_row=row+ROW_OFFSET[i], resultant_col=col+COL_OFFSET[i];
-			if(super.isValidPosition(resultant_row, resultant_col)){
-				output.add(super.getGrid()[resultant_row][resultant_col]);
+		ArrayList<Cell> output = new ArrayList<Cell>();
+		for (int i = 0; i < ROW_OFFSET.length; i++) {
+			int resultant_row = row + ROW_OFFSET[i], resultant_col = col + COL_OFFSET[i];
+			if (super.isValidPosition(resultant_row, resultant_col)) {
+				output.add(super.getArrayGrid()[resultant_row][resultant_col]);
 			}
 		}
 		return output;
 	}
 
 	/**
-	 * generates a position where newGrid contains null, or an empty type cell
-	 */
-	protected int[] move(Cell[][] newGrid) {
-		int row=0, col=0;
-		Random rn=new Random();
-		while( !  (newGrid[row][col]==null || newGrid[row][col].getMyType()==TYPE_EMPTY)   ){
-			row=rn.nextInt(newGrid.length);
-			col=rn.nextInt(newGrid[0].length);
-		}
-		return new int[]{row, col};
-	}
-	
-	/**
 	 * updates the threshold for the cells to be satisfied
+	 * 
 	 * @param newInfo the new SegregationSimInfo object to be set to myInfo
+	 * @throws
 	 */
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
-		myInfo=(SegregationSimInfo) newInfo;
+		if(newInfo instanceof SegregationSimInfo){
+			myInfo = (SegregationSimInfo) newInfo;
+		} else {
+			throw new Error("newInfo must be SegregationSimInfo");
+		}
 	}
 
+	@Override
+	public SimulationInfo getSimInfo() {
+		return myInfo;
+	}
 	
 	/**
 	 * updates the threshold for the cells to be satisfied.
-	 * @param newThreshold new value for threshold
+	 * 
+	 * @param newThreshold
+	 *            new value for threshold
 	 */
 	public void setThreshold(int newThreshold) {
 		myInfo.setThreshold(newThreshold);
 	}
+
+
 
 
 }

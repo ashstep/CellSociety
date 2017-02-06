@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
 /**
  * Class that implements the unique properties of the fire simulation
  * @author Ashka Stephen
@@ -35,8 +36,12 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
+<<<<<<< HEAD
 		
 		super.setGrid(cellGrid);
+=======
+		super.setArrayGrid(cellGrid);
+>>>>>>> 2d5e6f59f990ce166d5203988370ce0fc793dd41
 	}
 	
 	//////NEW STUFF ADDEDE !!!!!!!	
@@ -54,6 +59,7 @@ public class FireSim extends Simulation {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public SimulationInfo getSimInfo() {
 		return myInfo;
 	}
@@ -75,12 +81,20 @@ public class FireSim extends Simulation {
 			for(int col = 0; col < numCol; col++){
 				
 				FireCell add = new FireCell((FireCell) super.getGrid()[row][col]);
+=======
+	public Grid updateGrid() {
+		int numRows=super.getNumRows(), numCols=super.getNumRows();
+		Cell[][] newGrid=new Cell[numRows][numCols];
+		for(int row=0; row<numRows; row++){
+			for(int col=0; col<numCols; col++){
+				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
+>>>>>>> 2d5e6f59f990ce166d5203988370ce0fc793dd41
 				newGrid[row][col] = add;
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
 			}
 		}
-		setGrid(newGrid);
-		return newGrid;
+		setArrayGrid(newGrid);
+		return new Grid(newGrid);
 	}
 
 	/**
@@ -88,12 +102,20 @@ public class FireSim extends Simulation {
 	 */
 	@Override
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
+<<<<<<< HEAD
 		ArrayList<Cell> output = new ArrayList<Cell>();	
 		for(int i = 0; i< ROW_OFFSET.length; i++){
 			int finalRow = row + ROW_OFFSET[i], finalCol = col+COL_OFFSET[i];
 			
 			if(super.isValidPosition(finalRow, finalCol)){
 				output.add(super.getGrid()[finalRow][finalCol]);
+=======
+		ArrayList<Cell> output=new ArrayList<Cell>();	
+		for(int i = 0; i<ROW_OFFSET.length; i++){
+			int resultant_row = row+ROW_OFFSET[i], resultant_col = col+COL_OFFSET[i];
+			if(isValidPosition(resultant_row, resultant_col)){
+				output.add(getArrayGrid()[resultant_row][resultant_col]);
+>>>>>>> 2d5e6f59f990ce166d5203988370ce0fc793dd41
 			}
 		}
 		return output;
