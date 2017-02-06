@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import back_end.Simulation;
+import back_end.Fire.FireSim;
 import back_end.PredatorPrey.PredatorPreySim;
 import back_end.Segregation.SegregationSim;
 import back_end.gameOfLifePack.GameOfLifeSim;
@@ -54,9 +55,7 @@ public class XMLReader
 
 	private Simulation createFireSim()
 	{
-		//FireSim simulation = new FireSim();
-		
-		//return simulation;
+		//FireSim simulation = new FireSim(null); return simulation;
 		return null;
 	}
 

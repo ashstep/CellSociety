@@ -22,7 +22,7 @@ public class FireCell extends Cell {
 	
 	/**
 	 * default constructor
-	 * @param type type of the cell
+	 * @param type of the cell
 	 */
 	public FireCell(int type) {
 		super(type);
@@ -35,8 +35,6 @@ public class FireCell extends Cell {
 	public FireCell(FireCell anotherCell) {
 		this(anotherCell.getMyType());
 	}
-
-	
 
 	/**
 	 * only need to check status of neighbors, simInfo is unused
@@ -51,13 +49,10 @@ public class FireCell extends Cell {
 				burningNeighbors++;
 			}
 		}
-		
-		//if there is no tree or a dead tree, the cell remains empty
 		if (isEmpty()){
 			return new ActionBySim(false);
 		}
 
-		//if a tree was burning on the last time step, it will be empty on the following
 		if (isBurning()){
 			setTreeEmpty();
 			return new ActionBySim(false);
@@ -75,9 +70,6 @@ public class FireCell extends Cell {
 	 * Getters and setters for the state of the tree
 	 *
 	 */
-	private void setTreeAlive(){
-		setMyType(STATE_TREE);
-	}
 
 	private boolean isAlive(){
 		return getMyType() == STATE_TREE;
