@@ -26,8 +26,8 @@ public class FireSim extends Simulation {
 	public FireSim(int[][] typeGrid, double probCatch){
 		myInfo = new FireSimInfo(probCatch);
 
-		int numRows = typeGrid.length + 2 ;
-		int numCols = typeGrid[0].length + 2 ;
+		int numRows = typeGrid.length ;
+		int numCols = typeGrid[0].length ;
 		FireCell[][] cellGrid = new FireCell[numRows][numCols];
 		//start at 1 ends at  numRows-1
 		//typeGrid[row-1][col-1]
