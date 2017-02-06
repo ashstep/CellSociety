@@ -66,6 +66,7 @@ public class Main extends Application
 
 	private void step (GUI inContainer)
 	{
+		System.out.println("step");
 		inContainer.renderGrid(simulation.updateGrid());
 	}
 
