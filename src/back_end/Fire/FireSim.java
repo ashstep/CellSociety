@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PredatorPreySimInfo;
 import utilities.ArrayLocation;
 import utilities.Grid;
 /**
@@ -19,7 +18,6 @@ public class FireSim extends Simulation {
 	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
 	private final int[] COL_OFFSET = {0, 0,-1, 1};
 	private FireSimInfo myInfo;
-
 	/**
 	 * Constructor
 	 * @param probablilty of the tree catching on fire and a int[][] that holds the location 
@@ -31,9 +29,10 @@ public class FireSim extends Simulation {
 		int numRows = typeGrid.length + 2 ;
 		int numCols = typeGrid[0].length + 2 ;
 		FireCell[][] cellGrid = new FireCell[numRows][numCols];
-		
-		for(int row = 1; row < numRows-1 ; row++){
-			for(int col = 1 ; col < numCols-1 ; col++){
+		//start at 1 ends at  numRows-1
+		//typeGrid[row-1][col-1]
+		for(int row = 0; row < numRows ; row++){
+			for(int col = 0 ; col < numCols; col++){
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
@@ -55,9 +54,33 @@ public class FireSim extends Simulation {
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
 			}
 		}
+
+//		
+//		int totalRows = super.getNumRows();
+//		int totalCol = super.getNumCols();
+//		
+//		Cell[][] gridWithoutBorders = new Cell[totalRows][totalCol];
+//		for(int row=0; row<numRows; row++){
+//			for(int col=0; col<numCols; col++){
+//				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
+//				newGrid[row][col] = add;
+//				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
+//			}
+//		}
+//
+//		
+
 		setArrayGrid(newGrid);
 		return new Grid(newGrid);
 	}
+	
+	
+	//returns without the border from update grid
+	public Grid withoutBorder() {
+		return null;
+	}
+	
+	
 
 	/**
 	 * Getting the neighbors 
