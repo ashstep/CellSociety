@@ -1,6 +1,7 @@
 package front_end;
 
-import back_end.Cell;
+import java.util.function.Consumer;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -56,20 +57,24 @@ public class GUI
 			for (int y = 0; y < cellGrid.getNumCols(); y++)
 			{
 				grid[x][y].setFill(cellGrid.getColorAt(x, y));
-				grid[x][y].setStroke(Color.BLACK);
 			}
 		}
 	}
-	public void initPPSButtons(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
+	public void initSimParameterInterface(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod, Consumer<Number> sliderMethod)
 	{
 		panel.setPlay(playMethod);
 		panel.setPause(pauseMethod);
 		panel.setStep(stepMethod);
-		panel.setSlider();
+		panel.setSlider(sliderMethod);
 	}
 
 	public void initNewSimButton(Runnable newSimMethod)
 	{
 		panel.setNewSim(newSimMethod);
+	}
+
+	public double getSliderValue()
+	{
+		return panel.getSliderDouble();
 	}
 }

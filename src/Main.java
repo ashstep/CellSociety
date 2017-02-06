@@ -1,5 +1,7 @@
 import front_end.GUI;
 
+import java.util.function.Consumer;
+
 import back_end.Simulation;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -39,23 +41,28 @@ public class Main extends Application
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		
+		Consumer<Number> sliderFunction = (Number n) -> animation.setRate(n.doubleValue());
+		
 		container.initNewSimButton(() ->
 		{
 			animation.pause();
 			reader.chooseFile(s);
 			simulation = reader.getSimulation();
-			container.initPPSButtons(
+			container.initSimParameterInterface(
 					() -> animation.play(),
 					() -> animation.pause(),
 					() -> 
 					{
 						if (animation.getStatus() == Animation.Status.PAUSED || animation.getStatus() == Animation.Status.STOPPED)
 							step(container);
-					});
+					},
+					sliderFunction);
+			
 			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
 			container.renderGrid(simulation.getGrid());
+			animation.setRate(container.getSliderValue());
 		});
-	}    
+	}
 
 	private void step (GUI inContainer)
 	{
