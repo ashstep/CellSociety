@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.ArrayLocation;
 import utilities.Grid;
 public class GameOfLifeSim extends Simulation{
 	
@@ -62,18 +63,26 @@ public class GameOfLifeSim extends Simulation{
 	
 
 	/**
-	 * no use in this class as cells do not move
-	 */
-	protected int[] move(Cell[][] newGrid) {
-		return null;
-	}
-
-	/**
 	 * no general environment attribute in this simulation so no use
 	 */
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
 		
 	}
+
+
+	@Override
+	protected ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public SimulationInfo getSimInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

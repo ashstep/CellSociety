@@ -80,7 +80,7 @@ public class SharkCell extends PredatorPreyCell{
 
 	
 	/**
-	 * 
+	 * Given the starve threshold, determine if the shark is starved to death
 	 * @param starveThreshold
 	 * @return true if the shark has died
 	 */
@@ -88,5 +88,9 @@ public class SharkCell extends PredatorPreyCell{
 		return timeSinceDinner>starveThreshold;
 	}
 	
+	
+	public void resetTimeSinceDinner(){
+		timeSinceDinner=0;
+	}
 	
 }

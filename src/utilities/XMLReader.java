@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import back_end.Simulation;
+import back_end.Fire.FireSim;
 import back_end.PredatorPrey.PredatorPreySim;
 import back_end.Segregation.SegregationSim;
 import back_end.gameOfLifePack.GameOfLifeSim;
@@ -46,17 +47,22 @@ public class XMLReader
 
 	private Simulation createPredatorPreySim()
 	{
-		//PredatorPreySim simulation = new PredatorPreySim();
+		NodeList nList = doc.getElementsByTagName("SharkBreedTime");
+		int sharkBreedTime = Integer.parseInt(nList.item(0).getTextContent());
+
+		nList = doc.getElementsByTagName("SharkStarveTime");
+		int sharkStarveTime = Integer.parseInt(nList.item(0).getTextContent());
 		
-		//return simulation;
-		return null;
+		
+		nList = doc.getElementsByTagName("FishBreedTime");
+		int fishBreedTime = Integer.parseInt(nList.item(0).getTextContent());
+		
+		return new PredatorPreySim(createGrid(), sharkBreedTime, sharkStarveTime, fishBreedTime);
 	}
 
 	private Simulation createFireSim()
 	{
-		//FireSim simulation = new FireSim();
-		
-		//return simulation;
+		//FireSim simulation = new FireSim(null); return simulation;
 		return null;
 	}
 
