@@ -77,5 +77,12 @@ public class GameOfLifeSim extends Simulation{
 		return null;
 	}
 
+
+	@Override
+	public SimulationInfo getSimInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
