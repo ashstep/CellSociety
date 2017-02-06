@@ -33,9 +33,6 @@ public abstract class Simulation{
 	//TODO rename move to findEmptySpot
 	protected abstract ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
 	
-	
-	
-	
 	/**
 	 * getter method
 	 * @return Grid containing cell info
