@@ -1,7 +1,5 @@
 package back_end;
 import java.util.ArrayList;
-
-import back_end.Segregation.SegregationCell;
 import utilities.Grid;
 import utilities.ArrayLocation;
 public abstract class Simulation{
@@ -30,7 +28,6 @@ public abstract class Simulation{
 	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
-	//TODO rename move to findEmptySpot
 	protected abstract ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
 	
 	/**

@@ -9,7 +9,6 @@ import back_end.SimulationInfo;
 import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
-import back_end.Segregation.SegregationCell;
 import utilities.ArrayLocation;
 import utilities.Grid;
 

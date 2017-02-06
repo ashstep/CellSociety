@@ -14,7 +14,6 @@ import utilities.Grid;
  */
 
 public class FireSim extends Simulation {
-	private final int emptyCell = 0;
 	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
 	private final int[] COL_OFFSET = {0, 0,-1, 1};
 	private FireSimInfo myInfo;
