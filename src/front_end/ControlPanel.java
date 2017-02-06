@@ -2,6 +2,7 @@ package front_end;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -35,7 +36,9 @@ public class ControlPanel
 		play = new Button(appProps.getProperty("playButton"));
 		step = new Button(appProps.getProperty("stepButton"));
 		newSim = new Button(appProps.getProperty("newSimButton"));
-		bar.getItems().addAll(play,pause,step,newSim);
+		slider = new Slider(.005, .15, .05);
+		
+		bar.getItems().addAll(play,pause,step,newSim, slider);
 	}
 
 	public void setPause(Runnable r)
@@ -79,13 +82,15 @@ public class ControlPanel
 			}
 		});
 	}
-	public void setSlider()
+	public void setSlider(Consumer<Number> r)
 	{
-		slider = new Slider(50, 1000, 300);
 		slider.valueProperty().addListener((
 	            ObservableValue<? extends Number> ov, Number old_val, 
-	            Number new_val) -> { 
-	           	
-	        });
+	            Number new_val) -> r.accept(new_val));
+	}
+
+	public double getSliderDouble() 
+	{
+		return slider.getValue();
 	}
 }
