@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PredatorPreySimInfo;
+import utilities.ArrayLocation;
 import utilities.Grid;
 /**
  * Class that implements the unique properties of the fire simulation
@@ -13,7 +15,6 @@ import utilities.Grid;
  */
 
 public class FireSim extends Simulation {
-
 	private final int emptyCell = 0;
 	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
 	private final int[] COL_OFFSET = {0, 0,-1, 1};
@@ -36,28 +37,8 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-		
-		super.setGrid(cellGrid);
-
+		super.setArrayGrid(cellGrid);
 	}
-	
-	//////NEW STUFF ADDEDED fix
-
-	@Override
-	public void setSimInfo(SimulationInfo newInfo) {
-		myInfo=(SegregationSimInfo) newInfo;
-		if(newInfo instanceof SegregationSimInfo){
-			myInfo = (SegregationSimInfo) newInfo;
-		} else {
-			throw new Error("newInfo must be SegregationSimInfo");
-		}
-	}
-
-	@Override
-	public SimulationInfo getSimInfo() {
-		return myInfo;
-	}
-	////////////////////////////////////////////
 
 
 	/**
@@ -85,23 +66,34 @@ public class FireSim extends Simulation {
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
 		ArrayList<Cell> output = new ArrayList<Cell>();	
 		for(int i = 0; i< ROW_OFFSET.length; i++){
-			int finalRow = row + ROW_OFFSET[i], finalCol = col+COL_OFFSET[i];
-			
+			int finalRow = row + ROW_OFFSET[i];
+			int finalCol = col+COL_OFFSET[i];
 			if(super.isValidPosition(finalRow, finalCol)){
-				output.add(super.getGrid()[finalRow][finalCol]);
+				output.add(super.getArrayGrid()[finalRow][finalCol]);
 			}
 		}
 		return output;
 	}
 
+
 	@Override
-	protected int[] move(Cell[][] newGrid, int oldRow, int oldCol,FireCell cell) {
-		newGrid[row][col] = new FireCell(emptyCell);
-		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell.getMyType());
+	protected ArrayLocation findEmptySpots(Cell[][] newgrid, int currentRow, int currentCol) {
+		return null;
 	}
+
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
-		// TODO Auto-generated method stub
+		if(newInfo instanceof FireSimInfo){
+			myInfo = (FireSimInfo) newInfo;
+		} else {
+			throw new Error("Information is not valid");
+		}
 	}
+
+	@Override
+	public SimulationInfo getSimInfo() {
+		return myInfo;
+	}
+
 
 }
