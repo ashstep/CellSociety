@@ -47,10 +47,17 @@ public class XMLReader
 
 	private Simulation createPredatorPreySim()
 	{
-		PredatorPreySim simulation = new PredatorPreySim(null, 0, 0, 0);
+		NodeList nList = doc.getElementsByTagName("SharkBreedTime");
+		int sharkBreedTime = Integer.parseInt(nList.item(0).getTextContent());
+
+		nList = doc.getElementsByTagName("SharkStarveTime");
+		int sharkStarveTime = Integer.parseInt(nList.item(0).getTextContent());
 		
-		//return simulation;
-		return null;
+		
+		nList = doc.getElementsByTagName("FishBreedTime");
+		int fishBreedTime = Integer.parseInt(nList.item(0).getTextContent());
+		
+		return new PredatorPreySim(createGrid(), sharkBreedTime, sharkStarveTime, fishBreedTime);
 	}
 
 	private Simulation createFireSim()
