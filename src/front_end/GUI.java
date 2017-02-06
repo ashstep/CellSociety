@@ -60,19 +60,21 @@ public class GUI
 			}
 		}
 	}
-	public void initSimParameterInterface(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod, Consumer<Number> sliderMethod)
+	public void initSimParameterInterface(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
 	{
 		panel.setPlay(playMethod);
 		panel.setPause(pauseMethod);
 		panel.setStep(stepMethod);
-		panel.setSlider(sliderMethod);
-	}
-
+	}	
 	public void initNewSimButton(Runnable newSimMethod)
 	{
 		panel.setNewSim(newSimMethod);
 	}
 
+	public void initSlider(Consumer<Number> r)
+	{
+		panel.setSlider(r);
+	}
 	public double getSliderValue()
 	{
 		return panel.getSliderDouble();

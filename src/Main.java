@@ -40,8 +40,10 @@ public class Main extends Application
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
+		animation.setRate(container.getSliderValue());
 		
 		Consumer<Number> sliderFunction = (Number n) -> animation.setRate(n.doubleValue());
+		container.initSlider(sliderFunction);
 		
 		container.initNewSimButton(() ->
 		{
@@ -55,12 +57,10 @@ public class Main extends Application
 					{
 						if (animation.getStatus() == Animation.Status.PAUSED || animation.getStatus() == Animation.Status.STOPPED)
 							step(container);
-					},
-					sliderFunction);
+					});
 			
 			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
 			container.renderGrid(simulation.getGrid());
-			animation.setRate(container.getSliderValue());
 		});
 	}
 
