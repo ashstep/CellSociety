@@ -31,7 +31,7 @@ public class XMLReader
 	public Simulation getSimulation()
 	{
 		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) return createGameOfLifeSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Tree Fire")) return createFireSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) return createFireSim();
 		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) return createPredatorPreySim();
 		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) return createSegregationSim();
 		
@@ -53,7 +53,6 @@ public class XMLReader
 		nList = doc.getElementsByTagName("SharkStarveTime");
 		int sharkStarveTime = Integer.parseInt(nList.item(0).getTextContent());
 		
-		
 		nList = doc.getElementsByTagName("FishBreedTime");
 		int fishBreedTime = Integer.parseInt(nList.item(0).getTextContent());
 		
@@ -62,8 +61,10 @@ public class XMLReader
 
 	private Simulation createFireSim()
 	{
-		//FireSim simulation = new FireSim(null); return simulation;
-		return null;
+		NodeList nList = doc.getElementsByTagName("FireProbability");
+		int probFire = Integer.parseInt(nList.item(0).getTextContent());
+		
+		return new FireSim(createGrid(), probFire);
 	}
 
 	private Simulation createGameOfLifeSim()
