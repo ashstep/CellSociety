@@ -72,8 +72,6 @@ public class SegregationSim extends Simulation {
 
 	private void relocateToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
 		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
-		System.out.printf("relocating type %d from %d, %d to %d, %d\n", cell.getMyType(), row, col, newPos.getRow(),
-				newPos.getCol());
 		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell);
 	}
 
@@ -88,8 +86,6 @@ public class SegregationSim extends Simulation {
 	 */
 	private void moveToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
 		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
-		System.out.printf("moving type %d from %d, %d to %d, %d\n", cell.getMyType(), row, col, newPos.getRow(),
-				newPos.getCol());
 		newGrid[row][col] = new SegregationCell(TYPE_EMPTY);
 		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell.getMyType());
 	}
