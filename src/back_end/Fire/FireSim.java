@@ -36,17 +36,12 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-<<<<<<< HEAD
 		
 		super.setGrid(cellGrid);
-=======
-		super.setArrayGrid(cellGrid);
->>>>>>> 2d5e6f59f990ce166d5203988370ce0fc793dd41
+
 	}
 	
-	//////NEW STUFF ADDEDE !!!!!!!	
-	//////NEW STUFF ADDEDE !!!!!!!
-	//////NEW STUFF ADDEDE !!!!!!!
+	//////NEW STUFF ADDEDED fix
 
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
@@ -59,7 +54,6 @@ public class FireSim extends Simulation {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public SimulationInfo getSimInfo() {
 		return myInfo;
 	}
@@ -70,25 +64,12 @@ public class FireSim extends Simulation {
 	 * Creates a new grid which stores updated values of the cells based on interactions
 	 */
 	@Override
-	public Cell[][] updateGrid() {
-		int numRows = super.getNumRows();
-		int numCol = super.getNumCols();
-		
-		//create a copy of the grid	
-		Cell[][] newGrid = new Cell[numRows][numCol];
-		
-		for(int row = 0; row < numRows; row++){
-			for(int col = 0; col < numCol; col++){
-				
-				FireCell add = new FireCell((FireCell) super.getGrid()[row][col]);
-=======
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
 		Cell[][] newGrid=new Cell[numRows][numCols];
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
 				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
->>>>>>> 2d5e6f59f990ce166d5203988370ce0fc793dd41
 				newGrid[row][col] = add;
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
 			}
@@ -102,20 +83,12 @@ public class FireSim extends Simulation {
 	 */
 	@Override
 	protected ArrayList<Cell> getNeighbors(int row, int col) {
-<<<<<<< HEAD
 		ArrayList<Cell> output = new ArrayList<Cell>();	
 		for(int i = 0; i< ROW_OFFSET.length; i++){
 			int finalRow = row + ROW_OFFSET[i], finalCol = col+COL_OFFSET[i];
 			
 			if(super.isValidPosition(finalRow, finalCol)){
 				output.add(super.getGrid()[finalRow][finalCol]);
-=======
-		ArrayList<Cell> output=new ArrayList<Cell>();	
-		for(int i = 0; i<ROW_OFFSET.length; i++){
-			int resultant_row = row+ROW_OFFSET[i], resultant_col = col+COL_OFFSET[i];
-			if(isValidPosition(resultant_row, resultant_col)){
-				output.add(getArrayGrid()[resultant_row][resultant_col]);
->>>>>>> 2d5e6f59f990ce166d5203988370ce0fc793dd41
 			}
 		}
 		return output;
