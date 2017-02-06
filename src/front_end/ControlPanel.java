@@ -84,9 +84,8 @@ public class ControlPanel
 	}
 	public void setSlider(Consumer<Number> r)
 	{
-		slider.valueProperty().addListener((
-	            ObservableValue<? extends Number> ov, Number old_val, 
-	            Number new_val) -> r.accept(new_val));
+		slider.valueProperty().addListener (
+				(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> r.accept(new_val));
 	}
 
 	public double getSliderDouble() 
