@@ -9,6 +9,7 @@ import back_end.SimulationInfo;
 import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
+import back_end.Segregation.SegregationCell;
 import utilities.ArrayLocation;
 import utilities.Grid;
 
@@ -23,8 +24,6 @@ public class PredatorPreySim extends Simulation {
 	private final int EMPTY = 0;
 	private final int[] ROW_OFFSET = { 1, -1, 0, 0 };
 	private final int[] COL_OFFSET = { 0, 0, 1, -1 };
-	private Random rn;
-
 	/**
 	 * constructor
 	 * 
@@ -61,13 +60,31 @@ public class PredatorPreySim extends Simulation {
 	 */
 	@Override
 	public Grid updateGrid() {
-		PredatorPreyCell[][] oldGridCopy = (PredatorPreyCell[][]) super.copyArray(super.getArrayGrid());
+		PredatorPreyCell[][] oldGridCopy = (PredatorPreyCell[][]) copyArray(super.getArrayGrid());
 		updateSharks(oldGridCopy);	
 		updateFish(oldGridCopy);
 		setArrayGrid(oldGridCopy);
 		return new Grid(oldGridCopy);
 	}
 
+	
+	/**
+	 * makes a copy of an old array. Each element is also points to a new copy
+	 * 
+	 * @param oldArray
+	 * @return newArray
+	 */
+	protected PredatorPreyCell[][] copyArray(Cell[][] oldArray) {
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		PredatorPreyCell[][] copiedArray = new PredatorPreyCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				makeCellCopyAt(copiedArray, new ArrayLocation(row, col), (PredatorPreyCell)oldArray[row][col]);
+			}
+		}
+		return copiedArray;
+	}
 
 
 	/**
@@ -102,7 +119,8 @@ public class PredatorPreySim extends Simulation {
 		} else if (furtherActions.toEat() && ppCell.getMyType()==SHARK) {
 			ArrayList<ArrayLocation> fishNeighborLocations = getNeighborLocationByType(currentLocation.getRow(), currentLocation.getCol(), FISH);
 			if (fishNeighborLocations.size() != 0) {
-				ArrayLocation fishToEatLocation = fishNeighborLocations.get(rn.nextInt(fishNeighborLocations.size()));
+				int randLoc=new Random().nextInt(fishNeighborLocations.size());
+				ArrayLocation fishToEatLocation = fishNeighborLocations.get(randLoc);
 				killCell(grid, fishToEatLocation);
 				((SharkCell) ppCell).resetTimeSinceDinner();
 			}
@@ -267,8 +285,8 @@ public class PredatorPreySim extends Simulation {
 	private boolean createCellInVincinity(PredatorPreyCell[][] grid, ArrayLocation currentLocation, int cellType) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
 		ArrayLocation newPos = findEmptySpots(grid, row, col);
-		System.out.printf("moving type %d from %d, %d to %d, %d\n", cellType, currentLocation.getRow(),
-				currentLocation.getCol(), newPos.getRow(), newPos.getCol());
+//		System.out.printf("moving type %d from %d, %d to %d, %d\n", cellType, currentLocation.getRow(),
+//				currentLocation.getCol(), newPos.getRow(), newPos.getCol());
 		createPPCellAt(grid, newPos, cellType);
 		return newPos.equals(currentLocation);
 	}
@@ -301,6 +319,7 @@ public class PredatorPreySim extends Simulation {
 	protected ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
 		ArrayList<ArrayLocation> emptySpaces = getNeighborLocationByType(currentRow, currentCol, EMPTY);
 		ArrayLocation location;
+		Random rn=new Random();
 		if (emptySpaces.size() != 0) {
 			location = emptySpaces.get(rn.nextInt(emptySpaces.size()));
 		} else {

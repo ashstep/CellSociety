@@ -100,21 +100,5 @@ public abstract class Simulation{
 	}
 	
 	
-	/**
-	 * makes a copy of an old array. Each element is also points to a new copy
-	 * 
-	 * @param oldArray
-	 * @return newArray
-	 */
-	protected Cell[][] copyArray(Cell[][] oldArray) {
-		int numRows = oldArray.length;
-		int numCols = oldArray[0].length;
-		SegregationCell[][] copiedArray = new SegregationCell[numRows][numCols];
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				copiedArray[row][col] = new SegregationCell((SegregationCell) oldArray[row][col]);
-			}
-		}
-		return copiedArray;
-	}
+	
 }
