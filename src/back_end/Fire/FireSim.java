@@ -51,6 +51,7 @@ public class FireSim extends Simulation {
 			for(int col=0; col<numCols; col++){
 				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
 				newGrid[row][col] = add;
+				System.out.println("update grid was called");
 				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
 			}
 		}

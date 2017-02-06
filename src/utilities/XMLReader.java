@@ -62,7 +62,8 @@ public class XMLReader
 	private Simulation createFireSim()
 	{
 		NodeList nList = doc.getElementsByTagName("FireProbability");
-		int probFire = Integer.parseInt(nList.item(0).getTextContent());
+		//double probFire = Integer.parseInt(nList.item(0).getTextContent());
+		double probFire = Double.parseDouble(nList.item(0).getTextContent());
 		
 		return new FireSim(createGrid(), probFire);
 	}
