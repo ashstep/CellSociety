@@ -28,8 +28,6 @@ public class FireSim extends Simulation {
 		int numRows = typeGrid.length ;
 		int numCols = typeGrid[0].length ;
 		FireCell[][] cellGrid = new FireCell[numRows][numCols];
-		//start at 1 ends at  numRows-1
-		//typeGrid[row-1][col-1]
 		for(int row = 0; row < numRows ; row++){
 			for(int col = 0 ; col < numCols; col++){
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
@@ -44,7 +42,6 @@ public class FireSim extends Simulation {
 	 */
 	@Override
 	public Grid updateGrid() {
-		System.out.println("update grid was called");
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
 		Cell[][] newGrid=new Cell[numRows][numCols];
 		for(int row=0; row<numRows; row++){
@@ -55,27 +52,12 @@ public class FireSim extends Simulation {
 			}
 		}
 
-//		
-//		int totalRows = super.getNumRows();
-//		int totalCol = super.getNumCols();
-//		
-//		Cell[][] gridWithoutBorders = new Cell[totalRows][totalCol];
-//		for(int row=0; row<numRows; row++){
-//			for(int col=0; col<numCols; col++){
-//				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
-//				newGrid[row][col] = add;
-//				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
-//			}
-//		}
-//
-//		
 
 		setArrayGrid(newGrid);
 		return new Grid(newGrid);
 	}
 	
 	
-	//returns without the border from update grid
 	public Grid withoutBorder() {
 		return null;
 	}

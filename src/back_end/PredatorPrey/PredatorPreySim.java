@@ -284,8 +284,6 @@ public class PredatorPreySim extends Simulation {
 	private boolean createCellInVincinity(PredatorPreyCell[][] grid, ArrayLocation currentLocation, int cellType) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
 		ArrayLocation newPos = findEmptySpots(grid, row, col);
-//		System.out.printf("moving type %d from %d, %d to %d, %d\n", cellType, currentLocation.getRow(),
-//				currentLocation.getCol(), newPos.getRow(), newPos.getCol());
 		createPPCellAt(grid, newPos, cellType);
 		return newPos.equals(currentLocation);
 	}
@@ -303,8 +301,6 @@ public class PredatorPreySim extends Simulation {
 	private ArrayLocation copyCellInVincinity(PredatorPreyCell[][] grid, ArrayLocation currentLocation, PredatorPreyCell cell) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
 		ArrayLocation newPos = findEmptySpots(grid, row, col);
-		System.out.printf("moving type %d from %d, %d to %d, %d\n", cell.getMyType(), currentLocation.getRow(),
-				currentLocation.getCol(), newPos.getRow(), newPos.getCol());
 		makeCellCopyAt(grid, newPos, cell);
 		return newPos;
 	}

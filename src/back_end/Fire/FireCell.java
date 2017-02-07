@@ -46,11 +46,9 @@ public class FireCell extends Cell {
 	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
 		int burningNeighbors = 0;
 		double randProbofFire = new Random().nextDouble();
-//		System.out.println("randProbofFire: "+  randProbofFire);
 		for(Cell neighbor: neighbors){
 			if(neighbor.getMyType() == STATE_BURNING){
 				burningNeighbors++;
-//				System.out.println("num of burnign neightboores: "+  burningNeighbors);
 			}
 		}
 		if (isEmpty()){
@@ -63,12 +61,8 @@ public class FireCell extends Cell {
 		}
 
 
-		// burningNeighbors > 0 &&
 		if((isAlive()) && (randProbofFire <= ((FireSimInfo)simInfo).getProbCatch()) && (burningNeighbors!=0)){
 			setTreeBurning();
-			System.out.println("randProbofFire: "+  randProbofFire);
-			System.out.println("the comparision was to  "+   ((FireSimInfo)simInfo).getProbCatch() );
-			System.out.println("evaluated to "+  (randProbofFire >= ((FireSimInfo)simInfo).getProbCatch()) );
 			return new ActionBySim(false);
 		}
 		return new ActionBySim(false);

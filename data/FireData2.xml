@@ -3,17 +3,17 @@
   <title>test</title>
   <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
   <SimParameters>
-	<FireProbability>.01</FireProbability>
+	<FireProbability>.4</FireProbability>
   </SimParameters>
   <Dimensions>
     <GridWidth>5</GridWidth>
     <GridHeight>5</GridHeight>
   </Dimensions>
   <InitialGridState>
-	<row>1 1 1 1 1</row>
+	<row>1 1 2 1 1</row>
 	<row>0 1 1 1 0</row>
 	<row>0 1 0 0 2</row>
-	<row>0 2 1 0 0</row>
+	<row>0 1 1 0 0</row>
 	<row>1 0 0 1 0 </row>
   </InitialGridState>
 </Simulation>

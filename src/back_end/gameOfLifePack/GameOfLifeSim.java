@@ -10,7 +10,6 @@ public class GameOfLifeSim extends Simulation{
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
 	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
 	
-	//repeated code for setting up Grid?
 	public GameOfLifeSim(int[][] typeGrid){
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
