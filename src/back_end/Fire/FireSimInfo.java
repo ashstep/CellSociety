@@ -7,18 +7,18 @@ import back_end.SimulationInfo;
  *
  */
 public class FireSimInfo extends SimulationInfo{
-	private double probCatch;
+	private double myProbCatch;
 	
 	public FireSimInfo(double probCatch) {
-		probCatch = probCatch;
+		myProbCatch = probCatch;
 	}
 	
-	public double getSimInfo(){
-		return probCatch;
+	public double getProbCatch(){
+		return myProbCatch;
 	}
 	
-	public double setSimInfo(double newProbCatch){
-		this.probCatch = newProbCatch;
+	public double setProbCatch(double newProbCatch){
+		this.myProbCatch = newProbCatch;
 		return newProbCatch;
 	}
 

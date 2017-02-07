@@ -11,7 +11,7 @@ public class ActionByPPSim extends ActionBySim{
 	private boolean reproduce;
 	private boolean eat;
 	private boolean die;
-	private int creatorType;
+	private int myCreatorType;
 	private final int SHARK=2;
 
 	/**
@@ -27,6 +27,7 @@ public class ActionByPPSim extends ActionBySim{
 		reproduce=toReproduce;
 		eat=toEat;
 		die=toDie;
+		myCreatorType=creatorType;
 	}
 	
 	/**
@@ -50,6 +51,6 @@ public class ActionByPPSim extends ActionBySim{
 	 * @return true if cell is to eat another adjacent cell AND the cell is a shark
 	 */
 	public boolean toEat(){
-		return eat && creatorType==SHARK;
+		return eat && myCreatorType==SHARK;
 	}
 }
