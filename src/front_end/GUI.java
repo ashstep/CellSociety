@@ -71,12 +71,20 @@ public class GUI
 		panel.setNewSim(newSimMethod);
 	}
 
-	public void initSlider(Consumer<Number> r)
+	public void initSpeedSlider(Consumer<Number> r)
 	{
 		panel.setSlider(r);
 	}
-	public double getSliderValue()
+	public double getSpeedSliderValue()
 	{
 		return panel.getSliderDouble();
+	}
+	public void createSimSlider(Consumer<Number> r, String sliderName, double d, double e, double f)
+	{
+		panel.addSimSlider(r, sliderName, d, e, f);
+	}
+	public void clearSimSliders()
+	{
+		panel.clearSimSliders();
 	}
 }

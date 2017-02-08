@@ -25,7 +25,7 @@ public class GraphHandler {
 		return new Scene(root, 400,300);
 	}
 	
-	public void buildGraph(Grid grid)
+	public void initGraph(Grid grid)
 	{
 		counter = 0;
 		xAxis = new NumberAxis();
@@ -45,6 +45,7 @@ public class GraphHandler {
         	lineChart.getData().add(seriesContainer.get(x));
         	seriesContainer.get(x).setName(x);
         }
+        renderGraph(grid);
 	}
 	
 	public void renderGraph(Grid grid)

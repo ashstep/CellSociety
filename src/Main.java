@@ -15,7 +15,8 @@ import utilities.XMLReader;
 public class Main extends Application
 {
 	public static final String TITLE = "Simulator";
-	public static final int SIZE = 600;
+	public static final int WIDTH = 700;
+	public static final int HEIGHT = 600;
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -28,7 +29,7 @@ public class Main extends Application
 	 */
 	public void start (Stage s)
 	{	
-		GUI container = new GUI(SIZE,SIZE); 
+		GUI container = new GUI(WIDTH,HEIGHT); 
 		s.setScene(container.buildScene());
 		s.setTitle(TITLE);
 		s.show();
@@ -40,10 +41,10 @@ public class Main extends Application
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-		animation.setRate(container.getSliderValue());
+		animation.setRate(container.getSpeedSliderValue());
 		
 		Consumer<Number> sliderFunction = (Number n) -> animation.setRate(n.doubleValue());
-		container.initSlider(sliderFunction);
+		container.initSpeedSlider(sliderFunction);
 		
 		Stage graphStage = new Stage();
 		graphHandler = new GraphHandler();
@@ -65,11 +66,22 @@ public class Main extends Application
 					});
 			
 			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
+			initializeSimSliders(container);
 			container.renderGrid(simulation.getGrid());
-			graphHandler.buildGraph(simulation.getGrid());
-			graphHandler.renderGraph(simulation.getGrid());
+			graphHandler.initGraph(simulation.getGrid());
 		});
 		
+	}
+
+	private void initializeSimSliders(GUI container)
+	{
+		container.clearSimSliders();
+		for (String x : simulation.getParameterList())
+		{
+			container.createSimSlider(simulation.getChangeMethod(x), 
+					x,simulation.getSliderLowerBound(x), simulation.getSliderUpperBound(x),
+					simulation.getCurrentValue(x));
+		}
 	}
 
 	private void step (GUI inContainer)
