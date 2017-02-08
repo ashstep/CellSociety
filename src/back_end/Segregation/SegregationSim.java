@@ -49,7 +49,7 @@ public class SegregationSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		SegregationCell[][] oldGridCopy = (SegregationCell[][]) super.copyArray(super.getArrayGrid());
+		SegregationCell[][] oldGridCopy = (SegregationCell[][]) copyArray(super.getArrayGrid());
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				if ((super.getArrayGrid()[row][col]).getMyType() == TYPE_EMPTY) {
@@ -72,8 +72,6 @@ public class SegregationSim extends Simulation {
 
 	private void relocateToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
 		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
-		System.out.printf("relocating type %d from %d, %d to %d, %d\n", cell.getMyType(), row, col, newPos.getRow(),
-				newPos.getCol());
 		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell);
 	}
 
@@ -88,8 +86,6 @@ public class SegregationSim extends Simulation {
 	 */
 	private void moveToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
 		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
-		System.out.printf("moving type %d from %d, %d to %d, %d\n", cell.getMyType(), row, col, newPos.getRow(),
-				newPos.getCol());
 		newGrid[row][col] = new SegregationCell(TYPE_EMPTY);
 		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell.getMyType());
 	}
@@ -185,6 +181,23 @@ public class SegregationSim extends Simulation {
 		myInfo.setThreshold(newThreshold);
 	}
 
+	/**
+	 * makes a copy of an old array. Each element is also points to a new copy
+	 * 
+	 * @param oldArray
+	 * @return newArray
+	 */
+	protected Cell[][] copyArray(Cell[][] oldArray) {
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		SegregationCell[][] copiedArray = new SegregationCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				copiedArray[row][col] = new SegregationCell((SegregationCell) oldArray[row][col]);
+			}
+		}
+		return copiedArray;
+	}
 
 
 

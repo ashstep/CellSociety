@@ -1,7 +1,5 @@
 package back_end;
 import java.util.ArrayList;
-
-import back_end.Segregation.SegregationCell;
 import utilities.Grid;
 import utilities.ArrayLocation;
 public abstract class Simulation{
@@ -30,7 +28,6 @@ public abstract class Simulation{
 	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
-	//TODO rename move to findEmptySpot
 	protected abstract ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
 	
 	/**
@@ -100,21 +97,5 @@ public abstract class Simulation{
 	}
 	
 	
-	/**
-	 * makes a copy of an old array. Each element is also points to a new copy
-	 * 
-	 * @param oldArray
-	 * @return newArray
-	 */
-	protected Cell[][] copyArray(Cell[][] oldArray) {
-		int numRows = oldArray.length;
-		int numCols = oldArray[0].length;
-		SegregationCell[][] copiedArray = new SegregationCell[numRows][numCols];
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				copiedArray[row][col] = new SegregationCell((SegregationCell) oldArray[row][col]);
-			}
-		}
-		return copiedArray;
-	}
+	
 }
