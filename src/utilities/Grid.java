@@ -44,4 +44,17 @@ public class Grid {
 		}
 		
 	}
+
+	public Number getNumEmptyCells()
+	{
+		int counter = 0;
+		for (int x = 0; x < getNumRows(); x++)
+		{
+			for (int y = 0; y < getNumCols(); y++)
+			{
+				if (myGrid[x][y].getMyType() == 0) counter++;
+			}
+		}
+		return counter;
+	}
 }

@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utilities.GraphHandler;
 import utilities.XMLReader;
 
 public class Main extends Application
@@ -21,15 +22,15 @@ public class Main extends Application
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
 	private Simulation simulation;
+	private GraphHandler graphHandler;
 
 	/**
 	 * Initialize what will be displayed and how it will be updated.
 	 */
 	public void start (Stage s)
 	{	
-		GUI container = new GUI(SIZE,SIZE);
-		Scene scene = container.setScene();
-		s.setScene(scene);
+		GUI container = new GUI(SIZE,SIZE); 
+		s.setScene(container.buildScene());
 		s.setTitle(TITLE);
 		s.show();
 
@@ -44,6 +45,11 @@ public class Main extends Application
 		
 		Consumer<Number> sliderFunction = (Number n) -> animation.setRate(n.doubleValue());
 		container.initSlider(sliderFunction);
+		
+		Stage graphStage = new Stage();
+		graphHandler = new GraphHandler();
+		graphStage.setScene(graphHandler.buildScene());
+		graphStage.show();
 		
 		container.initNewSimButton(() ->
 		{
@@ -61,12 +67,16 @@ public class Main extends Application
 			
 			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
 			container.renderGrid(simulation.getGrid());
+			graphHandler.buildGraph();
+			graphHandler.renderGraph(simulation.getGrid());
 		});
+		
 	}
 
 	private void step (GUI inContainer)
 	{
 		inContainer.renderGrid(simulation.updateGrid());
+		graphHandler.renderGraph(simulation.getGrid());
 	}
 
 	/**

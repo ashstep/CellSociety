@@ -23,7 +23,7 @@ public class GUI
 		root = new BorderPane();
 	}
 	
-	public Scene setScene()
+	public Scene buildScene()
 	{
 		Scene myScene = new Scene(root, sceneWidth, sceneHeight, Color.WHITE);
 		panel = new ControlPanel(root);
