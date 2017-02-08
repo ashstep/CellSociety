@@ -4,7 +4,7 @@
   <author>Juan Philippe, Askha Stephen, Yuxiang He</author>
   <SimParameters>
 	<SharkBreedTime>30</SharkBreedTime>
-	<SharkStarveTime>20</SharkStarveTime>
+	<SharkStarveTime>60</SharkStarveTime>
 	<FishBreedTime>10</FishBreedTime>
   </SimParameters>
   <Dimensions>
