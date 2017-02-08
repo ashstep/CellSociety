@@ -7,7 +7,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.GraphHandler;
@@ -67,7 +66,7 @@ public class Main extends Application
 			
 			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
 			container.renderGrid(simulation.getGrid());
-			graphHandler.buildGraph();
+			graphHandler.buildGraph(simulation.getGrid());
 			graphHandler.renderGraph(simulation.getGrid());
 		});
 		

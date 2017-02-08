@@ -1,4 +1,6 @@
 package utilities;
+import java.util.ArrayList;
+
 import back_end.Cell;
 import javafx.scene.paint.Color;
 /**
@@ -44,15 +46,23 @@ public class Grid {
 		}
 		
 	}
+	
+	public ArrayList<String> getCellTypes()
+	{
+		return myGrid[0][0].getTypeNames();
+	}
 
-	public Number getNumEmptyCells()
+	public Number getCountByType(String x)
 	{
 		int counter = 0;
-		for (int x = 0; x < getNumRows(); x++)
+		for (int i = 0; i < getNumRows(); i++)
 		{
-			for (int y = 0; y < getNumCols(); y++)
+			for (int j = 0; j < getNumCols(); j++)
 			{
-				if (myGrid[x][y].getMyType() == 0) counter++;
+				if (myGrid[i][j].getTypeName().equals(x))
+				{
+					counter++;
+				}
 			}
 		}
 		return counter;

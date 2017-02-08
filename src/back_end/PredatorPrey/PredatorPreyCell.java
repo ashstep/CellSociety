@@ -112,5 +112,18 @@ public abstract class PredatorPreyCell extends Cell{
 			return EMPTY_COLOR;
 		}
 	}
-
+	
+	public ArrayList<String> getTypeNames()
+	{
+		ArrayList<String> nameList = new ArrayList<String>();
+		nameList.add("Fish");
+		nameList.add("Shark");
+		return nameList;
+	}
+	public String getTypeName()
+	{
+		if (getMyType() == 1) return "Fish";
+		else if (getMyType() == 2) return "Shark";
+		else return "";
+	}
 }
