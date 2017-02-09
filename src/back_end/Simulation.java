@@ -94,18 +94,6 @@ public abstract class Simulation{
 		return myGrid.getNumCols();
 	}
 	
-	/**
-	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
-	 * Assumes each row of myGrid has the same number of columns
-	 * @param row
-	 * @param col
-	 * @return true if the position is valid
-	 */
-	//added this util method. helpful for all subclass simulations as they need to check for boundaries
-	protected boolean isValidPosition(int row, int col){
-		return row < myGrid.length && row>=0 
-				&& col<myGrid[0].length &&     col>=0;
-	}
 
 	public abstract ArrayList<String> getParameterList();
 	public abstract Consumer<Number> getChangeMethod(String x);

@@ -1,4 +1,5 @@
 package back_end.gameOfLifePack;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import back_end.ActionBySim;
@@ -95,9 +96,9 @@ public class GameOfLifeCell extends Cell{
 	}
 
 	@Override
-	public ArrayList<String> getTypeNames()
+	public Collection<String> getTypeNames()
 	{
-		ArrayList<String> nameList = new ArrayList<String>();
+		Collection<String> nameList = new ArrayList<String>();
 		nameList.add("Alive");
 		return nameList;
 	}

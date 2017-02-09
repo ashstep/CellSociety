@@ -114,7 +114,7 @@ public abstract class PredatorPreyCell extends Cell{
 		}
 	}
 	
-	public ArrayList<String> getTypeNames()
+	public Collection<String> getTypeNames()
 	{
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("Fish");
