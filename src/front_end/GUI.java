@@ -87,4 +87,8 @@ public class GUI
 	{
 		panel.clearSimSliders();
 	}
+	public void initNewWinButton(Runnable r)
+	{
+		panel.setNewWindow(r);
+	}
 }

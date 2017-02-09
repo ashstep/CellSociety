@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 
 public class ControlPanel
 {
-	private Button play, pause, step, newSim;
+	private Button play, pause, step, newSim, newWindow;
 	private ToolBar bar;
 	private Slider slider;
 	private Properties appProps;
@@ -36,20 +36,30 @@ public class ControlPanel
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 		pause = new Button(appProps.getProperty("pauseButton"));
 		play = new Button(appProps.getProperty("playButton"));
 		step = new Button(appProps.getProperty("stepButton"));
 		newSim = new Button(appProps.getProperty("newSimButton"));
-		Text sliderLabel = new Text("Sim Speed:");
+		newWindow = new Button(appProps.getProperty("newWinButton"));
+		Text sliderLabel = new Text(appProps.getProperty("speedSliderLabel"));
 		slider = new Slider(.005, .15, .05);
 		
-		bar.getItems().addAll(play,pause,step,newSim, sliderLabel, slider);
+		bar.getItems().addAll(play,pause,step,newSim, newWindow, sliderLabel, slider);
 	}
 
 	public void setPause(Runnable r)
 	{
 		pause.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent arg0) {
+				r.run();
+			}
+		});
+	}
+	public void setNewWindow(Runnable r)
+	{
+		newWindow.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent arg0) {

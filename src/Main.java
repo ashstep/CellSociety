@@ -30,9 +30,12 @@ public class Main extends Application
 	public void start (Stage s)
 	{	
 		GUI container = new GUI(WIDTH,HEIGHT); 
-		s.setScene(container.buildScene());
-		s.setTitle(TITLE);
-		s.show();
+		setMainStage(s, container);
+		
+		container.initNewWinButton(() ->
+		{
+			(new Main()).start(new Stage());
+		});
 
 		XMLReader reader = new XMLReader();
 		
@@ -46,10 +49,7 @@ public class Main extends Application
 		Consumer<Number> sliderFunction = (Number n) -> animation.setRate(n.doubleValue());
 		container.initSpeedSlider(sliderFunction);
 		
-		Stage graphStage = new Stage();
-		graphHandler = new GraphHandler();
-		graphStage.setScene(graphHandler.buildScene());
-		graphStage.show();
+		createGraph(s);
 		
 		container.initNewSimButton(() ->
 		{
@@ -71,6 +71,25 @@ public class Main extends Application
 			graphHandler.initGraph(simulation.getGrid());
 		});
 		
+	}
+
+	private void setMainStage(Stage s, GUI container)
+	{
+		s.setScene(container.buildScene());
+		s.setTitle(TITLE);
+		s.setX(0);
+		s.setY(0);
+		s.show();
+	}
+
+	private void createGraph(Stage s)
+	{
+		Stage graphStage = new Stage();
+		graphHandler = new GraphHandler();
+		graphStage.setScene(graphHandler.buildScene());
+		graphStage.show();
+		graphStage.setX(s.getWidth());
+		graphStage.setY(0);
 	}
 
 	private void initializeSimSliders(GUI container)
