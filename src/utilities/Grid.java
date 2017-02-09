@@ -133,9 +133,9 @@ public abstract class Grid {
 		}
 	}
 	
-	public ArrayList<String> getCellTypes()
+	public Collection<String> getCellTypes()
 	{
-		return myGrid[0][0].getTypeNames();
+		return container[0][0].getTypeNames();
 	}
 
 	public Number getCountByType(String x)
@@ -145,7 +145,7 @@ public abstract class Grid {
 		{
 			for (int j = 0; j < getNumCols(); j++)
 			{
-				if (myGrid[i][j].getTypeName().equals(x))
+				if (container[i][j].getTypeName().equals(x))
 				{
 					counter++;
 				}

@@ -108,7 +108,7 @@ public class FireCell extends Cell {
 	}
 
 	@Override
-	public ArrayList<String> getTypeNames() {
+	public Collection<String> getTypeNames() {
 		ArrayList<String> typeList = new ArrayList<String>();
 		typeList.add("Tree");
 		typeList.add("Burning");

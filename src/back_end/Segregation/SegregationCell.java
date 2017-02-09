@@ -108,7 +108,7 @@ public class SegregationCell extends Cell {
 	}
 
 	@Override
-	public ArrayList<String> getTypeNames()
+	public Collection<String> getTypeNames()
 	{
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("Population 1");
