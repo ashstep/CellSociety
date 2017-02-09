@@ -56,7 +56,6 @@ public class Main extends Application
 			animation.pause();
 			reader.chooseFile(s);
 			simulation = reader.getSimulation();
-			
 			container.initSimParameterInterface(
 					() -> animation.play(),
 					() -> animation.pause(),

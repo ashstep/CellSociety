@@ -34,8 +34,8 @@ public class GUI
 	
 	public void initGrid(Grid gridObject)
 	{
-		int gridHeight = gridObject.getNumCols();
-		int gridWidth = gridObject.getNumRows();
+		int gridHeight = gridObject.getNumRows();
+		int gridWidth = gridObject.getNumCols();
 		
 		grid = new Rectangle[gridHeight][gridWidth];
 		Group gridContainer = new Group();
