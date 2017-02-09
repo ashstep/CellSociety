@@ -1,6 +1,6 @@
 package back_end.Segregation;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 import back_end.ActionBySim;
 import back_end.Cell;
@@ -44,7 +44,7 @@ public class SegregationCell extends Cell {
 	 * Also assumes neighbors is just an ArrayList of SegregationCell
 	 */
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		if(isTypeEmpty()){
 			return new ActionBySim(false);
 		}
@@ -108,7 +108,7 @@ public class SegregationCell extends Cell {
 	}
 
 	@Override
-	public ArrayList<String> getTypeNames()
+	public Collection<String> getTypeNames()
 	{
 		ArrayList<String> nameList = new ArrayList<String>();
 		nameList.add("Population 1");

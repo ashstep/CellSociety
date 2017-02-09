@@ -5,11 +5,11 @@ package utilities;
  * @author Yuxiang He
  *
  */
-public class ArrayLocation {
+public class GridLocation {
 	private int row;
 	private int column;
 	
-	public ArrayLocation(int r, int c){
+	public GridLocation(int r, int c){
 		row=r;
 		column=c;
 	}
@@ -35,7 +35,7 @@ public class ArrayLocation {
 	 * @param otherLocation
 	 * @return
 	 */
-	public boolean equals(ArrayLocation otherLocation){
+	public boolean equals(GridLocation otherLocation){
 		return this.getRow()==otherLocation.getRow() && this.getCol()==otherLocation.getCol();
 	}
 }

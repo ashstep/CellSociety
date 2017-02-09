@@ -1,5 +1,6 @@
 package back_end.gameOfLifePack;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import back_end.ActionBySim;
 import back_end.Cell;
@@ -30,7 +31,7 @@ public class GameOfLifeCell extends Cell{
 	 * @return false because game of life cells do not move
 	 */
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		int aliveNeighbors=0;
 		for(Cell neighbor: neighbors){
 			if(neighbor.getMyType()==ALIVE_TYPE) aliveNeighbors++;
@@ -95,9 +96,9 @@ public class GameOfLifeCell extends Cell{
 	}
 
 	@Override
-	public ArrayList<String> getTypeNames()
+	public Collection<String> getTypeNames()
 	{
-		ArrayList<String> nameList = new ArrayList<String>();
+		Collection<String> nameList = new ArrayList<String>();
 		nameList.add("Alive");
 		return nameList;
 	}

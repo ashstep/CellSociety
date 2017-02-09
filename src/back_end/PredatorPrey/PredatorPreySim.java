@@ -10,8 +10,8 @@ import back_end.SimulationInfo;
 import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
-import utilities.ArrayLocation;
 import utilities.Grid;
+import utilities.GridLocation;
 
 /**
  * @author Yuxiang He
@@ -47,7 +47,7 @@ public class PredatorPreySim extends Simulation {
 		PredatorPreyCell[][] cellGrid = new PredatorPreyCell[numRows][numCols];
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				createPPCellAt(cellGrid, new ArrayLocation(row, col), typeGrid[row][col]);
+				createPPCellAt(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
 			}
 		}
 		super.setArrayGrid(cellGrid);
@@ -80,7 +80,7 @@ public class PredatorPreySim extends Simulation {
 		PredatorPreyCell[][] copiedArray = new PredatorPreyCell[numRows][numCols];
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				makeCellCopyAt(copiedArray, new ArrayLocation(row, col), (PredatorPreyCell)oldArray[row][col]);
+				makeCellCopyAt(copiedArray, new GridLocation(row, col), (PredatorPreyCell)oldArray[row][col]);
 			}
 		}
 		return copiedArray;
@@ -95,7 +95,7 @@ public class PredatorPreySim extends Simulation {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				ArrayLocation currentLocation = new ArrayLocation(row, col);
+				GridLocation currentLocation = new GridLocation(row, col);
 				if (super.getArrayGrid()[row][col].getMyType() == SHARK) {
 					SharkCell newSharkCell = new SharkCell((SharkCell) super.getArrayGrid()[row][col]);
 					ActionByPPSim furtherActions = (ActionByPPSim) newSharkCell.checkAndTakeAction(getNeighbors(row, col), myInfo);
@@ -112,15 +112,15 @@ public class PredatorPreySim extends Simulation {
 	 * @param cell the cell that simulation needs to take actions for
 	 * @param furtherActions
 	 */
-	private void takeActionsForCell(PredatorPreyCell[][] grid, ArrayLocation currentLocation, PredatorPreyCell ppCell, ActionByPPSim furtherActions) {
-		ArrayLocation newLoc=currentLocation;
+	private void takeActionsForCell(PredatorPreyCell[][] grid, GridLocation currentLocation, PredatorPreyCell ppCell, ActionByPPSim furtherActions) {
+		GridLocation newLoc=currentLocation;
 		if (furtherActions.toDie()) {
 			killCell(grid, currentLocation);
 		} else if (furtherActions.toEat() && ppCell.getMyType()==SHARK) {
-			ArrayList<ArrayLocation> fishNeighborLocations = getNeighborLocationByType(currentLocation.getRow(), currentLocation.getCol(), FISH);
+			ArrayList<GridLocation> fishNeighborLocations = getNeighborLocationByType(currentLocation.getRow(), currentLocation.getCol(), FISH);
 			if (fishNeighborLocations.size() != 0) {
 				int randLoc=new Random().nextInt(fishNeighborLocations.size());
-				ArrayLocation fishToEatLocation = fishNeighborLocations.get(randLoc);
+				GridLocation fishToEatLocation = fishNeighborLocations.get(randLoc);
 				killCell(grid, fishToEatLocation);
 				((SharkCell) ppCell).resetTimeSinceDinner();
 			}
@@ -136,7 +136,7 @@ public class PredatorPreySim extends Simulation {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				ArrayLocation currentLocation = new ArrayLocation(row, col);
+				GridLocation currentLocation = new GridLocation(row, col);
 				if (super.getArrayGrid()[row][col].getMyType() == FISH) {
 					FishCell newFishCell = new FishCell((FishCell) super.getArrayGrid()[row][col]);
 					ActionByPPSim furtherActions = (ActionByPPSim) newFishCell.checkAndTakeAction(getNeighbors(row, col), myInfo);
@@ -151,13 +151,13 @@ public class PredatorPreySim extends Simulation {
 	 * get the neighbors of A CERTAIN TYPE from the original grid. top, down,
 	 * left, right
 	 */
-	private ArrayList<ArrayLocation> getNeighborLocationByType(int row, int col, int neighborType) {
-		ArrayList<ArrayLocation> output = new ArrayList<ArrayLocation>();
+	private ArrayList<GridLocation> getNeighborLocationByType(int row, int col, int neighborType) {
+		ArrayList<GridLocation> output = new ArrayList<GridLocation>();
 		for (int i = 0; i < ROW_OFFSET.length; i++) {
 			int resultant_row = row + ROW_OFFSET[i], resultant_col = col + COL_OFFSET[i];
 			if (super.isValidPosition(resultant_row, resultant_col)
 					&& super.getArrayGrid()[resultant_row][resultant_col].getMyType() == neighborType) {
-				output.add(new ArrayLocation(resultant_row, resultant_col));
+				output.add(new GridLocation(resultant_row, resultant_col));
 			}
 		}
 		return output;
@@ -199,7 +199,7 @@ public class PredatorPreySim extends Simulation {
 	 * @param location
 	 *            location of the cell to kill
 	 */
-	private void killCell(PredatorPreyCell[][] grid, ArrayLocation location) {
+	private void killCell(PredatorPreyCell[][] grid, GridLocation location) {
 		createPPCellAt(grid, location, EMPTY);
 	}
 
@@ -211,7 +211,7 @@ public class PredatorPreySim extends Simulation {
 	 * @param location
 	 * @param cellType
 	 */
-	private void createPPCellAt(PredatorPreyCell[][] grid, ArrayLocation location, int cellType) {
+	private void createPPCellAt(PredatorPreyCell[][] grid, GridLocation location, int cellType) {
 		if (cellType == FISH) {
 			grid[location.getRow()][location.getCol()] = new FishCell();
 		} else if (cellType == SHARK) {
@@ -229,7 +229,7 @@ public class PredatorPreySim extends Simulation {
 	 * @param location
 	 * @param cell
 	 */
-	private void makeCellCopyAt(PredatorPreyCell[][] grid, ArrayLocation location, PredatorPreyCell cell) {
+	private void makeCellCopyAt(PredatorPreyCell[][] grid, GridLocation location, PredatorPreyCell cell) {
 		if (cell.getMyType() == FISH) {
 			grid[location.getRow()][location.getCol()] = new FishCell((FishCell) cell);
 		} else if (cell.getMyType() == SHARK) {
@@ -250,9 +250,9 @@ public class PredatorPreySim extends Simulation {
 	 * @param newGrid
 	 * @return the new location it has moved to
 	 */
-	private ArrayLocation move(PredatorPreyCell[][] grid, ArrayLocation currentLocation, PredatorPreyCell cell) {
+	private GridLocation move(PredatorPreyCell[][] grid, GridLocation currentLocation, PredatorPreyCell cell) {
 		createPPCellAt(grid, currentLocation, EMPTY);
-		ArrayLocation newLoc=copyCellInVincinity(grid, currentLocation, cell);
+		GridLocation newLoc=copyCellInVincinity(grid, currentLocation, cell);
 		return newLoc;
 	}
 
@@ -265,7 +265,7 @@ public class PredatorPreySim extends Simulation {
 	 *            the cell
 	 * @param newGrid
 	 */
-	private void reproduce(PredatorPreyCell[][] grid, ArrayLocation currentLocation, PredatorPreyCell cell) {
+	private void reproduce(PredatorPreyCell[][] grid, GridLocation currentLocation, PredatorPreyCell cell) {
 		boolean successful=createCellInVincinity(grid, currentLocation, cell.getMyType());
 		if(successful){
 			cell.resetTimeSinceBreed();
@@ -282,9 +282,9 @@ public class PredatorPreySim extends Simulation {
 	 * @param newGrid
 	 * @return true if there is empty space to create a cell
 	 */
-	private boolean createCellInVincinity(PredatorPreyCell[][] grid, ArrayLocation currentLocation, int cellType) {
+	private boolean createCellInVincinity(PredatorPreyCell[][] grid, GridLocation currentLocation, int cellType) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
-		ArrayLocation newPos = findEmptySpots(grid, row, col);
+		GridLocation newPos = findEmptySpots(grid, row, col);
 		createPPCellAt(grid, newPos, cellType);
 		return newPos.equals(currentLocation);
 	}
@@ -299,9 +299,9 @@ public class PredatorPreySim extends Simulation {
 	 * @param newGrid
 	 * @return the new location of the cell 
 	 */
-	private ArrayLocation copyCellInVincinity(PredatorPreyCell[][] grid, ArrayLocation currentLocation, PredatorPreyCell cell) {
+	private GridLocation copyCellInVincinity(PredatorPreyCell[][] grid, GridLocation currentLocation, PredatorPreyCell cell) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
-		ArrayLocation newPos = findEmptySpots(grid, row, col);
+		GridLocation newPos = findEmptySpots(grid, row, col);
 		makeCellCopyAt(grid, newPos, cell);
 		return newPos;
 	}
@@ -312,14 +312,14 @@ public class PredatorPreySim extends Simulation {
 	 * 
 	 */
 	@Override
-	protected ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
-		ArrayList<ArrayLocation> emptySpaces = getNeighborLocationByType(currentRow, currentCol, EMPTY);
-		ArrayLocation location;
+	protected GridLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
+		ArrayList<GridLocation> emptySpaces = getNeighborLocationByType(currentRow, currentCol, EMPTY);
+		GridLocation location;
 		Random rn=new Random();
 		if (emptySpaces.size() != 0) {
 			location = emptySpaces.get(rn.nextInt(emptySpaces.size()));
 		} else {
-			location = new ArrayLocation(currentRow, currentCol);
+			location = new GridLocation(currentRow, currentCol);
 		}
 		return location;
 	}

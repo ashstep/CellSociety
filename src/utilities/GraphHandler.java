@@ -1,6 +1,8 @@
 package utilities;
 
 import java.util.HashMap;
+import java.util.Iterator;
+
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -60,9 +62,11 @@ public class GraphHandler {
 
 	private void checkRange(Grid grid)
 	{
-		if (seriesContainer.get(grid.getCellTypes().get(0)).getData().size() > 30)
+		Iterator iter=grid.getCellTypes().iterator();
+		String first=(String) iter.next();
+		if (seriesContainer.get(first).getData().size() > 30)
 		{
-			xAxis.setLowerBound(seriesContainer.get(grid.getCellTypes().get(0)).getData().get(0).getXValue().doubleValue());
+			xAxis.setLowerBound(seriesContainer.get(first).getData().get(0).getXValue().doubleValue());
 			xAxis.setUpperBound(counter);
 			for (String x : seriesContainer.keySet())
 			{

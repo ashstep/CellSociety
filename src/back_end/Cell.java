@@ -1,5 +1,6 @@
 package back_end;
-import java.util.ArrayList;
+
+import java.util.Collection;
 import javafx.scene.paint.Color;
 /**
  * Abstract super class that describes the properties shared by cells of all simulations
@@ -22,7 +23,7 @@ public abstract class Cell {
 	 * checks the information about 
 	 * @param true if the cell wants to move
 	 */
-	public abstract ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo);
+	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo);
 	
 	/**
 	 * getter
@@ -41,6 +42,6 @@ public abstract class Cell {
 	
 	
 	public abstract Color getColor();
-	public abstract ArrayList<String> getTypeNames();
+	public abstract Collection<String> getTypeNames();
 	public abstract String getTypeName();
 }
