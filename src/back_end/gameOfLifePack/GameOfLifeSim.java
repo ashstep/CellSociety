@@ -1,4 +1,6 @@
 package back_end.gameOfLifePack;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import back_end.Cell;
 import back_end.Simulation;
@@ -91,6 +93,42 @@ public class GameOfLifeSim extends Simulation{
 	public SimulationInfo getSimInfo() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public ArrayList<String> getParameterList()
+	{
+		return new ArrayList<String>();
+	}
+
+
+	@Override
+	public Consumer<Number> getChangeMethod(String x)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public double getSliderLowerBound(String x) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public double getSliderUpperBound(String x) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public double getCurrentValue(String x) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

@@ -1,6 +1,7 @@
 package back_end.Fire;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import back_end.Cell;
 import back_end.Simulation;
@@ -98,6 +99,47 @@ public class FireSim extends Simulation {
 	@Override
 	public SimulationInfo getSimInfo() {
 		return myInfo;
+	}
+
+
+	@Override
+	public ArrayList<String> getParameterList()
+	{
+		ArrayList<String> parameterList = new ArrayList<String>();
+		parameterList.add("probCatch");
+		return parameterList;
+	}
+
+
+	@Override
+	public Consumer<Number> getChangeMethod(String x)
+	{
+		Consumer<Number> r = (Number n) -> { };
+		
+		if (x.equals("probCatch")) r = (Number n) -> {myInfo.setProbCatch(n.doubleValue());};
+
+		return r;
+	}
+
+
+	@Override
+	public double getSliderLowerBound(String x) {
+		if (x.equals("probCatch")) return 0;
+		return 0;
+	}
+
+
+	@Override
+	public double getSliderUpperBound(String x) {
+		if (x.equals("probCatch")) return 1.0;
+		return 0;
+	}
+
+
+	@Override
+	public double getCurrentValue(String x) {
+		if (x.equals("probCatch")) return myInfo.getProbCatch();
+		return 0;
 	}
 
 

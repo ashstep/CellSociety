@@ -94,4 +94,19 @@ public class GameOfLifeCell extends Cell{
 		}
 	}
 
+	@Override
+	public ArrayList<String> getTypeNames()
+	{
+		ArrayList<String> nameList = new ArrayList<String>();
+		nameList.add("Alive");
+		return nameList;
+	}
+
+	@Override
+	public String getTypeName()
+	{
+		if (getMyType() == 1) return "Alive";
+		else return "";
+	}
+
 }

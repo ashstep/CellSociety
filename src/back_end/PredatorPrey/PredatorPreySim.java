@@ -2,6 +2,7 @@ package back_end.PredatorPrey;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import back_end.Cell;
 import back_end.Simulation;
@@ -321,6 +322,48 @@ public class PredatorPreySim extends Simulation {
 			location = new GridLocation(currentRow, currentCol);
 		}
 		return location;
+	}
+
+	@Override
+	public ArrayList<String> getParameterList()
+	{
+		ArrayList<String> parameterList = new ArrayList<String>();
+		parameterList.add("SharkBreedTime");
+		parameterList.add("FishBreedTime");
+		parameterList.add("SharkStarveTime");
+		return parameterList;
+	}
+
+	@Override
+	public Consumer<Number> getChangeMethod(String x)
+	{
+		Consumer<Number> r = (Number n) -> {};
+		if (x.equals("SharkBreedTime")) r = (Number n) -> {myInfo.setSharkBreedTime(n.intValue());};
+		else if (x.equals("FishBreedTime")) r = (Number n) -> {myInfo.setFishBreedTime(n.intValue());};
+		else if (x.equals("SharkStarveTime")) r = (Number n) -> {myInfo.setSharkStarveTime(n.intValue());};
+		return r;
+	}
+
+	@Override
+	public double getSliderLowerBound(String x)
+	{
+		return 1.0;
+	}
+
+	@Override
+	public double getSliderUpperBound(String x)
+	{
+		return 100.0;
+	}
+
+	@Override
+	public double getCurrentValue(String x)
+	{
+		int r = 0;
+		if (x.equals("SharkBreedTime")) r = myInfo.getSharkBreedTime();
+		else if (x.equals("FishBreedTime")) r = myInfo.getFishBreedTime();
+		else if (x.equals("SharkStarveTime")) r = myInfo.getSharkStarveTime();
+		return r;
 	}
 
 }

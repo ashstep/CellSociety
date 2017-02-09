@@ -106,4 +106,20 @@ public class FireCell extends Cell {
 			return EMPTY_COLOR;
 		}
 	}
+
+	@Override
+	public ArrayList<String> getTypeNames() {
+		ArrayList<String> typeList = new ArrayList<String>();
+		typeList.add("Tree");
+		typeList.add("Burning");
+		return typeList;
+	}
+
+	@Override
+	public String getTypeName()
+	{
+		if (getMyType() == 1) return "Tree";
+		else if (getMyType() == 2) return "Burning"; 
+		else return "";
+	}
 }
