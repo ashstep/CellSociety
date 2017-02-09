@@ -45,9 +45,9 @@ public class RectangleToroidalGrid extends Grid {
 		int row = location.getRow(), col = location.getCol();
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
-			if (super.rowOutOfBounds(resultant_row)) {
+			if (super.abstractedRowOutOfBounds(resultant_row)) {
 				resultant_row = resultant_row < 0 ? resultant_row + super.getNumRows(): super.getNumRows() - resultant_row;
-			} if (super.colOutOfBounds(resultant_col)) {
+			} if (super.abstractedColOutOfBounds(resultant_col)) {
 				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): super.getNumCols() - resultant_col;
 			}
 			output.add(super.getCellAt(new GridLocation(resultant_row, resultant_col)));

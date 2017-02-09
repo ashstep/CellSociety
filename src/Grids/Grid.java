@@ -1,6 +1,6 @@
 package Grids;
-import java.util.Collection;
 
+import java.util.Collection;
 import back_end.Cell;
 import javafx.scene.paint.Color;
 import utilities.GridLocation;
@@ -9,6 +9,7 @@ import utilities.GridLocation;
  * @author Ashka Stephen
  * @author Yuxiang He
  */
+//TODO: use generic
 public abstract class Grid {
 
 	
@@ -36,13 +37,7 @@ public abstract class Grid {
 		container=new Cell[numRows][numCols];
 		myInstanceCell=instanceCell;
 	}
-	/**
-	 * 
-	 * @return container
-	 */
-	protected Cell[][] getContainer(){
-		return container;
-	}
+
 	
 	/**
 	 * 
@@ -84,13 +79,13 @@ public abstract class Grid {
 	 */
 	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws IllegalArgumentException, ArrayIndexOutOfBoundsException{
 		GridLocation normalizedLocation=normalizeLocation(abstractedLocation);
-			if(cell.getClass().isInstance(myInstanceCell) && isValidPosition(normalizedLocation.getRow(), normalizedLocation.getCol())){
+			if(cell.getClass().isInstance(myInstanceCell) && isValidAbstractedPosition(abstractedLocation)){
 				//TODO no need to cast?
 				container[normalizedLocation.getRow()][normalizedLocation.getCol()]=cell;
-			} else if(! isValidPosition(abstractedLocation.getRow(), abstractedLocation.getCol())){
+			} else if(! isValidAbstractedPosition(abstractedLocation)){
 				throw new ArrayIndexOutOfBoundsException(
-						String.format("Row out of bounds: %b, Col out of bounds: %b", 
-								rowOutOfBounds(abstractedLocation.getRow()), colOutOfBounds(abstractedLocation.getCol())
+						String.format("Grid.setCellAt: row out of bounds: %b, Col out of bounds: %b", 
+								abstractedRowOutOfBounds(abstractedLocation.getRow()), abstractedColOutOfBounds(abstractedLocation.getCol())
 								)
 						);
 			} else {
@@ -103,9 +98,17 @@ public abstract class Grid {
 	 * @param abstractedLocation
 	 * @return cell at location
 	 */
-	public Cell getCellAt(GridLocation abstractedLocation){
-		GridLocation transformedLocation=normalizeLocation(abstractedLocation);
-		return container[transformedLocation.getRow()][transformedLocation.getCol()];
+	public Cell getCellAt(GridLocation abstractedLocation) throws ArrayIndexOutOfBoundsException{
+		if(isValidAbstractedPosition(abstractedLocation)){
+			GridLocation transformedLocation=normalizeLocation(abstractedLocation);
+			return container[transformedLocation.getRow()][transformedLocation.getCol()];
+		} else {
+			throw new ArrayIndexOutOfBoundsException(
+					String.format("Grid.getCellAt: row %d out of bounds: %b, Col %d out of bounds: %b", abstractedLocation.getRow(),
+							abstractedRowOutOfBounds(abstractedLocation.getRow()), abstractedLocation.getCol(),abstractedColOutOfBounds(abstractedLocation.getCol())
+							)
+					);
+		}	
 	}
 	
 	/**
@@ -121,9 +124,20 @@ public abstract class Grid {
 	 * @param abstractedCol
 	 * @return true if the position is valid
 	 */
-	protected boolean isValidPosition(int abstractedRow, int abstractedCol){
-		return ! rowOutOfBounds(abstractedRow)
-				&& ! colOutOfBounds(abstractedCol);
+	protected boolean isValidAbstractedPosition(int abstractedRow, int abstractedCol){
+		return ! abstractedRowOutOfBounds(abstractedRow)
+				&& ! abstractedColOutOfBounds(abstractedCol);
+	}
+	
+	/**
+	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
+	 * Assumes each row of myGrid has the same number of columns
+	 * @param abstractedLocation
+	 * @return true if the position is valid
+	 */
+	protected boolean isValidAbstractedPosition(GridLocation abstractedLocation){
+		return ! abstractedRowOutOfBounds(abstractedLocation.getRow())
+				&& ! abstractedColOutOfBounds(abstractedLocation.getCol());
 	}
 	
 	/**
@@ -149,7 +163,7 @@ public abstract class Grid {
 	 * @param abstractedLocation
 	 * @return the GridLocation corresponding to the true internal GridLocation
 	 */
-	private GridLocation normalizeLocation(GridLocation abstractedLocation){
+	protected GridLocation normalizeLocation(GridLocation abstractedLocation){
 		return new GridLocation(
 				normalizeRow(abstractedLocation.getRow()), 
 				normalizeCol(abstractedLocation.getCol())
@@ -161,7 +175,7 @@ public abstract class Grid {
 	 * @param abstractedRow abstracted row
 	 * @return true if row gets out of bounds
 	 */
-	protected boolean rowOutOfBounds(int abstractedRow){
+	protected boolean abstractedRowOutOfBounds(int abstractedRow){
 		return normalizeRow(abstractedRow)>=getNumRows() || normalizeRow(abstractedRow)<0;
 	}
 	
@@ -170,33 +184,32 @@ public abstract class Grid {
 	 * @param abstractedCol abstracted column
 	 * @return true if col gets out of bounds
 	 */
-	protected boolean colOutOfBounds(int abstractedCol){
+	protected boolean abstractedColOutOfBounds(int abstractedCol){
 		return normalizeCol(abstractedCol)>=getNumCols() || normalizeCol(abstractedCol)<0;
 	}
 
 	
 	/**
-	 * resizes the container
+	 * resizes the container such that invalidAbstractedLocation becomes valid
 	 * @param invalidAbstractedLocation
 	 */
 
 	protected void resize(GridLocation invalidAbstractedLocation){
 		int newNumRows=getNumRows(), newNumCols=getNumCols();
 		
-		if(rowOutOfBounds(invalidAbstractedLocation.getRow())){
+		if(abstractedRowOutOfBounds(invalidAbstractedLocation.getRow())){
 			int invalidInternalRow=normalizeRow(invalidAbstractedLocation.getRow());
 			newNumRows=invalidInternalRow<0? getNumRows()-invalidInternalRow: invalidInternalRow;
 		}
 		
-		if(colOutOfBounds(invalidAbstractedLocation.getCol())){
+		if(abstractedColOutOfBounds(invalidAbstractedLocation.getCol())){
 			int invalidInternalCol=normalizeCol(invalidAbstractedLocation.getCol());
 			newNumCols=invalidInternalCol<0? getNumCols()-invalidInternalCol: invalidInternalCol;
 		}
 		Cell[][] newContainer=new Cell[newNumRows][newNumCols];
-//		Disaster in terms of coordinate transformation!
 		for(int row=0; row<newNumRows; row++){
 			for(int col=0; col<newNumCols; col++){
-				if(isValidPosition(row, col)){
+				if(isValidAbstractedPosition(row, col)){
 					newContainer[row][col]=container[row][col];
 				} else {
 					newContainer[row][col]=myInstanceCell.makeEmptyCell();
@@ -226,7 +239,7 @@ public abstract class Grid {
 	 * @return
 	 */
 	public Color getColorAt(int x, int y){
-		if(isValidPosition(x, y)){
+		if(isValidAbstractedPosition(x, y)){
 			return container[x][y].getColor();
 		} else {
 			return Color.WHITE;

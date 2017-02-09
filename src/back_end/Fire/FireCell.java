@@ -119,8 +119,8 @@ public class FireCell extends Cell {
 	@Override
 	public String getTypeName()
 	{
-		if (getMyType() == 1) return "Tree";
-		else if (getMyType() == 2) return "Burning"; 
+		if (getMyType() == STATE_TREE) return "Tree";
+		else if (getMyType() == STATE_BURNING) return "Burning"; 
 		else return "";
 	}
 

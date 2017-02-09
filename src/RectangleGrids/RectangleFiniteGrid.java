@@ -31,8 +31,8 @@ public class RectangleFiniteGrid extends Grid {
 		int row = location.getRow(), col = location.getCol();
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
-			if (super.isValidPosition(resultant_row, resultant_col)) {
-				output.add(super.getContainer()[resultant_row][resultant_col]);
+			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
+				output.add(super.getCellAt(new GridLocation(resultant_row, resultant_col)));
 			}
 		}
 		return output;

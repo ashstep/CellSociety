@@ -163,20 +163,7 @@ public class PredatorPreySim extends Simulation {
 		return output;
 	}
 
-	/**
-	 * get the neighbors from the original grid. top, down, left, right
-	 */
-	@Override
-	protected ArrayList<Cell> getNeighbors(int row, int col) {
-		ArrayList<Cell> output = new ArrayList<Cell>();
-		for (int i = 0; i < ROW_OFFSET.length; i++) {
-			int resultant_row = row + ROW_OFFSET[i], resultant_col = col + COL_OFFSET[i];
-			if (super.isValidPosition(resultant_row, resultant_col)) {
-				output.add(super.getArrayGrid()[resultant_row][resultant_col]);
-			}
-		}
-		return output;
-	}
+
 
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {

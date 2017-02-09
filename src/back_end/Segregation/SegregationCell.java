@@ -121,8 +121,8 @@ public class SegregationCell extends Cell {
 	@Override
 	public String getTypeName()
 	{
-		if (getMyType() == 1) return "Population 1";
-		else if (getMyType() == 2) return "Population 2";
+		if (getMyType() == TYPE_ONE) return "Population 1";
+		else if (getMyType() == TYPE_TWO) return "Population 2";
 		else return "";
 	}
 	
