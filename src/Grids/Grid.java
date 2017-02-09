@@ -1,9 +1,9 @@
-package utilities;
-import java.util.ArrayList;
+package Grids;
 import java.util.Collection;
 
 import back_end.Cell;
 import javafx.scene.paint.Color;
+import utilities.GridLocation;
 /**
  * 
  * @author Ashka Stephen

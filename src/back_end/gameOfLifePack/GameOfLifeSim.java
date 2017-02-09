@@ -2,13 +2,13 @@ package back_end.gameOfLifePack;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import Grids.Grid;
+import RectangleGrids.RectangleFiniteGrid;
+import RectangleGrids.RectangleToroidalGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import utilities.Grid;
 import utilities.GridLocation;
-import utilities.RectangleFiniteGrid;
-import utilities.RectangleToroidalGrid;
 public class GameOfLifeSim extends Simulation{
 	
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);
@@ -53,25 +53,6 @@ public class GameOfLifeSim extends Simulation{
 		super.setGrid(newGrid);
 		return newGrid;
 	}
-
-//	/**
-//	 * get the neighbors from the original grid
-//	 * top, down, left, right
-//	 * top-left, top-right
-//	 * bottom-left, bottom-right
-//	 */
-//	@Override
-//	protected ArrayList<Cell> getNeighbors(int row, int col) {
-//		ArrayList<Cell> output=new ArrayList<Cell>();	
-//		for(int i=0; i<ROW_OFFSET.length; i++){
-//			int resultant_row=row+ROW_OFFSET[i], resultant_col=col+COL_OFFSET[i];
-//			if(isValidPosition(resultant_row, resultant_col)){
-//				output.add(super.getArrayGrid()[resultant_row][resultant_col]);
-//			}
-//		}
-//		return output;
-//	}
-	
 
 	/**
 	 * no general environment attribute in this simulation so no use

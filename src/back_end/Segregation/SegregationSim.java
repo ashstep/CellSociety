@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
 
+import Grids.Grid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import utilities.Grid;
 import utilities.GridLocation;
 
 public class SegregationSim extends Simulation {

@@ -1,9 +1,11 @@
-package utilities;
+package RectangleGrids;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Grids.Grid;
 import back_end.Cell;
+import utilities.GridLocation;
 
 /**
  * 

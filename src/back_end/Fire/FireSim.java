@@ -3,10 +3,10 @@ package back_end.Fire;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import Grids.Grid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import utilities.Grid;
 import utilities.GridLocation;
 /**
  * Class that implements the unique properties of the fire simulation

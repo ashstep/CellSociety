@@ -2,10 +2,10 @@ package back_end;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import utilities.Grid;
+import Grids.Grid;
 import utilities.GridLocation;
 public abstract class Simulation{
-	
+	//TODO: implement changeToNextType();
 	private Grid myGrid;
 	
 	/**

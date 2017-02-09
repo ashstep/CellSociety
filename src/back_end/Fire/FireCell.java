@@ -1,5 +1,6 @@
 package back_end.Fire;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -109,7 +110,7 @@ public class FireCell extends Cell {
 
 	@Override
 	public Collection<String> getTypeNames() {
-		ArrayList<String> typeList = new ArrayList<String>();
+		Collection<String> typeList = new ArrayList<String>();
 		typeList.add("Tree");
 		typeList.add("Burning");
 		return typeList;
