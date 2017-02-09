@@ -65,9 +65,8 @@ public class Main extends Application
 							step(container);
 					});
 			
-			container.initGrid(simulation.getNumRows(), simulation.getNumCols());
+			container.initGrid(simulation.getGrid());
 			initializeSimSliders(container);
-			container.renderGrid(simulation.getGrid());
 			graphHandler.initGraph(simulation.getGrid());
 		});
 		
