@@ -70,7 +70,7 @@ public class XMLReader
 
 	private Simulation createGameOfLifeSim()
 	{	
-		return new GameOfLifeSim(createGrid());
+		return new GameOfLifeSim(createGrid(), doc.getDocumentElement().getAttribute("BoundsType"));
 	}
 	
 	private int[][] createGrid()
