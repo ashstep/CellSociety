@@ -123,4 +123,9 @@ public class FireCell extends Cell {
 		else if (getMyType() == 2) return "Burning"; 
 		else return "";
 	}
+
+	@Override
+	public Cell makeEmptyCell() {
+		return new FireCell(STATE_EMPTY);
+	}
 }

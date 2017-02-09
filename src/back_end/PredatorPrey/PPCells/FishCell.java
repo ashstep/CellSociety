@@ -47,4 +47,9 @@ public class FishCell extends PredatorPreyCell{
 		return new ActionByPPSim(reproducing, moving, false, false, MY_TYPE);
 	}
 
+	@Override
+	public Cell makeEmptyCell() {
+		return new EmptyPPCell();
+	}
+
 }

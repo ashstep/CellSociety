@@ -19,4 +19,9 @@ public class EmptyPPCell extends PredatorPreyCell{
 		return new ActionByPPSim(false, false, false, false, 0);
 	}
 
+	@Override
+	public Cell makeEmptyCell() {
+		return new EmptyPPCell();
+	}
+
 }
