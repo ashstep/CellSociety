@@ -1,6 +1,7 @@
 package back_end.PredatorPrey;
 
-import java.util.ArrayList;
+import java.util.Collection;
+
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
@@ -42,7 +43,7 @@ public abstract class PredatorPreyCell extends Cell{
 	
 	
 	@Override
-	public abstract ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) ;
+	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
 	
 	
 	

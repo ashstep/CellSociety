@@ -8,7 +8,7 @@ import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.Grid;
-import utilities.ArrayLocation;
+import utilities.GridLocation;
 
 public class SegregationSim extends Simulation {
 
@@ -72,7 +72,7 @@ public class SegregationSim extends Simulation {
 	}
 
 	private void relocateToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
-		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
+		GridLocation newPos = findEmptySpots(newGrid, row, col);
 		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell);
 	}
 
@@ -86,7 +86,7 @@ public class SegregationSim extends Simulation {
 	 * @param cell  the cell
 	 */
 	private void moveToNewSpot(SegregationCell[][] newGrid, int row, int col, SegregationCell cell) {
-		ArrayLocation newPos = findEmptySpots(newGrid, row, col);
+		GridLocation newPos = findEmptySpots(newGrid, row, col);
 		newGrid[row][col] = new SegregationCell(TYPE_EMPTY);
 		newGrid[newPos.getRow()][newPos.getCol()] = new SegregationCell(cell.getMyType());
 	}
@@ -95,11 +95,11 @@ public class SegregationSim extends Simulation {
 	/**
 	 * generates a position where newGrid contains an empty type cell
 	 */
-	protected ArrayLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
 		int iter = 0;
 		Random rn = new Random();
-		ArrayList<ArrayLocation> emptySpaces = findEmptySpaces(grid);
-		ArrayLocation location=emptySpaces.get(rn.nextInt(emptySpaces.size()));
+		ArrayList<GridLocation> emptySpaces = findEmptySpaces(grid);
+		GridLocation location=emptySpaces.get(rn.nextInt(emptySpaces.size()));
 		int row=location.getRow(), col=location.getCol();
 		while (!(row != currentRow && col != currentCol) && iter < RANDOM_ITER_LIMIT) {
 			iter++;
@@ -108,13 +108,13 @@ public class SegregationSim extends Simulation {
 			col=location.getCol();
 		}
 		if (!(row != currentRow && col != currentCol)) {
-			for(ArrayLocation loopLocation : emptySpaces){
+			for(GridLocation loopLocation : emptySpaces){
 				if(!(grid[loopLocation.getRow()][loopLocation.getCol()].getMyType() == TYPE_EMPTY && loopLocation.getRow() != currentRow && loopLocation.getCol() != currentCol)){
 					return loopLocation;
 				}
 			}
 		}
-		return new ArrayLocation(row, col);
+		return new GridLocation(row, col);
 	}
 
 	/**
@@ -123,13 +123,13 @@ public class SegregationSim extends Simulation {
 	 * @param grid
 	 * @return an ArrayList of GridLocation specifying the locations
 	 */
-	private ArrayList<ArrayLocation> findEmptySpaces(Cell[][] grid) {
-		ArrayList<ArrayLocation> locations = new ArrayList<ArrayLocation>();
+	private ArrayList<GridLocation> findEmptySpaces(Cell[][] grid) {
+		ArrayList<GridLocation> locations = new ArrayList<GridLocation>();
 		int numRows = grid.length, numCols = grid[0].length;
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				if (grid[row][col].getMyType() == TYPE_EMPTY) {
-					locations.add(new ArrayLocation(row, col));
+					locations.add(new GridLocation(row, col));
 				}
 			}
 		}
