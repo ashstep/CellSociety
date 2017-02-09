@@ -2,12 +2,12 @@ package front_end;
 
 import java.util.function.Consumer;
 
-import Grids.Grid;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import utilities.Grid;
 
 public class GUI
 {

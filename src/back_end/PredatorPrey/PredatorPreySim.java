@@ -3,14 +3,14 @@ package back_end.PredatorPrey;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Grids.Grid;
-import Grids.GridLocation;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
+import utilities.Grid;
+import utilities.GridLocation;
 
 /**
  * @author Yuxiang He

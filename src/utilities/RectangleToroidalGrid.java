@@ -1,9 +1,8 @@
-package Grids.RectangularGrid;
+package utilities;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import Grids.Grid;
-import Grids.GridLocation;
+
 import back_end.Cell;
 
 /**

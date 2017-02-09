@@ -1,7 +1,7 @@
 package back_end;
 
-import Grids.Grid;
-import Grids.GridLocation;
+import utilities.Grid;
+import utilities.GridLocation;
 public abstract class Simulation{
 	
 	private Grid myGrid;

@@ -3,11 +3,11 @@ package back_end.Segregation;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Grids.Grid;
-import Grids.GridLocation;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
+import utilities.GridLocation;
 
 public class SegregationSim extends Simulation {
 

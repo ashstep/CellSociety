@@ -1,12 +1,12 @@
 package back_end.gameOfLifePack;
 
-import Grids.Grid;
-import Grids.GridLocation;
-import Grids.RectangularGrid.RectangleFiniteGrid;
-import Grids.RectangularGrid.RectangleToroidalGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import utilities.Grid;
+import utilities.GridLocation;
+import utilities.RectangleFiniteGrid;
+import utilities.RectangleToroidalGrid;
 public class GameOfLifeSim extends Simulation{
 	
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);

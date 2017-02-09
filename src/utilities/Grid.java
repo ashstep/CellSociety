@@ -1,4 +1,4 @@
-package Grids;
+package utilities;
 import java.util.ArrayList;
 import java.util.Collection;
 

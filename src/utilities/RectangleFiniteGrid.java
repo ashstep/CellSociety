@@ -1,21 +1,13 @@
-package Grids.RectangularGrid;
+package utilities;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import Grids.Grid;
-import Grids.GridLocation;
 import back_end.Cell;
 
-public class RectangleInfiniteGrid extends Grid {
-	
-	
-	/**
-	 * 
-	 * @param cellGrid
-	 * @param instanceCell
-	 */
-	public RectangleInfiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
+public class RectangleFiniteGrid extends Grid {
+		
+	public RectangleFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
 		super(cellGrid, instanceCell);
 	}
 	
@@ -25,14 +17,13 @@ public class RectangleInfiniteGrid extends Grid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public RectangleInfiniteGrid(int numRows, int numCols, Cell instanceCell) {
+	public RectangleFiniteGrid(int numRows, int numCols, Cell instanceCell) {
 		super(numRows, numCols, instanceCell);
 	}
 
 	/**
-	 * get the neighbors from the original grid. top, down, left, right
+	 * 
 	 */
-	@Override
 	public Collection<Cell> getNeighbors(GridLocation location, int[] rowOffset, int[]colOffset) {
 		Collection<Cell> output = new ArrayList<Cell>();
 		int row = location.getRow(), col = location.getCol();

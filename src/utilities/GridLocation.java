@@ -1,4 +1,4 @@
-package Grids;
+package utilities;
 /**
  * represents the position of a call in its Cell[][] grid. 
  * IMMUTABLE once created
