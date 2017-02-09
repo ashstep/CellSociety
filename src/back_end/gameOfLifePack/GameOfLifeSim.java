@@ -1,4 +1,5 @@
 package back_end.gameOfLifePack;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -8,6 +9,7 @@ import back_end.SimulationInfo;
 import utilities.Grid;
 import utilities.GridLocation;
 import utilities.RectangleFiniteGrid;
+import utilities.RectangleInfiniteGrid;
 import utilities.RectangleToroidalGrid;
 public class GameOfLifeSim extends Simulation{
 	
@@ -19,7 +21,8 @@ public class GameOfLifeSim extends Simulation{
 	 * 
 	 * @param typeGrid
 	 */
-	public GameOfLifeSim(int[][] typeGrid){
+	public GameOfLifeSim (int[][] typeGrid, String gridType)
+	{
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		GameOfLifeCell[][] cellGrid=new GameOfLifeCell[numRows][numCols];
@@ -29,19 +32,32 @@ public class GameOfLifeSim extends Simulation{
 				cellGrid[row][col]=new GameOfLifeCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
+		
+		setGrid(gridType, cellGrid);
+	}
+
+	private void setGrid(String gridType, GameOfLifeCell[][] cellGrid) {
+		if (gridType.equals("Toroidal")) super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
+		else if (gridType.equals("Finite")) super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
+		else if (gridType.equals("Infinite")) super.setGrid(new RectangleInfiniteGrid(cellGrid, TYPE_CELL));
+		else throw new Error("Incorrect Grid Type");
 	}
 	
 	
 	/**
 	 * updates and returns the grid. No cells move in position in this simulation
 	 * @return the updated grid
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 */
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		//TODO: how to switch the Grid object?
-		Grid newGrid=new RectangleToroidalGrid(numRows, numCols, TYPE_CELL);
+		Grid newGrid = createGrid(TYPE_CELL);
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
 				Grid oldGrid=super.getGrid();
@@ -53,6 +69,7 @@ public class GameOfLifeSim extends Simulation{
 		super.setGrid(newGrid);
 		return newGrid;
 	}
+
 
 //	/**
 //	 * get the neighbors from the original grid

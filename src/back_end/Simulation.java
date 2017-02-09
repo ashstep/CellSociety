@@ -1,9 +1,12 @@
 package back_end;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-
 import utilities.Grid;
 import utilities.GridLocation;
+
 public abstract class Simulation{
 	
 	private Grid myGrid;
@@ -11,6 +14,12 @@ public abstract class Simulation{
 	/**
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 */
 	public abstract Grid updateGrid();
 	
@@ -100,4 +109,24 @@ public abstract class Simulation{
 	public abstract double getSliderLowerBound(String x);
 	public abstract double getSliderUpperBound(String x);
 	public abstract double getCurrentValue(String x);
+
+
+	public Grid createGrid(Cell cellType)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = myGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
