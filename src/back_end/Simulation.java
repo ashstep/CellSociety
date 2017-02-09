@@ -9,6 +9,8 @@ import utilities.GridLocation;
 
 public abstract class Simulation{
 	
+	private final int[] RECTANGULAR_ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
+	private final int[] RECTANGULAR_COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
 	private Grid myGrid;
 	
 	/**
@@ -56,6 +58,15 @@ public abstract class Simulation{
 		myGrid=grid;
 	}
 	
+	
+	protected int[] getRectangularColOffset(){
+		return RECTANGULAR_COL_OFFSET;
+	}
+	
+	
+	protected int[] getRectangularRowOffset(){
+		return RECTANGULAR_ROW_OFFSET;
+	}
 	
 //	/**
 //	 * getter method

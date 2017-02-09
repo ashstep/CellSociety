@@ -14,8 +14,7 @@ import utilities.RectangleToroidalGrid;
 public class GameOfLifeSim extends Simulation{
 	
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);
-	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
-	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
+
 	
 	/**
 	 * 
@@ -63,7 +62,7 @@ public class GameOfLifeSim extends Simulation{
 				Grid oldGrid=super.getGrid();
 				GridLocation location=new GridLocation(row, col);
 				newGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)oldGrid.getCellAt(location)));
-				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, ROW_OFFSET, COL_OFFSET), null);
+				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, super.getRectangularRowOffset(), super.getRectangularColOffset()), null);
 			}
 		}
 		super.setGrid(newGrid);

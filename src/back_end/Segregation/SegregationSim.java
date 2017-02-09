@@ -12,8 +12,7 @@ import utilities.GridLocation;
 
 public class SegregationSim extends Simulation {
 
-	private final int[] ROW_OFFSET = { -1, -1, -1, 0, 0, 1, 1, 1 };
-	private final int[] COL_OFFSET = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
 	private final int TYPE_EMPTY = 0;
 	private SegregationSimInfo myInfo;
 	private final int RANDOM_ITER_LIMIT = 2000;
