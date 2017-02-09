@@ -41,6 +41,6 @@ public abstract class Cell {
 	
 	
 	public abstract Color getColor();
-	
-	
+	public abstract ArrayList<String> getTypeNames();
+	public abstract String getTypeName();
 }

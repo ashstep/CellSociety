@@ -1,5 +1,7 @@
 package back_end;
 import java.util.ArrayList;
+import java.util.function.Consumer;
+
 import utilities.Grid;
 import utilities.ArrayLocation;
 public abstract class Simulation{
@@ -95,7 +97,10 @@ public abstract class Simulation{
 		return row < myGrid.length && row>=0 
 				&& col<myGrid[0].length &&     col>=0;
 	}
-	
-	
-	
+
+	public abstract ArrayList<String> getParameterList();
+	public abstract Consumer<Number> getChangeMethod(String x);
+	public abstract double getSliderLowerBound(String x);
+	public abstract double getSliderUpperBound(String x);
+	public abstract double getCurrentValue(String x);
 }

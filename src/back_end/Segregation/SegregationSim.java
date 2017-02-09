@@ -2,6 +2,7 @@ package back_end.Segregation;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import back_end.Cell;
 import back_end.Simulation;
@@ -197,6 +198,48 @@ public class SegregationSim extends Simulation {
 			}
 		}
 		return copiedArray;
+	}
+
+
+	@Override
+	public ArrayList<String> getParameterList()
+	{
+		ArrayList<String> parameterList = new ArrayList<String>();
+		parameterList.add("Threshold");
+		return parameterList;
+	}
+
+
+	@Override
+	public Consumer<Number> getChangeMethod(String x)
+	{
+		Consumer<Number> r = (Number n) -> {};
+		if (x.equals("Threshold")) r = (Number n) -> {myInfo.setThreshold(n.intValue());};
+		return r;
+	}
+
+
+	@Override
+	public double getSliderLowerBound(String x)
+	{
+		 if (x.equals("Threshold"))return 1;
+		 return 0;
+	}
+
+
+	@Override
+	public double getSliderUpperBound(String x)
+	{
+		if (x.equals("Threshold")) return 100;
+		return 0;
+	}
+
+
+	@Override
+	public double getCurrentValue(String x)
+	{
+		if (x.equals("Threshold")) return myInfo.getThreshold();
+		return 0;
 	}
 
 

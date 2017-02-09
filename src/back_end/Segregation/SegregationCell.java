@@ -106,4 +106,21 @@ public class SegregationCell extends Cell {
 		}
 		return TYPE_EMPTY_COLOR;
 	}
+
+	@Override
+	public ArrayList<String> getTypeNames()
+	{
+		ArrayList<String> nameList = new ArrayList<String>();
+		nameList.add("Population 1");
+		nameList.add("Population 2");
+		return nameList;
+	}
+
+	@Override
+	public String getTypeName()
+	{
+		if (getMyType() == 1) return "Population 1";
+		else if (getMyType() == 2) return "Population 2";
+		else return "";
+	}
 }

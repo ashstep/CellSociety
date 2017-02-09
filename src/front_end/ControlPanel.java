@@ -1,16 +1,19 @@
 package front_end;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.function.Consumer;
 
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 
 public class ControlPanel
 {
@@ -18,11 +21,13 @@ public class ControlPanel
 	private ToolBar bar;
 	private Slider slider;
 	private Properties appProps;
+	private ArrayList<Node> simSliders;
 	
 	public ControlPanel(BorderPane inRoot)
 	{
 		bar = new ToolBar();
         inRoot.setTop(bar);
+        simSliders = new ArrayList<Node>();
 		
         appProps = new Properties();
 		try {
@@ -36,9 +41,10 @@ public class ControlPanel
 		play = new Button(appProps.getProperty("playButton"));
 		step = new Button(appProps.getProperty("stepButton"));
 		newSim = new Button(appProps.getProperty("newSimButton"));
+		Text sliderLabel = new Text("Sim Speed:");
 		slider = new Slider(.005, .15, .05);
 		
-		bar.getItems().addAll(play,pause,step,newSim, slider);
+		bar.getItems().addAll(play,pause,step,newSim, sliderLabel, slider);
 	}
 
 	public void setPause(Runnable r)
@@ -91,5 +97,25 @@ public class ControlPanel
 	public double getSliderDouble() 
 	{
 		return slider.getValue();
+	}
+	
+	public void addSimSlider(Consumer<Number> r, String sliderName, double d, double e, double f)
+	{
+		Text sliderText = new Text(sliderName);
+		Slider slider = new Slider();
+		slider.setMin(d);
+		slider.setMax(e);
+		slider.setValue(f);
+		slider.valueProperty().addListener (
+				(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> r.accept(new_val));
+		
+		bar.getItems().addAll(sliderText, slider);
+		simSliders.add(slider);
+		simSliders.add(sliderText);
+	}
+	public void clearSimSliders()
+	{
+		bar.getItems().removeAll(simSliders);
+		simSliders.clear();
 	}
 }
