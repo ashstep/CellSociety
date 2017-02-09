@@ -2,7 +2,8 @@ package back_end.gameOfLifePack;
 
 import Grids.Grid;
 import Grids.GridLocation;
-import Grids.RectangleToroidalGrid;
+import Grids.RectangularGrid.RectangleFiniteGrid;
+import Grids.RectangularGrid.RectangleToroidalGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
@@ -37,13 +38,14 @@ public class GameOfLifeSim extends Simulation{
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
+		//TODO: how to switch the Grid object?
 		Grid newGrid=new RectangleToroidalGrid(numRows, numCols, TYPE_CELL);
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
 				Grid oldGrid=super.getGrid();
 				GridLocation location=new GridLocation(row, col);
-				newGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)oldGrid.get(location)));
-				newGrid.get(location).checkAndTakeAction(oldGrid.getNeighbors(location, ROW_OFFSET, COL_OFFSET), null);
+				newGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)oldGrid.getCellAt(location)));
+				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, ROW_OFFSET, COL_OFFSET), null);
 			}
 		}
 		super.setGrid(newGrid);

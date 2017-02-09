@@ -72,12 +72,13 @@ public abstract class Grid {
 	 * @throws IllegalArgumentException
 	 */
 	public void setCellAt(GridLocation location, Cell cell) throws IllegalArgumentException{
-		if(cell.getClass().isInstance(myInstanceCell)){
-			//TODO no need to cast?
-			container[location.getRow()][location.getCol()]=cell;
-		} else {
-			throw new IllegalArgumentException("Cell should be type: "+myInstanceCell.getClass().toString());
-		}
+			if(cell.getClass().isInstance(myInstanceCell)){
+				//TODO no need to cast?
+				container[location.getRow()][location.getCol()]=cell;
+			} else {
+				throw new IllegalArgumentException("Cell should be type: "+myInstanceCell.getClass().toString());
+			}
+		
 	}
 	
 	/**
@@ -85,7 +86,7 @@ public abstract class Grid {
 	 * @param location
 	 * @return cell at location
 	 */
-	public Cell get(GridLocation location){
+	public Cell getCellAt(GridLocation location){
 		return container[location.getRow()][location.getCol()];
 	}
 	

@@ -1,8 +1,9 @@
-package Grids;
+package Grids.RectangularGrid;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+import Grids.Grid;
+import Grids.GridLocation;
 import back_end.Cell;
 
 /**
@@ -10,7 +11,7 @@ import back_end.Cell;
  * @author Yuxiang He
  *
  */
-public class RectangleToroidalGrid extends RectangleGrid {
+public class RectangleToroidalGrid extends Grid {
 	/**
 	 * 
 	 * @param cellGrid
@@ -48,7 +49,7 @@ public class RectangleToroidalGrid extends RectangleGrid {
 			} if (super.colOutOfBounds(resultant_col)) {
 				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): super.getNumCols() - resultant_col;
 			}
-			output.add(super.get(new GridLocation(resultant_row, resultant_col)));
+			output.add(super.getCellAt(new GridLocation(resultant_row, resultant_col)));
 		}
 		return output;
 	}

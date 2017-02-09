@@ -1,11 +1,12 @@
-package Grids;
+package Grids.RectangularGrid;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+import Grids.Grid;
+import Grids.GridLocation;
 import back_end.Cell;
 
-public class RectangleFiniteGrid extends RectangleGrid {
+public class RectangleFiniteGrid extends Grid {
 		
 	public RectangleFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
 		super(cellGrid, instanceCell);
@@ -24,7 +25,6 @@ public class RectangleFiniteGrid extends RectangleGrid {
 	/**
 	 * 
 	 */
-	@Override
 	public Collection<Cell> getNeighbors(GridLocation location, int[] rowOffset, int[]colOffset) {
 		Collection<Cell> output = new ArrayList<Cell>();
 		int row = location.getRow(), col = location.getCol();

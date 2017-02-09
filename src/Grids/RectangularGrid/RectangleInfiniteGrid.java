@@ -1,12 +1,13 @@
-package Grids;
+package Grids.RectangularGrid;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Grids.Grid;
+import Grids.GridLocation;
 import back_end.Cell;
 
-public class RectangleInfiniteGrid extends RectangleGrid {
-
+public class RectangleInfiniteGrid extends Grid {
 	
 	
 	/**

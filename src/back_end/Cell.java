@@ -1,6 +1,6 @@
 package back_end;
-import java.util.Collection;
 
+import java.util.Collection;
 import javafx.scene.paint.Color;
 /**
  * Abstract super class that describes the properties shared by cells of all simulations
