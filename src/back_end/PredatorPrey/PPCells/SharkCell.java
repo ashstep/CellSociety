@@ -1,6 +1,7 @@
 package back_end.PredatorPrey.PPCells;
 
-import java.util.ArrayList;
+import java.util.Collection;
+
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
@@ -32,7 +33,7 @@ public class SharkCell extends PredatorPreyCell{
 	}
 
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		timeSinceDinner++;
 		super.incrementTimeSinceBreed();	
 		int starveThreshold=((PredatorPreySimInfo) simInfo).getSharkStarveTime(),

@@ -1,6 +1,6 @@
 package back_end.Fire;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import back_end.ActionBySim;
@@ -43,7 +43,7 @@ public class FireCell extends Cell {
 	 */
 
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		int burningNeighbors = 0;
 		double randProbofFire = new Random().nextDouble();
 		for(Cell neighbor: neighbors){

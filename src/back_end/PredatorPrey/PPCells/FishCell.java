@@ -1,9 +1,7 @@
 package back_end.PredatorPrey.PPCells;
 
-/**
- * @author Yuxiang He
- */
-import java.util.ArrayList;
+import java.util.Collection;
+
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
@@ -35,7 +33,7 @@ public class FishCell extends PredatorPreyCell{
 	 * checks neighbors, makes actions
 	 */
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		super.incrementTimeSinceBreed();
 		int breedTime=((PredatorPreySimInfo) simInfo).getFishBreedTime();
 		int emptyNeighbors=0;

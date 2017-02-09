@@ -2,11 +2,11 @@ package back_end.Fire;
 
 import java.util.ArrayList;
 
+import Grids.Grid;
+import Grids.GridLocation;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import utilities.ArrayLocation;
-import utilities.Grid;
 /**
  * Class that implements the unique properties of the fire simulation
  * @author Ashka Stephen
@@ -82,7 +82,7 @@ public class FireSim extends Simulation {
 
 
 	@Override
-	protected ArrayLocation findEmptySpots(Cell[][] newgrid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpots(Cell[][] newgrid, int currentRow, int currentCol) {
 		return null;
 	}
 
