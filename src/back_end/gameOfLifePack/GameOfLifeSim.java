@@ -46,9 +46,7 @@ public class GameOfLifeSim extends Simulation{
 				Grid oldGrid=super.getGrid();
 				GridLocation location=new GridLocation(row, col);
 				newGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)oldGrid.getCellAt(location)));
-				if(newGrid.getCellAt(location).getMyType()!=EMPTY_TYPE){
-					newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), null);
-				}
+				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), null);
 				
 			}
 		}

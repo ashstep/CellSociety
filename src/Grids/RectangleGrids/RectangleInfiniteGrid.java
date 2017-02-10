@@ -79,7 +79,7 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 			return super.getCellAt(abstractedLocation);
 		} else {
 			super.resize(abstractedLocation);
-			return this.getCellAt(abstractedLocation);
+			return super.getCellAt(abstractedLocation);
 		}
 	}
 }
