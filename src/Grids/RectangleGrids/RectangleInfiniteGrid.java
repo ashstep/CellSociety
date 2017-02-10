@@ -1,13 +1,11 @@
-package RectangleGrids;
+package Grids.RectangleGrids;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import Grids.Grid;
 import back_end.Cell;
 import utilities.GridLocation;
 
-public class RectangleInfiniteGrid extends Grid {
+public class RectangleInfiniteGrid extends RectangularGrid {
 	
 	/**
 	 * 
@@ -35,13 +33,13 @@ public class RectangleInfiniteGrid extends Grid {
 	 */
 	@Override
 	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws IllegalArgumentException{
-		int row = abstractedLocation.getRow(),  col = abstractedLocation.getCol();
+		int abstractedRow = abstractedLocation.getRow(), abstractedCol = abstractedLocation.getCol();
 		if(cell.getClass().isInstance(super.getInstanceCell()) && isValidAbstractedPosition(abstractedLocation)){
 			//TODO no need to cast?
 			super.setCellAt(abstractedLocation, cell);
-		} else if(! isValidAbstractedPosition(row, col)){
+		} else if(! isValidAbstractedPosition(abstractedRow, abstractedCol)){
 			super.resize(abstractedLocation);
-			setCellAt(abstractedLocation, cell);
+			this.setCellAt(abstractedLocation, cell);
 		} else {
 			throw new IllegalArgumentException("Cell should be type: "+super.getInstanceCell().getClass().toString());
 		}
@@ -52,17 +50,18 @@ public class RectangleInfiniteGrid extends Grid {
 	 * get the neighbors from the original grid.
 	 */
 	@Override
-	public Collection<Cell> getNeighbors(GridLocation location, int[] rowOffset, int[]colOffset) {
+	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
 		Collection<Cell> output = new ArrayList<Cell>();
 		int row = location.getRow(), col = location.getCol();
+		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
-			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
-				output.add(getCellAt(new GridLocation(resultant_row, resultant_col)));
-			} else {
-				super.resize(new GridLocation(resultant_row, resultant_col));
-				output.add(getCellAt(new GridLocation(resultant_row, resultant_col)));
-			}
+//			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
+				output.add(this.getCellAt(new GridLocation(resultant_row, resultant_col)));
+//			} else {
+//				super.resize(new GridLocation(resultant_row, resultant_col));
+//				output.add(getCellAt(new GridLocation(resultant_row, resultant_col)));
+//			}
 		}
 		return output;
 	}
@@ -75,12 +74,12 @@ public class RectangleInfiniteGrid extends Grid {
 	 * @return cell at location
 	 */
 	@Override
-	public Cell getCellAt(GridLocation abstractedLocation) throws ArrayIndexOutOfBoundsException{
-		if(isValidAbstractedPosition(abstractedLocation)){
+	public Cell getCellAt(GridLocation abstractedLocation){
+		if(super.isValidAbstractedPosition(abstractedLocation)){
 			return super.getCellAt(abstractedLocation);
 		} else {
 			super.resize(abstractedLocation);
-			return getCellAt(abstractedLocation);
+			return this.getCellAt(abstractedLocation);
 		}
 	}
 }

@@ -14,11 +14,9 @@ public abstract class Grid {
 
 	
 	private Cell[][] container;
-	private Cell myInstanceCell; //for error checking? If initialized as Grid of  FireCell then cannot add FishCell
-	//make sure it is an empty type cell, useful for filling in the container after it resizes
+	private Cell myInstanceCell;
 	private int topLeftRowNum;
 	private int topLeftColNum;
-	
 	/**
 	 * keep this constructor?
 	 * Bad: exposes the inner working of the class i.e. uses a Cell[][]?
@@ -36,9 +34,13 @@ public abstract class Grid {
 	public Grid(int numRows, int numCols, Cell instanceCell){
 		container=new Cell[numRows][numCols];
 		myInstanceCell=instanceCell;
+		topLeftRowNum=0;
+		topLeftColNum=0;
 	}
 
-	
+	public GridLocation getTLIndex(){
+		return new GridLocation(topLeftRowNum, topLeftColNum);
+	}
 	/**
 	 * 
 	 * @return myInstanceCell
@@ -76,6 +78,7 @@ public abstract class Grid {
 	 * @param abstractedLocation
 	 * @param cell
 	 * @throws IllegalArgumentException
+	 * @throws ArrayIndexOutOfBoundsException
 	 */
 	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws IllegalArgumentException, ArrayIndexOutOfBoundsException{
 		GridLocation normalizedLocation=normalizeLocation(abstractedLocation);
@@ -100,8 +103,8 @@ public abstract class Grid {
 	 */
 	public Cell getCellAt(GridLocation abstractedLocation) throws ArrayIndexOutOfBoundsException{
 		if(isValidAbstractedPosition(abstractedLocation)){
-			GridLocation transformedLocation=normalizeLocation(abstractedLocation);
-			return container[transformedLocation.getRow()][transformedLocation.getCol()];
+			GridLocation normalizedLocation=normalizeLocation(abstractedLocation);
+			return container[normalizedLocation.getRow()][normalizedLocation.getCol()];
 		} else {
 			throw new ArrayIndexOutOfBoundsException(
 					String.format("Grid.getCellAt: row %d out of bounds: %b, Col %d out of bounds: %b", abstractedLocation.getRow(),
@@ -111,11 +114,7 @@ public abstract class Grid {
 		}	
 	}
 	
-	/**
-	 * given the location specified by abstractedLocation, return the neighbors
-	 * @return
-	 */
-	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[]colOffset);
+	
 	
 	/**
 	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
@@ -128,6 +127,7 @@ public abstract class Grid {
 		return ! abstractedRowOutOfBounds(abstractedRow)
 				&& ! abstractedColOutOfBounds(abstractedCol);
 	}
+	
 	
 	/**
 	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
@@ -196,29 +196,43 @@ public abstract class Grid {
 
 	protected void resize(GridLocation invalidAbstractedLocation){
 		int newNumRows=getNumRows(), newNumCols=getNumCols();
-		
 		if(abstractedRowOutOfBounds(invalidAbstractedLocation.getRow())){
 			int invalidInternalRow=normalizeRow(invalidAbstractedLocation.getRow());
-			newNumRows=invalidInternalRow<0? getNumRows()-invalidInternalRow: invalidInternalRow;
-		}
-		
+			newNumRows=invalidInternalRow<0? getNumRows()-invalidInternalRow: invalidInternalRow+1;
+		}	
 		if(abstractedColOutOfBounds(invalidAbstractedLocation.getCol())){
 			int invalidInternalCol=normalizeCol(invalidAbstractedLocation.getCol());
-			newNumCols=invalidInternalCol<0? getNumCols()-invalidInternalCol: invalidInternalCol;
+			newNumCols=invalidInternalCol<0? getNumCols()-invalidInternalCol: invalidInternalCol+1;
 		}
 		Cell[][] newContainer=new Cell[newNumRows][newNumCols];
-		for(int row=0; row<newNumRows; row++){
-			for(int col=0; col<newNumCols; col++){
-				if(isValidAbstractedPosition(row, col)){
-					newContainer[row][col]=container[row][col];
+		GridLocation newAbstractedTLCorner=calculateNewTopLeftCorner(invalidAbstractedLocation);
+		fillInResizedContainer(newContainer, newAbstractedTLCorner);
+		setNewTopLeftCornerLocation( invalidAbstractedLocation);
+		System.out.printf("Grid line 160: resizing grid to %d rows and %d cols\n", newNumRows, newNumCols);
+		container=newContainer;
+	}
+
+
+	private void fillInResizedContainer(Cell[][] newContainer, GridLocation newAbstractedTLCorner) {
+		int newNumRows=newContainer.length, newNumCols=newContainer[0].length;
+		
+		int oldTLRowOffset=-newAbstractedTLCorner.getRow()+topLeftRowNum;
+		int oldTLColOffset=-newAbstractedTLCorner.getCol()+topLeftColNum;
+		for(int internalRow=0; internalRow<newNumRows; internalRow++){
+			for(int internalCol=0; internalCol<newNumCols; internalCol++){
+				if(internalRow-oldTLRowOffset>=0 &&  internalRow-oldTLRowOffset<container.length
+						&& internalCol-oldTLColOffset>=0 && internalCol-oldTLColOffset<container[0].length){
+					newContainer[internalRow][internalCol]=container[internalRow-oldTLRowOffset][internalCol-oldTLColOffset];
 				} else {
-					newContainer[row][col]=myInstanceCell.makeEmptyCell();
+//					try{
+						newContainer[internalRow][internalCol]=myInstanceCell.makeEmptyCell();
+//					} catch (ArrayIndexOutOfBoundsException e){
+//						resize(new GridLocation(internalRow+topLeftRowNum, internalCol+topLeftColNum));
+//						newContainer[internalRow][internalCol]=myInstanceCell.makeEmptyCell();
+//					}
 				}
 			}
 		}
-		System.out.printf("Grid line 160: resizing grid to %d rows and %d cols", newNumRows, newNumCols);
-		container=newContainer;
-		setNewTopLeftCornerLocation( invalidAbstractedLocation);
 	}
 	
 	
@@ -228,9 +242,30 @@ public abstract class Grid {
 	 * @param invalidLocation
 	 */
 	private void setNewTopLeftCornerLocation(GridLocation invalidLocation){
-		topLeftRowNum=topLeftRowNum>invalidLocation.getRow()? invalidLocation.getRow(): topLeftRowNum;
-		topLeftColNum=topLeftColNum>invalidLocation.getCol()? invalidLocation.getCol(): topLeftColNum;
+		GridLocation newAbstractedTLCorner=calculateNewTopLeftCorner(invalidLocation);
+		topLeftRowNum=newAbstractedTLCorner.getRow();
+		topLeftColNum=newAbstractedTLCorner.getCol();
 	}
+	
+	
+	private GridLocation calculateNewTopLeftCorner(GridLocation invalidLocation){
+		int newTopLeftRow=topLeftRowNum>invalidLocation.getRow()? invalidLocation.getRow(): topLeftRowNum;
+		int newtopLeftCol=topLeftColNum>invalidLocation.getCol()? invalidLocation.getCol(): topLeftColNum;
+		return new GridLocation(newTopLeftRow, newtopLeftCol);
+	}
+	
+	
+	
+	
+	/**
+	 * given the location specified by abstractedLocation, return the neighbors
+	 * @return
+	 */
+	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	
+	protected abstract int[] getRowOffsetArray(int flag);
+	
+	protected abstract int[] getColOffsetArray(int flag);
 	
 	/**
 	 * 

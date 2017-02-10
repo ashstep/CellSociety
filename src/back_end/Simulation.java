@@ -7,8 +7,7 @@ import utilities.GridLocation;
 public abstract class Simulation{
 	//TODO: implement changeToNextType();
 	private Grid myGrid;
-	private final int[] RECTANGLE_ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
-	private final int[] RECTANGLE_COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
+	
 	
 	/**
 	 * update the grid based on the cells' current state
@@ -47,22 +46,6 @@ public abstract class Simulation{
 	 */
 	protected void setGrid(Grid grid){
 		myGrid=grid;
-	}
-	
-	/**
-	 * 
-	 * @return row offset array for rectangle grid
-	 */
-	protected int[] getRectangleRowOffset(){
-		return RECTANGLE_ROW_OFFSET;
-	}
-	
-	/**
-	 * 
-	 * @return column offset array for rectangle grid
-	 */
-	protected int[] getRectangleColOffset(){
-		return RECTANGLE_COL_OFFSET;
 	}
 	
 
