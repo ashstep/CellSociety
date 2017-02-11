@@ -1,6 +1,5 @@
 package Grids;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import back_end.Cell;
 import javafx.scene.paint.Color;

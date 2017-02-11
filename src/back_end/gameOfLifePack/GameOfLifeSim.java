@@ -7,7 +7,6 @@ import Grids.RectangleGrids.*;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import back_end.Segregation.SegregationCell;
 import utilities.GridLocation;
 public class GameOfLifeSim extends Simulation{
 	
