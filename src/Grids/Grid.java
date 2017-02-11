@@ -214,7 +214,6 @@ public abstract class Grid {
 		GridLocation newAbstractedTLCorner=calculateNewTopLeftCorner(invalidAbstractedLocation);
 		fillInResizedContainer(newContainer, newAbstractedTLCorner);
 		setNewTopLeftCornerLocation( invalidAbstractedLocation);
-		System.out.printf("Grid line 160: resizing grid to %d rows and %d cols\n", newNumRows, newNumCols);
 		container=newContainer;
 	}
 
@@ -266,7 +265,8 @@ public abstract class Grid {
 	 * @param location
 	 */
 	public void nextState(GridLocation location){
-		setCellAt(location, getCellAt(location).makeNextStateCell());
+		Cell cell=getCellAt(location);
+		setCellAt(location, cell.makeNextStateCell());
 	}
 	
 	
