@@ -1,7 +1,8 @@
-package Grids;
+package Grids.TriangularGrid;
 
 import java.util.Arrays;
 
+import Grids.Grid;
 import back_end.Cell;
 
 public abstract class TriangularGrid extends Grid {

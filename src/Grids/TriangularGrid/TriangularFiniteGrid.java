@@ -1,4 +1,4 @@
-package Grids;
+package Grids.TriangularGrid;
 
 import java.util.ArrayList;
 import java.util.Collection;

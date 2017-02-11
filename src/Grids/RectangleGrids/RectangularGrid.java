@@ -1,7 +1,8 @@
-package Grids;
+package Grids.RectangleGrids;
 
 import java.util.Arrays;
 
+import Grids.Grid;
 import back_end.Cell;
 
 public abstract class RectangularGrid extends Grid {

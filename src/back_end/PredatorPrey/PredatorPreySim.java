@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
-import Grids.RectangleFiniteGrid;
+import Grids.RectangleGrids.RectangleFiniteGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
