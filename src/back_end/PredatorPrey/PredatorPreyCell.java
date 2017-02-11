@@ -9,7 +9,6 @@ import back_end.SimulationInfo;
 import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
-import back_end.gameOfLifePack.GameOfLifeCell;
 import javafx.scene.paint.Color;
 
 public abstract class PredatorPreyCell extends Cell{

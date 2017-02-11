@@ -3,14 +3,9 @@ package back_end.Fire;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
-
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.EmptyPPCell;
-import back_end.PredatorPrey.PPCells.FishCell;
-import back_end.PredatorPrey.PPCells.SharkCell;
-import back_end.gameOfLifePack.GameOfLifeCell;
 import javafx.scene.paint.Color;
 
 /**

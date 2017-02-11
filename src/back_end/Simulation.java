@@ -1,4 +1,5 @@
 package back_end;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -16,13 +17,23 @@ public abstract class Simulation{
 	public abstract Grid updateGrid();
 	
 	
-//	/**
-//	 * 
-//	 * @param row the row of the current cell
-//	 * @param col the col of the current cell
-//	 * @return the Cell neighbors of the current cell
-//	 */
-//	protected abstract ArrayList<Cell> getNeighbors(int row, int col);
+	public Grid createGrid(Cell cellType)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = myGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell

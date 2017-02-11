@@ -6,8 +6,6 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.Fire.FireCell;
-import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import javafx.scene.paint.Color;
 
 public class SegregationCell extends Cell {

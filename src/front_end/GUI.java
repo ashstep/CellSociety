@@ -1,7 +1,8 @@
 package front_end;
 
 import java.util.function.Consumer;
-
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import Grids.Grid;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -30,8 +31,11 @@ public class GUI
 		return myScene;
 	}
 	
-	public void initGrid(int gridHeight, int gridWidth)
+	public void initGrid(Grid gridObject)
 	{
+		int gridHeight = gridObject.getNumRows();
+		int gridWidth = gridObject.getNumCols();
+		
 		grid = new Rectangle[gridHeight][gridWidth];
 		Group gridContainer = new Group();
 		root.setCenter(gridContainer);
@@ -45,9 +49,18 @@ public class GUI
 				grid[x][y].setX(y*cellSize);
 				grid[x][y].setY(x*cellSize);
 				grid[x][y].setStroke(Color.BLACK);
+				grid[x][y].setOnMouseClicked(new EventHandler<MouseEvent>()
+		        {
+		            @Override
+		            public void handle(MouseEvent t)
+		            {
+		                
+		            }
+		        });
 				gridContainer.getChildren().add(grid[x][y]);
 			}
 		}
+		renderGrid(gridObject);
 	}
 	
 	public void renderGrid(Grid cellGrid)
