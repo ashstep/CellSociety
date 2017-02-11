@@ -31,7 +31,7 @@ public abstract class Simulation{
 	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
-	protected abstract GridLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
+	protected abstract GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol);
 	
 	/**
 	 * getter method

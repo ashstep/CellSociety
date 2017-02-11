@@ -12,7 +12,6 @@ public class GameOfLifeSim extends Simulation{
 	
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);
 	private final int NEIGHBOR_FLAG=1;
-	private final int EMPTY_TYPE=0;
 	
 	/**
 	 * 
@@ -64,7 +63,7 @@ public class GameOfLifeSim extends Simulation{
 
 
 	@Override
-	protected GridLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
 		// TODO Auto-generated method stub
 		return null;
 	}

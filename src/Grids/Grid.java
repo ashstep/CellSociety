@@ -30,6 +30,14 @@ public abstract class Grid {
 		topLeftColNum=0;
 	}
 	
+	/**
+	 * Public hmmm
+	 * @return
+	 */
+	//TODO: Public hmmm
+	public Cell[][] getContainer(){
+		return container;
+	}
 	
 	public Grid(int numRows, int numCols, Cell instanceCell){
 		container=new Cell[numRows][numCols];

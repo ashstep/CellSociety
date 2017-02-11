@@ -107,6 +107,9 @@ public class FireCell extends Cell {
 			return EMPTY_COLOR;
 		}
 	}
+	
+	
+	
 
 	@Override
 	public Collection<String> getTypeNames() {
