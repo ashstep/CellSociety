@@ -2,7 +2,6 @@ package back_end.gameOfLifePack;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-
 import Grids.*;
 import Grids.RectangleGrids.*;
 import back_end.Simulation;
@@ -12,7 +11,8 @@ public class GameOfLifeSim extends Simulation{
 	
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);
 	private final int NEIGHBOR_FLAG=1;
-	
+	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
+	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
 	/**
 	 * 
 	 * @param typeGrid
@@ -65,18 +65,6 @@ public class GameOfLifeSim extends Simulation{
 		}
 		super.setGrid(newGrid);
 		return newGrid;
-	}
-
-	private Cell[][] copyArray(Cell[][] oldArray) {
-		int numRows = oldArray.length;
-		int numCols = oldArray[0].length;
-		GameOfLifeCell[][] copiedArray = new GameOfLifeCell[numRows][numCols];
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				copiedArray[row][col] = new GameOfLifeCell((GameOfLifeCell) oldArray[row][col]);
-			}
-		}
-		return copiedArray;
 	}
 
 
