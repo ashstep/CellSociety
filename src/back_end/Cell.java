@@ -47,8 +47,6 @@ public abstract class Cell {
 	 * @return an empty/dead GameOfLifeCell
 	 */
 	public abstract Cell makeEmptyCell();
-	
-	
 	public abstract Color getColor();
 	public abstract Collection<String> getTypeNames();
 	public abstract String getTypeName();

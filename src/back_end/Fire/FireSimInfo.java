@@ -2,7 +2,7 @@ package back_end.Fire;
 
 import back_end.SimulationInfo;
 /**
- * Class that deals with fire probablity
+ * Class that deals with fire probability
  * @author Ashka Stephen
  *
  */
