@@ -9,7 +9,8 @@ import utilities.GridLocation;
 
 public abstract class Simulation{
 	//TODO: implement changeToNextType();
-	private Grid myGrid;
+	private Grid myCellGrid;
+	private Grid myGroundGrid;
 	
 	
 	/**
@@ -47,14 +48,21 @@ public abstract class Simulation{
 	 * @return Grid containing cell info
 	 */
 	public Grid getGrid(){
-		return myGrid;
+		return myCellGrid;
+	}
+	public Grid getGroundGrid(){
+		return myGroundGrid;
 	}
 	
 	/**
-	 * setter method for myGrid
+	 * setter method for myGrid and myGroundGrid
 	 */
 	protected void setGrid(Grid grid){
-		myGrid=grid;
+		myCellGrid=grid;
+	}
+	
+	protected void setGroundGrid(Grid groundGrid){
+		myGroundGrid = groundGrid;
 	}
 	
 
@@ -77,7 +85,11 @@ public abstract class Simulation{
 	 * @return number of rows in myGrid
 	 */
 	public int getNumRows(){
-		return myGrid.getNumRows();
+		return myCellGrid.getNumRows();
+	}
+	
+	public int getNumRowsGround(){
+		return myCellGrid.getNumRows();
 	}
 	
 	/**
@@ -85,8 +97,11 @@ public abstract class Simulation{
 	 * @return number of columns in myGrid
 	 */
 	public int getNumCols(){
-		return myGrid.getNumCols();
+		return myCellGrid.getNumCols();
 	}
+	
+	
+	
 	
 
 	public abstract ArrayList<String> getParameterList();
@@ -100,7 +115,7 @@ public abstract class Simulation{
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {
-			constructor = myGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
+			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
