@@ -6,6 +6,10 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PPCells.EmptyPPCell;
+import back_end.PredatorPrey.PPCells.FishCell;
+import back_end.PredatorPrey.PPCells.SharkCell;
+import back_end.gameOfLifePack.GameOfLifeCell;
 import javafx.scene.paint.Color;
 
 public abstract class PredatorPreyCell extends Cell{
@@ -99,6 +103,33 @@ public abstract class PredatorPreyCell extends Cell{
 	 */
 	protected void incrementTimeSinceBreed(){
 		timeSinceBreed++;
+	}
+	
+	@Override
+	public Cell makeEmptyCell() {
+		return new EmptyPPCell();
+	}
+	
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException{
+		if(type==FISH){
+			return new FishCell();
+		} else if(type==SHARK){
+			return new SharkCell();
+		} else if(type==EMPTY){
+			return new EmptyPPCell();
+		} else {
+			throw new IllegalArgumentException("Invalid PPCell type");
+		}
+	}
+	
+	@Override
+	public Cell makeNextStateCell() {
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(EMPTY);
+		}
 	}
 	
 	/**

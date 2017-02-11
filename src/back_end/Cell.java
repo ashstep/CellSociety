@@ -45,8 +45,8 @@ public abstract class Cell {
 	 * @return an empty/dead GameOfLifeCell
 	 */
 	public abstract Cell makeEmptyCell();
-	
-	
+	public abstract Cell makeCellofType(int type) throws IllegalArgumentException;
+	public abstract Cell makeNextStateCell();
 	public abstract Color getColor();
 	public abstract Collection<String> getTypeNames();
 	public abstract String getTypeName();

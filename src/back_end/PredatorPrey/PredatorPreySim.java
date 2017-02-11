@@ -116,16 +116,12 @@ public class PredatorPreySim extends Simulation {
 	private void takeActionsForCell(Grid grid, GridLocation currentLocation, PredatorPreyCell ppCell, ActionByPPSim furtherActions) {
 		GridLocation newLoc=currentLocation;
 		if (furtherActions.toDie()) {
-			if(ppCell.getMyType()==SHARK){
-				System.out.printf("shark at %d, %d dies\n", currentLocation.getRow(), currentLocation.getCol());
-			}
 			killCell(grid, currentLocation);
 		} else if (furtherActions.toEat() && ppCell.getMyType()==SHARK) {
 			ArrayList<GridLocation> fishNeighborLocations = (ArrayList<GridLocation>) grid.getNeighborLocationByType(currentLocation, FISH, NEIGHBOR_FLAG);
 			if (fishNeighborLocations.size() != 0) {
 				int randLoc=new Random().nextInt(fishNeighborLocations.size());
 				GridLocation fishToEatLocation = fishNeighborLocations.get(randLoc);
-				System.out.printf("shark at %d, %d, eating fish at %d, %d\n", currentLocation.getRow(), currentLocation.getCol(), fishToEatLocation.getRow(), fishToEatLocation.getCol());
 				killCell(grid, fishToEatLocation);
 				((SharkCell) ppCell).resetTimeSinceDinner();
 			}

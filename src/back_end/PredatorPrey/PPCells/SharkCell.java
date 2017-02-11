@@ -93,10 +93,4 @@ public class SharkCell extends PredatorPreyCell{
 	public void resetTimeSinceDinner(){
 		timeSinceDinner=0;
 	}
-	
-	@Override
-	public Cell makeEmptyCell() {
-		return new EmptyPPCell();
-	}
-	
 }
