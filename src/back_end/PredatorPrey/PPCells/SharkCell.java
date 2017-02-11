@@ -94,4 +94,9 @@ public class SharkCell extends PredatorPreyCell{
 		timeSinceDinner=0;
 	}
 	
+	@Override
+	public Cell makeEmptyCell() {
+		return new EmptyPPCell();
+	}
+	
 }

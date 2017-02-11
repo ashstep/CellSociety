@@ -1,5 +1,6 @@
 package back_end.PredatorPrey;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import back_end.ActionBySim;
@@ -116,7 +117,7 @@ public abstract class PredatorPreyCell extends Cell{
 	
 	public Collection<String> getTypeNames()
 	{
-		ArrayList<String> nameList = new ArrayList<String>();
+		Collection<String> nameList = new ArrayList<String>();
 		nameList.add("Fish");
 		nameList.add("Shark");
 		return nameList;

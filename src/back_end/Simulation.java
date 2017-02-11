@@ -4,12 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import utilities.Grid;
+import Grids.Grid;
 import utilities.GridLocation;
 
 public abstract class Simulation{
-	
+	//TODO: implement changeToNextType();
 	private Grid myGrid;
+	
 	
 	/**
 	 * update the grid based on the cells' current state
@@ -39,7 +40,7 @@ public abstract class Simulation{
 	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
-	protected abstract GridLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
+	protected abstract GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol);
 	
 	/**
 	 * getter method
@@ -55,22 +56,6 @@ public abstract class Simulation{
 	protected void setGrid(Grid grid){
 		myGrid=grid;
 	}
-	
-	
-//	/**
-//	 * getter method
-//	 * @return myGrid
-//	 */
-//	protected Cell[][] getArrayGrid(){
-//		return myGrid;
-//	}
-//	
-//	/**
-//	 * setter method for myGrid
-//	 */
-//	protected void setArrayGrid(Cell[][] newGrid){
-//		myGrid=newGrid;
-//	}
 	
 
 	

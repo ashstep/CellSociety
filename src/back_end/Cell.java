@@ -1,6 +1,8 @@
 package back_end;
 
 import java.util.Collection;
+
+import back_end.gameOfLifePack.GameOfLifeCell;
 import javafx.scene.paint.Color;
 /**
  * Abstract super class that describes the properties shared by cells of all simulations
@@ -39,6 +41,12 @@ public abstract class Cell {
 	public void setMyType(int newType) {
 		myType=newType;
 	}
+	
+	/**
+	 * 
+	 * @return an empty/dead GameOfLifeCell
+	 */
+	public abstract Cell makeEmptyCell();
 	
 	
 	public abstract Color getColor();
