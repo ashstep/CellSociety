@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 import Grids.*;
 import Grids.RectangleGrids.*;
-import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;

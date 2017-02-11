@@ -88,9 +88,9 @@ public abstract class Grid {
 	 * @throws IllegalArgumentException
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws IllegalArgumentException, ArrayIndexOutOfBoundsException{
+	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws ArrayIndexOutOfBoundsException{
 		GridLocation normalizedLocation=normalizeLocation(abstractedLocation);
-			if(cell.getClass().isInstance(myInstanceCell) && isValidAbstractedPosition(abstractedLocation)){
+			if(isValidAbstractedPosition(abstractedLocation)){//cell.getClass().isInstance(myInstanceCell) && 
 				//TODO no need to cast?
 				container[normalizedLocation.getRow()][normalizedLocation.getCol()]=cell;
 			} else if(! isValidAbstractedPosition(abstractedLocation)){
@@ -98,10 +98,10 @@ public abstract class Grid {
 						String.format("Grid.setCellAt: row out of bounds: %b, Col out of bounds: %b", 
 								abstractedRowOutOfBounds(abstractedLocation.getRow()), abstractedColOutOfBounds(abstractedLocation.getCol())
 								)
-						);
-			} else {
-				throw new IllegalArgumentException("Cell should be type/brother of the type: "+myInstanceCell.getClass().toString());
-			}
+						);}
+//			} else {
+//				throw new IllegalArgumentException("Cell should be type/brother of the type: "+myInstanceCell.getClass().toString());
+//			}
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public abstract class Grid {
 	 * @param abstractedCol
 	 * @return true if the position is valid
 	 */
-	protected boolean isValidAbstractedPosition(int abstractedRow, int abstractedCol){
+	public boolean isValidAbstractedPosition(int abstractedRow, int abstractedCol){
 		return ! abstractedRowOutOfBounds(abstractedRow)
 				&& ! abstractedColOutOfBounds(abstractedCol);
 	}
@@ -143,7 +143,7 @@ public abstract class Grid {
 	 * @param abstractedLocation
 	 * @return true if the position is valid
 	 */
-	protected boolean isValidAbstractedPosition(GridLocation abstractedLocation){
+	public boolean isValidAbstractedPosition(GridLocation abstractedLocation){
 		return ! abstractedRowOutOfBounds(abstractedLocation.getRow())
 				&& ! abstractedColOutOfBounds(abstractedLocation.getCol());
 	}
