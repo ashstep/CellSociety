@@ -260,7 +260,14 @@ public abstract class Grid {
 		return new GridLocation(newTopLeftRow, newtopLeftCol);
 	}
 	
-	
+	/**
+	 * set the cell at location to be the next state cell.
+	 * Helps front end for user setting state of cell
+	 * @param location
+	 */
+	public void nextState(GridLocation location){
+		setCellAt(location, getCellAt(location).makeNextStateCell());
+	}
 	
 	
 	/**
@@ -268,6 +275,7 @@ public abstract class Grid {
 	 * @return
 	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	public abstract Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag);
 	
 	protected abstract int[] getRowOffsetArray(int flag);
 	

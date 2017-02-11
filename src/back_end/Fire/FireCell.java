@@ -7,6 +7,10 @@ import java.util.Random;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PPCells.EmptyPPCell;
+import back_end.PredatorPrey.PPCells.FishCell;
+import back_end.PredatorPrey.PPCells.SharkCell;
+import back_end.gameOfLifePack.GameOfLifeCell;
 import javafx.scene.paint.Color;
 
 /**
@@ -130,5 +134,27 @@ public class FireCell extends Cell {
 	@Override
 	public Cell makeEmptyCell() {
 		return new FireCell(STATE_EMPTY);
+	}
+
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException {
+		if(type==STATE_EMPTY){
+			return new FireCell(STATE_EMPTY);
+		} else if(type==STATE_TREE){
+			return new FireCell(STATE_TREE);
+		} else if(type==STATE_BURNING){
+			return new FireCell(STATE_BURNING);
+		} else {
+			throw new IllegalArgumentException("Invalid FireCell type");
+		}
+	}
+	
+	@Override
+	public Cell makeNextStateCell() {
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(STATE_EMPTY);
+		}
 	}
 }

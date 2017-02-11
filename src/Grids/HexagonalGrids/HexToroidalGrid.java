@@ -1,45 +1,25 @@
-package Grids.RectangleGrids;
+package Grids.HexagonalGrids;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import back_end.Cell;
 import utilities.GridLocation;
 
-/**
- * 
- * @author Yuxiang He
- *
- */
-public class RectangleToroidalGrid extends RectangularGrid {
-	/**
-	 * 
-	 * @param cellGrid
-	 * @param instanceCell an instance of the super class of all the cells in this simulation, used for error checking
-	 */
-	public RectangleToroidalGrid(Cell[][] cellGrid, Cell instanceCell) {
+public class HexToroidalGrid extends HexagonalGrid {
+
+	public HexToroidalGrid(Cell[][] cellGrid, Cell instanceCell) {
 		super(cellGrid, instanceCell);
 	}
-	
-	
-	/**
-	 * 
-	 * @param numRows
-	 * @param numCols
-	 * @param instanceCell
-	 */
-	public RectangleToroidalGrid(int numRows, int numCols, Cell instanceCell) {
+
+	public HexToroidalGrid(int numRows, int numCols, Cell instanceCell) {
 		super(numRows, numCols, instanceCell);
 	}
-	
 
-	/**
-	 * collects the neighbors surrounding the cell at location
-	 * @param flag
-	 */
 	@Override
-	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
 		Collection<Cell> output = new ArrayList<Cell>();
-		int row = location.getRow(), col = location.getCol();
+		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
 		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
@@ -53,10 +33,7 @@ public class RectangleToroidalGrid extends RectangularGrid {
 		return output;
 	}
 
-	/**
-	 * get the neighbors of A CERTAIN TYPE from the original grid. top, down,
-	 * left, right
-	 */
+	@Override
 	public Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag) {
 		Collection<GridLocation> output = new ArrayList<GridLocation>();
 		int row = location.getRow(), col = location.getCol();
@@ -74,4 +51,5 @@ public class RectangleToroidalGrid extends RectangularGrid {
 		}
 		return output;
 	}
+
 }

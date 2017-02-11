@@ -6,6 +6,7 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.Fire.FireCell;
 import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import javafx.scene.paint.Color;
 
@@ -129,5 +130,27 @@ public class SegregationCell extends Cell {
 	@Override
 	public Cell makeEmptyCell() {
 		return new SegregationCell(TYPE_EMPTY);
+	}
+
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException {
+		if(type==TYPE_ONE){
+			return new SegregationCell(TYPE_ONE);
+		} else if(type==TYPE_TWO){
+			return new SegregationCell(TYPE_TWO);
+		} else if(type==TYPE_EMPTY){
+			return new SegregationCell(TYPE_EMPTY);
+		} else {
+			throw new IllegalArgumentException("Invalid SegregationCell type");
+		}
+	}
+
+	@Override
+	public Cell makeNextStateCell() {
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(TYPE_EMPTY);
+		}
 	}
 }
