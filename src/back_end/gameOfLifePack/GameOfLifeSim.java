@@ -16,7 +16,7 @@ public class GameOfLifeSim extends Simulation{
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);
 	private final int[] ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
 	private final int[] COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
-	
+	private int teset = 0;
 	/**
 	 * 
 	 * @param typeGrid
