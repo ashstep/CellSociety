@@ -104,24 +104,4 @@ public abstract class Simulation{
 	public abstract double getSliderLowerBound(String x);
 	public abstract double getSliderUpperBound(String x);
 	public abstract double getCurrentValue(String x);
-
-
-	public Grid createGrid(Cell cellType)
-	{
-		Constructor<? extends Grid> constructor = null;
-		try {
-			constructor = myGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
-		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
