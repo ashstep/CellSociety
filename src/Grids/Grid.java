@@ -11,8 +11,6 @@ import utilities.GridLocation;
  */
 //TODO: use generic
 public abstract class Grid {
-
-	
 	private Cell[][] container;
 	private Cell myInstanceCell;
 	private int topLeftRowNum;

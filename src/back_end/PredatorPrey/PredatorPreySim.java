@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
-import Grids.RectangleGrids.RectangleFiniteGrid;
+import Grids.RectangleFiniteGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
@@ -18,7 +18,6 @@ import utilities.GridLocation;
  *
  */
 public class PredatorPreySim extends Simulation {
-	
 	private final Cell TYPE_CELL = new SharkCell();
 	private PredatorPreySimInfo myInfo;
 	private final int FISH = 1;
