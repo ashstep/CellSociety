@@ -4,14 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import utilities.Grid;
+import Grids.Grid;
 import utilities.GridLocation;
 
 public abstract class Simulation{
-	
-	private final int[] RECTANGULAR_ROW_OFFSET={-1, -1, -1,  0, 0,   1, 1, 1};
-	private final int[] RECTANGULAR_COL_OFFSET ={-1,   0,  1, -1, 1, -1, 0, 1};
+	//TODO: implement changeToNextType();
 	private Grid myGrid;
+	
 	
 	/**
 	 * update the grid based on the cells' current state
@@ -41,7 +40,7 @@ public abstract class Simulation{
 	 * simulates a cell moving to somewhere else
 	 * @return int[]. 0 position is row,1 position is column
 	 */
-	protected abstract GridLocation findEmptySpots(Cell[][] grid, int currentRow, int currentCol);
+	protected abstract GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol);
 	
 	/**
 	 * getter method
@@ -57,31 +56,6 @@ public abstract class Simulation{
 	protected void setGrid(Grid grid){
 		myGrid=grid;
 	}
-	
-	
-	protected int[] getRectangularColOffset(){
-		return RECTANGULAR_COL_OFFSET;
-	}
-	
-	
-	protected int[] getRectangularRowOffset(){
-		return RECTANGULAR_ROW_OFFSET;
-	}
-	
-//	/**
-//	 * getter method
-//	 * @return myGrid
-//	 */
-//	protected Cell[][] getArrayGrid(){
-//		return myGrid;
-//	}
-//	
-//	/**
-//	 * setter method for myGrid
-//	 */
-//	protected void setArrayGrid(Cell[][] newGrid){
-//		myGrid=newGrid;
-//	}
 	
 
 	

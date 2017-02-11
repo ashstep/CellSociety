@@ -1,5 +1,6 @@
 package back_end.Fire;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -106,10 +107,13 @@ public class FireCell extends Cell {
 			return EMPTY_COLOR;
 		}
 	}
+	
+	
+	
 
 	@Override
 	public Collection<String> getTypeNames() {
-		ArrayList<String> typeList = new ArrayList<String>();
+		Collection<String> typeList = new ArrayList<String>();
 		typeList.add("Tree");
 		typeList.add("Burning");
 		return typeList;
@@ -118,8 +122,13 @@ public class FireCell extends Cell {
 	@Override
 	public String getTypeName()
 	{
-		if (getMyType() == 1) return "Tree";
-		else if (getMyType() == 2) return "Burning"; 
+		if (getMyType() == STATE_TREE) return "Tree";
+		else if (getMyType() == STATE_BURNING) return "Burning"; 
 		else return "";
+	}
+
+	@Override
+	public Cell makeEmptyCell() {
+		return new FireCell(STATE_EMPTY);
 	}
 }

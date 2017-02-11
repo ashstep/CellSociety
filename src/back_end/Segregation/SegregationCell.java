@@ -1,10 +1,12 @@
 package back_end.Segregation;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PPCells.EmptyPPCell;
 import javafx.scene.paint.Color;
 
 public class SegregationCell extends Cell {
@@ -110,7 +112,7 @@ public class SegregationCell extends Cell {
 	@Override
 	public Collection<String> getTypeNames()
 	{
-		ArrayList<String> nameList = new ArrayList<String>();
+		Collection<String> nameList = new ArrayList<String>();
 		nameList.add("Population 1");
 		nameList.add("Population 2");
 		return nameList;
@@ -119,8 +121,13 @@ public class SegregationCell extends Cell {
 	@Override
 	public String getTypeName()
 	{
-		if (getMyType() == 1) return "Population 1";
-		else if (getMyType() == 2) return "Population 2";
+		if (getMyType() == TYPE_ONE) return "Population 1";
+		else if (getMyType() == TYPE_TWO) return "Population 2";
 		else return "";
+	}
+	
+	@Override
+	public Cell makeEmptyCell() {
+		return new SegregationCell(TYPE_EMPTY);
 	}
 }

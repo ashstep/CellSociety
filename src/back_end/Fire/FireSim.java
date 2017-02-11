@@ -2,11 +2,10 @@ package back_end.Fire;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
-
-import back_end.Cell;
+import Grids.*;
+import Grids.RectangleGrids.*;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import utilities.Grid;
 import utilities.GridLocation;
 /**
  * Class that implements the unique properties of the fire simulation
@@ -15,9 +14,9 @@ import utilities.GridLocation;
  */
 
 public class FireSim extends Simulation {
-	private final int[] ROW_OFFSET = {-1, 1, 0, 0};
-	private final int[] COL_OFFSET = {0, 0,-1, 1};
 	private FireSimInfo myInfo;
+	private final FireCell TYPE_CELL=new FireCell(1);
+	private final int NEIGHBOR_FLAG=0;
 	/**
 	 * Constructor
 	 * @param probablilty of the tree catching on fire and a int[][] that holds the location 
@@ -34,7 +33,7 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-		super.setArrayGrid(cellGrid);
+		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
 	}
 
 
@@ -44,46 +43,23 @@ public class FireSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
-		Cell[][] newGrid=new Cell[numRows][numCols];
+		Grid newGrid=new RectangleToroidalGrid(numRows, numCols, TYPE_CELL);
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
-				FireCell add = new FireCell((FireCell) getArrayGrid()[row][col]);
-				newGrid[row][col] = add;
-				newGrid[row][col].checkAndTakeAction(getNeighbors(row, col), myInfo);
+				Grid oldGrid=super.getGrid();
+				GridLocation location=new GridLocation(row, col);
+				newGrid.setCellAt(location, new FireCell((FireCell)oldGrid.getCellAt(location)));
+				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
 			}
 		}
-
-
-		setArrayGrid(newGrid);
-		return new Grid(newGrid);
+		super.setGrid(newGrid);
+		return newGrid;
 	}
 	
-	
-	public Grid withoutBorder() {
-		return null;
-	}
-	
-	
-
-	/**
-	 * Getting the neighbors 
-	 */
-	@Override
-	protected ArrayList<Cell> getNeighbors(int row, int col) {
-		ArrayList<Cell> output = new ArrayList<Cell>();	
-		for(int i = 0; i< ROW_OFFSET.length; i++){
-			int finalRow = row + ROW_OFFSET[i];
-			int finalCol = col+COL_OFFSET[i];
-			if(super.isValidPosition(finalRow, finalCol)){
-				output.add(super.getArrayGrid()[finalRow][finalCol]);
-			}
-		}
-		return output;
-	}
 
 
 	@Override
-	protected GridLocation findEmptySpots(Cell[][] newgrid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpots(Grid newgrid, int currentRow, int currentCol) {
 		return null;
 	}
 

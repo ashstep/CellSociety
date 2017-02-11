@@ -85,6 +85,10 @@ public class GameOfLifeCell extends Cell{
 		return getMyType()==DEAD_TYPE;
 	}
 
+	@Override
+	public Cell makeEmptyCell() {
+		return new GameOfLifeCell(DEAD_TYPE);
+	}
 
 	@Override
 	public Color getColor() {
