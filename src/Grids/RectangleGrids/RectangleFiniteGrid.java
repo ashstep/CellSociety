@@ -37,4 +37,22 @@ public class RectangleFiniteGrid extends RectangularGrid {
 		return output;
 	}
 
+	
+	/**
+	 * get the neighbors of A CERTAIN TYPE from the original grid. top, down,
+	 * left, right
+	 */
+	public Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag) {
+		int row = location.getRow(), col = location.getCol();
+		ArrayList<GridLocation> output = new ArrayList<GridLocation>();
+		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		for (int i = 0; i < rowOffset.length; i++) {
+			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
+			if (super.isValidAbstractedPosition(resultant_row, resultant_col)
+					&& super.getCellAt(new GridLocation(resultant_row, resultant_col)).getMyType() == neighborType){
+				output.add(new GridLocation(resultant_row, resultant_col));
+			}
+		}
+		return output;
+	}
 }

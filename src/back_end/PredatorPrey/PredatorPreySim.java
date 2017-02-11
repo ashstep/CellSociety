@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
-import Grids.RectangleGrids.RectangleFiniteGrid;
+import Grids.RectangleGrids.*;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
@@ -23,8 +23,6 @@ public class PredatorPreySim extends Simulation {
 	private final int FISH = 1;
 	private final int SHARK = 2;
 	private final int EMPTY = 0;
-	private final int[] ROW_OFFSET = { 1, -1, 0, 0 };
-	private final int[] COL_OFFSET = { 0, 0, 1, -1 };
 	private final int NEIGHBOR_FLAG=1;
 	/**
 	 * constructor
@@ -118,12 +116,16 @@ public class PredatorPreySim extends Simulation {
 	private void takeActionsForCell(Grid grid, GridLocation currentLocation, PredatorPreyCell ppCell, ActionByPPSim furtherActions) {
 		GridLocation newLoc=currentLocation;
 		if (furtherActions.toDie()) {
+			if(ppCell.getMyType()==SHARK){
+				System.out.printf("shark at %d, %d dies\n", currentLocation.getRow(), currentLocation.getCol());
+			}
 			killCell(grid, currentLocation);
 		} else if (furtherActions.toEat() && ppCell.getMyType()==SHARK) {
-			ArrayList<GridLocation> fishNeighborLocations = getNeighborLocationByType(currentLocation.getRow(), currentLocation.getCol(), FISH);
+			ArrayList<GridLocation> fishNeighborLocations = (ArrayList<GridLocation>) grid.getNeighborLocationByType(currentLocation, FISH, NEIGHBOR_FLAG);
 			if (fishNeighborLocations.size() != 0) {
 				int randLoc=new Random().nextInt(fishNeighborLocations.size());
 				GridLocation fishToEatLocation = fishNeighborLocations.get(randLoc);
+				System.out.printf("shark at %d, %d, eating fish at %d, %d\n", currentLocation.getRow(), currentLocation.getCol(), fishToEatLocation.getRow(), fishToEatLocation.getCol());
 				killCell(grid, fishToEatLocation);
 				((SharkCell) ppCell).resetTimeSinceDinner();
 			}
@@ -136,13 +138,13 @@ public class PredatorPreySim extends Simulation {
 	}
 
 	private void updateFish(Grid oldGridCopy) {
-		int numRows = super.getNumRows(), numCols = super.getNumCols();
+		int numRows = oldGridCopy.getNumRows(), numCols = oldGridCopy.getNumCols();
 		Grid oldGrid=super.getGrid();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				GridLocation currentLocation = new GridLocation(row, col);
-				if (oldGrid.getCellAt(currentLocation).getMyType()  == FISH) {
-					FishCell newFishCell = new FishCell((FishCell) oldGrid.getCellAt(currentLocation));
+				if (oldGridCopy.getCellAt(currentLocation).getMyType()  == FISH) {
+					FishCell newFishCell = new FishCell((FishCell) oldGridCopy.getCellAt(currentLocation));
 					ActionByPPSim furtherActions = (ActionByPPSim) newFishCell.checkAndTakeAction(oldGrid.getNeighbors(currentLocation, NEIGHBOR_FLAG), myInfo);
 					takeActionsForCell(oldGridCopy, currentLocation, newFishCell, furtherActions);
 				}
@@ -150,22 +152,7 @@ public class PredatorPreySim extends Simulation {
 		}
 	}
 	
-	
-	/**
-	 * get the neighbors of A CERTAIN TYPE from the original grid. top, down,
-	 * left, right
-	 */
-	private ArrayList<GridLocation> getNeighborLocationByType(int row, int col, int neighborType) {
-		ArrayList<GridLocation> output = new ArrayList<GridLocation>();
-		for (int i = 0; i < ROW_OFFSET.length; i++) {
-			int resultant_row = row + ROW_OFFSET[i], resultant_col = col + COL_OFFSET[i];
-			if (super.getGrid().isValidAbstractedPosition(resultant_row, resultant_col)
-					&& super.getGrid().getCellAt(new GridLocation(resultant_row, resultant_col)).getMyType() == neighborType) {
-				output.add(new GridLocation(resultant_row, resultant_col));
-			}
-		}
-		return output;
-	}
+
 
 
 
@@ -192,7 +179,6 @@ public class PredatorPreySim extends Simulation {
 	 */
 	private void killCell(Grid grid, GridLocation location) {
 		createPPCellAt(grid, location, EMPTY);
-		int x=0;
 	}
 
 	/**
@@ -210,7 +196,6 @@ public class PredatorPreySim extends Simulation {
 			grid.setCellAt(location, new SharkCell());
 		} else {
 			grid.setCellAt(location, new EmptyPPCell());
-			int x=0;
 		}
 	}
 	
@@ -326,7 +311,7 @@ public class PredatorPreySim extends Simulation {
 	 */
 	@Override
 	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
-		ArrayList<GridLocation> emptySpaces = getNeighborLocationByType(currentRow, currentCol, EMPTY);
+		ArrayList<GridLocation> emptySpaces = (ArrayList<GridLocation>) grid.getNeighborLocationByType(new GridLocation(currentRow, currentCol), EMPTY, NEIGHBOR_FLAG);
 		GridLocation location;
 		Random rn=new Random();
 		if (emptySpaces.size() != 0) {

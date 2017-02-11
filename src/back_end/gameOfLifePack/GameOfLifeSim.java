@@ -7,6 +7,7 @@ import Grids.RectangleGrids.*;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import back_end.Segregation.SegregationCell;
 import utilities.GridLocation;
 public class GameOfLifeSim extends Simulation{
 	
@@ -39,19 +40,31 @@ public class GameOfLifeSim extends Simulation{
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		//TODO: how to switch the Grid object?
-		Grid newGrid=new RectangleInfiniteGrid(numRows, numCols, TYPE_CELL);
+		Grid newGrid=new RectangleInfiniteGrid(copyArray(super.getGrid().getContainer()), TYPE_CELL);
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
 				Grid oldGrid=super.getGrid();
 				GridLocation location=new GridLocation(row, col);
 				newGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)oldGrid.getCellAt(location)));
 				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), null);
-				
 			}
 		}
 		super.setGrid(newGrid);
 		return newGrid;
 	}
+
+	private Cell[][] copyArray(Cell[][] oldArray) {
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		GameOfLifeCell[][] copiedArray = new GameOfLifeCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				copiedArray[row][col] = new GameOfLifeCell((GameOfLifeCell) oldArray[row][col]);
+			}
+		}
+		return copiedArray;
+	}
+
 
 	/**
 	 * no general environment attribute in this simulation so no use

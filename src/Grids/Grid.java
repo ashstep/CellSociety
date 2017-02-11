@@ -1,5 +1,6 @@
 package Grids;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import back_end.Cell;
 import javafx.scene.paint.Color;
@@ -268,6 +269,7 @@ public abstract class Grid {
 	 * @return
 	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	public abstract Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag);
 	
 	protected abstract int[] getRowOffsetArray(int flag);
 	
