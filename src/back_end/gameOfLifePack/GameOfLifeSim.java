@@ -1,10 +1,10 @@
 package back_end.gameOfLifePack;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import Grids.*;
 import Grids.RectangleGrids.*;
-import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
@@ -17,7 +17,8 @@ public class GameOfLifeSim extends Simulation{
 	 * 
 	 * @param typeGrid
 	 */
-	public GameOfLifeSim(int[][] typeGrid, String gridType){
+	public GameOfLifeSim (int[][] typeGrid, String gridType)
+	{
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		GameOfLifeCell[][] cellGrid=new GameOfLifeCell[numRows][numCols];
@@ -42,6 +43,12 @@ public class GameOfLifeSim extends Simulation{
 	/**
 	 * updates and returns the grid. No cells move in position in this simulation
 	 * @return the updated grid
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 */
 	@Override
 	public Grid updateGrid() {
