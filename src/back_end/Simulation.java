@@ -9,7 +9,8 @@ import utilities.GridLocation;
 
 public abstract class Simulation{
 	//TODO: implement changeToNextType();
-	private Grid myGrid;
+	private Grid myCellGrid;
+	private Grid myGroundGrid;
 	
 	
 	/**
@@ -75,17 +76,22 @@ public abstract class Simulation{
 	 * @return Grid containing cell info
 	 */
 	public Grid getGrid(){
-		return myGrid;
+		return myCellGrid;
+	}
+	public Grid getGroundGrid(){
+		return myGroundGrid;
 	}
 	
 	/**
-	 * setter method for myGrid
+	 * setter method for myGrid and myGroundGrid
 	 */
 	protected void setGrid(Grid grid){
-		myGrid=grid;
+		myCellGrid=grid;
 	}
 	
-
+	protected void setGroundGrid(Grid groundGrid){
+		myGroundGrid = groundGrid;
+	}
 	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
@@ -105,7 +111,11 @@ public abstract class Simulation{
 	 * @return number of rows in myGrid
 	 */
 	public int getNumRows(){
-		return myGrid.getNumRows();
+		return myCellGrid.getNumRows();
+	}
+	
+	public int getNumRowsGround(){
+		return myCellGrid.getNumRows();
 	}
 	
 	/**
@@ -113,8 +123,11 @@ public abstract class Simulation{
 	 * @return number of columns in myGrid
 	 */
 	public int getNumCols(){
-		return myGrid.getNumCols();
+		return myCellGrid.getNumCols();
 	}
+	
+	
+	
 	
 
 	public abstract ArrayList<String> getParameterList();
@@ -122,4 +135,24 @@ public abstract class Simulation{
 	public abstract double getSliderLowerBound(String x);
 	public abstract double getSliderUpperBound(String x);
 	public abstract double getCurrentValue(String x);
+
+
+	public Grid createGrid(Cell cellType)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
