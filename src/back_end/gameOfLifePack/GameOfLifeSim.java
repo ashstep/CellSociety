@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 import Grids.*;
 import Grids.RectangleGrids.*;
+import Grids.TriangularGrid.TriangularFiniteGrid;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
@@ -18,7 +19,7 @@ public class GameOfLifeSim extends Simulation {
 	 * 
 	 * @param typeGrid
 	 */
-	public GameOfLifeSim(int[][] typeGrid, String gridType) {
+	public GameOfLifeSim(int[][] typeGrid, String gridBoundsType) {
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		GameOfLifeCell[][] cellGrid = new GameOfLifeCell[numRows][numCols];
@@ -29,15 +30,15 @@ public class GameOfLifeSim extends Simulation {
 			}
 		}
 		// super.setGrid(new RectangleInfiniteGrid(cellGrid, TYPE_CELL));
-		setGrid(gridType, cellGrid);
+		setGrid(gridBoundsType, cellGrid);
 	}
 
-	private void setGrid(String gridType, GameOfLifeCell[][] cellGrid) {
-		if (gridType.equals("Toroidal"))
+	private void setGrid(String gridBounds, GameOfLifeCell[][] cellGrid) {
+		if (gridBounds.equals("Toroidal"))
 			super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
-		else if (gridType.equals("Finite"))
-			super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
-		else if (gridType.equals("Infinite"))
+		else if (gridBounds.equals("Finite"))
+			super.setGrid(new TriangularFiniteGrid(cellGrid, TYPE_CELL));
+		else if (gridBounds.equals("Infinite"))
 			super.setGrid(new RectangleInfiniteGrid(cellGrid, TYPE_CELL));
 		else
 			throw new Error("Incorrect Grid Type");

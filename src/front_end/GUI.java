@@ -74,11 +74,31 @@ public class GUI
 		grid[x][y] = new Polygon();
 		if (gridObject.getClass().toString().contains("Triangular"))
 		{
-			((Polygon) grid[x][y]).getPoints().addAll();
+			if ((x%2==0 && y%2==0) || (x%2==1 && y%2==1))
+			{
+				((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+				{
+						(double) (y*cellSize/2), (double) (x*cellSize + cellSize),
+						(double) (y*cellSize/2 + cellSize/2), (double) (x*cellSize),
+						(double)(y*cellSize/2 + cellSize), (double)(x*cellSize + cellSize)
+				});
+			}
+			else
+			{
+				((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+				{
+						(double) (y*cellSize/2), (double) (x*cellSize),
+						(double) (y*cellSize/2 + cellSize), (double) (x*cellSize),
+						(double)(y*cellSize/2 + cellSize/2), (double)(x*cellSize + cellSize)
+				});
+			}
 		}
 		else if (gridObject.getClass().toString().contains("Hexagonal"))
 		{
-			((Polygon) grid[x][y]).getPoints().addAll();
+			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+					{
+							
+					});
 		}
 		else throw new Error("Incorrect shape");
 	}
