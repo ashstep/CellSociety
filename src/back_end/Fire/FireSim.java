@@ -43,17 +43,17 @@ public class FireSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
-		Grid newGrid=new RectangleToroidalGrid(numRows, numCols, TYPE_CELL);
+		Grid copy = createGrid(super.deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
+		Grid oldGrid=super.getGrid();
 		for(int row=0; row<numRows; row++){
-			for(int col=0; col<numCols; col++){
-				Grid oldGrid=super.getGrid();
+			for(int col=0; col<numCols; col++){		
 				GridLocation location=new GridLocation(row, col);
-				newGrid.setCellAt(location, new FireCell((FireCell)oldGrid.getCellAt(location)));
-				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
+				oldGrid.setCellAt(location, new FireCell((FireCell)copy.getCellAt(location)));
+				oldGrid.getCellAt(location).checkAndTakeAction(copy.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
 			}
 		}
-		super.setGrid(newGrid);
-		return newGrid;
+		super.setGrid(oldGrid);
+		return oldGrid;
 	}
 	
 

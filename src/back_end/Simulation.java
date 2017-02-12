@@ -63,6 +63,36 @@ public abstract class Simulation{
 	}
 	
 	/**
+	 * 
+	 * @param oldArray
+	 * @return copiedArray a copy of old array, with each cell in copiedArray a new copy of the corresponding cell
+	 */
+	protected Cell[][] deepCopyCellArray(Cell[][] oldArray) {
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		Cell[][] copiedArray = new Cell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				Constructor<? extends Cell> constructor = null;
+				try {
+					constructor = oldArray[0][0].getClass().getConstructor(oldArray[0][0].getClass());
+				} catch (NoSuchMethodException | SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					copiedArray[row][col] = constructor.newInstance(oldArray[row][col]);
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return copiedArray;
+	}
+	
+	/**
 	 * generates a GridLocation such that newGrid[GridLocation] is empty for putting a new cell
 	 * AND (row, column) is not its current position
 	 * 

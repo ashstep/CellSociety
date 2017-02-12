@@ -25,7 +25,7 @@ public class FishCell extends PredatorPreyCell{
 	 * @param anotherFishCell
 	 */
 	public FishCell(FishCell anotherFishCell){
-		this();
+		super(1, anotherFishCell.getTimeSinceBreed());
 	}
 	
 	

@@ -36,6 +36,11 @@ public abstract class PredatorPreyCell extends Cell{
 		timeSinceBreed=0;
 	}
 	
+	public PredatorPreyCell(int type, int timeSinceBreeding) {
+		super(type);
+		timeSinceBreed=timeSinceBreeding;
+	}
+	
 //	/**
 //	 * makes a copy of another PredatorPreyCell 
 //	 * @param anotherCell
@@ -94,6 +99,7 @@ public abstract class PredatorPreyCell extends Cell{
 	 * re-setter for timeSinceBreed
 	 */
 	public void resetTimeSinceBreed(){
+		System.out.println("breed t reset");
 		timeSinceBreed=0;
 	}
 	
@@ -101,7 +107,7 @@ public abstract class PredatorPreyCell extends Cell{
 	 * setter for timeSinceBreed
 	 */
 	protected void incrementTimeSinceBreed(){
-		timeSinceBreed++;
+		timeSinceBreed+=1;
 	}
 	
 	@Override
