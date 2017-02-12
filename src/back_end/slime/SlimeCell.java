@@ -70,7 +70,7 @@ public abstract class SlimeCell extends Cell {
 	/**
 	 * @return true if cell is empty
 	 */
-	private boolean isEmpty(){
+	protected boolean isEmpty(){
 		return getMyType() == TYPE_EMPTY;
 	}
 	

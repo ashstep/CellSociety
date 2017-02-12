@@ -5,14 +5,17 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.Segregation.SegregationCell;
+import back_end.Segregation.SegregationSimInfo;
 import back_end.slime.SlimeCell;
+import back_end.slime.SlimeSimInfo;
 import javafx.scene.paint.Color;
 
 public class AgentCell extends SlimeCell {
 
 	/**
 	 *  this cell moves in direction of higher CHEMIAL concentrario
-	 *  
+	 *  @author Ashka Stephen
 	 */
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
@@ -22,8 +25,13 @@ public class AgentCell extends SlimeCell {
 	private int myWiggleAngle;
 	private int sniffThreshold;
 	private int sniffAngle;
-	private boolean hasReleasedChem;		//if it hasnt realeased it then will be false, if true, cannot realease
+	private boolean hasReleasedChem;		
+	//if it hasnt realeased it then will be false, if true, cannot realease
 
+	
+	
+	private int[][] groundGrid;
+	
 	/**
 	 *  constructor
 	 */
@@ -57,11 +65,47 @@ public class AgentCell extends SlimeCell {
 	 * if ground grid is
 	 * on the OTHER CHEMICAL GRID
 	 * 
+	 * 
+	 * getGroundGrid
+	 * 
+	 * 
 	 */
 		@Override
 		public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-			// TODO Auto-generated method stub
-			return null;
+			
+			double chemicalThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
+			double wiggleAngle = ((SlimeSimInfo) simInfo).getWiggleAngle();
+			double wiggleProb = ((SlimeSimInfo) simInfo).getProbWiggle();
+			double sniffAngle = ((SlimeSimInfo) simInfo).getSniffAngle();
+			double sniffThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
+
+			double maxChemical = 0.0;
+			Cell maxNeighbor = null;
+
+
+			//if it has mold new will have mold
+			if(!isEmpty()){
+				new ActionBySim(false);
+			}
+
+			else {
+				for(Cell neighbor : neighbors) {
+					SlimeCell currentNeighbor = (SlimeCell) neighbor;
+					//int currentNeighborX = currentNeighbor.getX();
+							
+					if (groundGrid[x][y].getChemicalPercent() >= maxChemical) {
+						maxChemical = groundGrid[x][y].getChemicalPercent();
+						maxNeighbor = currentNeighbor;
+					}
+					return new ActionBySim((maxChemical >= chemicalThreshold) );	
+					//if chemical concentration is greater than threshold, take action
+					//and if its in right direction
+
+
+				}
+
+			}			
+			return new ActionBySim(false);
 		}
 
 		//get the ground grid -> increase chemical in that one

@@ -40,7 +40,7 @@ public class SlimeSim extends Simulation {
 	 */
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
-		setCellGrid(typegrid);
+		setGrid(typegrid);
 		//setGroundGrid(groundGrid);
 		
 		
