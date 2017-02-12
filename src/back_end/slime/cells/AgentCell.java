@@ -5,37 +5,57 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.slime.SlimeCell;
 import javafx.scene.paint.Color;
 
 public class AgentCell extends SlimeCell {
-	 
+
+	/**
+	 *  this cell moves in direction of higher CHEMIAL concentrario
+	 *  
+	 */
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
 	private final Color TYPE_AGENT_COLOR = Color.GREEN;
 	private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
+	private double myWiggleProb;
+	private int myWiggleAngle;
+	private int sniffThreshold;
+	private int sniffAngle;
+	private boolean hasReleasedChem;		//if it hasnt realeased it then will be false, if true, cannot realease
 
-	
 	/**
 	 *  constructor
 	 */
 	public AgentCell() {
 		super(1);
+		myWiggleProb = 0;
+		myWiggleAngle = 0;
+		sniffThreshold = 0;
+		sniffAngle = 0;
+		hasReleasedChem = false;
+		
 	}
 
 	/**
 	 * makes a copy
 	 */
 	public AgentCell(AgentCell another){
-		this();
-	}
+		super(1);
+		this.myWiggleProb= another.myWiggleProb;
+		this.myWiggleAngle= another.myWiggleAngle;
+		this.sniffThreshold= another.sniffThreshold;
+		this.sniffAngle= another.sniffAngle;
+		this.hasReleasedChem = another.hasReleasedChem;
+		}
+	
 
 
 	/**
-	 * checks neighbors, makes actions
-	 * 
-	 * 
+	 * checks in direction of sniff
+	 * checks ground grid
+	 * if ground grid is
+	 * on the OTHER CHEMICAL GRID
 	 * 
 	 */
 		@Override
@@ -44,62 +64,15 @@ public class AgentCell extends SlimeCell {
 			return null;
 		}
 
-		
-
-		/*
-		 * getters and setters
-		 */
-		private void setTreeEmpty(){
-			setMyType(TYPE_EMPTY);
-		}
-
-		private boolean isEmpty(){
-			return getMyType() == TYPE_EMPTY;
-		}
-		
-		private boolean isAlive(){
-			return getMyType() == TYPE_ALIVE;
-		}
-		
-		@Override
-		public Color getColor() {
-			if(isAlive()){
-				return TYPE_ALIVE_COLOR;
-			} 
-			else {
-				return TYPE_EMPTY_COLOR;
+		//get the ground grid -> increase chemical in that one
+		public void releaseChemical(){
+			if(!hasReleasedChem){
+				
 			}
+			//cannot release anymore
+			hasReleasedChem = true;
 		}
 
-		@Override
-		public Collection<String> getTypeNames() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getTypeName() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Cell makeCellofType(int type) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Cell makeNextStateCell() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Cell makeEmptyCell() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
 		
 }

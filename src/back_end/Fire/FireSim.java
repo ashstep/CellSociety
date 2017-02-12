@@ -15,8 +15,8 @@ import utilities.GridLocation;
 
 public class FireSim extends Simulation {
 	private FireSimInfo myInfo;
-	private final FireCell TYPE_CELL=new FireCell(1);
-	private final int NEIGHBOR_FLAG=0;
+	private final FireCell TYPE_CELL = new FireCell(1);
+	private final int NEIGHBOR_FLAG = 0;
 	/**
 	 * Constructor
 	 * @param probablilty of the tree catching on fire and a int[][] that holds the location 
