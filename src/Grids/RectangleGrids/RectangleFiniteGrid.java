@@ -25,9 +25,14 @@ public class RectangleFiniteGrid extends RectangularGrid {
 	 * 
 	 */
 	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
+		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(location, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation location, int[] rowOffset, int[] colOffset) {
 		Collection<Cell> output = new ArrayList<Cell>();
 		int row = location.getRow(), col = location.getCol();
-		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
@@ -55,4 +60,6 @@ public class RectangleFiniteGrid extends RectangularGrid {
 		}
 		return output;
 	}
+
+	
 }

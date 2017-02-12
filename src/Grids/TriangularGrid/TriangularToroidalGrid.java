@@ -21,10 +21,15 @@ public class TriangularToroidalGrid extends TriangularGrid {
 	 * @param flag
 	 */
 	@Override
-	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
-		Collection<Cell> output = new ArrayList<Cell>();
-		int row = location.getRow(), col = location.getCol();
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
 		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(abstractedLocation, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset) {
+		Collection<Cell> output = new ArrayList<Cell>();
+		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.abstractedRowOutOfBounds(resultant_row)) {
@@ -55,5 +60,7 @@ public class TriangularToroidalGrid extends TriangularGrid {
 		}
 		return output;
 	}
+
+	
 
 }

@@ -30,6 +30,11 @@ public class GridLocation {
 		return column;
 	}
 	
+	/**
+	 * calculates the distance between two grid locations
+	 * @param other
+	 * @return
+	 */
 	public double getDistance(GridLocation other){
 		return Math.sqrt(   (getRow()-other.getRow())^2   +   (getCol()+other.getCol())^2     );
 	}

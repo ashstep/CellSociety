@@ -12,7 +12,7 @@ import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
 import utilities.GridLocation;
 
-public class SugarAgentCell extends Cell{
+public class SugarAgentCell extends SugarCell{
 
 	private boolean isMale;
 	private int myAge;
@@ -20,26 +20,7 @@ public class SugarAgentCell extends Cell{
 	private final int MAX_AGE_LOWER_BOUND=60;
 	private final int MAX_AGE_UPPER_BOUND=100;
 	
-	private class GroundCellComparator implements Comparator<SugarGroundCell>{
-		private GridLocation myAgentLocation;
-		GroundCellComparator(GridLocation agentLocation){
-			myAgentLocation=agentLocation;
-		}
-		/**
-		 * compares priority of two patches of ground
-		 * 1. more sugar is better
-		 * 2. closer is better
-		 */
-		@Override
-		public int compare(SugarGroundCell a, SugarGroundCell b) {
-			if(b.getSugarLevel()-a.getSugarLevel()!=0){
-				return b.getSugarLevel()-a.getSugarLevel();
-			} else {
-				return (int) (myAgentLocation.getDistance(a.getMyPosition())-myAgentLocation.getDistance(b.getMyPosition()));
-			}
-		}
-		
-	}
+	
 	
 	public SugarAgentCell(int gender, int age, int fertileLimits) {
 		super(1);
@@ -50,33 +31,22 @@ public class SugarAgentCell extends Cell{
 	}
 
 	
-	
+	/**
+	 * 
+	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-		ArrayList<Cell>  neighborsAL=new ArrayList<>(neighbors);
-		SugarSimInfo info=(SugarSimInfo) simInfo;
-		Collections.sort(neighborsAL, new GroundCellComparator(info.getMyLocation()));
-		return null;
+		ArrayList<SugarGroundCell>  neighborsAL=new ArrayList<>();
+		for(Cell cell: neighbors){
+			neighborsAL.add((SugarGroundCell) cell);
+		}
+		Collections.sort(neighborsAL, new GroundCellComparator(((SugarSimInfo) simInfo).getMyLocation()));
+		SugarGroundCell destinationGround=neighborsAL.get(0);
+		return new ActionBySugarSim(true, destinationGround.getMyPosition());
 	}
 
 	
-	@Override
-	public Cell makeEmptyCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Cell makeCellofType(int type) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Color getColor() {
@@ -96,4 +66,33 @@ public class SugarAgentCell extends Cell{
 		return null;
 	}
 
+	
+	/**
+	 * comparator for SugarGroundCell
+	 * @author Yuxiang He
+	 *
+	 */
+	private class GroundCellComparator implements Comparator<SugarGroundCell>{
+		GridLocation myAgentLocation;
+		public GroundCellComparator(GridLocation agentLocation){
+			myAgentLocation=agentLocation;
+		}
+		
+		/**
+		 * compares priority of two patches of ground
+		 * 1. more sugar is better
+		 * 2. closer is better
+		 */
+		@Override
+		public int compare(SugarGroundCell a, SugarGroundCell b) {
+			if((a.isVacant()&&b.isOccupied()) || (a.isOccupied()&&b.isVacant())){
+				return a.isVacant()? -1: 1;
+			}else if(b.getSugarLevel()-a.getSugarLevel()!=0){
+				return b.getSugarLevel()-a.getSugarLevel();
+			} else {
+				return (int) (myAgentLocation.getDistance(a.getMyPosition())-myAgentLocation.getDistance(b.getMyPosition()));
+			}
+		}
+		
+	}
 }

@@ -15,17 +15,19 @@ import utilities.GridLocation;
  * @author Yuxiang He
  *
  */
-public class SugarGroundCell extends Cell{
+public class SugarGroundCell extends SugarCell{
 	private int maxSugarCapacity;
 	private int sugarLevel;
-	private GridLocation myPosition;
+	private GridLocation myLocation;
+	private boolean isVacant;
 	
 	
 	/**
 	 * @param type
 	 */
-	public SugarGroundCell() {
+	public SugarGroundCell(GridLocation location) {
 		super(0);
+		myLocation=location;
 	}
 
 	@Override
@@ -42,45 +44,48 @@ public class SugarGroundCell extends Cell{
 		return sugarLevel;
 	}
 	
+	/**
+	 * 
+	 * @return true if the ground is vacant
+	 */
+	public boolean isVacant(){
+		return isVacant;
+	}
+	
+	public boolean isOccupied(){
+		return !isVacant;
+	}
+	
+	/**
+	 * set the ground to be vacant
+	 */
+	public void setVacant(){
+		 isVacant=true;
+	}
+	
+	/**
+	 * set the ground to be vacant
+	 */
+	public void setOccupied(){
+		 isVacant=false;
+	}
 	
 	/**
 	 * setters for myPosition
 	 * @param location
 	 */
 	public void setMyPosition(GridLocation location){
-		myPosition=location;
+		myLocation=location;
 	}
 	public void setMyPosition(int row, int col){
-		myPosition=new GridLocation(row, col);
+		myLocation=new GridLocation(row, col);
 	}
 
 	/**
 	 * getters for myPosition
 	 */
 	public GridLocation getMyPosition(){
-		return myPosition;
-	}
-	
-	@Override
-	public Cell makeEmptyCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	/**
-	 * 
-	 */
-	@Override
-	public Cell makeCellofType(int type) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
+		return myLocation;
 	}
 
 	

@@ -51,9 +51,14 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	 */
 	@Override
 	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
-		Collection<Cell> output = new ArrayList<Cell>();
-		int row = location.getRow(), col = location.getCol();
 		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(location, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset) {
+		Collection<Cell> output = new ArrayList<Cell>();
+		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 //			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {

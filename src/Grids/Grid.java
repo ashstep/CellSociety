@@ -276,6 +276,7 @@ public abstract class Grid {
 	 * @return
 	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset);
 	public abstract Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag);
 	
 	protected abstract int[] getRowOffsetArray(int flag);
