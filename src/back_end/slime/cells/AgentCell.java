@@ -27,11 +27,10 @@ public class AgentCell extends SlimeCell {
 	private int sniffAngle;
 	private boolean hasReleasedChem;		
 	//if it hasnt realeased it then will be false, if true, cannot realease
-
 	
-	
+    ///is this necessary?????
 	private int[][] groundGrid;
-	
+
 	/**
 	 *  constructor
 	 */
@@ -42,7 +41,7 @@ public class AgentCell extends SlimeCell {
 		sniffThreshold = 0;
 		sniffAngle = 0;
 		hasReleasedChem = false;
-		
+
 	}
 
 	/**
@@ -55,8 +54,8 @@ public class AgentCell extends SlimeCell {
 		this.sniffThreshold= another.sniffThreshold;
 		this.sniffAngle= another.sniffAngle;
 		this.hasReleasedChem = another.hasReleasedChem;
-		}
-	
+	}
+
 
 
 	/**
@@ -70,53 +69,47 @@ public class AgentCell extends SlimeCell {
 	 * 
 	 * 
 	 */
-		@Override
-		public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-			
-			double chemicalThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
-			double wiggleAngle = ((SlimeSimInfo) simInfo).getWiggleAngle();
-			double wiggleProb = ((SlimeSimInfo) simInfo).getProbWiggle();
-			double sniffAngle = ((SlimeSimInfo) simInfo).getSniffAngle();
-			double sniffThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
+	@Override
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 
-			double maxChemical = 0.0;
-			Cell maxNeighbor = null;
+		double chemicalThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
+		double wiggleAngle = ((SlimeSimInfo) simInfo).getWiggleAngle();
+		double wiggleProb = ((SlimeSimInfo) simInfo).getProbWiggle();
+		double sniffAngle = ((SlimeSimInfo) simInfo).getSniffAngle();
+		double sniffThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
 
-
-			//if it has mold new will have mold
-			if(!isEmpty()){
-				new ActionBySim(false);
-			}
-
-			else {
-				for(Cell neighbor : neighbors) {
-					SlimeCell currentNeighbor = (SlimeCell) neighbor;
-					//int currentNeighborX = currentNeighbor.getX();
-							
-					if (groundGrid[x][y].getChemicalPercent() >= maxChemical) {
-						maxChemical = groundGrid[x][y].getChemicalPercent();
-						maxNeighbor = currentNeighbor;
-					}
-					return new ActionBySim((maxChemical >= chemicalThreshold) );	
-					//if chemical concentration is greater than threshold, take action
-					//and if its in right direction
+		double maxChemical = 0.0;
+		Cell maxNeighbor = null;
 
 
+		//if it has mold new will have mold
+		if(!isEmpty()){
+			new ActionBySim(false);
+		}
+
+		else {
+			for(Cell neighbor : neighbors) {
+				SlimeCell currentNeighbor = (SlimeCell) neighbor;
+				//int currentNeighborX = currentNeighbor.getX();
+
+				if (groundGrid[x][y].getChemicalPercent() >= maxChemical) {
+					maxChemical = groundGrid[x][y].getChemicalPercent();
+					maxNeighbor = currentNeighbor;
 				}
-
-			}			
-			return new ActionBySim(false);
-		}
-
-		//get the ground grid -> increase chemical in that one
-		public void releaseChemical(){
-			if(!hasReleasedChem){
-				
+				return new ActionBySim((maxChemical >= chemicalThreshold) );	
+				//if chemical concentration is greater than threshold, take action
+				//and if its in right direction
 			}
-			//cannot release anymore
-			hasReleasedChem = true;
+		}			
+		return new ActionBySim(false);
+	}
+
+	//get the ground grid -> increase chemical in that one
+	public void releaseChemical(){
+		if(!hasReleasedChem){
+
 		}
-
-
-		
+		//cannot release anymore
+		hasReleasedChem = true;
+	}
 }
