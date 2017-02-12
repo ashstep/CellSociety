@@ -30,6 +30,10 @@ public class GridLocation {
 		return column;
 	}
 	
+	public double getDistance(GridLocation other){
+		return Math.sqrt(   (getRow()-other.getRow())^2   +   (getCol()+other.getCol())^2     );
+	}
+	
 	/**
 	 * checks if two ArrayLocaiton specify the same location
 	 * @param otherLocation

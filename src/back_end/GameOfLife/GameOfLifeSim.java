@@ -1,4 +1,4 @@
-package back_end.gameOfLifePack;
+package back_end.GameOfLife;
 
 
 import java.lang.reflect.InvocationTargetException;
