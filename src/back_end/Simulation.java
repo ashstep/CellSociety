@@ -1,18 +1,27 @@
 package back_end;
+
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-
 import Grids.Grid;
 import utilities.GridLocation;
+
 public abstract class Simulation{
 	//TODO: implement changeToNextType();
-	private Grid myGrid;
+	private Grid myCellGrid;
+	private Grid myGroundGrid;
 	
 	
 	/**
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 */
 	public abstract Grid updateGrid();
 	
@@ -21,7 +30,7 @@ public abstract class Simulation{
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {
-			constructor = myGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
+			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,12 +44,30 @@ public abstract class Simulation{
 		return null;
 	}
 	
+	public Grid createGrid(Cell[][] cellArray, Cell cellType)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = myCellGrid.getClass().getConstructor(Cell[][].class ,Cell.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return constructor.newInstance(cellArray, cellType);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
-	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell
+	 * generates a GridLocation such that newGrid[GridLocation] is empty for putting a new cell
 	 * AND (row, column) is not its current position
 	 * 
 	 * simulates a cell moving to somewhere else
-	 * @return int[]. 0 position is row,1 position is column
+	 * @return GridLocation
 	 */
 	protected abstract GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol);
 	
@@ -49,17 +76,22 @@ public abstract class Simulation{
 	 * @return Grid containing cell info
 	 */
 	public Grid getGrid(){
-		return myGrid;
+		return myCellGrid;
+	}
+	public Grid getGroundGrid(){
+		return myGroundGrid;
 	}
 	
 	/**
-	 * setter method for myGrid
+	 * setter method for myGrid and myGroundGrid
 	 */
 	protected void setGrid(Grid grid){
-		myGrid=grid;
+		myCellGrid=grid;
 	}
 	
-
+	protected void setGroundGrid(Grid groundGrid){
+		myGroundGrid = groundGrid;
+	}
 	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
@@ -79,7 +111,11 @@ public abstract class Simulation{
 	 * @return number of rows in myGrid
 	 */
 	public int getNumRows(){
-		return myGrid.getNumRows();
+		return myCellGrid.getNumRows();
+	}
+	
+	public int getNumRowsGround(){
+		return myCellGrid.getNumRows();
 	}
 	
 	/**
@@ -87,8 +123,11 @@ public abstract class Simulation{
 	 * @return number of columns in myGrid
 	 */
 	public int getNumCols(){
-		return myGrid.getNumCols();
+		return myCellGrid.getNumCols();
 	}
+	
+	
+	
 	
 
 	public abstract ArrayList<String> getParameterList();

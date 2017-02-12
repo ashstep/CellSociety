@@ -35,7 +35,6 @@ public class SegregationCell extends Cell {
 	 * makes a copy of another SegregationCell
 	 * @param anotherCell
 	 */
-	//refactor to abstract class?
 	public SegregationCell(SegregationCell anotherCell){
 		this(anotherCell.getMyType());
 	}

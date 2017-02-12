@@ -67,7 +67,6 @@ public class Main extends Application
 			
 			container.initGrid(simulation.getGrid());
 			initializeSimSliders(container);
-			container.renderGrid(simulation.getGrid());
 			graphHandler.initGraph(simulation.getGrid());
 		});
 		

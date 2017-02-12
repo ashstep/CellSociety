@@ -1,9 +1,12 @@
 package back_end.gameOfLifePack;
+
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-
 import Grids.*;
 import Grids.RectangleGrids.*;
+import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
@@ -11,12 +14,12 @@ public class GameOfLifeSim extends Simulation{
 	
 	private final GameOfLifeCell TYPE_CELL=new GameOfLifeCell(1);
 	private final int NEIGHBOR_FLAG=1;
-	
 	/**
 	 * 
 	 * @param typeGrid
 	 */
-	public GameOfLifeSim(int[][] typeGrid, String gridType){
+	public GameOfLifeSim (int[][] typeGrid, String gridType)
+	{
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		GameOfLifeCell[][] cellGrid=new GameOfLifeCell[numRows][numCols];
@@ -41,24 +44,43 @@ public class GameOfLifeSim extends Simulation{
 	/**
 	 * updates and returns the grid. No cells move in position in this simulation
 	 * @return the updated grid
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 */
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		//TODO: how to switch the Grid object?
-		Grid newGrid = createGrid(TYPE_CELL);
+		Grid copy = createGrid(copyArray(super.getGrid().getContainer()) ,TYPE_CELL);
+		Grid oldGrid=super.getGrid();
+		int x=0;
 		for(int row=0; row<numRows; row++){
-			for(int col=0; col<numCols; col++){
-				Grid oldGrid=super.getGrid();
+			for(int col=0; col<numCols; col++){	
 				GridLocation location=new GridLocation(row, col);
-				newGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)oldGrid.getCellAt(location)));
-				newGrid.getCellAt(location).checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), null);
+				oldGrid.setCellAt(location, new GameOfLifeCell((GameOfLifeCell)copy.getCellAt(location)));
+				oldGrid.getCellAt(location).checkAndTakeAction(copy.getNeighbors(location, NEIGHBOR_FLAG), null);
 			}
 		}
-		super.setGrid(newGrid);
-		return newGrid;
+		super.setGrid(oldGrid);
+		return oldGrid;
 	}
 
+
+	private Cell[][] copyArray(Cell[][] oldArray) {
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		GameOfLifeCell[][] copiedArray = new GameOfLifeCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				copiedArray[row][col] = new GameOfLifeCell((GameOfLifeCell) oldArray[row][col]);
+			}
+		}
+		return copiedArray;
+	}
 
 	/**
 	 * no general environment attribute in this simulation so no use

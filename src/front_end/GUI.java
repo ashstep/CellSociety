@@ -9,12 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import utilities.GridLocation;
 
 public class GUI
 {
 	private BorderPane root;
 	private int sceneWidth, sceneHeight;
-	private Rectangle[][] grid;
+	private Shape[][] grid;
 	private ControlPanel panel;
 	
 	public GUI (int sceneWidth, int sceneHeight)
@@ -36,7 +38,7 @@ public class GUI
 		int gridHeight = gridObject.getNumRows();
 		int gridWidth = gridObject.getNumCols();
 		
-		grid = new Rectangle[gridHeight][gridWidth];
+		grid = new Shape[gridHeight][gridWidth];
 		Group gridContainer = new Group();
 		root.setCenter(gridContainer);
 		int cellSize = Math.min((sceneWidth-100)/gridWidth, (sceneHeight-100)/gridHeight);
@@ -45,22 +47,42 @@ public class GUI
 		{
 			for (int y = 0; y < gridWidth; y++)
 			{
-				grid[x][y] = new Rectangle(cellSize, cellSize);
-				grid[x][y].setX(y*cellSize);
-				grid[x][y].setY(x*cellSize);
+				createShape(cellSize, x, y, gridObject);
 				grid[x][y].setStroke(Color.BLACK);
-				grid[x][y].setOnMouseClicked(new EventHandler<MouseEvent>()
-		        {
-		            @Override
-		            public void handle(MouseEvent t)
-		            {
-		                
-		            }
-		        });
+				setClickAction(x, y, gridObject);
 				gridContainer.getChildren().add(grid[x][y]);
 			}
 		}
 		renderGrid(gridObject);
+	}
+
+	private void createShape(int cellSize, int x, int y, Grid gridObject)
+	{
+		if (gridObject.getClass().toString().contains("Rectangle"))
+		{
+			grid[x][y] = new Rectangle(cellSize, cellSize);
+			((Rectangle) grid[x][y]).setX(y*cellSize);
+			((Rectangle) grid[x][y]).setY(x*cellSize);
+		}
+		
+	}
+
+	private void setClickAction(int x, int y, Grid gridObject)
+	{
+		grid[x][y].setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+		    @Override
+		    public void handle(MouseEvent t)
+		    {
+		    	System.out.println("user click event");
+		        gridObject.nextState(new GridLocation(x,y));
+		        renderCell(x, y, gridObject);
+		    }
+		});
+	}
+	private void renderCell(int x, int y, Grid gridObject)
+	{
+		grid[x][y].setFill(gridObject.getColorAt(x, y));
 	}
 	
 	public void renderGrid(Grid cellGrid)
