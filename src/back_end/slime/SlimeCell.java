@@ -177,10 +177,6 @@ public abstract class SlimeCell extends Cell {
 		sniffAngle = given;
 	}
 
-
-
-	
-
 	
 	@Override
 	public Color getColor() {

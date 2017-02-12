@@ -118,7 +118,6 @@ public abstract class Simulation{
 	}
 	
 	/**
-	 * 
 	 * @return number of columns in myGrid
 	 */
 	public int getNumCols(){

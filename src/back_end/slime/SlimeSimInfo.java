@@ -12,13 +12,16 @@ import back_end.SimulationInfo;
 public class SlimeSimInfo extends SimulationInfo{
 	private double myWiggleProb;
 	private int myWiggleAngle;
-	//ground grid
 	private int sniffThreshold;
 	private int sniffAngle;
 
 	
-	public SlimeSimInfo(double wiggleProb) {
+	public SlimeSimInfo(double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myWiggleProb = wiggleProb;
+		myWiggleAngle = wiggleAngle;
+		sniffThreshold = thisSniffThreshold;
+		sniffAngle = thisSniffAngle;
+		
 	}
 	
 	public double getProbWiggle(){
@@ -57,10 +60,6 @@ public class SlimeSimInfo extends SimulationInfo{
 		this.sniffAngle = newsniffAngle;
 		return sniffAngle;
 	}
-	
-	//// This is where we will have ground grid
-	
-	
 	
 	
 	
