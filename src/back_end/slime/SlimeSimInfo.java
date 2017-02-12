@@ -12,6 +12,10 @@ import back_end.SimulationInfo;
 public class SlimeSimInfo extends SimulationInfo{
 	private double myWiggleProb;
 	private int myWiggleAngle;
+	//ground grid
+	private int sniffThreshold;
+	private int sniffAngle;
+
 	
 	public SlimeSimInfo(double wiggleProb) {
 		myWiggleProb = wiggleProb;
@@ -36,6 +40,32 @@ public class SlimeSimInfo extends SimulationInfo{
 		this.myWiggleAngle = newWiggleAngle;
 		return newWiggleAngle;
 	}
+	
+	/////////////
+	
+	
+	
+	
+	public double getSniffThreshold(){
+		return sniffThreshold;
+	}
+	
+	public double setSniffThreshold(int newsniffThreshold){
+		this.sniffThreshold = newsniffThreshold;
+		return sniffThreshold;
+	}
+
+	
+	public double getSniffAngle(){
+		return sniffAngle;
+	}
+	
+	public double setSniffAngle(int newsniffAngle){
+		this.sniffAngle = newsniffAngle;
+		return sniffAngle;
+	}
+	
+	
 	
 	
 }
