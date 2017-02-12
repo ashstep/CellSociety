@@ -65,9 +65,9 @@ public class Main extends Application
 							step(container);
 					});
 			
-			container.initGrid(simulation.getGrid());
+			container.initGrid(simulation.getCellGrid());
 			initializeSimSliders(container);
-			graphHandler.initGraph(simulation.getGrid());
+			graphHandler.initGraph(simulation.getCellGrid());
 		});
 		
 	}
@@ -105,7 +105,7 @@ public class Main extends Application
 	private void step (GUI inContainer)
 	{
 		inContainer.renderGrid(simulation.updateGrid());
-		graphHandler.renderGraph(simulation.getGrid());
+		graphHandler.renderGraph(simulation.getCellGrid());
 	}
 
 	/**
