@@ -26,7 +26,7 @@ public class SlimeSim extends Simulation {
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEM = 2;
-//	private final int NEIGHBOR_FLAG=1;
+	private final int NEIGHBOR_FLAG=1;
 	
 	
 
@@ -38,24 +38,12 @@ public class SlimeSim extends Simulation {
 	 * @param sharStarveTime
 	 * @param fishBreedTime
 	 */
+	
+	
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
-		setGrid(typegrid);
-		//setGroundGrid(groundGrid);
-		
-		
-		int numRows = typegrid.length ;
-		int numCols = typegrid[0].length ;
-		SlimeCell[][] cellGrid = new SlimeCell[numRows][numCols];
-		for(int row = 0; row < numRows ; row++){
-			for(int col = 0 ; col < numCols; col++){
-				cellGrid[row][col] = new SlimeCell(typegrid[row][col]);
-			}
-		}
-		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
-
-		
-		
+		setCellGrid(typegrid);
+		setCellGrid(groundGrid);
 	}
 
 	/**
@@ -74,18 +62,68 @@ public class SlimeSim extends Simulation {
 		}
 		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
 	}
+	
+	//removed because duplicate code
+/*	private void setGroundGrid(int[][] typeGrid) {
+		int numRows = typeGrid.length;
+		int numCols = typeGrid[0].length;
+		SlimeCell[][] cellGrid = new SlimeCell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				createCell(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
+			}
+		}
+		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
+	}
+*/	
+	
 
 	
 	
 	/**
-	 * updates grid
+	 * updates cell grid
 	 */
 	@Override
 	public Grid updateGrid() {
-		Grid oldGridCopy = new RectangleFiniteGrid((SlimeCell[][]) copyArray(super.getGrid().getContainer()), TYPE_CELL);
-		super.setGrid(oldGridCopy);
-		return oldGridCopy;
+		int numRows=super.getNumRows(), numCols=super.getNumCols();
+		Grid copyCell = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid oldCellGrid = super.getCellGrid();
+		for(int row=0; row < numRows; row++){
+			for(int col=0; col < numCols; col++){		
+				GridLocation location=new GridLocation(row, col);
+				oldCellGrid.setCellAt(location, new FireCell((FireCell)copyCell.getCellAt(location)));
+				oldCellGrid.getCellAt(location).checkAndTakeAction(copyCell.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
+			}
+		}
+		super.setGrid(oldCellGrid);
+		return oldCellGrid;
 	}
+
+
+	
+	/**
+	 * updates ground grid
+	 */
+
+	public Grid updateGroundGrid() {
+		int numRows=super.getNumRows(), numCols=super.getNumCols();
+		Grid copyGround = createGrid(super.getGroundGrid(), this.deepCopyCellArray(super.getGroundGrid().getContainer()), TYPE_CELL);
+		Grid oldGroundGrid = super.getGroundGrid();
+
+		for(int row=0; row < numRows; row++){
+			for(int col=0; col < numCols; col++){		
+				GridLocation location = new GridLocation(row, col);
+				oldGroundGrid.setCellAt(location, new FireCell((FireCell)copyGround.getCellAt(location)));
+				oldGroundGrid.getCellAt(location).checkAndTakeAction(copyGround.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
+			}
+		}
+		super.setGroundGrid(oldGroundGrid);
+		return oldGroundGrid;
+	}
+
+
+
+
 
 	
 	/**
@@ -141,43 +179,7 @@ public class SlimeSim extends Simulation {
 	
 	
 	
-	
-	/**
-	 * Constructor
-	 * @param probablilty of the tree catching on fire and a int[][] that holds the location 
-	 * of each fire cell
-	 */
-	public SlimeSim(int[][] typeGrid, double probCatch){
-		myInfo = new SlimeSimInfo(probCatch);
 
-		int numRows = typeGrid.length ;
-		int numCols = typeGrid[0].length;
-
-		AgentCell[][] cellGrid = new AgentCell[numRows][numCols];
-		for(int row = 0; row < numRows ; row++){
-			for(int col = 0 ; col < numCols; col++){
-				cellGrid[row][col] = new AgentCell(typeGrid[row][col]);
-			}
-		}
-		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
-	}
-
-	
-	/**
-	 * helper method for constructor, sets the cellGrid from typeGrid
-	 * 
-	 * @param typeGrid
-	 */
-	private void setCellGrid(int[][] typeGrid) {
-		int numRows = typeGrid.length, numCols = typeGrid[0].length;
-		PredatorPreyCell[][] cellGrid = new PredatorPreyCell[numRows][numCols];
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				createPPCellAt(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
-			}
-		}
-		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
-	}
 
 	
 	
@@ -206,7 +208,6 @@ public class SlimeSim extends Simulation {
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
 		// TODO Auto-generated method stub
-		
 	}
 
 
@@ -232,7 +233,8 @@ public class SlimeSim extends Simulation {
 	public double getSliderLowerBound(String x) {
 		if (x.equals("probWiggle")) return -1;
 		if (x.equals("wiggleAngle")) return 0;
-
+		if (x.equals("sniffThreshold")) return 0;
+		if (x.equals("sniffAngle")) return 0;
 		return 0;
 	}
 
@@ -240,6 +242,8 @@ public class SlimeSim extends Simulation {
 	public double getSliderUpperBound(String x) {
 		if (x.equals("probWiggle")) return 1;
 		if (x.equals("wiggleAngle")) return 360;
+		if (x.equals("sniffThreshold")) return 100;
+		if (x.equals("sniffAngle")) return 360;
 		return 0;
 
 	}
@@ -248,9 +252,9 @@ public class SlimeSim extends Simulation {
 	public double getCurrentValue(String x) {
 		if (x.equals("probWiggle")) return myInfo.getProbWiggle();
 		if (x.equals("wiggleAngle")) return myInfo.getWiggleAngle();
-
+		if (x.equals("sniffThreshold")) return myInfo.getSniffThreshold();
+		if (x.equals("sniffAngle")) return myInfo.getSniffAngle();
 		return 0;
-
 	}
 	
 	@Override

@@ -28,7 +28,6 @@ public class AgentCell extends SlimeCell {
 	private boolean hasReleasedChem;		
 	//if it hasnt realeased it then will be false, if true, cannot realease
 	
-    ///is this necessary?????
 	private int[][] groundGrid;
 
 	/**
@@ -54,6 +53,19 @@ public class AgentCell extends SlimeCell {
 		this.sniffThreshold= another.sniffThreshold;
 		this.sniffAngle= another.sniffAngle;
 		this.hasReleasedChem = another.hasReleasedChem;
+	}
+	
+	
+	/**
+	 * makes empty when i=0
+	 */
+	public AgentCell(int i){
+		super(i);
+		myWiggleProb = 0;
+		myWiggleAngle = 0;
+		sniffThreshold = 0;
+		sniffAngle = 0;
+		hasReleasedChem = true;
 	}
 
 

@@ -130,7 +130,7 @@ public class PredatorPreySim extends Simulation {
 			newLoc=move(grid, currentLocation, ppCell);
 		}
 		if (furtherActions.wantsToReproduce()) {
-			System.out.println("reproducing a "+ppCell.getClass().toString());
+			System.out.println("reproducing a "+ ppCell.getClass().toString());
 			reproduce(grid, newLoc, ppCell);
 		}
 	}
