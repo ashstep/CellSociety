@@ -1,32 +1,25 @@
-package Grids.RectangleGrids;
+package Grids.HexagonalGrids;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import back_end.Cell;
 import utilities.GridLocation;
 
-public class RectangleFiniteGrid extends RectangularGrid {
-		
-	public RectangleFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
+public class HexFiniteGrid extends HexagonalGrid {
+
+	public HexFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
 		super(cellGrid, instanceCell);
 	}
-	
-	/**
-	 * 
-	 * @param numRows
-	 * @param numCols
-	 * @param instanceCell
-	 */
-	public RectangleFiniteGrid(int numRows, int numCols, Cell instanceCell) {
+
+	public HexFiniteGrid(int numRows, int numCols, Cell instanceCell) {
 		super(numRows, numCols, instanceCell);
 	}
 
-	/**
-	 * 
-	 */
-	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
 		Collection<Cell> output = new ArrayList<Cell>();
-		int row = location.getRow(), col = location.getCol();
+		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
 		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
@@ -37,11 +30,7 @@ public class RectangleFiniteGrid extends RectangularGrid {
 		return output;
 	}
 
-	
-	/**
-	 * get the neighbors of A CERTAIN TYPE from the original grid. top, down,
-	 * left, right
-	 */
+	@Override
 	public Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag) {
 		int row = location.getRow(), col = location.getCol();
 		ArrayList<GridLocation> output = new ArrayList<GridLocation>();
@@ -55,4 +44,5 @@ public class RectangleFiniteGrid extends RectangularGrid {
 		}
 		return output;
 	}
+
 }

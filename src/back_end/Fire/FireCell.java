@@ -3,7 +3,6 @@ package back_end.Fire;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
-
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
@@ -130,5 +129,27 @@ public class FireCell extends Cell {
 	@Override
 	public Cell makeEmptyCell() {
 		return new FireCell(STATE_EMPTY);
+	}
+
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException {
+		if(type==STATE_EMPTY){
+			return new FireCell(STATE_EMPTY);
+		} else if(type==STATE_TREE){
+			return new FireCell(STATE_TREE);
+		} else if(type==STATE_BURNING){
+			return new FireCell(STATE_BURNING);
+		} else {
+			throw new IllegalArgumentException("Invalid FireCell type");
+		}
+	}
+	
+	@Override
+	public Cell makeNextStateCell() {
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(STATE_EMPTY);
+		}
 	}
 }

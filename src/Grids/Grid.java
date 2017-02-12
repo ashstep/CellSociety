@@ -214,7 +214,6 @@ public abstract class Grid {
 		GridLocation newAbstractedTLCorner=calculateNewTopLeftCorner(invalidAbstractedLocation);
 		fillInResizedContainer(newContainer, newAbstractedTLCorner);
 		setNewTopLeftCornerLocation( invalidAbstractedLocation);
-		System.out.printf("Grid line 160: resizing grid to %d rows and %d cols\n", newNumRows, newNumCols);
 		container=newContainer;
 	}
 
@@ -260,7 +259,16 @@ public abstract class Grid {
 		return new GridLocation(newTopLeftRow, newtopLeftCol);
 	}
 	
-	
+	/**
+	 * set the cell at location to be the next state cell.
+	 * Helps front end for user setting state of cell
+	 * @param location
+	 */
+	public void nextState(GridLocation location){
+		Cell cell=getCellAt(location);
+		setCellAt(location, cell.makeNextStateCell());
+		int x=0;
+	}
 	
 	
 	/**
@@ -268,6 +276,7 @@ public abstract class Grid {
 	 * @return
 	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	public abstract Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag);
 	
 	protected abstract int[] getRowOffsetArray(int flag);
 	

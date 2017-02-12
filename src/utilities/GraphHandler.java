@@ -63,7 +63,7 @@ public class GraphHandler {
 
 	private void checkRange(Grid grid)
 	{
-		Iterator iter=grid.getCellTypes().iterator();
+		Iterator<String> iter=grid.getCellTypes().iterator();
 		String first=(String) iter.next();
 		if (seriesContainer.get(first).getData().size() > 30)
 		{
