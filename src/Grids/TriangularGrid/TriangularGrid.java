@@ -11,11 +11,11 @@ public abstract class TriangularGrid extends Grid {
 	private final int[] FLAG_TO_END_INDEX={3, 12};
 	
 	public TriangularGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+		super(cellGrid);
 	}
 
-	public TriangularGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public TriangularGrid(int numRows, int numCols){// Cell instanceCell) {
+		super(numRows, numCols);
 	}
 	
 	

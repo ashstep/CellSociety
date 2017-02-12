@@ -16,8 +16,8 @@ public class RectangleToroidalGrid extends RectangularGrid {
 	 * @param cellGrid
 	 * @param instanceCell an instance of the super class of all the cells in this simulation, used for error checking
 	 */
-	public RectangleToroidalGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public RectangleToroidalGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 	
 	
@@ -27,8 +27,8 @@ public class RectangleToroidalGrid extends RectangularGrid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public RectangleToroidalGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public RectangleToroidalGrid(int numRows, int numCol) {
+		super(numRows, numCol);
 	}
 	
 

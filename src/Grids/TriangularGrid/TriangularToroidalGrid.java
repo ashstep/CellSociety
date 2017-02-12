@@ -12,8 +12,8 @@ public class TriangularToroidalGrid extends TriangularGrid {
 		super(cellGrid, instanceCell);
 	}
 
-	public TriangularToroidalGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public TriangularToroidalGrid(int numRows, int numCols){//, Cell instanceCell) {
+		super(numRows, numCols);
 	}
 
 	/**

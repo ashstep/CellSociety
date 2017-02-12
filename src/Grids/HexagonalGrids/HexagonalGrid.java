@@ -11,12 +11,12 @@ public abstract class HexagonalGrid extends Grid {
 	private final int[] HEXAGON_ODDROW_COL_OFFSET ={0, 1, -1, 1, 0, 1};
 	private final int[] FLAG_TO_END_INDEX={3, 12};
 	
-	public HexagonalGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public HexagonalGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 
-	public HexagonalGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public HexagonalGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 
 	@Override

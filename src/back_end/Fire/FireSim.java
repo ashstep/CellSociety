@@ -33,7 +33,7 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
+		super.setGrid(new RectangleToroidalGrid(cellGrid));
 	}
 
 
@@ -43,7 +43,7 @@ public class FireSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
-		Grid newGrid=new RectangleToroidalGrid(numRows, numCols, TYPE_CELL);
+		Grid newGrid=new RectangleToroidalGrid(numRows, numCols);
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){
 				Grid oldGrid=super.getGrid();

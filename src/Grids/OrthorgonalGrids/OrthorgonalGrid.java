@@ -19,8 +19,8 @@ public abstract class OrthorgonalGrid extends Grid {
 	 * @param cellGrid
 	 * @param instanceCell
 	 */
-	public OrthorgonalGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public OrthorgonalGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -29,8 +29,8 @@ public abstract class OrthorgonalGrid extends Grid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public OrthorgonalGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public OrthorgonalGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 	
 	@Override

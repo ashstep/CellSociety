@@ -8,12 +8,12 @@ import utilities.GridLocation;
 
 public class HexFiniteGrid extends HexagonalGrid {
 
-	public HexFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public HexFiniteGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 
-	public HexFiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public HexFiniteGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 
 	@Override

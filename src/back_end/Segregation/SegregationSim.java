@@ -38,7 +38,7 @@ public class SegregationSim extends Simulation {
 				cellGrid[row][col] = new SegregationCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
+		super.setGrid(new RectangleFiniteGrid(cellGrid));
 	}
 
 
@@ -49,7 +49,7 @@ public class SegregationSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		Grid oldGridCopy=new RectangleFiniteGrid(copyArray(super.getGrid().getContainer()), TYPE_CELL);
+		Grid oldGridCopy=new RectangleFiniteGrid(copyArray(super.getGrid().getContainer()));
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				Grid oldGrid=super.getGrid();

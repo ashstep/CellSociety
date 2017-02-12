@@ -7,8 +7,14 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import Grids.Grid;
+import Grids.RectangleGrids.RectangleFiniteGrid;
+import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PPCells.EmptyPPCell;
+import back_end.PredatorPrey.PPCells.FishCell;
+import back_end.PredatorPrey.PPCells.SharkCell;
+import back_end.Segregation.SegregationCell;
 import utilities.GridLocation;
 
 /**
@@ -18,12 +24,26 @@ import utilities.GridLocation;
 public class SugarSim extends Simulation {
 
 	
-	
+	private SugarSimInfo myInfo;
+	private final int AGENT = 1;
+	private final int GROUND = 2;
 	/**
 	 * 
 	 */
-	public SugarSim() {
-		// TODO Auto-generated constructor stub
+	public SugarSim(int[][] typeGrid, int[][] agentCellInfo, int[][] groundCellInfo,
+			int cmaxSugarCapcity, int csugarGrowBackRate, int csugarGrowBackInterval, int cagentFertileLimits, int cagentVisionRange) {
+		myInfo=new SugarSimInfo( cmaxSugarCapcity, csugarGrowBackRate, csugarGrowBackInterval, cagentFertileLimits, cagentVisionRange);
+		
+		int numRows = typeGrid.length;
+		int numCols = typeGrid[0].length;
+		SugarCell[][] cellGrid = new SugarCell[numRows][numCols];
+
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				cellGrid[row][col] = new SugarCell(typeGrid[row][col]);
+			}
+		}
+		super.setGrid(new RectangleFiniteGrid(cellGrid));
 	}
 
 	
@@ -106,6 +126,16 @@ public class SugarSim extends Simulation {
 	public double getCurrentValue(String x) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	private void createSugarCellAt(Cell[][] grid, GridLocation location, int cellType,) {
+		if (cellType == AGENT) {
+			grid[location.getRow()][location.getCol()] = new FishCell();
+		} else if (cellType == GROUND) {
+			grid[location.getRow()][location.getCol()] = new SharkCell();
+		} else {
+			grid[location.getRow()][location.getCol()] = new EmptyPPCell();
+		}
 	}
 
 }

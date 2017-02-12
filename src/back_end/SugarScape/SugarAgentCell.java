@@ -14,20 +14,11 @@ import utilities.GridLocation;
 
 public class SugarAgentCell extends SugarCell{
 
-	private boolean isMale;
-	private int myAge;
-	private int maxAge;
-	private final int MAX_AGE_LOWER_BOUND=60;
-	private final int MAX_AGE_UPPER_BOUND=100;
-	
-	
-	
-	public SugarAgentCell(int gender, int age, int fertileLimits) {
+	private AgentCellInfo myInfo;
+
+	public SugarAgentCell(int vision, int sugar, int sugarMetabolism, int gender, int age) {
 		super(1);
-		isMale= gender==1? true: false;
-		myAge=age;
-		maxAge=new Random().nextInt(MAX_AGE_UPPER_BOUND-MAX_AGE_LOWER_BOUND+1)
-				+MAX_AGE_LOWER_BOUND;
+		myInfo=new AgentCellInfo(vision, sugar, sugarMetabolism, gender, age);
 	}
 
 	

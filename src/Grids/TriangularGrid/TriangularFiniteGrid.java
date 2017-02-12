@@ -12,8 +12,8 @@ public class TriangularFiniteGrid extends TriangularGrid {
 		super(cellGrid, instanceCell);
 	}
 
-	public TriangularFiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public TriangularFiniteGrid(int numRows, int numCols){
+		super(numRows, numCols);
 	}
 
 	/**

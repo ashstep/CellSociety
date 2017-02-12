@@ -7,8 +7,8 @@ import utilities.GridLocation;
 
 public class RectangleFiniteGrid extends RectangularGrid {
 		
-	public RectangleFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public RectangleFiniteGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 	
 	/**
@@ -17,8 +17,8 @@ public class RectangleFiniteGrid extends RectangularGrid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public RectangleFiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public RectangleFiniteGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 
 	/**

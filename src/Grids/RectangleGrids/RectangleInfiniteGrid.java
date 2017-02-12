@@ -12,8 +12,8 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	 * @param cellGrid
 	 * @param instanceCell
 	 */
-	public RectangleInfiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public RectangleInfiniteGrid(Cell[][] cellGrid){
+		super(cellGrid);
 	}
 	
 	/**
@@ -22,8 +22,8 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public RectangleInfiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public RectangleInfiniteGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 	
 	/**
@@ -34,14 +34,14 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	@Override
 	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws IllegalArgumentException{
 		int abstractedRow = abstractedLocation.getRow(), abstractedCol = abstractedLocation.getCol();
-		if(cell.getClass().isInstance(super.getInstanceCell()) && isValidAbstractedPosition(abstractedLocation)){
+		if(cell.getClass().isInstance( isValidAbstractedPosition(abstractedLocation))){
 			//TODO no need to cast?
 			super.setCellAt(abstractedLocation, cell);
 		} else if(! isValidAbstractedPosition(abstractedRow, abstractedCol)){
 			super.resize(abstractedLocation);
 			this.setCellAt(abstractedLocation, cell);
 		} else {
-			throw new IllegalArgumentException("Cell should be type: "+super.getInstanceCell().getClass().toString());
+			throw new IllegalArgumentException("Cell type is wrong: ");
 		}
 	}
 

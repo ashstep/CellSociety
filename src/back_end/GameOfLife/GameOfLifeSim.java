@@ -35,9 +35,9 @@ public class GameOfLifeSim extends Simulation{
 	
 	
 	private void setGrid(String gridType, GameOfLifeCell[][] cellGrid) {
-		if (gridType.equals("Toroidal")) super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
-		else if (gridType.equals("Finite")) super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
-		else if (gridType.equals("Infinite")) super.setGrid(new RectangleInfiniteGrid(cellGrid, TYPE_CELL));
+		if (gridType.equals("Toroidal")) super.setGrid(new RectangleToroidalGrid(cellGrid));
+		else if (gridType.equals("Finite")) super.setGrid(new RectangleFiniteGrid(cellGrid));
+		else if (gridType.equals("Infinite")) super.setGrid(new RectangleInfiniteGrid(cellGrid));
 		else throw new Error("Incorrect Grid Type");
 	}
 	

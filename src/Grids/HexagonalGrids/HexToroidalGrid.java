@@ -9,11 +9,11 @@ import utilities.GridLocation;
 public class HexToroidalGrid extends HexagonalGrid {
 
 	public HexToroidalGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+		super(cellGrid);
 	}
 
 	public HexToroidalGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+		super(numRows, numCols);
 	}
 
 	@Override

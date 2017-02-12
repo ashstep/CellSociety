@@ -16,23 +16,17 @@ import utilities.GridLocation;
  *
  */
 public class SugarGroundCell extends SugarCell{
-	private int maxSugarCapacity;
-	private int sugarLevel;
-	private GridLocation myLocation;
-	private boolean isVacant;
-	
-	
+
 	/**
 	 * @param type
 	 */
-	public SugarGroundCell(GridLocation location) {
+	public SugarGroundCell(GridLocation location, int sugar) {
 		super(0);
-		myLocation=location;
+		
 	}
 
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
