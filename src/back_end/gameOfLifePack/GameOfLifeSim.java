@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import Grids.*;
 import Grids.RectangleGrids.*;
-import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
@@ -58,18 +57,6 @@ public class GameOfLifeSim extends Simulation{
 		}
 		super.setGrid(newGrid);
 		return newGrid;
-	}
-
-	private Cell[][] copyArray(Cell[][] oldArray) {
-		int numRows = oldArray.length;
-		int numCols = oldArray[0].length;
-		GameOfLifeCell[][] copiedArray = new GameOfLifeCell[numRows][numCols];
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				copiedArray[row][col] = new GameOfLifeCell((GameOfLifeCell) oldArray[row][col]);
-			}
-		}
-		return copiedArray;
 	}
 
 

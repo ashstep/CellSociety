@@ -10,7 +10,7 @@ import back_end.Cell;
 import utilities.GridLocation;
 
 /**
- * @author Richard
+ * @author YuxiangHe
  *
  */
 public abstract class OrthorgonalGrid extends Grid {
