@@ -14,11 +14,9 @@ public class SlimeCell extends Cell {
   */
 	
 	private final int TYPE_ALIVE = 1;
-	private final int TYPE_TWO = 2;
 	private final int TYPE_EMPTY = 0;
 	private final Color TYPE_ALIVE_COLOR = Color.GREEN;
-	private final Color TYPE_TWO_COLOR = Color.YELLOW;
-	private final Color TYPE_EMPTY_COLOR = Color.GRAY;
+	private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
 
 	
 	public SlimeCell(int type) {
@@ -32,6 +30,7 @@ public class SlimeCell extends Cell {
 
 	/**
 	 * @param true if the cell wants to move
+	 * cell moves based on where concentration is highest
 	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
@@ -39,15 +38,36 @@ public class SlimeCell extends Cell {
 		return null;
 	}
 
-	@Override
-	public Cell makeEmptyCell() {
-		return null;
+	
+
+	/*
+	 * getters and setters
+	 */
+	private void setTreeEmpty(){
+		setMyType(TYPE_EMPTY);
 	}
 
+	private boolean isEmpty(){
+		return getMyType() == TYPE_EMPTY;
+	}
+	
+	private void setTreeAlive(){
+		setMyType(TYPE_ALIVE);
+	}
+
+	private boolean isAlive(){
+		return getMyType() == TYPE_ALIVE;
+	}
+	
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
-		return null;
+		if(isAlive()){
+			return TYPE_ALIVE_COLOR;
+		} 
+
+		else {
+			return TYPE_EMPTY_COLOR;
+		}
 	}
 
 	@Override
@@ -70,6 +90,12 @@ public class SlimeCell extends Cell {
 
 	@Override
 	public Cell makeNextStateCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Cell makeEmptyCell() {
 		// TODO Auto-generated method stub
 		return null;
 	}
