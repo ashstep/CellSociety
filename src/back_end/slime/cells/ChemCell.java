@@ -1,16 +1,16 @@
-package back_end.slime;
+package back_end.slime.cells;
 
 import java.util.Collection;
 
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import javafx.scene.paint.Color;
+import back_end.slime.SlimeCell;
 
-public class CampCell extends Cell{
+public class ChemCell extends SlimeCell{
 
-	public CampCell(int type) {
-		super(type);
+	public ChemCell(int myType) {
+		super(myType);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,40 +20,6 @@ public class CampCell extends Cell{
 		return null;
 	}
 
-	@Override
-	public Cell makeEmptyCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Cell makeCellofType(int type) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Color getColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<String> getTypeNames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getTypeName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

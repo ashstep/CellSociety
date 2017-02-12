@@ -5,33 +5,39 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.slime.SlimeCell;
 import javafx.scene.paint.Color;
 
-public class AgentCell {
-	 /*
-	  * 
-	  */
-		
-		private final int TYPE_ALIVE = 1;
-		private final int TYPE_EMPTY = 0;
-		private final Color TYPE_ALIVE_COLOR = Color.GREEN;
-		private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
+public class AgentCell extends SlimeCell {
+	 
+	private final int TYPE_AGENT = 1;
+	private final int TYPE_EMPTY = 0;
+	private final Color TYPE_AGENT_COLOR = Color.GREEN;
+	private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
 
-		
-		public SlimeCell(int type) {
-			super(type);
-		}
-		
-		//create a copy
-		public SlimeCell(SlimeCell anotherCell){
-			this(anotherCell.getMyType());
-		}
+	
+	/**
+	 *  constructor
+	 */
+	public AgentCell() {
+		super(1);
+	}
 
-		/**
-		 * @param true if the cell wants to move
-		 * cell moves based on where concentration is highest
-		 */
+	/**
+	 * makes a copy
+	 */
+	public AgentCell(AgentCell another){
+		this();
+	}
+
+
+	/**
+	 * checks neighbors, makes actions
+	 * 
+	 * 
+	 * 
+	 */
 		@Override
 		public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 			// TODO Auto-generated method stub
