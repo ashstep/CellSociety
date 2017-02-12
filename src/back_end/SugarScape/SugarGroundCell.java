@@ -17,12 +17,14 @@ import utilities.GridLocation;
  */
 public class SugarGroundCell extends SugarCell{
 
+	private GroundCellInfo myInfo;
+	
 	/**
 	 * @param type
 	 */
-	public SugarGroundCell(GridLocation location, int sugar) {
+	public SugarGroundCell(GridLocation location, GroundCellInfo info) {
 		super(0);
-		
+		myInfo=info;
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class SugarGroundCell extends SugarCell{
 	 * @return sugarLevel
 	 */
 	public int getSugarLevel(){
-		return sugarLevel;
+		return myInfo.getSugarLevel();
 	}
 	
 	/**
@@ -43,25 +45,25 @@ public class SugarGroundCell extends SugarCell{
 	 * @return true if the ground is vacant
 	 */
 	public boolean isVacant(){
-		return isVacant;
+		return myInfo.isVacant();
 	}
 	
 	public boolean isOccupied(){
-		return !isVacant;
+		return !myInfo.isVacant();
 	}
 	
 	/**
 	 * set the ground to be vacant
 	 */
 	public void setVacant(){
-		 isVacant=true;
+		 myInfo.setVacant(true);
 	}
 	
 	/**
 	 * set the ground to be vacant
 	 */
 	public void setOccupied(){
-		 isVacant=false;
+		myInfo.setVacant(false);
 	}
 	
 	/**
@@ -69,17 +71,18 @@ public class SugarGroundCell extends SugarCell{
 	 * @param location
 	 */
 	public void setMyPosition(GridLocation location){
-		myLocation=location;
+		myInfo.setMyLocation(location);
 	}
 	public void setMyPosition(int row, int col){
-		myLocation=new GridLocation(row, col);
+		GridLocation location=new GridLocation(row, col);
+		myInfo.setMyLocation(location);
 	}
 
 	/**
 	 * getters for myPosition
 	 */
 	public GridLocation getMyPosition(){
-		return myLocation;
+		return myInfo.getMyLocation();
 	}
 
 	

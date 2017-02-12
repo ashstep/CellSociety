@@ -22,6 +22,12 @@ public class SugarAgentCell extends SugarCell{
 	}
 
 	
+	public SugarAgentCell(AgentCellInfo info) {
+		super(1);
+		myInfo=info;
+	}
+
+
 	/**
 	 * 
 	 */

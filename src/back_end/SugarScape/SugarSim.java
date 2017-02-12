@@ -30,10 +30,8 @@ public class SugarSim extends Simulation {
 	/**
 	 * 
 	 */
-	public SugarSim(int[][] typeGrid, int[][] agentCellInfo, int[][] groundCellInfo,
-			int cmaxSugarCapcity, int csugarGrowBackRate, int csugarGrowBackInterval, int cagentFertileLimits, int cagentVisionRange) {
-		myInfo=new SugarSimInfo( cmaxSugarCapcity, csugarGrowBackRate, csugarGrowBackInterval, cagentFertileLimits, cagentVisionRange);
-		
+	public SugarSim(int[][] typeGrid, AgentCellInfo[][] agentCellInfo, GroundCellInfo[][] groundCellInfo, SugarSimInfo info) {
+		myInfo=info;
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		SugarCell[][] cellGrid = new SugarCell[numRows][numCols];
@@ -128,13 +126,16 @@ public class SugarSim extends Simulation {
 		return 0;
 	}
 	
-	private void createSugarCellAt(Cell[][] grid, GridLocation location, int cellType,) {
+	private void createSugarCellAt(SugarAgentCell[][] agentGrid, SugarGroundCell[][] groundGrid, 
+			AgentCellInfo[][] agentCellInfo, GroundCellInfo[][] groundCellInfo, GridLocation location, int cellType) {
+		
+		int row=location.getRow(), col=location.getCol();
 		if (cellType == AGENT) {
-			grid[location.getRow()][location.getCol()] = new FishCell();
+			agentGrid[location.getRow()][location.getCol()] = new SugarAgentCell(agentCellInfo[row][col]);
 		} else if (cellType == GROUND) {
-			grid[location.getRow()][location.getCol()] = new SharkCell();
+			groundGrid[location.getRow()][location.getCol()] = new SugarGroundCell(location, groundCellInfo[row][col]);
 		} else {
-			grid[location.getRow()][location.getCol()] = new EmptyPPCell();
+			throw new IllegalArgumentException("SugarCell type is unknown");
 		}
 	}
 
