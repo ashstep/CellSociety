@@ -49,27 +49,28 @@ public class SegregationSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		Grid oldGridCopy=new RectangleFiniteGrid(copyArray(super.getGrid().getContainer()), TYPE_CELL);
+		Grid copy = createGrid(super.deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
+		Grid oldGrid = super.getGrid();
+//		Grid oldGridCopy=new RectangleFiniteGrid(deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				Grid oldGrid=super.getGrid();
-				SegregationCell cell=new SegregationCell ((SegregationCell)(super.getGrid().getCellAt(new GridLocation(row, col))));
+				SegregationCell cell=new SegregationCell ((SegregationCell)(copy.getCellAt(new GridLocation(row, col))));
 				GridLocation location=new GridLocation(row, col);
 				if (cell.getMyType() == TYPE_EMPTY) {
 					continue;
 				}
-				boolean isMoving = cell.checkAndTakeAction(oldGrid.getNeighbors(location, NEIGHBOR_FLAG), myInfo).toMove();
+				boolean isMoving = cell.checkAndTakeAction(copy.getNeighbors(location, NEIGHBOR_FLAG), myInfo).toMove();
 				if (isMoving) {
-					moveToNewSpot(oldGridCopy, row, col, cell);
-				} else if (!isMoving && oldGridCopy.getCellAt(location).getMyType() == TYPE_EMPTY) {
-					relocateToNewSpot(oldGridCopy, row, col, cell);
+					moveToNewSpot(oldGrid, row, col, cell);
+				} else if (!isMoving && oldGrid.getCellAt(location).getMyType() == TYPE_EMPTY) {
+					relocateToNewSpot(oldGrid, row, col, cell);
 				} else {
-					oldGridCopy.setCellAt(location, cell);
+					oldGrid.setCellAt(location, cell);
 				}
 			}
 		}
-		super.setGrid(oldGridCopy);
-		return oldGridCopy;
+		super.setGrid(oldGrid);
+		return oldGrid;
 	}
 
 	private void relocateToNewSpot(Grid newGrid, int row, int col, SegregationCell cell) {
@@ -174,7 +175,7 @@ public class SegregationSim extends Simulation {
 	 * @param oldArray
 	 * @return newArray
 	 */
-	protected Cell[][] copyArray(Cell[][] oldArray) {
+	protected Cell[][] deepCopyCellArray(Cell[][] oldArray) {
 		int numRows = oldArray.length;
 		int numCols = oldArray[0].length;
 		SegregationCell[][] copiedArray = new SegregationCell[numRows][numCols];

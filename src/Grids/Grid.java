@@ -268,6 +268,7 @@ public abstract class Grid {
 	public void nextState(GridLocation location){
 		Cell cell=getCellAt(location);
 		setCellAt(location, cell.makeNextStateCell());
+		int x=0;
 	}
 	
 	

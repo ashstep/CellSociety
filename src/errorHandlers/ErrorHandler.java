@@ -1,5 +1,6 @@
-package utilities;
+package errorHandlers;
 
+import utilities.Throwable;
 
 /**
  * Errors that cannot be dealt with

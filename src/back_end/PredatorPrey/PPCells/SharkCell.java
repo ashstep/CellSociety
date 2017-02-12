@@ -28,14 +28,16 @@ public class SharkCell extends PredatorPreyCell{
 	 * makes a copy of another SharkCell
 	 */
 	public SharkCell(SharkCell anotherSharkCell) {
-		super(2);
+		super(2, anotherSharkCell.getTimeSinceBreed());
 		this.timeSinceDinner=anotherSharkCell.timeSinceDinner;
+		
 	}
 
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		timeSinceDinner++;
 		super.incrementTimeSinceBreed();	
+		
 		int starveThreshold=((PredatorPreySimInfo) simInfo).getSharkStarveTime(),
 				breedTime=((PredatorPreySimInfo) simInfo).getSharkBreedTime();
 		if(isStarvedToDeath(starveThreshold)){
@@ -76,6 +78,7 @@ public class SharkCell extends PredatorPreyCell{
 	 */
 	private boolean checkThenReproduce(int breedTime) {
 		boolean reproducing=super.getTimeSinceBreed()>breedTime;
+		if(reproducing) System.out.println("shark reproducing");
 		return reproducing;
 	}
 

@@ -60,11 +60,12 @@ public class PredatorPreySim extends Simulation {
 	 */
 	@Override
 	public Grid updateGrid() {
-		Grid oldGridCopy=new RectangleFiniteGrid((PredatorPreyCell[][]) copyArray(super.getGrid().getContainer()), TYPE_CELL);
-		updateSharks(oldGridCopy);	
-		updateFish(oldGridCopy);
-		super.setGrid(oldGridCopy);
-		return oldGridCopy;
+		Grid copy = createGrid(this.deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
+		Grid oldGrid=super.getGrid();
+		updateSharks(oldGrid, copy);	
+		updateFish(oldGrid, copy);
+		super.setGrid(oldGrid);
+		return oldGrid;
 	}
 
 	
@@ -74,7 +75,8 @@ public class PredatorPreySim extends Simulation {
 	 * @param oldArray
 	 * @return newArray
 	 */
-	protected PredatorPreyCell[][] copyArray(Cell[][] oldArray) {
+	@Override
+	protected PredatorPreyCell[][] deepCopyCellArray(Cell[][] oldArray) {
 		int numRows = oldArray.length;
 		int numCols = oldArray[0].length;
 		PredatorPreyCell[][] copiedArray = new PredatorPreyCell[numRows][numCols];
@@ -91,15 +93,14 @@ public class PredatorPreySim extends Simulation {
 	 * update the grid's sharks
 	 * @param grid
 	 */
-	private void updateSharks(Grid grid) {
+	private void updateSharks(Grid grid, Grid copy) {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		Grid oldGrid=super.getGrid();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				GridLocation currentLocation = new GridLocation(row, col);
-				if (oldGrid.getCellAt(currentLocation).getMyType() == SHARK) {
-					SharkCell newSharkCell = new SharkCell((SharkCell) oldGrid.getCellAt(currentLocation));
-					ActionByPPSim furtherActions = (ActionByPPSim) newSharkCell.checkAndTakeAction(oldGrid.getNeighbors(currentLocation, NEIGHBOR_FLAG), myInfo);
+				if (copy.getCellAt(currentLocation).getMyType() == SHARK) {
+					SharkCell newSharkCell = new SharkCell((SharkCell) copy.getCellAt(currentLocation));
+					ActionByPPSim furtherActions = (ActionByPPSim) newSharkCell.checkAndTakeAction(copy.getNeighbors(currentLocation, NEIGHBOR_FLAG), myInfo);
 					takeActionsForCell(grid, currentLocation, newSharkCell, furtherActions);
 				}
 			}
@@ -129,20 +130,20 @@ public class PredatorPreySim extends Simulation {
 			newLoc=move(grid, currentLocation, ppCell);
 		}
 		if (furtherActions.wantsToReproduce()) {
+			System.out.println("reproducing a "+ppCell.getClass().toString());
 			reproduce(grid, newLoc, ppCell);
 		}
 	}
 
-	private void updateFish(Grid oldGridCopy) {
-		int numRows = oldGridCopy.getNumRows(), numCols = oldGridCopy.getNumCols();
-		Grid oldGrid=super.getGrid();
+	private void updateFish(Grid grid, Grid copy) {
+		int numRows = grid.getNumRows(), numCols = grid.getNumCols();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				GridLocation currentLocation = new GridLocation(row, col);
-				if (oldGridCopy.getCellAt(currentLocation).getMyType()  == FISH) {
-					FishCell newFishCell = new FishCell((FishCell) oldGridCopy.getCellAt(currentLocation));
-					ActionByPPSim furtherActions = (ActionByPPSim) newFishCell.checkAndTakeAction(oldGrid.getNeighbors(currentLocation, NEIGHBOR_FLAG), myInfo);
-					takeActionsForCell(oldGridCopy, currentLocation, newFishCell, furtherActions);
+				if (grid.getCellAt(currentLocation).getMyType()  == FISH) {
+					FishCell newFishCell = new FishCell((FishCell) grid.getCellAt(currentLocation));
+					ActionByPPSim furtherActions = (ActionByPPSim) newFishCell.checkAndTakeAction(copy.getNeighbors(currentLocation, NEIGHBOR_FLAG), myInfo);
+					takeActionsForCell(grid, currentLocation, newFishCell, furtherActions);
 				}
 			}
 		}
