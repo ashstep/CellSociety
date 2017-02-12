@@ -7,12 +7,10 @@ import java.util.function.Consumer;
 import Grids.Grid;
 import utilities.GridLocation;
 
-public abstract class Simulation{
-	//TODO: implement changeToNextType();
-	//made abstract
+public abstract class Simulation
+{
 	private Grid myCellGrid;
 	private Grid myGroundGrid;
-	
 	
 	/**
 	 * update the grid based on the cells' current state
@@ -175,6 +173,10 @@ public abstract class Simulation{
 	}
 	public int getNumColsGround(){
 		return myGroundGrid.getNumCols();
+	}
+	public void setLines(boolean linesOn)
+	{
+		myCellGrid.setLines(linesOn);
 	}
 
 	public abstract ArrayList<String> getParameterList();

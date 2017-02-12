@@ -15,6 +15,7 @@ public abstract class Grid {
 	private Cell myInstanceCell;
 	private int topLeftRowNum;
 	private int topLeftColNum;
+	private boolean hasLines;
 	/**
 	 * keep this constructor?
 	 * Bad: exposes the inner working of the class i.e. uses a Cell[][]?
@@ -267,7 +268,6 @@ public abstract class Grid {
 	public void nextState(GridLocation location){
 		Cell cell=getCellAt(location);
 		setCellAt(location, cell.makeNextStateCell());
-		int x=0;
 	}
 	
 	
@@ -324,5 +324,13 @@ public abstract class Grid {
 			}
 		}
 		return counter;
+	}
+	public void setLines(boolean inLines)
+	{
+		hasLines = inLines;
+	}
+	public boolean hasLines()
+	{
+		return hasLines;
 	}
 }

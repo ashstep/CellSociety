@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import utilities.GridLocation;
@@ -48,12 +49,17 @@ public class GUI
 			for (int y = 0; y < gridWidth; y++)
 			{
 				createShape(cellSize, x, y, gridObject);
-				grid[x][y].setStroke(Color.BLACK);
+				checkStroke(x, y, gridObject);
 				setClickAction(x, y, gridObject);
 				gridContainer.getChildren().add(grid[x][y]);
 			}
 		}
 		renderGrid(gridObject);
+	}
+
+	private void checkStroke(int x, int y, Grid gridObject)
+	{
+		if (gridObject.hasLines()) grid[x][y].setStroke(Color.BLACK);
 	}
 
 	private void createShape(int cellSize, int x, int y, Grid gridObject)
@@ -63,8 +69,38 @@ public class GUI
 			grid[x][y] = new Rectangle(cellSize, cellSize);
 			((Rectangle) grid[x][y]).setX(y*cellSize);
 			((Rectangle) grid[x][y]).setY(x*cellSize);
+			return;
 		}
-		
+		grid[x][y] = new Polygon();
+		if (gridObject.getClass().toString().contains("Triangular"))
+		{
+			if ((x%2==0 && y%2==0) || (x%2==1 && y%2==1))
+			{
+				((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+				{
+						(double) (y*cellSize/2), (double) (x*cellSize + cellSize),
+						(double) (y*cellSize/2 + cellSize/2), (double) (x*cellSize),
+						(double)(y*cellSize/2 + cellSize), (double)(x*cellSize + cellSize)
+				});
+			}
+			else
+			{
+				((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+				{
+						(double) (y*cellSize/2), (double) (x*cellSize),
+						(double) (y*cellSize/2 + cellSize), (double) (x*cellSize),
+						(double)(y*cellSize/2 + cellSize/2), (double)(x*cellSize + cellSize)
+				});
+			}
+		}
+		else if (gridObject.getClass().toString().contains("Hexagonal"))
+		{
+			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+					{
+							
+					});
+		}
+		else throw new Error("Incorrect shape");
 	}
 
 	private void setClickAction(int x, int y, Grid gridObject)

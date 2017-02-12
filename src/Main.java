@@ -10,7 +10,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utilities.GraphHandler;
-import utilities.XMLReader;
+import utilities.SimulationBuilder;
 
 public class Main extends Application
 {
@@ -37,7 +37,7 @@ public class Main extends Application
 			(new Main()).start(new Stage());
 		});
 
-		XMLReader reader = new XMLReader();
+		SimulationBuilder builder = new SimulationBuilder();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(container));
@@ -49,13 +49,13 @@ public class Main extends Application
 		Consumer<Number> sliderFunction = (Number n) -> animation.setRate(n.doubleValue());
 		container.initSpeedSlider(sliderFunction);
 		
-		createGraph(s);
+		createGraph();
 		
 		container.initNewSimButton(() ->
 		{
 			animation.pause();
-			reader.chooseFile(s);
-			simulation = reader.getSimulation();
+			builder.chooseFile(s);
+			simulation = builder.getSimulation();
 			container.initSimParameterInterface(
 					() -> animation.play(),
 					() -> animation.pause(),
@@ -81,14 +81,14 @@ public class Main extends Application
 		s.show();
 	}
 
-	private void createGraph(Stage s)
+	private void createGraph()
 	{
 		Stage graphStage = new Stage();
 		graphHandler = new GraphHandler();
 		graphStage.setScene(graphHandler.buildScene());
-		graphStage.show();
-		graphStage.setX(s.getWidth());
+		graphStage.setX(WIDTH);
 		graphStage.setY(0);
+		graphStage.show();
 	}
 
 	private void initializeSimSliders(GUI container)
