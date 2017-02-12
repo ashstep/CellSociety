@@ -5,10 +5,9 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.Segregation.SegregationCell;
 import javafx.scene.paint.Color;
 
-public class SlimeCell extends Cell {
+public abstract class SlimeCell extends Cell {
  /*
   * 
   */
@@ -17,10 +16,25 @@ public class SlimeCell extends Cell {
 	private final int TYPE_EMPTY = 0;
 	private final Color TYPE_ALIVE_COLOR = Color.GREEN;
 	private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
+	//each agent cell will have following properties
+	private int wiggleAngle;
+	private int probWiggle;
+	private int sniffThreshold;
+	private int sniffAngle;
+	
+	//for the ground grid with camp
+	private double campPercentage;
+	private int timeElapsed;		//when to disregard it
+	private final Color TYPE_CHEM_COLOR = Color.YELLOW;
+	private final int TYPE_CHEM = 2;
+
 
 	
-	public SlimeCell(int type) {
-		super(type);
+	/**
+	 * default constructor
+	 */
+	public SlimeCell(int myType) {
+		super(myType);
 	}
 	
 	//create a copy
@@ -28,16 +42,62 @@ public class SlimeCell extends Cell {
 		this(anotherCell.getMyType());
 	}
 
-	/**
-	 * @param true if the cell wants to move
-	 * cell moves based on where concentration is highest
-	 */
+
+	//different for updated grid and ground
 	@Override
-	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
+
+	/**
+	 * removes cell
+	 */
+	public void remove(){
+		super.setMyType(TYPE_EMPTY);
+	}
+	
+	/**
+	 * @return true if cell is empty
+	 */
+	private boolean isEmpty(){
+		return getMyType() == TYPE_EMPTY;
+	}
+	
+	/**
+	 * @return true if cell is a chemical cell
+	 */
+	private boolean isChemical(){
+		return getMyType() == TYPE_CHEM;
+	}
+	
+	/**
+	 * getter for the time elapsed since chemical released
+	 */
+	public int getChemicalDiffusionTime(){
+		return timeElapsed;
+	}
+	//campPercentage
+	
+	/**
+	 * getter for the time elapsed since chemical released
+	 */
+	public int get(){
+		return timeElapsed;
 	}
 
+	
+	/**
+	 * setter for the time elapsed since chemical released
+	 */
+	public void setChemicalDiffusionTime(){
+		timeElapsed = 0;
+	}
+	
+	/**
+	 * setter 
+	 */
+	protected void incrementTime(){
+		timeElapsed++;
+	}
+	
 	
 
 	/*
@@ -47,14 +107,7 @@ public class SlimeCell extends Cell {
 		setMyType(TYPE_EMPTY);
 	}
 
-	private boolean isEmpty(){
-		return getMyType() == TYPE_EMPTY;
-	}
 	
-	private void setTreeAlive(){
-		setMyType(TYPE_ALIVE);
-	}
-
 	private boolean isAlive(){
 		return getMyType() == TYPE_ALIVE;
 	}
@@ -64,7 +117,9 @@ public class SlimeCell extends Cell {
 		if(isAlive()){
 			return TYPE_ALIVE_COLOR;
 		} 
-
+		if(isChemical()){
+			return TYPE_CHEM_COLOR;
+		}
 		else {
 			return TYPE_EMPTY_COLOR;
 		}
