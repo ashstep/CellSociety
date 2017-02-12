@@ -117,8 +117,10 @@ public class GameOfLifeCell extends Cell{
 	@Override
 	public Cell makeCellofType(int type) throws IllegalArgumentException{
 		if(type==ALIVE_TYPE){
+			System.out.println("making ALIVE GoL cell");
 			return new GameOfLifeCell(ALIVE_TYPE);
 		} else if(type==DEAD_TYPE){
+			System.out.println("making DEAD GoL cell");
 			return new GameOfLifeCell(DEAD_TYPE);
 		} else {
 			throw new IllegalArgumentException("Invalid GameOfLifeCell type");

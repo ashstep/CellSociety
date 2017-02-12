@@ -74,6 +74,7 @@ public class GUI
 		    @Override
 		    public void handle(MouseEvent t)
 		    {
+		    	System.out.println("user click event");
 		        gridObject.nextState(new GridLocation(x,y));
 		        renderCell(x, y, gridObject);
 		    }

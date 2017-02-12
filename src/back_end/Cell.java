@@ -25,6 +25,11 @@ public abstract class Cell {
 	 */
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo);
 	
+	@Override
+	public String toString(){
+		return ""+getMyType();
+	}
+	
 	/**
 	 * getter
 	 * @return

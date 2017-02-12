@@ -43,12 +43,30 @@ public abstract class Simulation{
 		return null;
 	}
 	
+	public Grid createGrid(Cell[][] cellArray, Cell cellType)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = myGrid.getClass().getConstructor(Cell[][].class ,Cell.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return constructor.newInstance(cellArray, cellType);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
-	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell
+	 * generates a GridLocation such that newGrid[GridLocation] is empty for putting a new cell
 	 * AND (row, column) is not its current position
 	 * 
 	 * simulates a cell moving to somewhere else
-	 * @return int[]. 0 position is row,1 position is column
+	 * @return GridLocation
 	 */
 	protected abstract GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol);
 	
