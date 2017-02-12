@@ -62,5 +62,17 @@ public class SlimeCell extends Cell {
 		return null;
 	}
 
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Cell makeNextStateCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

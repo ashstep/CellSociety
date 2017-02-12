@@ -9,6 +9,7 @@ import utilities.GridLocation;
 
 public abstract class Simulation{
 	//TODO: implement changeToNextType();
+	//made abstract
 	private Grid myCellGrid;
 	private Grid myGroundGrid;
 	
@@ -30,33 +31,29 @@ public abstract class Simulation{
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {
-			constructor = myGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
+			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public Grid createGrid(Cell[][] cellArray, Cell cellType)
+	public Grid createGroundGrid(Cell[][] cellArray, Cell cellType)
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {
-			constructor = myGrid.getClass().getConstructor(Cell[][].class ,Cell.class);
+			constructor = myGroundGrid.getClass().getConstructor(Cell[][].class ,Cell.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			return constructor.newInstance(cellArray, cellType);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -81,6 +78,7 @@ public abstract class Simulation{
 	public Grid getGroundGrid(){
 		return myGroundGrid;
 	}
+	
 	
 	/**
 	 * setter method for myGrid and myGroundGrid
@@ -109,12 +107,9 @@ public abstract class Simulation{
 	/**
 	 * 
 	 * @return number of rows in myGrid
+	 * same for both ground and regular grid
 	 */
 	public int getNumRows(){
-		return myCellGrid.getNumRows();
-	}
-	
-	public int getNumRowsGround(){
 		return myCellGrid.getNumRows();
 	}
 	
@@ -125,34 +120,9 @@ public abstract class Simulation{
 	public int getNumCols(){
 		return myCellGrid.getNumCols();
 	}
-	
-	
-	
-	
-
 	public abstract ArrayList<String> getParameterList();
 	public abstract Consumer<Number> getChangeMethod(String x);
 	public abstract double getSliderLowerBound(String x);
 	public abstract double getSliderUpperBound(String x);
 	public abstract double getCurrentValue(String x);
-
-
-	public Grid createGrid(Cell cellType)
-	{
-		Constructor<? extends Grid> constructor = null;
-		try {
-			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
-		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
