@@ -3,7 +3,6 @@ package back_end.Fire;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import Grids.*;
-import Grids.RectangleGrids.*;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
@@ -22,7 +21,8 @@ public class FireSim extends Simulation {
 	 * @param probablilty of the tree catching on fire and a int[][] that holds the location 
 	 * of each fire cell
 	 */
-	public FireSim(int[][] typeGrid, double probCatch){
+	public FireSim(int[][] typeGrid, double probCatch, String boundsType, String shapeType)
+	{
 		myInfo = new FireSimInfo(probCatch);
 
 		int numRows = typeGrid.length ;
@@ -33,7 +33,7 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
+		super.makeGrid(boundsType, shapeType, cellGrid, TYPE_CELL);
 	}
 
 
