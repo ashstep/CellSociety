@@ -14,6 +14,8 @@ public abstract class SlimeCell extends Cell {
 	
 	private final int TYPE_ALIVE = 1;
 	private final int TYPE_EMPTY = 0;
+	private final int TYPE_CHEMICAL = 2;
+	private final Color TYPE_CHEMICAL_COLOR = Color.YELLOW;
 	private final Color TYPE_ALIVE_COLOR = Color.GREEN;
 	private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
 	//each agent cell will have following properties
@@ -25,8 +27,6 @@ public abstract class SlimeCell extends Cell {
 	//for the ground grid with camp
 	private double campPercentage;
 	private int timeElapsed;		//when to disregard it
-	private final Color TYPE_CHEM_COLOR = Color.YELLOW;
-	private final int TYPE_CHEM = 2;
 
 
 	
@@ -35,9 +35,16 @@ public abstract class SlimeCell extends Cell {
 	 */
 	public SlimeCell(int myType) {
 		super(myType);
+		timeElapsed = 0;
+		campPercentage = 0;
+		wiggleAngle= 0;
+		probWiggle= 0;
+		sniffThreshold= 0;
+		sniffAngle= 0;
 	}
 	
 	//create a copy
+	//is this needed?????
 	public SlimeCell(SlimeCell anotherCell){
 		this(anotherCell.getMyType());
 	}
@@ -47,6 +54,7 @@ public abstract class SlimeCell extends Cell {
 	@Override
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
 
+	
 	/**
 	 * removes cell
 	 */
@@ -65,7 +73,7 @@ public abstract class SlimeCell extends Cell {
 	 * @return true if cell is a chemical cell
 	 */
 	private boolean isChemical(){
-		return getMyType() == TYPE_CHEM;
+		return getMyType() == TYPE_CHEMICAL;
 	}
 	
 	/**
@@ -74,43 +82,63 @@ public abstract class SlimeCell extends Cell {
 	public int getChemicalDiffusionTime(){
 		return timeElapsed;
 	}
-	//campPercentage
+	
 	
 	/**
-	 * getter for the time elapsed since chemical released
+	 * resetting the time elapsed since chemical released
 	 */
-	public int get(){
-		return timeElapsed;
-	}
-
-	
-	/**
-	 * setter for the time elapsed since chemical released
-	 */
-	public void setChemicalDiffusionTime(){
+	public void resetChemicalDiffusionTime(){
 		timeElapsed = 0;
 	}
 	
 	/**
-	 * setter 
+	 * increment
 	 */
 	protected void incrementTime(){
 		timeElapsed++;
 	}
 	
 	
-
-	/*
-	 * getters and setters
+	/**
+	 * getter for the chemical percent
 	 */
-	private void setTreeEmpty(){
-		setMyType(TYPE_EMPTY);
+	public double getChemicalPercentage(){
+		return campPercentage;
+	}
+	
+	
+	/**
+	 * set the chemical percent
+	 */
+	public void setChemicalPercentage(double given){
+		campPercentage = given;
 	}
 
 	
-	private boolean isAlive(){
-		return getMyType() == TYPE_ALIVE;
-	}
+	
+	
+	
+	
+
+	campPercentage = 0;
+	wiggleAngle= 0;
+	probWiggle= 0;
+	sniffThreshold= 0;
+	sniffAngle= 0;
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	@Override
 	public Color getColor() {

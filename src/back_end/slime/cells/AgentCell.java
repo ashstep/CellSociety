@@ -5,7 +5,6 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.slime.SlimeCell;
 import javafx.scene.paint.Color;
 
@@ -28,15 +27,13 @@ public class AgentCell extends SlimeCell {
 	 * makes a copy
 	 */
 	public AgentCell(AgentCell another){
-		this();
-	}
+		this(another.getMyType());
+		}
+	
 
 
 	/**
 	 * checks neighbors, makes actions
-	 * 
-	 * 
-	 * 
 	 */
 		@Override
 		public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
@@ -49,7 +46,7 @@ public class AgentCell extends SlimeCell {
 		/*
 		 * getters and setters
 		 */
-		private void setTreeEmpty(){
+		private void setEmpty(){
 			setMyType(TYPE_EMPTY);
 		}
 

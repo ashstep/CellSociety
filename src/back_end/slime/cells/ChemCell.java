@@ -37,8 +37,7 @@ public class ChemCell extends SlimeCell{
 
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-		super(2);
-
+		return null;
 	}
 
 

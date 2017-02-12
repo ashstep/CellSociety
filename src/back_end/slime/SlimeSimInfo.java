@@ -41,11 +41,6 @@ public class SlimeSimInfo extends SimulationInfo{
 		return newWiggleAngle;
 	}
 	
-	/////////////
-	
-	
-	
-	
 	public double getSniffThreshold(){
 		return sniffThreshold;
 	}
@@ -54,8 +49,6 @@ public class SlimeSimInfo extends SimulationInfo{
 		this.sniffThreshold = newsniffThreshold;
 		return sniffThreshold;
 	}
-
-	
 	public double getSniffAngle(){
 		return sniffAngle;
 	}
@@ -64,6 +57,11 @@ public class SlimeSimInfo extends SimulationInfo{
 		this.sniffAngle = newsniffAngle;
 		return sniffAngle;
 	}
+	
+	//// This is where we will have ground grid
+	
+	
+	
 	
 	
 	
