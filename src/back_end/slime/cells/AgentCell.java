@@ -27,7 +27,7 @@ public class AgentCell extends SlimeCell {
 	 * makes a copy
 	 */
 	public AgentCell(AgentCell another){
-		this(another.getMyType());
+		this();
 		}
 	
 
@@ -43,60 +43,7 @@ public class AgentCell extends SlimeCell {
 
 		
 
-		/*
-		 * getters and setters
-		 */
-		private void setEmpty(){
-			setMyType(TYPE_EMPTY);
-		}
 
-		private boolean isEmpty(){
-			return getMyType() == TYPE_EMPTY;
-		}
-		
-		private boolean isAlive(){
-			return getMyType() == TYPE_ALIVE;
-		}
-		
-		@Override
-		public Color getColor() {
-			if(isAlive()){
-				return TYPE_ALIVE_COLOR;
-			} 
-			else {
-				return TYPE_EMPTY_COLOR;
-			}
-		}
-
-		@Override
-		public Collection<String> getTypeNames() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getTypeName() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Cell makeCellofType(int type) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Cell makeNextStateCell() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Cell makeEmptyCell() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
 		
 }
