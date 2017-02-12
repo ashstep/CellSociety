@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import utilities.GridLocation;
@@ -68,8 +69,18 @@ public class GUI
 			grid[x][y] = new Rectangle(cellSize, cellSize);
 			((Rectangle) grid[x][y]).setX(y*cellSize);
 			((Rectangle) grid[x][y]).setY(x*cellSize);
+			return;
 		}
-		
+		grid[x][y] = new Polygon();
+		if (gridObject.getClass().toString().contains("Triangular"))
+		{
+			((Polygon) grid[x][y]).getPoints().addAll();
+		}
+		else if (gridObject.getClass().toString().contains("Hexagonal"))
+		{
+			((Polygon) grid[x][y]).getPoints().addAll();
+		}
+		else throw new Error("Incorrect shape");
 	}
 
 	private void setClickAction(int x, int y, Grid gridObject)
