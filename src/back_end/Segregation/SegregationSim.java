@@ -49,8 +49,8 @@ public class SegregationSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		Grid copy = createGrid(super.deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
-		Grid oldGrid = super.getGrid();
+		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid oldGrid = super.getCellGrid();
 //		Grid oldGridCopy=new RectangleFiniteGrid(deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {

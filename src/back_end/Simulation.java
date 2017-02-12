@@ -42,7 +42,26 @@ public abstract class Simulation{
 		}
 		return null;
 	}
+
+	public Grid createGrid(Grid grid, Cell[][] cellArray, Cell cellType)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = grid.getClass().getConstructor(Cell[][].class ,Cell.class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return constructor.newInstance(cellArray, cellType);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
+	@Deprecated
 	public Grid createGroundGrid(Cell[][] cellArray, Cell cellType)
 	{
 		Constructor<? extends Grid> constructor = null;
@@ -102,11 +121,11 @@ public abstract class Simulation{
 	 * getter method
 	 * @return Grid containing cell info
 	 */
-	public Grid getGrid(){
-		return myCellGrid;
+	public Grid getCellGrid(){
+		return createGrid(myCellGrid, deepCopyCellArray(myCellGrid.getContainer()), myCellGrid.getCellAt(new GridLocation(0, 0)));
 	}
 	public Grid getGroundGrid(){
-		return myGroundGrid;
+		return createGrid(myGroundGrid, deepCopyCellArray(myGroundGrid.getContainer()), myGroundGrid.getCellAt(new GridLocation(0, 0)));
 	}
 	
 	
