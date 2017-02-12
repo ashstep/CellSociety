@@ -42,10 +42,6 @@ public class ChemCell extends SlimeCell{
 		this.campPercentage= another.campPercentage;
 	}
 
-
-	
-	
-	
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		return null;
