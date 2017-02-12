@@ -48,12 +48,17 @@ public class GUI
 			for (int y = 0; y < gridWidth; y++)
 			{
 				createShape(cellSize, x, y, gridObject);
-				grid[x][y].setStroke(Color.BLACK);
+				checkStroke(x, y, gridObject);
 				setClickAction(x, y, gridObject);
 				gridContainer.getChildren().add(grid[x][y]);
 			}
 		}
 		renderGrid(gridObject);
+	}
+
+	private void checkStroke(int x, int y, Grid gridObject)
+	{
+		if (gridObject.hasLines()) grid[x][y].setStroke(Color.BLACK);
 	}
 
 	private void createShape(int cellSize, int x, int y, Grid gridObject)
