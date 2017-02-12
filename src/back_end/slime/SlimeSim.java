@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import Grids.Grid;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import back_end.Fire.FireSimInfo;
 import utilities.GridLocation;
 
 public class SlimeSim extends Simulation {

@@ -113,6 +113,10 @@ public abstract class Simulation{
 		return myCellGrid.getNumRows();
 	}
 	
+	public int getNumRowsGround(){
+		return myGroundGrid.getNumRows();
+	}
+	
 	/**
 	 * 
 	 * @return number of columns in myGrid
@@ -120,6 +124,10 @@ public abstract class Simulation{
 	public int getNumCols(){
 		return myCellGrid.getNumCols();
 	}
+	public int getNumColsGround(){
+		return myGroundGrid.getNumCols();
+	}
+
 	public abstract ArrayList<String> getParameterList();
 	public abstract Consumer<Number> getChangeMethod(String x);
 	public abstract double getSliderLowerBound(String x);
