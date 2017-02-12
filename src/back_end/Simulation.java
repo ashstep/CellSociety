@@ -65,8 +65,6 @@ public abstract class Simulation{
 		myGroundGrid = groundGrid;
 	}
 	
-
-	
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
 	 * @param newInfo
