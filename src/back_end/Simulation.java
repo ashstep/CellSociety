@@ -5,6 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import Grids.Grid;
+import Grids.HexagonalGrids.HexFiniteGrid;
+import Grids.HexagonalGrids.HexToroidalGrid;
+import Grids.RectangleGrids.RectangleFiniteGrid;
+import Grids.RectangleGrids.RectangleInfiniteGrid;
+import Grids.RectangleGrids.RectangleToroidalGrid;
+import Grids.TriangularGrid.TriangularFiniteGrid;
+import Grids.TriangularGrid.TriangularToroidalGrid;
 import utilities.GridLocation;
 
 public abstract class Simulation
@@ -132,6 +139,33 @@ public abstract class Simulation
 	 */
 	protected void setGrid(Grid grid){
 		myCellGrid=grid;
+	}
+	
+	protected void makeGrid(String gridBoundsType, String shapeType, Cell[][] cellArray, Cell typeCell)
+	{
+		if (gridBoundsType.equals("Toroidal") && shapeType.equals("Rectangular"))
+			setGrid(new RectangleToroidalGrid(cellArray, typeCell));
+		else if (gridBoundsType.equals("Finite") && shapeType.equals("Rectangular"))
+			setGrid(new RectangleFiniteGrid(cellArray, typeCell));
+		else if (gridBoundsType.equals("Infinite") && shapeType.equals("Rectangular"))
+			setGrid(new RectangleInfiniteGrid(cellArray, typeCell));
+		
+		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Triangular"))
+			setGrid(new TriangularToroidalGrid(cellArray, typeCell));
+		else if (gridBoundsType.equals("Finite") && shapeType.equals("Triangular"))
+			setGrid(new TriangularFiniteGrid(cellArray, typeCell));
+		//else if (gridBoundsType.equals("Infinite") && shapeType.equals("Triangular"))
+		//	setGrid(new TriangularInfiniteGrid(cellArray, typeCell));
+		
+		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Hexagonal"))
+			setGrid(new HexToroidalGrid(cellArray, typeCell));
+		else if (gridBoundsType.equals("Finite") && shapeType.equals("Hexagonal"))
+			setGrid(new HexFiniteGrid(cellArray, typeCell));
+		//else if (gridBoundsType.equals("Infinite") && shapeType.equals("Hexagonal"))
+		//	setGrid(new HexagonalInfiniteGrid(cellArray, typeCell));
+		
+		else
+			throw new Error("Incorrect Grid Type");
 	}
 	
 	protected void setGroundGrid(Grid groundGrid){

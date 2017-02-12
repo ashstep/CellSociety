@@ -19,6 +19,7 @@ public class SimulationBuilder
 {
 	private FileChooser fileChooser;
 	private Document doc;
+	private ConfigHandler configuration;
 
 	public SimulationBuilder ()
 	{
@@ -26,6 +27,8 @@ public class SimulationBuilder
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
 		fileChooser.setInitialDirectory(new File("./data"));
+		
+		configuration = new ConfigHandler();
 	}
 
 	public Simulation getSimulation()
@@ -42,7 +45,7 @@ public class SimulationBuilder
 	{
 		NodeList nList = doc.getElementsByTagName("threshold");
 		int threshold = Integer.parseInt(nList.item(0).getTextContent());
-		return new SegregationSim(createGrid(), threshold);
+		return new SegregationSim(createGrid(), threshold, configuration.getBoundsType(), configuration.getShapeType());
 	}
 
 	private Simulation createPredatorPreySim()
@@ -56,21 +59,21 @@ public class SimulationBuilder
 		nList = doc.getElementsByTagName("FishBreedTime");
 		int fishBreedTime = Integer.parseInt(nList.item(0).getTextContent());
 		
-		return new PredatorPreySim(createGrid(), sharkBreedTime, sharkStarveTime, fishBreedTime);
+		return new PredatorPreySim(createGrid(), sharkBreedTime, sharkStarveTime, fishBreedTime
+				, configuration.getBoundsType(), configuration.getShapeType());
 	}
 
 	private Simulation createFireSim()
 	{
 		NodeList nList = doc.getElementsByTagName("FireProbability");
-		//double probFire = Integer.parseInt(nList.item(0).getTextContent());
 		double probFire = Double.parseDouble(nList.item(0).getTextContent());
 		
-		return new FireSim(createGrid(), probFire);
+		return new FireSim(createGrid(), probFire, configuration.getBoundsType(), configuration.getShapeType());
 	}
 
 	private Simulation createGameOfLifeSim()
 	{	
-		return new GameOfLifeSim(createGrid(), doc.getDocumentElement().getAttribute("BoundsType"));
+		return new GameOfLifeSim(createGrid(), configuration.getBoundsType(), configuration.getShapeType());
 	}
 	
 	private int[][] createGrid()

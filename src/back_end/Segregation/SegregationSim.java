@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
-import Grids.RectangleGrids.*;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
@@ -26,7 +25,7 @@ public class SegregationSim extends Simulation {
 	 *            satisfaction threshold for each cell, environment attribute
 	 */
 	// repeated code for setting up Grid?
-	public SegregationSim(int[][] typeGrid, int threshold) {
+	public SegregationSim(int[][] typeGrid, int threshold, String boundsType, String shapeType) {
 		myInfo = new SegregationSimInfo(threshold);
 
 		int numRows = typeGrid.length;
@@ -38,7 +37,7 @@ public class SegregationSim extends Simulation {
 				cellGrid[row][col] = new SegregationCell(typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
+		super.makeGrid(boundsType, shapeType, cellGrid, TYPE_CELL);
 	}
 
 

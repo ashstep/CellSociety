@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import Grids.*;
-import Grids.RectangleGrids.*;
-import Grids.TriangularGrid.TriangularFiniteGrid;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
@@ -19,7 +17,7 @@ public class GameOfLifeSim extends Simulation {
 	 * 
 	 * @param typeGrid
 	 */
-	public GameOfLifeSim(int[][] typeGrid, String gridBoundsType) {
+	public GameOfLifeSim(int[][] typeGrid, String gridBoundsType, String shapeType) {
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		GameOfLifeCell[][] cellGrid = new GameOfLifeCell[numRows][numCols];
@@ -29,20 +27,9 @@ public class GameOfLifeSim extends Simulation {
 				cellGrid[row][col] = new GameOfLifeCell(typeGrid[row][col]);
 			}
 		}
-		// super.setGrid(new RectangleInfiniteGrid(cellGrid, TYPE_CELL));
-		setGrid(gridBoundsType, cellGrid);
+		super.makeGrid(gridBoundsType, shapeType, cellGrid,TYPE_CELL);
 	}
 
-	private void setGrid(String gridBounds, GameOfLifeCell[][] cellGrid) {
-		if (gridBounds.equals("Toroidal"))
-			super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
-		else if (gridBounds.equals("Finite"))
-			super.setGrid(new TriangularFiniteGrid(cellGrid, TYPE_CELL));
-		else if (gridBounds.equals("Infinite"))
-			super.setGrid(new RectangleInfiniteGrid(cellGrid, TYPE_CELL));
-		else
-			throw new Error("Incorrect Grid Type");
-	}
 
 	/**
 	 * updates and returns the grid. No cells move in position in this
@@ -62,7 +49,6 @@ public class GameOfLifeSim extends Simulation {
 		// TODO: how to switch the Grid object?
 		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
 		Grid oldGrid = super.getCellGrid();
-		int x = 0;
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				GridLocation location = new GridLocation(row, col);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
-import Grids.RectangleGrids.*;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
@@ -32,9 +31,10 @@ public class PredatorPreySim extends Simulation {
 	 * @param sharStarveTime
 	 * @param fishBreedTime
 	 */
-	public PredatorPreySim(int[][] typeGrid, int sharkBreedTime, int sharStarveTime, int fishBreedTime) {
+	public PredatorPreySim(int[][] typeGrid, int sharkBreedTime, int sharStarveTime, int fishBreedTime,
+			String boundsType, String shapeType) {
 		myInfo = new PredatorPreySimInfo(sharkBreedTime, sharStarveTime, fishBreedTime);
-		setCellGrid(typeGrid);
+		setCellGrid(typeGrid, boundsType, shapeType);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class PredatorPreySim extends Simulation {
 	 * 
 	 * @param typeGrid
 	 */
-	private void setCellGrid(int[][] typeGrid) {
+	private void setCellGrid(int[][] typeGrid, String boundsType, String shapeType) {
 		int numRows = typeGrid.length, numCols = typeGrid[0].length;
 		PredatorPreyCell[][] cellGrid = new PredatorPreyCell[numRows][numCols];
 		for (int row = 0; row < numRows; row++) {
@@ -50,7 +50,7 @@ public class PredatorPreySim extends Simulation {
 				createPPCellAt(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
+		super.makeGrid(boundsType, shapeType, cellGrid, TYPE_CELL);
 	}
 
 	
