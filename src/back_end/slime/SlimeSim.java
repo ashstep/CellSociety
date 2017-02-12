@@ -13,8 +13,11 @@ import back_end.Fire.FireCell;
 import back_end.Fire.FireSimInfo;
 import back_end.PredatorPrey.PredatorPreyCell;
 import back_end.PredatorPrey.PredatorPreySimInfo;
+import back_end.PredatorPrey.PPCells.EmptyPPCell;
+import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.cells.AgentCell;
+import back_end.slime.cells.ChemCell;
 import utilities.GridLocation;
 
 public class SlimeSim extends Simulation {
@@ -35,10 +38,24 @@ public class SlimeSim extends Simulation {
 	 * @param sharStarveTime
 	 * @param fishBreedTime
 	 */
-	public SlimeSim(int[][] typeGrid, int[][] typeGrid2,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
+	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
-		setCellGrid(typeGrid);
-		setGroundGrid(typeGrid2);
+		setCellGrid(typegrid);
+		//setGroundGrid(groundGrid);
+		
+		
+		int numRows = typegrid.length ;
+		int numCols = typegrid[0].length ;
+		SlimeCell[][] cellGrid = new SlimeCell[numRows][numCols];
+		for(int row = 0; row < numRows ; row++){
+			for(int col = 0 ; col < numCols; col++){
+				cellGrid[row][col] = new SlimeCell(typegrid[row][col]);
+			}
+		}
+		super.setGrid(new RectangleToroidalGrid(cellGrid, TYPE_CELL));
+
+		
+		
 	}
 
 	/**
@@ -52,12 +69,47 @@ public class SlimeSim extends Simulation {
 		SlimeCell[][] cellGrid = new SlimeCell[numRows][numCols];
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				createPPCellAt(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
+				createCell(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
 			}
 		}
 		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
 	}
 
+	
+	
+	/**
+	 * updates grid
+	 */
+	@Override
+	public Grid updateGrid() {
+		Grid oldGridCopy = new RectangleFiniteGrid((SlimeCell[][]) copyArray(super.getGrid().getContainer()), TYPE_CELL);
+		super.setGrid(oldGridCopy);
+		return oldGridCopy;
+	}
+
+	
+	/**
+	 * puts a PPCell of type cellType at a specified location at
+	 * PredatorPreyCell[][] grid
+	 * 
+	 * @param grid
+	 * @param location
+	 * @param cellType
+	 */
+	
+	private void createCell(Cell[][] grid, GridLocation location, int cellType) {
+		if (cellType == TYPE_AGENT) {
+			grid[location.getRow()][location.getCol()] = new AgentCell();
+		} else if (cellType == TYPE_CHEM) {
+			grid[location.getRow()][location.getCol()] = new ChemCell();
+		} else {
+			grid[location.getRow()][location.getCol()] = new AgentCell(0);
+		}
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -143,12 +195,7 @@ public class SlimeSim extends Simulation {
 
 	
 	
-	
-	@Override
-	public Grid updateGrid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
