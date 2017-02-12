@@ -60,8 +60,8 @@ public class PredatorPreySim extends Simulation {
 	 */
 	@Override
 	public Grid updateGrid() {
-		Grid copy = createGrid(this.deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
-		Grid oldGrid=super.getGrid();
+		Grid copy = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid oldGrid=super.getCellGrid();
 		updateSharks(oldGrid, copy);	
 		updateFish(oldGrid, copy);
 		super.setGrid(oldGrid);

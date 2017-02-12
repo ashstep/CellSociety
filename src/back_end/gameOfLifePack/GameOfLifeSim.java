@@ -61,8 +61,8 @@ public class GameOfLifeSim extends Simulation {
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		// TODO: how to switch the Grid object?
-		Grid copy = createGrid(super.deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
-		Grid oldGrid = super.getGrid();
+		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid oldGrid = super.getCellGrid();
 		int x = 0;
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
