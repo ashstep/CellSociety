@@ -122,10 +122,10 @@ public abstract class Simulation{
 	 * @return Grid containing cell info
 	 */
 	public Grid getCellGrid(){
-		return createGrid(myCellGrid, deepCopyCellArray(myCellGrid.getContainer()), myCellGrid.getCellAt(new GridLocation(0, 0)));
+		return myCellGrid;
 	}
 	public Grid getGroundGrid(){
-		return createGrid(myGroundGrid, deepCopyCellArray(myGroundGrid.getContainer()), myGroundGrid.getCellAt(new GridLocation(0, 0)));
+		return myGroundGrid;
 	}
 	
 	
