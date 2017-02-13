@@ -31,4 +31,9 @@ public class ConfigHandler
 	{
 		return simProps.getProperty("cellOutline").equals("on");
 	}
+
+	public String getGridBuilderType()
+	{
+		return simProps.getProperty("gridBuilderType");
+	}
 }

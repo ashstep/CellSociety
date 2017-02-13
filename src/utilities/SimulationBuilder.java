@@ -44,6 +44,22 @@ public class SimulationBuilder
 		
 		return sim;
 	}
+	public void chooseFile(Stage s)
+	{
+		File selectedFile = fileChooser.showOpenDialog(s);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		
+		try 
+		{
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			doc = dBuilder.parse(selectedFile);
+			doc.getDocumentElement().normalize();
+		}
+		catch (Exception e)
+		{
+			throw new Error("incorrect file");
+		}
+	}
 
 	private Simulation createSegregationSim()
 	{
@@ -82,6 +98,23 @@ public class SimulationBuilder
 	
 	private int[][] createGrid()
 	{
+		if (configuration.getGridBuilderType().equals("Data")) return createDataGrid();
+		else if (configuration.getGridBuilderType().equals("Random")) return createRandomGrid();
+		else if (configuration.getGridBuilderType().equals("Probability")) return createProbabilityGrid();
+		else throw new Error("Incorrect grid builder config");
+	}
+
+	private int[][] createProbabilityGrid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private int[][] createRandomGrid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private int[][] createDataGrid() {
 		Scanner scanner;
 		NodeList nList = doc.getElementsByTagName("row");
 
@@ -106,22 +139,5 @@ public class SimulationBuilder
 	{
 		NodeList nList = doc.getElementsByTagName("GridWidth");
 		return Integer.parseInt(nList.item(0).getTextContent());
-	}
-
-	public void chooseFile(Stage s)
-	{
-		File selectedFile = fileChooser.showOpenDialog(s);
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		
-		try 
-		{
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			doc = dBuilder.parse(selectedFile);
-			doc.getDocumentElement().normalize();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 }

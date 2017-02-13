@@ -14,7 +14,6 @@ import utilities.SimulationBuilder;
 
 public class Main extends Application
 {
-	public static final String TITLE = "Simulator";
 	public static final int WIDTH = 700;
 	public static final int HEIGHT = 600;
 	public static final int FRAMES_PER_SECOND = 60;
@@ -75,7 +74,6 @@ public class Main extends Application
 	private void setMainStage(Stage s, GUI container)
 	{
 		s.setScene(container.buildScene());
-		s.setTitle(TITLE);
 		s.setX(0);
 		s.setY(0);
 		s.show();
