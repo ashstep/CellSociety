@@ -86,7 +86,6 @@ public abstract class Grid {
 				//TODO no need to cast?
 				
 				container[normalizedLocation.getRow()][normalizedLocation.getCol()]=cell;
-				System.out.println("container changed");
 			} else if(! isValidAbstractedPosition(abstractedLocation)){
 				throw new ArrayIndexOutOfBoundsException(
 						String.format("Grid.setCellAt: row out of bounds: %b, Col out of bounds: %b", 
