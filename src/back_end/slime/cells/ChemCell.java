@@ -86,4 +86,10 @@ public class ChemCell extends SlimeCell{
 	public void incrementTime(){
 		timeElapsed++;
 	}
+
+	@Override
+	public Cell makeEmptyCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

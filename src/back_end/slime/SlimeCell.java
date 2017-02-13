@@ -5,9 +5,6 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.EmptyPPCell;
-import back_end.PredatorPrey.PPCells.FishCell;
-import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
 import javafx.scene.paint.Color;
@@ -221,23 +218,7 @@ public abstract class SlimeCell extends Cell {
 		}	
 	}
 
-	@Override
-	public Cell makeEmptyCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeCellofType(int type) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 }

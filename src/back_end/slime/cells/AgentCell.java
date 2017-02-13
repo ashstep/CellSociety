@@ -109,4 +109,10 @@ public class AgentCell extends SlimeCell {
 		//cannot release 
 		hasReleasedChem = true;
 	}
+
+	@Override
+	public Cell makeEmptyCell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
