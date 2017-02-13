@@ -137,7 +137,7 @@ public abstract class Simulation
 	
 
     /**
-	 * creates a new grid of with the defined configuration in terms of bounds, shapes  and celltype
+	 * creates a new grid with the defined configuration (whose origin lies in simulation builder) in terms of bounds, shapes  and celltype
 	 * @param gridBoundsType
 	 * @param shapeType
 	 * @param cellArray
