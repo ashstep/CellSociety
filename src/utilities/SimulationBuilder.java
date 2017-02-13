@@ -97,13 +97,7 @@ public class SimulationBuilder
 		
 		nList = doc.getElementsByTagName("sniffAngle");
 		int sniffAngle = Integer.parseInt(nList.item(0).getTextContent());
-		
-		nList = doc.getElementsByTagName("campPercentage");
-		int campPercentage = Integer.parseInt(nList.item(0).getTextContent());
-		
-		nList = doc.getElementsByTagName("timeElapsed");
-		int timeElapsed = Integer.parseInt(nList.item(0).getTextContent());
-
+	
 		return new SlimeSim(createGrid(), createGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle);
 	}
 	///////////////////////

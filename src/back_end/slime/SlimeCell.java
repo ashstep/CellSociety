@@ -21,7 +21,6 @@ public abstract class SlimeCell extends Cell {
 	private int probWiggle;
 	private int sniffThreshold;
 	private int sniffAngle;
-	
 	//for the ground grid with camp
 	private double campPercentage;
 	private int timeElapsed;
