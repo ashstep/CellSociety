@@ -59,7 +59,7 @@ public class PredatorPreySim extends Simulation {
 	 */
 	@Override
 	public Grid updateGrid() {
-		Grid copy = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()));
+		Grid copy = createCellGrid(this.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid=super.getCellGrid();
 		updateSharks(oldGrid, copy);	
 		updateFish(oldGrid, copy);
@@ -129,7 +129,7 @@ public class PredatorPreySim extends Simulation {
 			newLoc=move(grid, currentLocation, ppCell);
 		}
 		if (furtherActions.wantsToReproduce()) {
-			System.out.println("reproducing a "+ppCell.getClass().toString());
+			System.out.println("reproducing a "+ ppCell.getClass().toString());
 			reproduce(grid, newLoc, ppCell);
 		}
 	}

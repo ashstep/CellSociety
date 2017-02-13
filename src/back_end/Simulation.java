@@ -48,7 +48,7 @@ public abstract class Simulation
 		return null;
 	}
 
-	public Grid createGrid(Grid grid, Cell[][] cellArray)
+	public Grid createCellGrid(Cell[][] cellArray)
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {

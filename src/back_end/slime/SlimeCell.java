@@ -5,18 +5,11 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.EmptyPPCell;
-import back_end.PredatorPrey.PPCells.FishCell;
-import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
 import javafx.scene.paint.Color;
 
-public abstract class SlimeCell extends Cell {
- /*
-  * 
-  */
-	
+public abstract class SlimeCell extends Cell {	
 	private final int TYPE_ALIVE = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEMICAL = 2;
@@ -31,7 +24,7 @@ public abstract class SlimeCell extends Cell {
 	
 	//for the ground grid with camp
 	private double campPercentage;
-	private int timeElapsed;		//when to disregard it
+	private int timeElapsed;
 
 
 	
@@ -48,18 +41,13 @@ public abstract class SlimeCell extends Cell {
 		sniffAngle= 0;
 	}
 	
-	//create a copy
-	//is this needed?????
+	//create copy
 	public SlimeCell(SlimeCell anotherCell){
 		this(anotherCell.getMyType());
 	}
-
-
-	//different for updated grid and ground
 	@Override
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
 
-	
 	/**
 	 * removes cell
 	 */
@@ -70,7 +58,7 @@ public abstract class SlimeCell extends Cell {
 	/**
 	 * @return true if cell is empty
 	 */
-	private boolean isEmpty(){
+	protected boolean isEmpty(){
 		return getMyType() == TYPE_EMPTY;
 	}
 	
@@ -215,27 +203,10 @@ public abstract class SlimeCell extends Cell {
 
 	@Override
 	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(TYPE_EMPTY);
+		}	
 	}
-
-	@Override
-	public Cell makeEmptyCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeCellofType(int type) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }

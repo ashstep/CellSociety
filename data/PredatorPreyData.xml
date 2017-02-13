@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Simulation type = "Predator Prey">
   <title>test</title>
-  <author>Juan Philippe, Askha Stephen, Yuxiang He</author>
+  <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
   <SimParameters>
 	<SharkBreedTime>30</SharkBreedTime>
 	<SharkStarveTime>60</SharkStarveTime>

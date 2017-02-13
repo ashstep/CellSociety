@@ -134,24 +134,24 @@ public class GUI
 		{
 			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
 					{
-							y*hexWidth, x*hexHeight,
-							y*hexWidth + hexWidth/2, x*hexHeight - hexHeightOffset,
-							y*hexWidth + hexWidth, x*hexHeight,
-							y*hexWidth + hexWidth, x*hexHeight + hexHeight - 2*hexHeightOffset,
-							y*hexWidth + hexWidth/2, x*hexHeight + hexHeight - hexHeightOffset,
-							y*hexWidth, x*hexHeight + hexHeight - 2*hexHeightOffset,
+							y*hexWidth, x*(hexHeight-hexHeightOffset) + hexHeightOffset,
+							y*hexWidth + hexWidth/2, x*(hexHeight-hexHeightOffset),
+							y*hexWidth + hexWidth, x*(hexHeight-hexHeightOffset) + hexHeightOffset,
+							y*hexWidth + hexWidth, x*(hexHeight-hexHeightOffset) + hexHeight - hexHeightOffset,
+							y*hexWidth + hexWidth/2, x*(hexHeight-hexHeightOffset) + hexHeight,
+							y*hexWidth, x*(hexHeight-hexHeightOffset) + hexHeight - hexHeightOffset,
 					});
 		}
 		else
 		{
 			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
 					{
-							y*hexWidth + hexWidth/2, x*hexHeight + hexHeightOffset,
-							y*hexWidth + hexWidth, x*hexHeight,
-							y*hexWidth + hexWidth*1.5, x*hexHeight + hexHeightOffset,
-							y*hexWidth + hexWidth*1.5, x*hexHeight + hexHeight - hexHeightOffset,
-							y*hexWidth + hexWidth, x*hexHeight + hexHeight,
-							y*hexWidth + hexWidth/2, x*hexHeight + hexHeight - hexHeightOffset,
+							y*hexWidth + hexWidth/2, x*(hexHeight-hexHeightOffset) + hexHeightOffset,
+							y*hexWidth + hexWidth, x*(hexHeight-hexHeightOffset),
+							y*hexWidth + hexWidth*1.5, x*(hexHeight-hexHeightOffset) + hexHeightOffset,
+							y*hexWidth + hexWidth*1.5, x*(hexHeight-hexHeightOffset) + hexHeight - hexHeightOffset,
+							y*hexWidth + hexWidth, x*(hexHeight-hexHeightOffset) + hexHeight,
+							y*hexWidth + hexWidth/2, x*(hexHeight-hexHeightOffset) + hexHeight - hexHeightOffset,
 					});
 		}
 	}
