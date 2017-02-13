@@ -18,7 +18,13 @@ public class HexFiniteGrid extends HexagonalGrid {
 
 	@Override
 	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
-		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		int[] rowOffset=super.getRowOffsetArray(flag);
+		int[] colOffset=null;
+		if(abstractedLocation.getRow()%2==0){
+			colOffset=super.getColOffsetArray(flag);
+		} else {
+			colOffset=super.getColOffsetArrayOddRow(flag);
+		}
 		return getNeighbors(abstractedLocation, rowOffset, colOffset);
 	}
 	

@@ -9,7 +9,7 @@ public abstract class HexagonalGrid extends Grid {
 	private final int[] HEXAGON_ROW_OFFSET={-1, -1, 0, 0, 1, 1};
 	private final int[] HEXAGON_EVENROW_COL_OFFSET ={-1, 0, -1, 1, -1, 0};
 	private final int[] HEXAGON_ODDROW_COL_OFFSET ={0, 1, -1, 1, 0, 1};
-	private final int[] FLAG_TO_END_INDEX={3, 12};
+	private final int[] FLAG_TO_END_INDEX={6};
 	
 	public HexagonalGrid(Cell[][] cellGrid) {
 		super(cellGrid);
