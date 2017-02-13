@@ -125,10 +125,9 @@ public class SugarSim extends Simulation {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	private void createSugarCellAt(SugarAgentCell[][] agentGrid, SugarGroundCell[][] groundGrid, 
 			AgentCellInfo[][] agentCellInfo, GroundCellInfo[][] groundCellInfo, GridLocation location, int cellType) {
-		
 		int row=location.getRow(), col=location.getCol();
 		if (cellType == AGENT) {
 			agentGrid[location.getRow()][location.getCol()] = new SugarAgentCell(agentCellInfo[row][col]);

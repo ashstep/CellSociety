@@ -18,7 +18,6 @@ public abstract class PredatorPreyCell extends Cell{
 	 * 2: type 2
 	 * 0: empty
 	 */
-	
 	private final int FISH=1;
 	private final int SHARK=2;
 	private final int EMPTY=0;
@@ -41,20 +40,8 @@ public abstract class PredatorPreyCell extends Cell{
 		timeSinceBreed=timeSinceBreeding;
 	}
 	
-//	/**
-//	 * makes a copy of another PredatorPreyCell 
-//	 * @param anotherCell
-//	 */
-//	//refactor to abstract class?
-//	public PredatorPreyCell(PredatorPreyCell anotherCell) {
-//		this(anotherCell.getMyType());
-//	}
-	
-	
 	@Override
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
-	
-	
 	
 	/**
 	 * kills a cell (fish or shark)
@@ -64,7 +51,6 @@ public abstract class PredatorPreyCell extends Cell{
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is fish
 	 */
 	public boolean isFish(){
@@ -72,7 +58,6 @@ public abstract class PredatorPreyCell extends Cell{
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is shark
 	 */
 	public boolean isShark(){
@@ -80,7 +65,6 @@ public abstract class PredatorPreyCell extends Cell{
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is empty
 	 */
 	public boolean isEmpty(){

@@ -36,8 +36,6 @@ public abstract class HexagonalGrid extends Grid {
 			return Arrays.copyOfRange(HEXAGON_EVENROW_COL_OFFSET, 0, FLAG_TO_END_INDEX[flag]);
 		}
 	}
-	
-
 	protected int[] getColOffsetArrayOddRow(int flag) {
 		if(flag<0 || flag>=FLAG_TO_END_INDEX.length){
 			throw new IllegalArgumentException();

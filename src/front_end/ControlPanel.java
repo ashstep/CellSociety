@@ -14,6 +14,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+/**
+ * @author Juan Philippe
+ */
 
 public class ControlPanel
 {
@@ -22,14 +25,14 @@ public class ControlPanel
 	private Slider slider;
 	private Properties appProps;
 	private ArrayList<Node> simSliders;
-	
+
 	public ControlPanel(BorderPane inRoot)
 	{
 		bar = new ToolBar();
-        inRoot.setTop(bar);
-        simSliders = new ArrayList<Node>();
-		
-        appProps = new Properties();
+		inRoot.setTop(bar);
+		simSliders = new ArrayList<Node>();
+
+		appProps = new Properties();
 		try {
 			appProps.load(getClass().getClassLoader().getResourceAsStream("gameText.properties"));
 		} catch (IOException e1) {
@@ -43,7 +46,7 @@ public class ControlPanel
 		newWindow = new Button(appProps.getProperty("newWinButton"));
 		Text sliderLabel = new Text(appProps.getProperty("speedSliderLabel"));
 		slider = new Slider(.005, .15, .05);
-		
+
 		bar.getItems().addAll(play,pause,step,newSim, newWindow, sliderLabel, slider);
 	}
 
@@ -108,7 +111,7 @@ public class ControlPanel
 	{
 		return slider.getValue();
 	}
-	
+
 	public void addSimSlider(Consumer<Number> r, String sliderName, double d, double e, double f)
 	{
 		Text sliderText = new Text(sliderName);
@@ -118,7 +121,7 @@ public class ControlPanel
 		slider.setValue(f);
 		slider.valueProperty().addListener (
 				(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> r.accept(new_val));
-		
+
 		bar.getItems().addAll(sliderText, slider);
 		simSliders.add(slider);
 		simSliders.add(sliderText);

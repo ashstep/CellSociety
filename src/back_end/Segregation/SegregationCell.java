@@ -22,7 +22,6 @@ public class SegregationCell extends Cell {
 	private final Color TYPE_TWO_COLOR=Color.BLUE;
 	private final Color TYPE_EMPTY_COLOR=Color.WHITE;
 	
-	
 	/**
 	 * default constructor
 	 * @param type
@@ -66,12 +65,10 @@ public class SegregationCell extends Cell {
 			//no neighbors, move to new place
 			return new ActionBySim(true);
 		}
-		
 	}
 	
 	
 	/**
-	 * 
 	 * @return true if cell is type 1
 	 */
 	public boolean isTypeOne(){
@@ -79,7 +76,6 @@ public class SegregationCell extends Cell {
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is type 2
 	 */
 	public boolean isTypeTwo(){
@@ -87,7 +83,6 @@ public class SegregationCell extends Cell {
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is type empty
 	 */
 	public boolean isTypeEmpty(){

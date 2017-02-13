@@ -12,6 +12,13 @@ import back_end.SimulationInfo;
 import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
 import utilities.GridLocation;
+/**
+ * The slime simulation extends the format of previous simulations. However, there are two grids that are implemented.
+ * One is the grid of interacting slime cells while the second is the grid of chemicals. The "top" grid will use information from the bottom grid to take action
+ * This format was chosen to maintain the extendability of the code. Additional simulations could use this format of doubling grids to hold different information.
+ * @author Ashka Stephen
+ *
+ */
 
 public class SlimeSim extends Simulation {
 	private SlimeSimInfo myInfo;
@@ -24,8 +31,6 @@ public class SlimeSim extends Simulation {
 	
 	/**
 	 * constructor
-	 * @param string2 
-	 * @param string 
 	 */
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
@@ -48,9 +53,9 @@ public class SlimeSim extends Simulation {
 		}
 		super.setGrid(new RectangleFiniteGrid(cellGrid));
 	}
-	
+
 	/**
-	 * updates cell grid
+	 * updates cell grid AND the ground grid which holds the values for the chemical CAMP released by the slime cells as they age.
 	 */
 	@Override
 	public Grid updateGrid() {
@@ -67,7 +72,6 @@ public class SlimeSim extends Simulation {
 			}
 		}
 		updateGroundGrid();
-		//updating both grids in this method since front end only calls this one =
 		super.setGrid(oldCellGrid);
 		return oldCellGrid;
 	}

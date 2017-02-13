@@ -55,8 +55,6 @@ public class FireSim extends Simulation {
 		return oldGrid;
 	}
 	
-
-
 	@Override
 	protected GridLocation findEmptySpots(Grid newgrid, int currentRow, int currentCol) {
 		return null;
@@ -78,8 +76,7 @@ public class FireSim extends Simulation {
 
 
 	@Override
-	public ArrayList<String> getParameterList()
-	{
+	public ArrayList<String> getParameterList(){
 		ArrayList<String> parameterList = new ArrayList<String>();
 		parameterList.add("probCatch");
 		return parameterList;
@@ -87,12 +84,9 @@ public class FireSim extends Simulation {
 
 
 	@Override
-	public Consumer<Number> getChangeMethod(String x)
-	{
+	public Consumer<Number> getChangeMethod(String x){
 		Consumer<Number> r = (Number n) -> { };
-		
 		if (x.equals("probCatch")) r = (Number n) -> {myInfo.setProbCatch(n.doubleValue());};
-
 		return r;
 	}
 

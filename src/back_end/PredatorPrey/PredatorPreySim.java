@@ -51,8 +51,6 @@ public class PredatorPreySim extends Simulation {
 		}
 		super.makeGrid(boundsType, shapeType, cellGrid);
 	}
-
-	
 	
 	/**
 	 * updates grid
@@ -67,10 +65,8 @@ public class PredatorPreySim extends Simulation {
 		return oldGrid;
 	}
 
-	
 	/**
 	 * makes a copy of an old array. Each element is also points to a new copy
-	 * 
 	 * @param oldArray
 	 * @return newArray
 	 */
@@ -147,10 +143,6 @@ public class PredatorPreySim extends Simulation {
 			}
 		}
 	}
-	
-
-
-
 
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
@@ -160,7 +152,7 @@ public class PredatorPreySim extends Simulation {
 			throw new Error("Information must be PredatorPreySimInfo");
 		}
 	}
-	
+
 	@Override
 	public SimulationInfo getSimInfo() {
 		return myInfo;
@@ -168,10 +160,8 @@ public class PredatorPreySim extends Simulation {
 
 	/**
 	 * kills a cell at a location of a Cell[][]
-	 * 
 	 * @param grid
-	 * @param location
-	 *            location of the cell to kill
+	 * @param location of cell to kill
 	 */
 	private void killCell(Grid grid, GridLocation location) {
 		createPPCellAt(grid, location, EMPTY);
@@ -317,6 +307,11 @@ public class PredatorPreySim extends Simulation {
 		}
 		return location;
 	}
+
+	
+	/**
+	 * The following allows implementation to run smoothly by using the simInfo and data provided
+	 */
 
 	@Override
 	public ArrayList<String> getParameterList()
