@@ -9,7 +9,7 @@ import back_end.SimulationInfo;
 import utilities.GridLocation;
 
 public class GameOfLifeSim extends Simulation {
-	private final int NEIGHBOR_FLAG = 1;
+	private final int NEIGHBOR_FLAG = 0;
 
 	/**
 	 * 
@@ -28,13 +28,6 @@ public class GameOfLifeSim extends Simulation {
 		super.makeGrid(gridBoundsType, shapeType, cellGrid);
 	}
 	
-	
-//	private void setGrid(String gridType, GameOfLifeCell[][] cellGrid) {
-//		if (gridType.equals("Toroidal")) super.setGrid(new RectangleToroidalGrid(cellGrid));
-//		else if (gridType.equals("Finite")) super.setGrid(new RectangleFiniteGrid(cellGrid));
-//		else if (gridType.equals("Infinite")) super.setGrid(new RectangleInfiniteGrid(cellGrid));
-//		else throw new Error("Incorrect Grid Type");
-//	}
 	
 	/**
 	 * updates and returns the grid. No cells move in position in this
@@ -64,21 +57,6 @@ public class GameOfLifeSim extends Simulation {
 		super.setGrid(oldGrid);
 		return oldGrid;
 	}
-
-
-
-//	private Cell[][] copyArray(Cell[][] oldArray) {
-//		int numRows = oldArray.length;
-//		int numCols = oldArray[0].length;
-//		GameOfLifeCell[][] copiedArray = new GameOfLifeCell[numRows][numCols];
-//		for (int row = 0; row < numRows; row++) {
-//			for (int col = 0; col < numCols; col++) {
-//				copiedArray[row][col] = new GameOfLifeCell((GameOfLifeCell) oldArray[row][col]);
-//			}
-//		}
-//		return copiedArray;
-//	}
-
 
 	/**
 	 * no general environment attribute in this simulation so no use

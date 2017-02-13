@@ -7,7 +7,7 @@ import back_end.Cell;
 public abstract class RectangularGrid extends Grid {
 	private final int[] RECTANGLE_ROW_OFFSET={0, 0, -1, 1, -1, -1, 1, 1};
 	private final int[] RECTANGLE_COL_OFFSET ={-1, 1, 0, 0, -1, 1, -1, 1};
-	private final int[] FLAG_TO_END_INDEX={4, 8};
+	private final int[] FLAG_TO_END_INDEX={8, 4};
 
 	public RectangularGrid(Cell[][] cellGrid) {
 		super(cellGrid);

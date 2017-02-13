@@ -6,10 +6,11 @@
 
   </SimParameters>
   <Dimensions>
-    <GridWidth>1</GridWidth>
-    <GridHeight>1</GridHeight>
+    <GridWidth>2</GridWidth>
+    <GridHeight>2</GridHeight>
   </Dimensions>
   <InitialGridState>
-	<row>1</row>
+	<row>1 1</row>
+	<row>1 1</row>
   </InitialGridState>
 </Simulation>
