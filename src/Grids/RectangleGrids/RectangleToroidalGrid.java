@@ -50,9 +50,9 @@ public class RectangleToroidalGrid extends RectangularGrid {
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.abstractedRowOutOfBounds(resultant_row)) {
-				resultant_row = resultant_row < 0 ? resultant_row + super.getNumRows(): super.getNumRows() - resultant_row;
+				resultant_row = resultant_row < 0 ? resultant_row + super.getNumRows(): resultant_row-super.getNumRows() ;
 			} if (super.abstractedColOutOfBounds(resultant_col)) {
-				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): super.getNumCols() - resultant_col;
+				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols():  resultant_col-super.getNumCols() ;
 			}
 			output.add(super.getCellAt(new GridLocation(resultant_row, resultant_col)));
 		}

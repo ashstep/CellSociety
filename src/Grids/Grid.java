@@ -48,13 +48,6 @@ public abstract class Grid {
 	public GridLocation getTLIndex(){
 		return new GridLocation(topLeftRowNum, topLeftColNum);
 	}
-//	/**
-//	 * 
-//	 * @return myInstanceCell
-//	 */
-//	protected Cell getInstanceCell(){
-//		return myInstanceCell;
-//	}
 	
 	/**
 	 * 
