@@ -24,6 +24,8 @@ public class SlimeSim extends Simulation {
 	
 	/**
 	 * constructor
+	 * @param string2 
+	 * @param string 
 	 */
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
