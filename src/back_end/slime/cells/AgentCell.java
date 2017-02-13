@@ -71,7 +71,8 @@ public class AgentCell extends SlimeCell {
 	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-
+		return null;
+/*
 		double chemicalThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
 		double wiggleAngle = ((SlimeSimInfo) simInfo).getWiggleAngle();
 		double wiggleProb = ((SlimeSimInfo) simInfo).getProbWiggle();
@@ -89,15 +90,15 @@ public class AgentCell extends SlimeCell {
 			for(Cell neighbor : neighbors) {
 				SlimeCell currentNeighbor = (SlimeCell) neighbor;
 				//int currentNeighborX = currentNeighbor.getX();
-
-				if (currentGrid.getCellAt(new GridLocation(resultant_row, resultant_col)) >= maxChemical) {
+				Cell a = currentGrid.getCellAt(new GridLocation(currentNeighbor.get, resultant_col)).;
+				if ( a >= maxChemical) {
 					maxChemical = groundGrid[x][y].getChemicalPercent();
 					maxNeighbor = currentNeighbor;
 				}
 				return new ActionBySim((maxChemical >= chemicalThreshold) );	
 			}
 		}			
-		return new ActionBySim(false);
+		return new ActionBySim(false);*/
 	}
 
 	//get the ground grid -> increase chemical in that one

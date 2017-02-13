@@ -86,7 +86,7 @@ public class SlimeSim extends Simulation {
 		for(int row=0; row < numRows; row++){
 			for(int col=0; col < numCols; col++){		
 				GridLocation location = new GridLocation(row, col);
-				oldGroundGrid.setCellAt(location, new SlimeCell((SlimeCell)copyGround.getCellAt(location)));
+				oldGroundGrid.setCellAt(location, new SlimeCell(copyGround.getCellAt(location)));
 				oldGroundGrid.getCellAt(location).checkAndTakeAction(copyGround.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
 			}
 		}
