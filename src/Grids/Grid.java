@@ -328,4 +328,5 @@ public abstract class Grid {
 	{
 		return hasLines;
 	}
+	
 }

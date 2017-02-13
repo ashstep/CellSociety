@@ -5,13 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import Grids.Grid;
-import Grids.HexagonalGrids.HexFiniteGrid;
-import Grids.HexagonalGrids.HexToroidalGrid;
-import Grids.RectangleGrids.RectangleFiniteGrid;
-import Grids.RectangleGrids.RectangleInfiniteGrid;
-import Grids.RectangleGrids.RectangleToroidalGrid;
-import Grids.TriangularGrid.TriangularFiniteGrid;
-import Grids.TriangularGrid.TriangularToroidalGrid;
+import Grids.HexagonalGrids.*;
+import Grids.RectangleGrids.*;
+import Grids.TriangularGrid.*;
 import utilities.GridLocation;
 
 public abstract class Simulation
