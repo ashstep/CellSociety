@@ -42,7 +42,7 @@ public class FireSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
-		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()));
+		Grid copy = createCellGrid(super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid=super.getCellGrid();
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){		
