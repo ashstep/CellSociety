@@ -3,6 +3,12 @@ package utilities;
 import java.io.IOException;
 import java.util.Properties;
 
+//class that handles configuration settings for simulation builder
+/**
+ * 
+ * @author Juan
+ *
+ */
 public class ConfigHandler
 {
 	private Properties simProps;

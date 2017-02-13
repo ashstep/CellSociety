@@ -12,6 +12,14 @@ import javafx.util.Duration;
 import utilities.GraphHandler;
 import utilities.SimulationBuilder;
 
+//class that handles integration between front end and back end
+//initializes core objects (GUI, simulationbuilder, graphhandler)
+//and updates the front end based on simulation updates
+/**
+ * 
+ * @author Juan
+ *
+ */
 public class Main extends Application
 {
 	public static final int WIDTH = 700;

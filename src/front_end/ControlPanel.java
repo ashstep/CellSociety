@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.function.Consumer;
-
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +14,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
+/**
+ * 
+ * @author Juan
+ * Handles the toolbar, which has controls for the simulation and its parameters
+ */
 public class ControlPanel
 {
 	private Button play, pause, step, newSim, newWindow;

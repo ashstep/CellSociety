@@ -13,6 +13,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import utilities.GridLocation;
 
+//class that handles the front end of the game. uses an instance of ControlPanel to take
+//care of buttons and sliders; uses a grid of shapes to handle rendering the grid object
+//as its passed in from the back end.
+/**
+ * 
+ * @author Juan
+ *
+ */
 public class GUI
 {
 	private BorderPane root;
@@ -98,7 +106,6 @@ public class GUI
 	{
 		panel.setNewWindow(r);
 	}
-	
 	
 	private void checkStroke(int x, int y, Grid gridObject)
 	{
@@ -192,7 +199,6 @@ public class GUI
 		    @Override
 		    public void handle(MouseEvent t)
 		    {
-		    	System.out.println("user click event");
 		        gridObject.nextState(new GridLocation(x,y));
 		        renderCell(x, y, gridObject);
 		    }

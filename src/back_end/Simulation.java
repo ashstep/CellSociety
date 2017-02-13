@@ -132,7 +132,13 @@ public abstract class Simulation
 	protected void setGrid(Grid grid){
 		myCellGrid=grid;
 	}
-	
+	/**
+	 * creates a new grid of with the same configuration in terms of bounds, shapes  and celltype
+	 * as the current one being used
+	 * @param gridBoundsType
+	 * @param shapeType
+	 * @param cellArray
+	 */
 	protected void makeGrid(String gridBoundsType, String shapeType, Cell[][] cellArray)
 	{
 		if (gridBoundsType.equals("Toroidal") && shapeType.equals("Rectangular"))

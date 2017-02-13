@@ -15,8 +15,6 @@ import utilities.GridLocation;
 
 public class SlimeSim extends Simulation {
 	private SlimeSimInfo myInfo;
-	private final Cell TYPE_CELL = new AgentCell();
-	private final Cell TYPE_CHEMCELL = new ChemCell();
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEM = 2;
@@ -27,26 +25,30 @@ public class SlimeSim extends Simulation {
 	 * @param string2 
 	 * @param string 
 	 */
-	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
+	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle,
+			String boundsType, String shapeType)
+	{
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
-		setCellGrid(typegrid);
-		setCellGrid(groundGrid);
+		setCellGrid(typegrid, groundGrid, boundsType, shapeType);
 	}
 
 	/**
 	 * helper method for constructor, sets the cellGrid from typeGrid
 	 * @param typeGrid
 	 */
-	private void setCellGrid(int[][] typeGrid) {
+	private void setCellGrid(int[][] typeGrid, int[][] groundTypeGrid, String boundsType, String shapeType) {
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		SlimeCell[][] cellGrid = new SlimeCell[numRows][numCols];
+		SlimeCell[][] groundGrid = new SlimeCell[numRows][numCols];
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				createCell(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
+				createCell(groundGrid, new GridLocation(row, col), groundTypeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleFiniteGrid(cellGrid));
+		makeGrid(boundsType, shapeType, cellGrid);
+		super.setGroundGrid(new RectangleFiniteGrid(groundGrid));
 	}
 	
 	/**
