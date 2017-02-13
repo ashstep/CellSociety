@@ -2,14 +2,14 @@ package back_end.slime.cells;
 
 import java.util.Collection;
 
+import Grids.RectangleGrids.RectangleFiniteGrid;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.Segregation.SegregationCell;
-import back_end.Segregation.SegregationSimInfo;
 import back_end.slime.SlimeCell;
 import back_end.slime.SlimeSimInfo;
 import javafx.scene.paint.Color;
+import utilities.GridLocation;
 
 public class AgentCell extends SlimeCell {
 
@@ -27,8 +27,7 @@ public class AgentCell extends SlimeCell {
 	private int sniffAngle;
 	private boolean hasReleasedChem;		
 	//if it hasnt realeased it then will be false, if true, cannot realease
-	
-	private int[][] groundGrid;
+	private RectangleFiniteGrid currentGrid;
 
 	/**
 	 *  constructor
@@ -42,7 +41,7 @@ public class AgentCell extends SlimeCell {
 		hasReleasedChem = false;
 
 	}
-
+	
 	/**
 	 * makes a copy
 	 */
@@ -54,7 +53,6 @@ public class AgentCell extends SlimeCell {
 		this.sniffAngle= another.sniffAngle;
 		this.hasReleasedChem = another.hasReleasedChem;
 	}
-	
 	
 	/**
 	 * makes empty when i=0
@@ -69,17 +67,7 @@ public class AgentCell extends SlimeCell {
 	}
 
 
-
 	/**
-	 * checks in direction of sniff
-	 * checks ground grid
-	 * if ground grid is
-	 * on the OTHER CHEMICAL GRID
-	 * 
-	 * 
-	 * getGroundGrid
-	 * 
-	 * 
 	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
@@ -89,10 +77,8 @@ public class AgentCell extends SlimeCell {
 		double wiggleProb = ((SlimeSimInfo) simInfo).getProbWiggle();
 		double sniffAngle = ((SlimeSimInfo) simInfo).getSniffAngle();
 		double sniffThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
-
 		double maxChemical = 0.0;
 		Cell maxNeighbor = null;
-
 
 		//if it has mold new will have mold
 		if(!isEmpty()){
@@ -104,13 +90,11 @@ public class AgentCell extends SlimeCell {
 				SlimeCell currentNeighbor = (SlimeCell) neighbor;
 				//int currentNeighborX = currentNeighbor.getX();
 
-				if (groundGrid[x][y].getChemicalPercent() >= maxChemical) {
+				if (currentGrid.getCellAt(new GridLocation(resultant_row, resultant_col)) >= maxChemical) {
 					maxChemical = groundGrid[x][y].getChemicalPercent();
 					maxNeighbor = currentNeighbor;
 				}
 				return new ActionBySim((maxChemical >= chemicalThreshold) );	
-				//if chemical concentration is greater than threshold, take action
-				//and if its in right direction
 			}
 		}			
 		return new ActionBySim(false);
@@ -121,7 +105,7 @@ public class AgentCell extends SlimeCell {
 		if(!hasReleasedChem){
 
 		}
-		//cannot release anymore
+		//cannot release 
 		hasReleasedChem = true;
 	}
 }
