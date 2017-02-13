@@ -38,14 +38,13 @@ public abstract class Simulation
 		try {
 			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
 		try {
 			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
-		return null;
 	}
 
 	public Grid createCellGrid(Cell[][] cellArray)
@@ -54,16 +53,13 @@ public abstract class Simulation
 		try {
 			constructor = myCellGrid.getClass().getConstructor(Cell[][].class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
 		try {
 			return constructor.newInstance(cellArray);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
-		return null;
 	}
 	
 	@Deprecated
@@ -87,8 +83,9 @@ public abstract class Simulation
 	 * 
 	 * @param oldArray
 	 * @return copiedArray a copy of old array, with each cell in copiedArray a new copy of the corresponding cell
+	 * @throws Exception 
 	 */
-	protected Cell[][] deepCopyCellArray(Cell[][] oldArray) {
+	protected Cell[][] deepCopyCellArray(Cell[][] oldArray){
 		int numRows = oldArray.length;
 		int numCols = oldArray[0].length;
 		Cell[][] copiedArray = new Cell[numRows][numCols];
@@ -98,16 +95,14 @@ public abstract class Simulation
 				try {
 					constructor = oldArray[row][col].getClass().getConstructor(oldArray[row][col].getClass());
 				} catch (NoSuchMethodException | SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Error("bad constructor");
 				}
 				try {
 					Cell oldLocation = oldArray[row][col];
 					copiedArray[row][col] = constructor.newInstance(oldLocation);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Error("bad constructor");
 				}
 			}
 		}
