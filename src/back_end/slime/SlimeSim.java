@@ -55,7 +55,9 @@ public class SlimeSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumCols();
-		Grid copyCell = createCellGrid(this.deepCopyCellArray(super.getCellGrid().getContainer()));
+		Cell[][] cellarr = super.getCellGrid().getContainer();
+		Cell[][] second = super.deepCopyCellArray(cellarr);
+		Grid copyCell = createCellGrid(second);
 		Grid oldCellGrid = super.getCellGrid();
 		for(int row=0; row < numRows; row++){
 			for(int col=0; col < numCols; col++){		

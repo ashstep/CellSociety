@@ -1,5 +1,6 @@
 package back_end.slime;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import back_end.ActionBySim;
@@ -41,7 +42,7 @@ public abstract class SlimeCell extends Cell {
 	}
 	
 	//create copy
-	public SlimeCell(SlimeCell anotherCell){
+	public SlimeCell(Cell anotherCell){
 		this(anotherCell.getMyType());
 	}
 	@Override
@@ -179,15 +180,19 @@ public abstract class SlimeCell extends Cell {
 	}
 
 	@Override
-	public Collection<String> getTypeNames() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<String> getTypeNames()
+	{
+		Collection<String> nameList = new ArrayList<String>();
+		nameList.add("Agent");
+		nameList.add("Chem");
+		return nameList;
 	}
 
 	@Override
 	public String getTypeName() {
-		// TODO Auto-generated method stub
-		return null;
+		if (getMyType() == TYPE_ALIVE) return "Agent";
+		else if (getMyType() == TYPE_CHEMICAL) return "Chem"; 
+		else return "";
 	}
 
 	@Override

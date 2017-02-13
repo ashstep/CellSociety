@@ -98,7 +98,7 @@ public class SimulationBuilder
 		nList = doc.getElementsByTagName("sniffAngle");
 		int sniffAngle = Integer.parseInt(nList.item(0).getTextContent());
 	
-		return new SlimeSim(createGrid(), createGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle);
+		return new SlimeSim(createGrid(), createGroundGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle);
 	}
 	///////////////////////
 
@@ -110,6 +110,22 @@ public class SimulationBuilder
 	{
 		Scanner scanner;
 		NodeList nList = doc.getElementsByTagName("row");
+
+		int[][] testGrid = new int[getNumRows()][getNumCols()];
+		for (int i = 0; i < getNumRows(); i++)
+		{
+			scanner = new Scanner(nList.item(i).getTextContent());
+			for (int j = 0; j < getNumCols(); j++)
+			{
+				testGrid[i][j] = scanner.nextInt();
+			}
+		}
+		return testGrid;
+	}
+	private int[][] createGroundGrid()
+	{
+		Scanner scanner;
+		NodeList nList = doc.getElementsByTagName("grow");
 
 		int[][] testGrid = new int[getNumRows()][getNumCols()];
 		for (int i = 0; i < getNumRows(); i++)

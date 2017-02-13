@@ -30,8 +30,8 @@ public abstract class Simulation
 	 * @throws NoSuchMethodException 
 	 */
 	public abstract Grid updateGrid();
-	
-	
+
+
 	public Grid createGrid(Cell cellType)
 	{
 		Constructor<? extends Grid> constructor = null;
@@ -96,13 +96,14 @@ public abstract class Simulation
 			for (int col = 0; col < numCols; col++) {
 				Constructor<? extends Cell> constructor = null;
 				try {
-					constructor = oldArray[0][0].getClass().getConstructor(oldArray[0][0].getClass());
+					constructor = oldArray[row][col].getClass().getConstructor(oldArray[row][col].getClass());
 				} catch (NoSuchMethodException | SecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
-					copiedArray[row][col] = constructor.newInstance(oldArray[row][col]);
+					Cell oldLocation = oldArray[row][col];
+					copiedArray[row][col] = constructor.newInstance(oldLocation);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException e) {
 					// TODO Auto-generated catch block
