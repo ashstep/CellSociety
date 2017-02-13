@@ -5,8 +5,8 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.SlimeCell;
+import back_end.slime.SlimeSimInfo;
 import javafx.scene.paint.Color;
 
 public class ChemCell extends SlimeCell{
@@ -19,8 +19,8 @@ public class ChemCell extends SlimeCell{
 
 	
 	/*
-	 * all will start off as present -> the pecentage of chemicas they have will differ
-	 * once time elapsed reachez threshold then that cell is emptied
+	 * all will start off as present -> the percentage of chemicals they have will differ
+	 * once time elapsed reaches threshold then that cell is emptied
 	 */
 	
 	/**
@@ -44,16 +44,34 @@ public class ChemCell extends SlimeCell{
 
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-		return null;
+		super.incrementTime();
+		int diffusionTime = ((SlimeSimInfo) simInfo).getChemicalDiffusionTime(); //getting time elapsed
+		int emptyNeighbors=0;
+		int totalNeigbors=0; 
+		for(Cell neighbor: neighbors){
+			totalNeigbors++;
+			if(neighbor.getMyType() == TYPE_EMPTY){
+				emptyNeighbors++;
+			}
+		}
+		//remove hard coded value of 3
+		boolean allIsDissolved = diffusionTime > 3;
+		if(allIsDissolved){
+			resetTimeElapsed();
+		}
+		if(allIsDissolved && ((totalNeigbors-emptyNeighbors)/totalNeigbors > .5)){
+			return new ActionBySim(allIsDissolved);
+		}
+		return new ActionBySim(!allIsDissolved);
 	}
 
 
 	public void resetTimeElapsed(){
-		timeElapsed=0;
+		timeElapsed = 0;
 	}
 	
 	public void resetcampPercentage(){
-		campPercentage=0;
+		campPercentage = 0;
 	}
 	
 	/**
@@ -68,8 +86,4 @@ public class ChemCell extends SlimeCell{
 	public void incrementTime(){
 		timeElapsed++;
 	}
-
-	
-	
-
 }

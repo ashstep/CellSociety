@@ -49,7 +49,6 @@ public abstract class SlimeCell extends Cell {
 	}
 	
 	//create a copy
-	//is this needed?????
 	public SlimeCell(SlimeCell anotherCell){
 		this(anotherCell.getMyType());
 	}
@@ -70,7 +69,7 @@ public abstract class SlimeCell extends Cell {
 	/**
 	 * @return true if cell is empty
 	 */
-	private boolean isEmpty(){
+	protected boolean isEmpty(){
 		return getMyType() == TYPE_EMPTY;
 	}
 	
@@ -215,8 +214,11 @@ public abstract class SlimeCell extends Cell {
 
 	@Override
 	public Cell makeNextStateCell() {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(TYPE_EMPTY);
+		}	
 	}
 
 	@Override
