@@ -11,6 +11,7 @@ import back_end.Fire.FireSim;
 import back_end.GameOfLife.GameOfLifeSim;
 import back_end.PredatorPrey.PredatorPreySim;
 import back_end.Segregation.SegregationSim;
+import back_end.slime.SlimeSim;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -38,6 +39,8 @@ public class SimulationBuilder
 		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) sim = createFireSim();
 		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) sim = createPredatorPreySim();
 		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) sim = createSegregationSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Slime")) sim = createSlimeSim();
+
 		else throw new Error("Incorrect Simulation type");
 		
 		sim.setLines(configuration.getLineSetting());
@@ -79,6 +82,29 @@ public class SimulationBuilder
 	{	
 		return new GameOfLifeSim(createGrid(), configuration.getBoundsType(), configuration.getShapeType());
 	}
+	
+	///////////////////////
+	private Simulation createSlimeSim()
+	{
+		NodeList nList = doc.getElementsByTagName("wiggleAngle");
+		int wiggleAngle = Integer.parseInt(nList.item(0).getTextContent());
+
+		nList = doc.getElementsByTagName("probWiggle");
+		double probWiggle = Double.parseDouble(nList.item(0).getTextContent());
+		
+		nList = doc.getElementsByTagName("sniffThreshold");
+		int sniffThreshold = Integer.parseInt(nList.item(0).getTextContent());
+		
+		nList = doc.getElementsByTagName("sniffAngle");
+		int sniffAngle = Integer.parseInt(nList.item(0).getTextContent());
+		
+		return new SlimeSim(createGrid(), createGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle);
+	}
+	///////////////////////
+
+	
+	
+	
 	
 	private int[][] createGrid()
 	{
