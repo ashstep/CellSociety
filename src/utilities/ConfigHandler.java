@@ -19,7 +19,7 @@ public class ConfigHandler
 		try {
 			simProps.load(getClass().getClassLoader().getResourceAsStream("sim.properties"));
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			throw new Error("error in sim.properties file format");
 		}
 	}
 	
