@@ -5,8 +5,11 @@ import java.util.Collection;
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.ActionByPPSim;
+import back_end.PredatorPrey.PredatorPreySimInfo;
 import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.SlimeCell;
+import back_end.slime.SlimeSimInfo;
 import javafx.scene.paint.Color;
 
 public class ChemCell extends SlimeCell{
@@ -44,7 +47,23 @@ public class ChemCell extends SlimeCell{
 
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
-		return null;
+		super.incrementTime();
+		int diffusionTime = ((SlimeSimInfo) simInfo).getChemicalDiffusionTime();
+
+		int emptyNeighbors=0;
+		int totalNeigbors=0; 
+		for(Cell neighbor: neighbors){
+			totalNeigbors++;
+			if(neighbor.getMyType()==TYPE_EMPTY){
+				emptyNeighbors++;
+			}
+		}
+		//remove hard coded value of 3
+		boolean allIsDissolved = diffusionTime > 3;
+		if(allIsDissolved && ((totalNeigbors-emptyNeighbors)/totalNeigbors > .5)){
+			return new ActionBySim(allIsDissolved);
+		}
+		return new ActionBySim(!allIsDissolved);
 	}
 
 

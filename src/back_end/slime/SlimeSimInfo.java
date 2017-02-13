@@ -14,6 +14,7 @@ public class SlimeSimInfo extends SimulationInfo{
 	private int myWiggleAngle;
 	private int sniffThreshold;
 	private int sniffAngle;
+	private int timeElapsed;
 
 	
 	public SlimeSimInfo(double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
@@ -60,6 +61,10 @@ public class SlimeSimInfo extends SimulationInfo{
 		this.sniffAngle = newsniffAngle;
 		return sniffAngle;
 	}
+	public int getChemicalDiffusionTime(){
+		return timeElapsed;
+	}
+	
 	
 	
 	
