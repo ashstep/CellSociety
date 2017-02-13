@@ -56,70 +56,6 @@ public class GUI
 		}
 		renderGrid(gridObject);
 	}
-
-	private void checkStroke(int x, int y, Grid gridObject)
-	{
-		if (gridObject.hasLines()) grid[x][y].setStroke(Color.BLACK);
-	}
-
-	private void createShape(int cellSize, int x, int y, Grid gridObject)
-	{
-		if (gridObject.getClass().toString().contains("Rectangle"))
-		{
-			grid[x][y] = new Rectangle(cellSize, cellSize);
-			((Rectangle) grid[x][y]).setX(y*cellSize);
-			((Rectangle) grid[x][y]).setY(x*cellSize);
-			return;
-		}
-		grid[x][y] = new Polygon();
-		if (gridObject.getClass().toString().contains("Triangular"))
-		{
-			if ((x%2==0 && y%2==0) || (x%2==1 && y%2==1))
-			{
-				((Polygon) grid[x][y]).getPoints().addAll(new Double[]
-				{
-						(double) (y*cellSize/2), (double) (x*cellSize + cellSize),
-						(double) (y*cellSize/2 + cellSize/2), (double) (x*cellSize),
-						(double)(y*cellSize/2 + cellSize), (double)(x*cellSize + cellSize)
-				});
-			}
-			else
-			{
-				((Polygon) grid[x][y]).getPoints().addAll(new Double[]
-				{
-						(double) (y*cellSize/2), (double) (x*cellSize),
-						(double) (y*cellSize/2 + cellSize), (double) (x*cellSize),
-						(double)(y*cellSize/2 + cellSize/2), (double)(x*cellSize + cellSize)
-				});
-			}
-		}
-		else if (gridObject.getClass().toString().contains("Hexagonal"))
-		{
-			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
-					{
-							
-					});
-		}
-		else throw new Error("Incorrect shape");
-	}
-
-	private void setClickAction(int x, int y, Grid gridObject)
-	{
-		grid[x][y].setOnMouseClicked(new EventHandler<MouseEvent>()
-		{
-		    @Override
-		    public void handle(MouseEvent t)
-		    {
-		    	System.out.println("user click event");
-		        gridObject.nextState(new GridLocation(x,y));
-		        renderCell(x, y, gridObject);
-		    }
-		});
-	}
-	private void renderCell(int x, int y, Grid gridObject)
-	{
-		grid[x][y].setFill(gridObject.getColorAt(x, y));
-	}
 	
 	public void renderGrid(Grid cellGrid)
 	{
@@ -161,5 +97,109 @@ public class GUI
 	public void initNewWinButton(Runnable r)
 	{
 		panel.setNewWindow(r);
+	}
+	
+	
+	private void checkStroke(int x, int y, Grid gridObject)
+	{
+		if (gridObject.hasLines()) grid[x][y].setStroke(Color.BLACK);
+	}
+
+	private void createShape(int cellSize, int x, int y, Grid gridObject)
+	{
+		if (gridObject.getClass().toString().contains("Rectangle"))
+		{
+			buildRectangle(cellSize, x, y);
+			return;
+		}
+		grid[x][y] = new Polygon();
+		if (gridObject.getClass().toString().contains("Triangular"))
+		{
+			buildTriangle(cellSize, x, y);
+		}
+		else if (gridObject.getClass().toString().contains("Hexagonal"))
+		{
+			buildHexagon(cellSize, x, y);
+		}
+		else throw new Error("Incorrect shape");
+	}
+
+	private void buildHexagon(int cellSize, int x, int y)
+	{
+		double hexHeight = cellSize;
+		double hexWidth = hexHeight*Math.sqrt(3)/2;
+		double hexHeightOffset = Math.tan(Math.PI/6)*hexWidth*.5;
+		
+		if (x%2 == 0)
+		{
+			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+					{
+							y*hexWidth, x*hexHeight,
+							y*hexWidth + hexWidth/2, x*hexHeight - hexHeightOffset,
+							y*hexWidth + hexWidth, x*hexHeight,
+							y*hexWidth + hexWidth, x*hexHeight + hexHeight - 2*hexHeightOffset,
+							y*hexWidth + hexWidth/2, x*hexHeight + hexHeight - hexHeightOffset,
+							y*hexWidth, x*hexHeight + hexHeight - 2*hexHeightOffset,
+					});
+		}
+		else
+		{
+			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+					{
+							y*hexWidth + hexWidth/2, x*hexHeight + hexHeightOffset,
+							y*hexWidth + hexWidth, x*hexHeight,
+							y*hexWidth + hexWidth*1.5, x*hexHeight + hexHeightOffset,
+							y*hexWidth + hexWidth*1.5, x*hexHeight + hexHeight - hexHeightOffset,
+							y*hexWidth + hexWidth, x*hexHeight + hexHeight,
+							y*hexWidth + hexWidth/2, x*hexHeight + hexHeight - hexHeightOffset,
+					});
+		}
+	}
+
+	private void buildTriangle(int cellSize, int x, int y)
+	{
+		if ((x%2==0 && y%2==0) || (x%2==1 && y%2==1))
+		{
+			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+			{
+					(double) (y*cellSize/2), (double) (x*cellSize + cellSize),
+					(double) (y*cellSize/2 + cellSize/2), (double) (x*cellSize),
+					(double)(y*cellSize/2 + cellSize), (double)(x*cellSize + cellSize)
+			});
+		}
+		else
+		{
+			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
+			{
+					(double) (y*cellSize/2), (double) (x*cellSize),
+					(double) (y*cellSize/2 + cellSize), (double) (x*cellSize),
+					(double)(y*cellSize/2 + cellSize/2), (double)(x*cellSize + cellSize)
+			});
+		}
+	}
+
+	private void buildRectangle(int cellSize, int x, int y)
+	{
+		grid[x][y] = new Rectangle(cellSize, cellSize);
+		((Rectangle) grid[x][y]).setX(y*cellSize);
+		((Rectangle) grid[x][y]).setY(x*cellSize);
+	}
+
+	private void setClickAction(int x, int y, Grid gridObject)
+	{
+		grid[x][y].setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+		    @Override
+		    public void handle(MouseEvent t)
+		    {
+		    	System.out.println("user click event");
+		        gridObject.nextState(new GridLocation(x,y));
+		        renderCell(x, y, gridObject);
+		    }
+		});
+	}
+	private void renderCell(int x, int y, Grid gridObject)
+	{
+		grid[x][y].setFill(gridObject.getColorAt(x, y));
 	}
 }

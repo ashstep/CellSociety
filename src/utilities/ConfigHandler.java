@@ -26,5 +26,9 @@ public class ConfigHandler
 	{
 		return simProps.getProperty("cellShape");
 	}
-
+	
+	public boolean getLineSetting()
+	{
+		return simProps.getProperty("cellOutline").equals("on");
+	}
 }
