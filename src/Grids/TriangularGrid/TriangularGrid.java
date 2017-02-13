@@ -8,7 +8,7 @@ import back_end.Cell;
 public abstract class TriangularGrid extends Grid {
 	private final int[] TRIANGLE_ROW_OFFSET={0, 0, 1, -1, -1, -1, 0, 0, 1, 1, 1, 1};
 	private final int[] TRIANGLE_COL_OFFSET ={-1, 1, 0, -1, 0, 1, -2, -2, -2, -1, 1, 2};
-	private final int[] FLAG_TO_END_INDEX={3, 12};
+	private final int[] FLAG_TO_END_INDEX={12, 3};
 	
 	public TriangularGrid(Cell[][] cellGrid) {
 		super(cellGrid);

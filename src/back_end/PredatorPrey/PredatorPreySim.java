@@ -21,7 +21,7 @@ public class PredatorPreySim extends Simulation {
 	private final int FISH = 1;
 	private final int SHARK = 2;
 	private final int EMPTY = 0;
-	private final int NEIGHBOR_FLAG=1;
+	private final int NEIGHBOR_FLAG=0;
 	/**
 	 * constructor
 	 * 

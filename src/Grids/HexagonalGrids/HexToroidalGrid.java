@@ -1,3 +1,6 @@
+/**
+ * ALWAYS use EVEN number of rows for toroidal. This is not an implementation fault. The geometry of hexagon tiling forbids odd row case
+ */
 package Grids.HexagonalGrids;
 
 import java.util.ArrayList;
@@ -31,7 +34,9 @@ public class HexToroidalGrid extends HexagonalGrid {
 			if (super.abstractedRowOutOfBounds(resultant_row)) {
 				resultant_row = resultant_row < 0 ? resultant_row + super.getNumRows(): super.getNumRows() - resultant_row;
 			} if (super.abstractedColOutOfBounds(resultant_col)) {
-				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): super.getNumCols() - resultant_col;
+				int numCols=super.getNumCols();
+				int gZoggset=numCols - resultant_col;
+				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): gZoggset;
 			}
 			output.add(super.getCellAt(new GridLocation(resultant_row, resultant_col)));
 		}

@@ -14,7 +14,7 @@ public class SegregationSim extends Simulation {
 	private SegregationSimInfo myInfo;
 	private final int RANDOM_ITER_LIMIT = 2000;
 
-	private final int NEIGHBOR_FLAG=1;
+	private final int NEIGHBOR_FLAG=0;
 	/**
 	 * 
 	 * @param typeGrid
