@@ -35,7 +35,7 @@ public class SimulationBuilder
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
 		fileChooser.setInitialDirectory(new File("./data"));
-		
+
 		configuration = new ConfigHandler();
 	}
 
@@ -43,14 +43,14 @@ public class SimulationBuilder
 	{
 		Simulation sim = chooseSimType();
 		sim.setLines(configuration.getLineSetting());
-		
+
 		return sim;
 	}
 	public void chooseFile(Stage s)
 	{
 		File selectedFile = fileChooser.showOpenDialog(s);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		
+
 		try 
 		{
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -64,12 +64,19 @@ public class SimulationBuilder
 	}
 	private Simulation chooseSimType()
 	{
-		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) return createGameOfLifeSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) return createFireSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) return createPredatorPreySim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) return createSegregationSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Slime")) return createSlimeSim();
-		else throw new Error("Incorrect Simulation type");
+		try
+		{
+			if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) return createGameOfLifeSim();
+			else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) return createFireSim();
+			else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) return createPredatorPreySim();
+			else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) return createSegregationSim();
+			else if (doc.getDocumentElement().getAttribute("type").equals("Slime")) return createSlimeSim();
+			else throw new Error("Incorrect Simulation type");
+		}
+		catch (Exception e)
+		{
+			throw new Error("invalid simulation parameters");
+		}
 	}
 
 	private Simulation createSegregationSim()
@@ -86,10 +93,10 @@ public class SimulationBuilder
 
 		nList = doc.getElementsByTagName("SharkStarveTime");
 		int sharkStarveTime = Integer.parseInt(nList.item(0).getTextContent());
-		
+
 		nList = doc.getElementsByTagName("FishBreedTime");
 		int fishBreedTime = Integer.parseInt(nList.item(0).getTextContent());
-		
+
 		return new PredatorPreySim(createGrid(), sharkBreedTime, sharkStarveTime, fishBreedTime
 				, configuration.getBoundsType(), configuration.getShapeType());
 	}
@@ -98,7 +105,7 @@ public class SimulationBuilder
 	{
 		NodeList nList = doc.getElementsByTagName("FireProbability");
 		double probFire = Double.parseDouble(nList.item(0).getTextContent());
-		
+
 		return new FireSim(createGrid(), probFire, configuration.getBoundsType(), configuration.getShapeType());
 	}
 
@@ -106,7 +113,7 @@ public class SimulationBuilder
 	{	
 		return new GameOfLifeSim(createGrid(), configuration.getBoundsType(), configuration.getShapeType());
 	}
-	
+
 	private Simulation createSlimeSim()
 	{
 		NodeList nList = doc.getElementsByTagName("wiggleAngle");
@@ -114,19 +121,20 @@ public class SimulationBuilder
 
 		nList = doc.getElementsByTagName("probWiggle");
 		double probWiggle = Double.parseDouble(nList.item(0).getTextContent());
-		
+
 		nList = doc.getElementsByTagName("sniffThreshold");
 		int sniffThreshold = Integer.parseInt(nList.item(0).getTextContent());
-		
+
 		nList = doc.getElementsByTagName("sniffAngle");
 		int sniffAngle = Integer.parseInt(nList.item(0).getTextContent());
-	
+
 		return new SlimeSim(createGrid(), createGroundGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle, 
 				configuration.getBoundsType(), configuration.getShapeType());
 	}
-	
+
 	private int[][] createGrid()
 	{
+
 		if (configuration.getGridBuilderType().equals("Data")) return createDataGrid();
 		else if (configuration.getGridBuilderType().equals("Random")) return createRandomGrid();
 		else if (configuration.getGridBuilderType().equals("Probability")) return createProbabilityGrid();
@@ -143,18 +151,26 @@ public class SimulationBuilder
 		return null;
 	}
 
-	private int[][] createDataGrid() {
+	private int[][] createDataGrid() 
+	{
 		Scanner scanner;
 		NodeList nList = doc.getElementsByTagName("row");
 
 		int[][] testGrid = new int[getNumRows()][getNumCols()];
-		for (int i = 0; i < getNumRows(); i++)
+		try
 		{
-			scanner = new Scanner(nList.item(i).getTextContent());
-			for (int j = 0; j < getNumCols(); j++)
+			for (int i = 0; i < getNumRows(); i++)
 			{
-				testGrid[i][j] = scanner.nextInt();
+				scanner = new Scanner(nList.item(i).getTextContent());
+				for (int j = 0; j < getNumCols(); j++)
+				{
+					testGrid[i][j] = scanner.nextInt();
+				}
 			}
+		}
+		catch (Exception e)
+		{
+			throw new Error("simulation bounds error");
 		}
 		return testGrid;
 	}
@@ -174,7 +190,7 @@ public class SimulationBuilder
 		}
 		return testGrid;
 	}
-	
+
 	private int getNumRows()
 	{
 		NodeList nList = doc.getElementsByTagName("GridHeight");
