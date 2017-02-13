@@ -9,7 +9,6 @@ import Grids.RectangleGrids.RectangleToroidalGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
 import utilities.GridLocation;
@@ -46,7 +45,7 @@ public class SlimeSim extends Simulation {
 				createCell(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
 			}
 		}
-		super.setGrid(new RectangleFiniteGrid(cellGrid, TYPE_CELL));
+		super.setGrid(new RectangleFiniteGrid(cellGrid));
 	}
 	
 	/**
@@ -55,7 +54,7 @@ public class SlimeSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumCols();
-		Grid copyCell = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid copyCell = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldCellGrid = super.getCellGrid();
 		for(int row=0; row < numRows; row++){
 			for(int col=0; col < numCols; col++){		
@@ -76,7 +75,7 @@ public class SlimeSim extends Simulation {
 	 */
 	public Grid updateGroundGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumCols();
-		Grid copyGround = createGrid(super.getGroundGrid(), this.deepCopyCellArray(super.getGroundGrid().getContainer()), TYPE_CELL);
+		Grid copyGround = createGrid(super.getGroundGrid(), this.deepCopyCellArray(super.getGroundGrid().getContainer()));
 		Grid oldGroundGrid = super.getGroundGrid();
 
 		for(int row=0; row < numRows; row++){
