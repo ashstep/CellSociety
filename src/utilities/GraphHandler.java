@@ -11,10 +11,10 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.BorderPane;
 
-
-
-public class GraphHandler {
-	
+//class that builds and renders a graph in a new window based on the
+//ever useful grid object being passed in from the back end.
+public class GraphHandler
+{
 	private BorderPane root;
 	private HashMap<String, Series<Number, Number>> seriesContainer;
 	private NumberAxis xAxis, yAxis;
@@ -60,7 +60,8 @@ public class GraphHandler {
 		checkRange(grid);
 		counter++;
 	}
-
+	//checks to see if there are more than 30 data points being rendered
+	//if there are it effectively shifts the graph to the right
 	private void checkRange(Grid grid)
 	{
 		Iterator<String> iter=grid.getCellTypes().iterator();

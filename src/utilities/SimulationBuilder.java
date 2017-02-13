@@ -16,6 +16,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Juan
+ * My favorite class <3
+ * Handles construction of the simulation based on the XML file and the config file
+ *
+ */
 public class SimulationBuilder
 {
 	private FileChooser fileChooser;
@@ -34,15 +41,7 @@ public class SimulationBuilder
 
 	public Simulation getSimulation()
 	{
-		Simulation sim = null;
-		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) sim = createGameOfLifeSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) sim = createFireSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) sim = createPredatorPreySim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) sim = createSegregationSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Slime")) sim = createSlimeSim();
-
-		else throw new Error("Incorrect Simulation type");
-		
+		Simulation sim = chooseSimType();
 		sim.setLines(configuration.getLineSetting());
 		
 		return sim;
@@ -60,8 +59,17 @@ public class SimulationBuilder
 		}
 		catch (Exception e)
 		{
-			throw new Error("incorrect file");
+			throw new Error("incorrect file type");
 		}
+	}
+	private Simulation chooseSimType()
+	{
+		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) return createGameOfLifeSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) return createFireSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) return createPredatorPreySim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) return createSegregationSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Slime")) return createSlimeSim();
+		else throw new Error("Incorrect Simulation type");
 	}
 
 	private Simulation createSegregationSim()
@@ -99,7 +107,6 @@ public class SimulationBuilder
 		return new GameOfLifeSim(createGrid(), configuration.getBoundsType(), configuration.getShapeType());
 	}
 	
-	///////////////////////
 	private Simulation createSlimeSim()
 	{
 		NodeList nList = doc.getElementsByTagName("wiggleAngle");
@@ -114,13 +121,9 @@ public class SimulationBuilder
 		nList = doc.getElementsByTagName("sniffAngle");
 		int sniffAngle = Integer.parseInt(nList.item(0).getTextContent());
 	
-		return new SlimeSim(createGrid(), createGroundGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle);
+		return new SlimeSim(createGrid(), createGroundGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle, 
+				configuration.getBoundsType(), configuration.getShapeType());
 	}
-	///////////////////////
-
-	
-	
-	
 	
 	private int[][] createGrid()
 	{
@@ -130,13 +133,13 @@ public class SimulationBuilder
 		else throw new Error("Incorrect grid builder config");
 	}
 
-	private int[][] createProbabilityGrid() {
-		// TODO Auto-generated method stub
+	private int[][] createProbabilityGrid()
+	{
 		return null;
 	}
 
-	private int[][] createRandomGrid() {
-		// TODO Auto-generated method stub
+	private int[][] createRandomGrid()
+	{
 		return null;
 	}
 
@@ -182,4 +185,5 @@ public class SimulationBuilder
 		NodeList nList = doc.getElementsByTagName("GridWidth");
 		return Integer.parseInt(nList.item(0).getTextContent());
 	}
+
 }

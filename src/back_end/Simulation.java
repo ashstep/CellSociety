@@ -130,10 +130,18 @@ public abstract class Simulation
 	protected void setGrid(Grid grid){
 		myCellGrid=grid;
 	}
+
 	protected void setGroundGrid(Grid groundGrid){
 		myGroundGrid = groundGrid;
 	}
 	
+
+    /**
+	 * creates a new grid with the defined configuration (whose origin lies in simulation builder) in terms of bounds, shapes  and celltype
+	 * @param gridBoundsType
+	 * @param shapeType
+	 * @param cellArray
+	 */
 	protected void makeGrid(String gridBoundsType, String shapeType, Cell[][] cellArray)
 	{
 		if (gridBoundsType.equals("Toroidal") && shapeType.equals("Rectangular"))
