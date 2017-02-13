@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Random;
-
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
 import utilities.GridLocation;
+/**
+ *  @author Yuxiang He
+ */
 
 public class SugarAgentCell extends SugarCell{
 
@@ -20,16 +21,14 @@ public class SugarAgentCell extends SugarCell{
 		super(1);
 		myInfo=new AgentCellInfo(vision, sugar, sugarMetabolism, gender, age);
 	}
-
 	
 	public SugarAgentCell(AgentCellInfo info) {
 		super(1);
-		myInfo=info;
-	}
+		myInfo=info;}
 
 
 	/**
-	 * 
+	 * Takes action based on constraints in given document.
 	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
@@ -41,9 +40,6 @@ public class SugarAgentCell extends SugarCell{
 		SugarGroundCell destinationGround=neighborsAL.get(0);
 		return new ActionBySugarSim(true, destinationGround.getMyPosition());
 	}
-
-	
-
 
 	@Override
 	public Color getColor() {
@@ -74,7 +70,7 @@ public class SugarAgentCell extends SugarCell{
 		public GroundCellComparator(GridLocation agentLocation){
 			myAgentLocation=agentLocation;
 		}
-		
+
 		/**
 		 * compares priority of two patches of ground
 		 * 1. more sugar is better
@@ -90,6 +86,6 @@ public class SugarAgentCell extends SugarCell{
 				return (int) (myAgentLocation.getDistance(a.getMyPosition())-myAgentLocation.getDistance(b.getMyPosition()));
 			}
 		}
-		
+
 	}
 }

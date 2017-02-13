@@ -1,27 +1,26 @@
 package back_end.slime.cells;
 
 import java.util.Collection;
-
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
 import back_end.slime.SlimeCell;
 import back_end.slime.SlimeSimInfo;
-import javafx.scene.paint.Color;
+
+/**
+ *  This cell is determined by the "deposits" of the agent cell. 
+ *  This is the "ground grid" that holds information which will impact what is seen in visualizations.
+ *  All will start off as present -> the percentage of chemicals they have will differ
+ *  Once time elapsed reaches threshold then that cell is emptied 
+ *  @author Ashka Stephen
+ */
 
 public class ChemCell extends SlimeCell{
 	private double campPercentage;
 	private int timeElapsed;		
-	private final Color TYPE_CHEM_COLOR = Color.YELLOW;
-	private final Color TYPE_EMPTY_COLOR = Color.TRANSPARENT;
 	private final int TYPE_CHEM = 2;
 	private final int TYPE_EMPTY = 0;
-
-	
-	/*
-	 * all will start off as present -> the percentage of chemicals they have will differ
-	 * once time elapsed reaches threshold then that cell is emptied
-	 */
+	private final int timeConstraintIterative = 3;
 	
 	/**
 	 * default constructor
@@ -54,8 +53,7 @@ public class ChemCell extends SlimeCell{
 				emptyNeighbors++;
 			}
 		}
-		//remove hard coded value of 3
-		boolean allIsDissolved = diffusionTime > 3;
+		boolean allIsDissolved = diffusionTime > timeConstraintIterative;
 		if(allIsDissolved){
 			resetTimeElapsed();
 		}
@@ -64,7 +62,6 @@ public class ChemCell extends SlimeCell{
 		}
 		return new ActionBySim(!allIsDissolved);
 	}
-
 
 	public void resetTimeElapsed(){
 		timeElapsed = 0;

@@ -12,7 +12,6 @@ public class GroundCellInfo {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	public int getMaxSugarCapacity() {
 		return maxSugarCapacity;
 	}

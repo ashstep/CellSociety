@@ -9,6 +9,10 @@ import back_end.SimulationInfo;
 import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
 import javafx.scene.paint.Color;
+/**
+ * Slime Cell to be extended by two types of cells in simulation on different grids
+ * @author Ashka Stephen
+ */
 
 public abstract class SlimeCell extends Cell {	
 	private final int TYPE_ALIVE = 1;
@@ -22,12 +26,10 @@ public abstract class SlimeCell extends Cell {
 	private int probWiggle;
 	private int sniffThreshold;
 	private int sniffAngle;
-	//for the ground grid with camp
+	//for the ground grid with chemical (camp)
 	private double campPercentage;
 	private int timeElapsed;
 
-
-	
 	/**
 	 * default constructor
 	 */
@@ -40,11 +42,14 @@ public abstract class SlimeCell extends Cell {
 		sniffThreshold= 0;
 		sniffAngle= 0;
 	}
-	
-	//create copy
+
+	/**
+	 * create a copy
+	 */
 	public SlimeCell(Cell anotherCell){
 		this(anotherCell.getMyType());
 	}
+
 	@Override
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
 
@@ -54,22 +59,24 @@ public abstract class SlimeCell extends Cell {
 	public void remove(){
 		super.setMyType(TYPE_EMPTY);
 	}
-	
+
 	/**
 	 * @return true if cell is empty
 	 */
 	protected boolean isEmpty(){
 		return getMyType() == TYPE_EMPTY;
 	}
-	
+
 	/**
 	 * @return true if cell is a chemical cell
 	 */
 	private boolean isChemical(){
 		return getMyType() == TYPE_CHEMICAL;
 	}
-	
-	
+
+	/**
+	 * @return true if cell is alive
+	 */
 	private boolean isAlive(){
 		return getMyType() == TYPE_ALIVE;
 	}
@@ -80,28 +87,28 @@ public abstract class SlimeCell extends Cell {
 	public int getChemicalDiffusionTime(){
 		return timeElapsed;
 	}
-	
+
 	/**
 	 * resetting the time elapsed since chemical released
 	 */
 	public void resetChemicalDiffusionTime(){
 		timeElapsed = 0;
 	}
-	
+
 	/**
-	 * increment
+	 * increment time since chemical released
 	 */
 	protected void incrementTime(){
 		timeElapsed++;
 	}
-	
+
 	/**
 	 * getter for the chemical percent
 	 */
 	public double getChemicalPercent(){
 		return campPercentage;
 	}
-	
+
 	/**
 	 * set the chemical percent
 	 */
@@ -110,28 +117,28 @@ public abstract class SlimeCell extends Cell {
 	}
 
 	/**
-	 * getter for the chemical percent
+	 * getter for the wiggle angle 
 	 */
 	public int getWiggleAngle(){
 		return wiggleAngle;
 	}
-	
+
 	/**
-	 * set the chemical percent
+	 * set the wiggle angle
 	 */
 	public void setWiggleAngle(int given){
 		wiggleAngle = given;
 	}
 
 	/**
-	 * getter 
+	 * getter for wiggle probability/percentage
 	 */
 	public int getWiggleProb(){
 		return probWiggle;
 	}
-	
+
 	/**
-	 * setter
+	 * setter for wiggle probability/percentage
 	 */
 	public void setWiggleProb(int given){
 		probWiggle = given;
@@ -143,7 +150,7 @@ public abstract class SlimeCell extends Cell {
 	public int getSniffThresh(){
 		return sniffThreshold;
 	}
-	
+
 	/**
 	 * setter
 	 */
@@ -165,7 +172,7 @@ public abstract class SlimeCell extends Cell {
 		sniffAngle = given;
 	}
 
-	
+
 	@Override
 	public Color getColor() {
 		if(isAlive()){
@@ -180,13 +187,11 @@ public abstract class SlimeCell extends Cell {
 	}
 
 	@Override
-	public Collection<String> getTypeNames()
-	{
+	public Collection<String> getTypeNames(){
 		Collection<String> nameList = new ArrayList<String>();
 		nameList.add("Agent");
 		nameList.add("Chem");
-		return nameList;
-	}
+		return nameList;}
 
 	@Override
 	public String getTypeName() {

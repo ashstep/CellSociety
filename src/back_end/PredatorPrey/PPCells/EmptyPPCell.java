@@ -7,9 +7,15 @@ import back_end.Cell;
 import back_end.SimulationInfo;
 import back_end.PredatorPrey.ActionByPPSim;
 import back_end.PredatorPrey.PredatorPreyCell;
+/**
+ * Cell extends PredatorPreyCell because the simulation involves various kinds of cells
+ */
 
 public class EmptyPPCell extends PredatorPreyCell{
-
+	
+	/**
+	 * default constructor
+	 */
 	public EmptyPPCell() {
 		super(0);
 	}
@@ -18,6 +24,4 @@ public class EmptyPPCell extends PredatorPreyCell{
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		return new ActionByPPSim(false, false, false, false, 0);
 	}
-
-
 }

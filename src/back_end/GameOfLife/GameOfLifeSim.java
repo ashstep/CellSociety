@@ -12,7 +12,6 @@ public class GameOfLifeSim extends Simulation {
 	private final int NEIGHBOR_FLAG = 0;
 
 	/**
-	 * 
 	 * @param typeGrid
 	 */
 	public GameOfLifeSim(int[][] typeGrid, String gridBoundsType, String shapeType) {

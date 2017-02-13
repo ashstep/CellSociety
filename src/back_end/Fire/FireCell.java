@@ -59,8 +59,6 @@ public class FireCell extends Cell {
 			setTreeEmpty();
 			return new ActionBySim(false);
 		}
-
-
 		if((isAlive()) && (randProbofFire <= ((FireSimInfo)simInfo).getProbCatch()) && (burningNeighbors!=0)){
 			setTreeBurning();
 			return new ActionBySim(false);
@@ -107,9 +105,6 @@ public class FireCell extends Cell {
 		}
 	}
 	
-	
-	
-
 	@Override
 	public Collection<String> getTypeNames() {
 		Collection<String> typeList = new ArrayList<String>();

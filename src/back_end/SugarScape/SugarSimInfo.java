@@ -8,21 +8,17 @@ import utilities.GridLocation;
 
 /**
  * @author Yuxiang He
- *
  */
 public class SugarSimInfo extends SimulationInfo {
-	
-
 	private int maxSugarCapacity;
 	private int sugarGrowBackRate;
 	private int sugarGrowBackInterval;
-	
 	private int agentFertileLimits;
 	private int agentVisionRange;
 	private GridLocation myLocation;
 	
 	/**
-	 * 
+	 * constructor
 	 */
 	public SugarSimInfo(int cmaxSugarCapcity, int csugarGrowBackRate, int csugarGrowBackInterval, int cagentFertileLimits, int cagentVisionRange) {
 		maxSugarCapacity=cmaxSugarCapcity;
@@ -32,10 +28,8 @@ public class SugarSimInfo extends SimulationInfo {
 		agentVisionRange=cagentVisionRange;
 	}
 	
-
 	/**
-	 * 
-	 * @return
+	 * @return maxSugarCapacity
 	 */
 	public int getMaxSugarCapacity() {
 		return maxSugarCapacity;
@@ -46,8 +40,7 @@ public class SugarSimInfo extends SimulationInfo {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return sugarGrowBackRate
 	 */
 	public int getSugarGrowBackRate() {
 		return sugarGrowBackRate;
@@ -58,8 +51,7 @@ public class SugarSimInfo extends SimulationInfo {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return sugarGrowBackInterval
 	 */
 	public int getSugarGrowBackInterval() {
 		return sugarGrowBackInterval;
@@ -70,8 +62,7 @@ public class SugarSimInfo extends SimulationInfo {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return agentFertileLimits
 	 */
 	public int getAgentFertileLimits() {
 		return agentFertileLimits;
@@ -82,8 +73,7 @@ public class SugarSimInfo extends SimulationInfo {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return agentVisionRange
 	 */
 	public int getAgentVisionRange() {
 		return agentVisionRange;
@@ -94,13 +84,15 @@ public class SugarSimInfo extends SimulationInfo {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return grid location
 	 */
 	public GridLocation getMyLocation(){
 		return myLocation;
 	}
 	
+	/**
+	 * setter for grid location
+	 */
 	public void setMyLocation(GridLocation myLocation) {
 		this.myLocation = myLocation;
 	}

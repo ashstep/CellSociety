@@ -47,7 +47,6 @@ public class ActionByPPSim extends ActionBySim{
 	
 	
 	/**
-	 * 
 	 * @return true if cell is to eat another adjacent cell AND the cell is a shark
 	 */
 	public boolean toEat(){

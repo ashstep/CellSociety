@@ -2,6 +2,10 @@ package back_end.SugarScape;
 
 import java.util.Random;
 
+/**
+ *  @author Yuxiang He
+ */
+
 public class AgentCellInfo {
 	private boolean isMale;
 	private int myAge;
@@ -9,12 +13,12 @@ public class AgentCellInfo {
 	private int mySugar;
 	private int mySugarMetabolism;
 	private int myVisionRange;
-	
-	
 	private final int MAX_AGE_LOWER_BOUND=60;
 	private final int MAX_AGE_UPPER_BOUND=100;
 	
-	
+	/**
+	 *  Setting basic information
+	 */
 	public AgentCellInfo(int vision, int sugar, int sugarMetabolism, int gender, int age) {
 		isMale= gender==1? true: false;
 		myAge=age;
