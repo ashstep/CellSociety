@@ -48,13 +48,6 @@ public abstract class Grid {
 	public GridLocation getTLIndex(){
 		return new GridLocation(topLeftRowNum, topLeftColNum);
 	}
-//	/**
-//	 * 
-//	 * @return myInstanceCell
-//	 */
-//	protected Cell getInstanceCell(){
-//		return myInstanceCell;
-//	}
 	
 	/**
 	 * 
@@ -194,9 +187,6 @@ public abstract class Grid {
 	 * @return true if col gets out of bounds
 	 */
 	protected boolean abstractedColOutOfBounds(int abstractedCol){
-		if(abstractedCol<0){
-			int x=1;
-		}
 		return normalizeCol(abstractedCol)>=getNumCols() || normalizeCol(abstractedCol)<0;
 	}
 
