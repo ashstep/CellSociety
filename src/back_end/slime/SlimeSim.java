@@ -17,7 +17,6 @@ public class SlimeSim extends Simulation {
 	private SlimeSimInfo myInfo;
 	private final Cell TYPE_CELL = new AgentCell();
 	private final Cell TYPE_CHEMCELL = new ChemCell();
-
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEM = 2;
@@ -25,6 +24,8 @@ public class SlimeSim extends Simulation {
 	
 	/**
 	 * constructor
+	 * @param string2 
+	 * @param string 
 	 */
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
