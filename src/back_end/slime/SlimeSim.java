@@ -104,7 +104,6 @@ public class SlimeSim extends Simulation {
 	/**
 	 * updates ground grid
 	 */
-
 	public Grid updateGroundGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumCols();
 		Grid copyGround = createGrid(super.getGroundGrid(), this.deepCopyCellArray(super.getGroundGrid().getContainer()), TYPE_CELL);
@@ -120,10 +119,6 @@ public class SlimeSim extends Simulation {
 		super.setGroundGrid(oldGroundGrid);
 		return oldGroundGrid;
 	}
-
-
-
-
 
 	
 	/**
@@ -145,58 +140,7 @@ public class SlimeSim extends Simulation {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
 
 
 	@Override
@@ -213,14 +157,22 @@ public class SlimeSim extends Simulation {
 
 	@Override
 	public ArrayList<String> getParameterList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> parameterList = new ArrayList<String>();
+		parameterList.add("probWiggle");
+		parameterList.add("wiggleAngle");
+		parameterList.add("sniffThreshold");
+		parameterList.add("sniffAngle");
+		return parameterList;
 	}
 
 	@Override
 	public Consumer<Number> getChangeMethod(String x) {
-		// TODO Auto-generated method stub
-		return null;
+		Consumer<Number> r = (Number n) -> {};
+		if (x.equals("probWiggle")) r = (Number n) -> {myInfo.setProbWiggle(n.intValue());};
+		else if (x.equals("wiggleAngle")) r = (Number n) -> {myInfo.setWiggleAngle(n.intValue());};
+		else if (x.equals("sniffThreshold")) r = (Number n) -> {myInfo.setSniffThreshold(n.intValue());};
+		else if (x.equals("sniffAngle")) r = (Number n) -> {myInfo.setSniffAngle(n.intValue());};
+		return r;
 	}
 
 	
