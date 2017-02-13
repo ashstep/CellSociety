@@ -96,7 +96,7 @@ public abstract class Simulation
 			for (int col = 0; col < numCols; col++) {
 				Constructor<? extends Cell> constructor = null;
 				try {
-					constructor = oldArray[0][0].getClass().getConstructor(oldArray[0][0].getClass());
+					constructor = oldArray[row][col].getClass().getConstructor(oldArray[row][col].getClass());
 				} catch (NoSuchMethodException | SecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
