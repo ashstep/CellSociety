@@ -9,12 +9,6 @@ import Grids.RectangleGrids.RectangleToroidalGrid;
 import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
-import back_end.Fire.FireCell;
-import back_end.Fire.FireSimInfo;
-import back_end.PredatorPrey.PredatorPreyCell;
-import back_end.PredatorPrey.PredatorPreySimInfo;
-import back_end.PredatorPrey.PPCells.EmptyPPCell;
-import back_end.PredatorPrey.PPCells.FishCell;
 import back_end.PredatorPrey.PPCells.SharkCell;
 import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
@@ -23,6 +17,8 @@ import utilities.GridLocation;
 public class SlimeSim extends Simulation {
 	private SlimeSimInfo myInfo;
 	private final Cell TYPE_CELL = new AgentCell();
+	private final Cell TYPE_CHEMCELL = new ChemCell();
+
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEM = 2;
@@ -64,7 +60,7 @@ public class SlimeSim extends Simulation {
 		for(int row=0; row < numRows; row++){
 			for(int col=0; col < numCols; col++){		
 				GridLocation location=new GridLocation(row, col);
-				oldCellGrid.setCellAt(location, new FireCell((FireCell)copyCell.getCellAt(location)));
+				oldCellGrid.setCellAt(location, new AgentCell((AgentCell)copyCell.getCellAt(location)));
 				oldCellGrid.getCellAt(location).checkAndTakeAction(copyCell.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
 			}
 		}
@@ -86,7 +82,7 @@ public class SlimeSim extends Simulation {
 		for(int row=0; row < numRows; row++){
 			for(int col=0; col < numCols; col++){		
 				GridLocation location = new GridLocation(row, col);
-				oldGroundGrid.setCellAt(location, new SlimeCell(copyGround.getCellAt(location)));
+				oldGroundGrid.setCellAt(location, new ChemCell((ChemCell)copyGround.getCellAt(location)));
 				oldGroundGrid.getCellAt(location).checkAndTakeAction(copyGround.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
 			}
 		}
