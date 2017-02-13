@@ -33,12 +33,16 @@ public class SimulationBuilder
 
 	public Simulation getSimulation()
 	{
-		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) return createGameOfLifeSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) return createFireSim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) return createPredatorPreySim();
-		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) return createSegregationSim();
+		Simulation sim = null;
+		if (doc.getDocumentElement().getAttribute("type").equals("Game of Life")) sim = createGameOfLifeSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Fire")) sim = createFireSim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Predator Prey")) sim = createPredatorPreySim();
+		else if (doc.getDocumentElement().getAttribute("type").equals("Segregation")) sim = createSegregationSim();
+		else throw new Error("Incorrect Simulation type");
 		
-		return null;
+		sim.setLines(configuration.getLineSetting());
+		
+		return sim;
 	}
 
 	private Simulation createSegregationSim()
