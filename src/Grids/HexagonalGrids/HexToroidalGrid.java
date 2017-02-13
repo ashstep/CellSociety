@@ -21,7 +21,13 @@ public class HexToroidalGrid extends HexagonalGrid {
 
 	@Override
 	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
-		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		int[] rowOffset=super.getRowOffsetArray(flag);
+		int[] colOffset=null;
+		if(abstractedLocation.getRow()%2==0){
+			colOffset=super.getColOffsetArray(flag);
+		} else {
+			colOffset=super.getColOffsetArrayOddRow(flag);
+		}
 		return getNeighbors(abstractedLocation, rowOffset, colOffset);
 	}
 	
@@ -33,10 +39,9 @@ public class HexToroidalGrid extends HexagonalGrid {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.abstractedRowOutOfBounds(resultant_row)) {
 				resultant_row = resultant_row < 0 ? resultant_row + super.getNumRows(): super.getNumRows() - resultant_row;
+				resultant_col=resultant_row < 0? resultant_col-1: resultant_col;
 			} if (super.abstractedColOutOfBounds(resultant_col)) {
-				int numCols=super.getNumCols();
-				int gZoggset=numCols - resultant_col;
-				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): gZoggset;
+				resultant_col = resultant_col < 0 ? resultant_col + super.getNumCols(): super.getNumCols()-resultant_col;
 			}
 			output.add(super.getCellAt(new GridLocation(resultant_row, resultant_col)));
 		}
