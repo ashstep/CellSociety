@@ -1,7 +1,6 @@
 package Grids.RectangleGrids;
 
 import java.util.Arrays;
-
 import Grids.Grid;
 import back_end.Cell;
 
@@ -10,16 +9,15 @@ public abstract class RectangularGrid extends Grid {
 	private final int[] RECTANGLE_COL_OFFSET ={-1, 1, 0, 0, -1, 1, -1, 1};
 	private final int[] FLAG_TO_END_INDEX={4, 8};
 
-	public RectangularGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public RectangularGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 		// TODO Auto-generated constructor stub
 	}
 
-	public RectangularGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public RectangularGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 		// TODO Auto-generated constructor stub
 	}
-
 	
 	/**
 	 * 

@@ -7,8 +7,8 @@ import utilities.GridLocation;
 
 public class RectangleFiniteGrid extends RectangularGrid {
 		
-	public RectangleFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public RectangleFiniteGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 	
 	/**
@@ -17,17 +17,22 @@ public class RectangleFiniteGrid extends RectangularGrid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public RectangleFiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public RectangleFiniteGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 
 	/**
 	 * 
 	 */
 	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
+		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(location, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation location, int[] rowOffset, int[] colOffset) {
 		Collection<Cell> output = new ArrayList<Cell>();
 		int row = location.getRow(), col = location.getCol();
-		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
@@ -55,4 +60,6 @@ public class RectangleFiniteGrid extends RectangularGrid {
 		}
 		return output;
 	}
+
+	
 }

@@ -17,7 +17,6 @@ import utilities.GridLocation;
  *
  */
 public class PredatorPreySim extends Simulation {
-	private final Cell TYPE_CELL = new SharkCell();
 	private PredatorPreySimInfo myInfo;
 	private final int FISH = 1;
 	private final int SHARK = 2;
@@ -50,7 +49,7 @@ public class PredatorPreySim extends Simulation {
 				createPPCellAt(cellGrid, new GridLocation(row, col), typeGrid[row][col]);
 			}
 		}
-		super.makeGrid(boundsType, shapeType, cellGrid, TYPE_CELL);
+		super.makeGrid(boundsType, shapeType, cellGrid);
 	}
 
 	
@@ -60,7 +59,7 @@ public class PredatorPreySim extends Simulation {
 	 */
 	@Override
 	public Grid updateGrid() {
-		Grid copy = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid copy = createGrid(super.getCellGrid(), this.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid=super.getCellGrid();
 		updateSharks(oldGrid, copy);	
 		updateFish(oldGrid, copy);

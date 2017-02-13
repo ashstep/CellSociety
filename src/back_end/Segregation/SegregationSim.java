@@ -13,7 +13,6 @@ public class SegregationSim extends Simulation {
 	private final int TYPE_EMPTY = 0;
 	private SegregationSimInfo myInfo;
 	private final int RANDOM_ITER_LIMIT = 2000;
-	private final SegregationCell TYPE_CELL=new SegregationCell(1);
 
 	private final int NEIGHBOR_FLAG=1;
 	/**
@@ -37,7 +36,7 @@ public class SegregationSim extends Simulation {
 				cellGrid[row][col] = new SegregationCell(typeGrid[row][col]);
 			}
 		}
-		super.makeGrid(boundsType, shapeType, cellGrid, TYPE_CELL);
+		super.makeGrid(boundsType, shapeType, cellGrid);
 	}
 
 
@@ -48,7 +47,7 @@ public class SegregationSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid = super.getCellGrid();
 //		Grid oldGridCopy=new RectangleFiniteGrid(deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
 		for (int row = 0; row < numRows; row++) {

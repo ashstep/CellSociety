@@ -8,21 +8,26 @@ import utilities.GridLocation;
 public class TriangularFiniteGrid extends TriangularGrid {
 
 	
-	public TriangularFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public TriangularFiniteGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 
-	public TriangularFiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public TriangularFiniteGrid(int numRows, int numCols){
+		super(numRows, numCols);
 	}
 
 	/**
 	 * 
 	 */
-	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
-		Collection<Cell> output = new ArrayList<Cell>();
-		int row = location.getRow(), col = location.getCol();
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
 		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(abstractedLocation, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset) {
+		Collection<Cell> output = new ArrayList<Cell>();
+		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
@@ -46,5 +51,7 @@ public class TriangularFiniteGrid extends TriangularGrid {
 		}
 		return output;
 	}
+
+	
 
 }

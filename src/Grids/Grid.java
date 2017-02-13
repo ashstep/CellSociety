@@ -12,7 +12,7 @@ import utilities.GridLocation;
 //TODO: use generic
 public abstract class Grid {
 	private Cell[][] container;
-	private Cell myInstanceCell;
+//	private Cell myInstanceCell;
 	private int topLeftRowNum;
 	private int topLeftColNum;
 	private boolean hasLines;
@@ -22,9 +22,9 @@ public abstract class Grid {
 	 * Good: no need for messy coordinate system
 	 * @param cellGrid
 	 */
-	public Grid(Cell[][] cellGrid, Cell instanceCell){
+	public Grid(Cell[][] cellGrid){
 		container=cellGrid;
-		myInstanceCell=instanceCell;
+//		myInstanceCell=instanceCell;
 		topLeftRowNum=0;
 		topLeftColNum=0;
 	}
@@ -38,9 +38,9 @@ public abstract class Grid {
 		return container;
 	}
 	
-	public Grid(int numRows, int numCols, Cell instanceCell){
+	public Grid(int numRows, int numCols){//, Cell instanceCell){
 		container=new Cell[numRows][numCols];
-		myInstanceCell=instanceCell;
+//		myInstanceCell=instanceCell;
 		topLeftRowNum=0;
 		topLeftColNum=0;
 	}
@@ -48,13 +48,13 @@ public abstract class Grid {
 	public GridLocation getTLIndex(){
 		return new GridLocation(topLeftRowNum, topLeftColNum);
 	}
-	/**
-	 * 
-	 * @return myInstanceCell
-	 */
-	protected Cell getInstanceCell(){
-		return myInstanceCell;
-	}
+//	/**
+//	 * 
+//	 * @return myInstanceCell
+//	 */
+//	protected Cell getInstanceCell(){
+//		return myInstanceCell;
+//	}
 	
 	/**
 	 * 
@@ -231,7 +231,7 @@ public abstract class Grid {
 					newContainer[internalRow][internalCol]=container[internalRow-oldTLRowOffset][internalCol-oldTLColOffset];
 				} else {
 //					try{
-						newContainer[internalRow][internalCol]=myInstanceCell.makeEmptyCell();
+						newContainer[internalRow][internalCol]=container[0][0].makeEmptyCell();
 //					} catch (ArrayIndexOutOfBoundsException e){
 //						resize(new GridLocation(internalRow+topLeftRowNum, internalCol+topLeftColNum));
 //						newContainer[internalRow][internalCol]=myInstanceCell.makeEmptyCell();
@@ -276,6 +276,7 @@ public abstract class Grid {
 	 * @return
 	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset);
 	public abstract Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag);
 	
 	protected abstract int[] getRowOffsetArray(int flag);

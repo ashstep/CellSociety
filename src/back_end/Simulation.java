@@ -48,17 +48,17 @@ public abstract class Simulation
 		return null;
 	}
 
-	public Grid createGrid(Grid grid, Cell[][] cellArray, Cell cellType)
+	public Grid createGrid(Grid grid, Cell[][] cellArray)
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {
-			constructor = grid.getClass().getConstructor(Cell[][].class ,Cell.class);
+			constructor = myCellGrid.getClass().getConstructor(Cell[][].class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			return constructor.newInstance(cellArray, cellType);
+			return constructor.newInstance(cellArray);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,26 +141,26 @@ public abstract class Simulation
 		myCellGrid=grid;
 	}
 	
-	protected void makeGrid(String gridBoundsType, String shapeType, Cell[][] cellArray, Cell typeCell)
+	protected void makeGrid(String gridBoundsType, String shapeType, Cell[][] cellArray)
 	{
 		if (gridBoundsType.equals("Toroidal") && shapeType.equals("Rectangular"))
-			setGrid(new RectangleToroidalGrid(cellArray, typeCell));
+			setGrid(new RectangleToroidalGrid(cellArray));
 		else if (gridBoundsType.equals("Finite") && shapeType.equals("Rectangular"))
-			setGrid(new RectangleFiniteGrid(cellArray, typeCell));
+			setGrid(new RectangleFiniteGrid(cellArray));
 		else if (gridBoundsType.equals("Infinite") && shapeType.equals("Rectangular"))
-			setGrid(new RectangleInfiniteGrid(cellArray, typeCell));
+			setGrid(new RectangleInfiniteGrid(cellArray));
 		
 		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Triangular"))
-			setGrid(new TriangularToroidalGrid(cellArray, typeCell));
+			setGrid(new TriangularToroidalGrid(cellArray));
 		else if (gridBoundsType.equals("Finite") && shapeType.equals("Triangular"))
-			setGrid(new TriangularFiniteGrid(cellArray, typeCell));
+			setGrid(new TriangularFiniteGrid(cellArray));
 		//else if (gridBoundsType.equals("Infinite") && shapeType.equals("Triangular"))
 		//	setGrid(new TriangularInfiniteGrid(cellArray, typeCell));
 		
 		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Hexagonal"))
-			setGrid(new HexToroidalGrid(cellArray, typeCell));
+			setGrid(new HexToroidalGrid(cellArray));
 		else if (gridBoundsType.equals("Finite") && shapeType.equals("Hexagonal"))
-			setGrid(new HexFiniteGrid(cellArray, typeCell));
+			setGrid(new HexFiniteGrid(cellArray));
 		//else if (gridBoundsType.equals("Infinite") && shapeType.equals("Hexagonal"))
 		//	setGrid(new HexagonalInfiniteGrid(cellArray, typeCell));
 		

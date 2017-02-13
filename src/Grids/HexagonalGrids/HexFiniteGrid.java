@@ -8,19 +8,24 @@ import utilities.GridLocation;
 
 public class HexFiniteGrid extends HexagonalGrid {
 
-	public HexFiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public HexFiniteGrid(Cell[][] cellGrid) {
+		super(cellGrid);
 	}
 
-	public HexFiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public HexFiniteGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 
 	@Override
 	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag) {
+		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(abstractedLocation, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset) {
 		Collection<Cell> output = new ArrayList<Cell>();
 		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
-		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
@@ -44,5 +49,7 @@ public class HexFiniteGrid extends HexagonalGrid {
 		}
 		return output;
 	}
+
+	
 
 }

@@ -1,4 +1,4 @@
-package back_end.gameOfLifePack;
+package back_end.GameOfLife;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -9,8 +9,6 @@ import back_end.SimulationInfo;
 import utilities.GridLocation;
 
 public class GameOfLifeSim extends Simulation {
-
-	private final GameOfLifeCell TYPE_CELL = new GameOfLifeCell(1);
 	private final int NEIGHBOR_FLAG = 1;
 
 	/**
@@ -27,10 +25,17 @@ public class GameOfLifeSim extends Simulation {
 				cellGrid[row][col] = new GameOfLifeCell(typeGrid[row][col]);
 			}
 		}
-		super.makeGrid(gridBoundsType, shapeType, cellGrid,TYPE_CELL);
+		super.makeGrid(gridBoundsType, shapeType, cellGrid);
 	}
-
-
+	
+	
+//	private void setGrid(String gridType, GameOfLifeCell[][] cellGrid) {
+//		if (gridType.equals("Toroidal")) super.setGrid(new RectangleToroidalGrid(cellGrid));
+//		else if (gridType.equals("Finite")) super.setGrid(new RectangleFiniteGrid(cellGrid));
+//		else if (gridType.equals("Infinite")) super.setGrid(new RectangleInfiniteGrid(cellGrid));
+//		else throw new Error("Incorrect Grid Type");
+//	}
+	
 	/**
 	 * updates and returns the grid. No cells move in position in this
 	 * simulation
@@ -47,7 +52,7 @@ public class GameOfLifeSim extends Simulation {
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		// TODO: how to switch the Grid object?
-		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid = super.getCellGrid();
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
@@ -60,6 +65,19 @@ public class GameOfLifeSim extends Simulation {
 		return oldGrid;
 	}
 
+
+
+//	private Cell[][] copyArray(Cell[][] oldArray) {
+//		int numRows = oldArray.length;
+//		int numCols = oldArray[0].length;
+//		GameOfLifeCell[][] copiedArray = new GameOfLifeCell[numRows][numCols];
+//		for (int row = 0; row < numRows; row++) {
+//			for (int col = 0; col < numCols; col++) {
+//				copiedArray[row][col] = new GameOfLifeCell((GameOfLifeCell) oldArray[row][col]);
+//			}
+//		}
+//		return copiedArray;
+//	}
 
 
 	/**

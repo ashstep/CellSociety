@@ -14,7 +14,6 @@ import utilities.GridLocation;
 
 public class FireSim extends Simulation {
 	private FireSimInfo myInfo;
-	private final FireCell TYPE_CELL = new FireCell(1);
 	private final int NEIGHBOR_FLAG = 0;
 	/**
 	 * Constructor
@@ -33,7 +32,7 @@ public class FireSim extends Simulation {
 				cellGrid[row][col]=new FireCell(typeGrid[row][col]);
 			}
 		}
-		super.makeGrid(boundsType, shapeType, cellGrid, TYPE_CELL);
+		super.makeGrid(boundsType, shapeType, cellGrid);
 	}
 
 
@@ -43,7 +42,7 @@ public class FireSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumRows();
-		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()), TYPE_CELL);
+		Grid copy = createGrid(super.getCellGrid(), super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid=super.getCellGrid();
 		for(int row=0; row<numRows; row++){
 			for(int col=0; col<numCols; col++){		

@@ -12,8 +12,8 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	 * @param cellGrid
 	 * @param instanceCell
 	 */
-	public RectangleInfiniteGrid(Cell[][] cellGrid, Cell instanceCell) {
-		super(cellGrid, instanceCell);
+	public RectangleInfiniteGrid(Cell[][] cellGrid){
+		super(cellGrid);
 	}
 	
 	/**
@@ -22,8 +22,8 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	 * @param numCols
 	 * @param instanceCell
 	 */
-	public RectangleInfiniteGrid(int numRows, int numCols, Cell instanceCell) {
-		super(numRows, numCols, instanceCell);
+	public RectangleInfiniteGrid(int numRows, int numCols) {
+		super(numRows, numCols);
 	}
 	
 	/**
@@ -34,14 +34,14 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	@Override
 	public void setCellAt(GridLocation abstractedLocation, Cell cell) throws IllegalArgumentException{
 		int abstractedRow = abstractedLocation.getRow(), abstractedCol = abstractedLocation.getCol();
-		if(cell.getClass().isInstance(super.getInstanceCell()) && isValidAbstractedPosition(abstractedLocation)){
+		if(cell.getClass().isInstance( isValidAbstractedPosition(abstractedLocation))){
 			//TODO no need to cast?
 			super.setCellAt(abstractedLocation, cell);
 		} else if(! isValidAbstractedPosition(abstractedRow, abstractedCol)){
 			super.resize(abstractedLocation);
 			this.setCellAt(abstractedLocation, cell);
 		} else {
-			throw new IllegalArgumentException("Cell should be type: "+super.getInstanceCell().getClass().toString());
+			throw new IllegalArgumentException("Cell type is wrong: ");
 		}
 	}
 
@@ -51,9 +51,14 @@ public class RectangleInfiniteGrid extends RectangularGrid {
 	 */
 	@Override
 	public Collection<Cell> getNeighbors(GridLocation location, int flag) {
-		Collection<Cell> output = new ArrayList<Cell>();
-		int row = location.getRow(), col = location.getCol();
 		int[] rowOffset=super.getRowOffsetArray(flag), colOffset=super.getColOffsetArray(flag);
+		return getNeighbors(location, rowOffset, colOffset);
+	}
+	
+	@Override
+	public Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset) {
+		Collection<Cell> output = new ArrayList<Cell>();
+		int row = abstractedLocation.getRow(), col = abstractedLocation.getCol();
 		for (int i = 0; i < rowOffset.length; i++) {
 			int resultant_row = row + rowOffset[i], resultant_col = col + colOffset[i];
 //			if (super.isValidAbstractedPosition(resultant_row, resultant_col)) {
