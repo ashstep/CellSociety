@@ -26,22 +26,21 @@ public abstract class Simulation
 	 * @throws NoSuchMethodException 
 	 */
 	public abstract Grid updateGrid();
-	
-	
+
+
 	public Grid createGrid(Cell cellType)
 	{
 		Constructor<? extends Grid> constructor = null;
 		try {
 			constructor = myCellGrid.getClass().getConstructor(int.class, int.class ,Cell.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
 		try {
 			return constructor.newInstance(getNumRows(), getNumCols(), cellType);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
-		return null;
 	}
 
 	public Grid createCellGrid(Cell[][] cellArray)
@@ -50,16 +49,13 @@ public abstract class Simulation
 		try {
 			constructor = myCellGrid.getClass().getConstructor(Cell[][].class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
 		try {
 			return constructor.newInstance(cellArray);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Error("No such constructor");
 		}
-		return null;
 	}
 	
 	@Deprecated
@@ -83,8 +79,9 @@ public abstract class Simulation
 	 * 
 	 * @param oldArray
 	 * @return copiedArray a copy of old array, with each cell in copiedArray a new copy of the corresponding cell
+	 * @throws Exception 
 	 */
-	protected Cell[][] deepCopyCellArray(Cell[][] oldArray) {
+	protected Cell[][] deepCopyCellArray(Cell[][] oldArray){
 		int numRows = oldArray.length;
 		int numCols = oldArray[0].length;
 		Cell[][] copiedArray = new Cell[numRows][numCols];
@@ -92,17 +89,16 @@ public abstract class Simulation
 			for (int col = 0; col < numCols; col++) {
 				Constructor<? extends Cell> constructor = null;
 				try {
-					constructor = oldArray[0][0].getClass().getConstructor(oldArray[0][0].getClass());
+					constructor = oldArray[row][col].getClass().getConstructor(oldArray[row][col].getClass());
 				} catch (NoSuchMethodException | SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Error("bad constructor");
 				}
 				try {
-					copiedArray[row][col] = constructor.newInstance(oldArray[row][col]);
+					Cell oldLocation = oldArray[row][col];
+					copiedArray[row][col] = constructor.newInstance(oldLocation);
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Error("bad constructor");
 				}
 			}
 		}

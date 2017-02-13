@@ -17,7 +17,6 @@ public class SlimeSim extends Simulation {
 	private SlimeSimInfo myInfo;
 	private final Cell TYPE_CELL = new AgentCell();
 	private final Cell TYPE_CHEMCELL = new ChemCell();
-
 	private final int TYPE_AGENT = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEM = 2;
@@ -25,6 +24,8 @@ public class SlimeSim extends Simulation {
 	
 	/**
 	 * constructor
+	 * @param string2 
+	 * @param string 
 	 */
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle) {
 		myInfo = new SlimeSimInfo(wiggleProb, wiggleAngle, thisSniffThreshold, thisSniffAngle);
@@ -54,7 +55,9 @@ public class SlimeSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumCols();
-		Grid copyCell = createCellGrid(this.deepCopyCellArray(super.getCellGrid().getContainer()));
+		Cell[][] cellarr = super.getCellGrid().getContainer();
+		Cell[][] second = super.deepCopyCellArray(cellarr);
+		Grid copyCell = createCellGrid(second);
 		Grid oldCellGrid = super.getCellGrid();
 		for(int row=0; row < numRows; row++){
 			for(int col=0; col < numCols; col++){		

@@ -38,7 +38,7 @@ public class SugarSim extends Simulation {
 
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
-				cellGrid[row][col] = new SugarCell(typeGrid[row][col]);
+				cellGrid[row][col] = new SugarAgentCell(agentCellInfo[row][col]);
 			}
 		}
 		super.setGrid(new RectangleFiniteGrid(cellGrid));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Simulation type = “Slime”>
+<Simulation type = "Slime">
   <title>test</title>
   <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
   <SimParameters>
@@ -18,8 +18,8 @@
 	<row>0 1 0</row>
   </InitialGridState>
    <InitialGroundState>
-	<row>0 2 2</row>
-	<row>0 2 2</row>
-	<row>0 2 0</row>
+	<grow>0 2 2</grow>
+	<grow>0 2 2</grow>
+	<grow>0 2 0</grow>
   </InitialGroundState>
 </Simulation>

@@ -1,5 +1,6 @@
 package back_end.slime;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import back_end.ActionBySim;
@@ -9,11 +10,7 @@ import back_end.slime.cells.AgentCell;
 import back_end.slime.cells.ChemCell;
 import javafx.scene.paint.Color;
 
-public abstract class SlimeCell extends Cell {
- /*
-  * 
-  */
-	
+public abstract class SlimeCell extends Cell {	
 	private final int TYPE_ALIVE = 1;
 	private final int TYPE_EMPTY = 0;
 	private final int TYPE_CHEMICAL = 2;
@@ -25,10 +22,9 @@ public abstract class SlimeCell extends Cell {
 	private int probWiggle;
 	private int sniffThreshold;
 	private int sniffAngle;
-	
 	//for the ground grid with camp
 	private double campPercentage;
-	private int timeElapsed;		//when to disregard it
+	private int timeElapsed;
 
 
 	
@@ -45,17 +41,13 @@ public abstract class SlimeCell extends Cell {
 		sniffAngle= 0;
 	}
 	
-	//create a copy
-	public SlimeCell(SlimeCell anotherCell){
+	//create copy
+	public SlimeCell(Cell anotherCell){
 		this(anotherCell.getMyType());
 	}
-
-
-	//different for updated grid and ground
 	@Override
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
 
-	
 	/**
 	 * removes cell
 	 */
@@ -188,15 +180,19 @@ public abstract class SlimeCell extends Cell {
 	}
 
 	@Override
-	public Collection<String> getTypeNames() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<String> getTypeNames()
+	{
+		Collection<String> nameList = new ArrayList<String>();
+		nameList.add("Agent");
+		nameList.add("Chem");
+		return nameList;
 	}
 
 	@Override
 	public String getTypeName() {
-		// TODO Auto-generated method stub
-		return null;
+		if (getMyType() == TYPE_ALIVE) return "Agent";
+		else if (getMyType() == TYPE_CHEMICAL) return "Chem"; 
+		else return "";
 	}
 
 	@Override
@@ -217,8 +213,4 @@ public abstract class SlimeCell extends Cell {
 			return makeCellofType(TYPE_EMPTY);
 		}	
 	}
-
-	
-
-	
 }
