@@ -3,6 +3,10 @@ package back_end.SugarScape;
 import back_end.ActionBySim;
 import utilities.GridLocation;
 
+/**
+ *  @author Yuxiang He
+ */
+
 public class ActionBySugarSim extends ActionBySim {
 
 	private GridLocation myDestination;
@@ -13,7 +17,6 @@ public class ActionBySugarSim extends ActionBySim {
 	}
 	
 	/**
-	 * 
 	 * @return grid location that specifies the destination of the sugar agent cell
 	 */
 	public GridLocation getDestination(){

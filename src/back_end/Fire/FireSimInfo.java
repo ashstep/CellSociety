@@ -21,5 +21,4 @@ public class FireSimInfo extends SimulationInfo{
 		this.myProbCatch = newProbCatch;
 		return newProbCatch;
 	}
-
 }

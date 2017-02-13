@@ -4,6 +4,7 @@ package back_end.SugarScape;
 import back_end.Cell;
 /**
  * @author Yuxiang He
+ * Sugar Cell creator with various properties.
  *
  */
 public abstract class SugarCell extends Cell{

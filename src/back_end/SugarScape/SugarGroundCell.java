@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import utilities.GridLocation;
 
 /**
+ * Basic ground extendable implementation.
  * @author Yuxiang He
  *
  */
@@ -41,7 +42,6 @@ public class SugarGroundCell extends SugarCell{
 	}
 	
 	/**
-	 * 
 	 * @return true if the ground is vacant
 	 */
 	public boolean isVacant(){

@@ -32,7 +32,11 @@ public class SharkCell extends PredatorPreyCell{
 		this.timeSinceDinner=anotherSharkCell.timeSinceDinner;
 		
 	}
-
+	
+	/**
+	 *if there is a fish adjacent to a shark the shark eats it
+	 *If there are no adjacent fish the shark moves
+	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		timeSinceDinner++;
@@ -57,8 +61,6 @@ public class SharkCell extends PredatorPreyCell{
 			boolean reproducing = checkThenReproduce(breedTime);
 			boolean moving=false;
 			boolean eating=false;	
-			//if there is a fish adjacent to a shark the shark eats it
-			//If there are no adjacent fish the shark moves
 			if(fishNeighbors>0){
 				eating=true;
 				timeSinceDinner=0;
@@ -71,7 +73,6 @@ public class SharkCell extends PredatorPreyCell{
 	}
 
 	/**
-	 * 
 	 * @param breedTime time between breeding of a shark
 	 * @param emptyNeighbors  number of empty neighbors
 	 * @return true if wants to breeding
@@ -82,7 +83,6 @@ public class SharkCell extends PredatorPreyCell{
 		return reproducing;
 	}
 
-	
 	/**
 	 * Given the starve threshold, determine if the shark is starved to death
 	 * @param starveThreshold
@@ -91,8 +91,7 @@ public class SharkCell extends PredatorPreyCell{
 	private boolean isStarvedToDeath(int starveThreshold){
 		return timeSinceDinner>starveThreshold;
 	}
-	
-	
+
 	public void resetTimeSinceDinner(){
 		timeSinceDinner=0;
 	}

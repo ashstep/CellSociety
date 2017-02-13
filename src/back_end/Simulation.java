@@ -27,7 +27,6 @@ public abstract class Simulation
 	 */
 	public abstract Grid updateGrid();
 
-
 	public Grid createGrid(Cell cellType)
 	{
 		Constructor<? extends Grid> constructor = null;
@@ -108,7 +107,6 @@ public abstract class Simulation
 	/**
 	 * generates a GridLocation such that newGrid[GridLocation] is empty for putting a new cell
 	 * AND (row, column) is not its current position
-	 * 
 	 * simulates a cell moving to somewhere else
 	 * @return GridLocation
 	 */
@@ -132,9 +130,14 @@ public abstract class Simulation
 	protected void setGrid(Grid grid){
 		myCellGrid=grid;
 	}
-	/**
-	 * creates a new grid of with the same configuration in terms of bounds, shapes  and celltype
-	 * as the current one being used
+
+	protected void setGroundGrid(Grid groundGrid){
+		myGroundGrid = groundGrid;
+	}
+	
+
+    /**
+	 * creates a new grid of with the defined configuration in terms of bounds, shapes  and celltype
 	 * @param gridBoundsType
 	 * @param shapeType
 	 * @param cellArray
@@ -152,24 +155,15 @@ public abstract class Simulation
 			setGrid(new TriangularToroidalGrid(cellArray));
 		else if (gridBoundsType.equals("Finite") && shapeType.equals("Triangular"))
 			setGrid(new TriangularFiniteGrid(cellArray));
-		//else if (gridBoundsType.equals("Infinite") && shapeType.equals("Triangular"))
-		//	setGrid(new TriangularInfiniteGrid(cellArray, typeCell));
-		
 		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Hexagonal"))
 			setGrid(new HexToroidalGrid(cellArray));
 		else if (gridBoundsType.equals("Finite") && shapeType.equals("Hexagonal"))
 			setGrid(new HexFiniteGrid(cellArray));
-		//else if (gridBoundsType.equals("Infinite") && shapeType.equals("Hexagonal"))
-		//	setGrid(new HexagonalInfiniteGrid(cellArray, typeCell));
-		
 		else
 			throw new Error("Incorrect Grid Type");
 	}
 	
-	protected void setGroundGrid(Grid groundGrid){
-		myGroundGrid = groundGrid;
-	}
-	
+
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
 	 * @param newInfo
@@ -186,7 +180,7 @@ public abstract class Simulation
 	/**
 	 * 
 	 * @return number of rows in myGrid
-	 * same for both ground and regular grid
+	 * used for ground and regular grid
 	 */
 	public int getNumRows(){
 		return myCellGrid.getNumRows();

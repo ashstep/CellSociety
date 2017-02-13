@@ -14,7 +14,8 @@ import utilities.GridLocation;
 public class AgentCell extends SlimeCell {
 
 	/**
-	 *  this cell moves in direction of higher CHEMIAL concentrario
+	 *  This cell moves in direction of higher chemical concentration. 
+	 *  The Agent Cell is the slime cell on the "top" grid that is displayed on the front end.
 	 *  @author Ashka Stephen
 	 */
 	private final int TYPE_AGENT = 1;
@@ -26,7 +27,6 @@ public class AgentCell extends SlimeCell {
 	private int sniffThreshold;
 	private int sniffAngle;
 	private boolean hasReleasedChem;		
-	//if it hasnt realeased it then will be false, if true, cannot realease
 	private RectangleFiniteGrid currentGrid;
 
 	/**
@@ -68,45 +68,16 @@ public class AgentCell extends SlimeCell {
 
 
 	/**
+	 * Chemicals do not interact with each other and thus a checkAndTakeAction method does not need to be developed
 	 */
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		return null;
-/*
-		double chemicalThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
-		double wiggleAngle = ((SlimeSimInfo) simInfo).getWiggleAngle();
-		double wiggleProb = ((SlimeSimInfo) simInfo).getProbWiggle();
-		double sniffAngle = ((SlimeSimInfo) simInfo).getSniffAngle();
-		double sniffThreshold = ((SlimeSimInfo) simInfo).getSniffThreshold();
-		double maxChemical = 0.0;
-		Cell maxNeighbor = null;
-
-		//if it has mold new will have mold
-		if(!isEmpty()){
-			new ActionBySim(false);
-		}
-
-		else {
-			for(Cell neighbor : neighbors) {
-				SlimeCell currentNeighbor = (SlimeCell) neighbor;
-				//int currentNeighborX = currentNeighbor.getX();
-				Cell a = currentGrid.getCellAt(new GridLocation(currentNeighbor.get, resultant_col)).;
-				if ( a >= maxChemical) {
-					maxChemical = groundGrid[x][y].getChemicalPercent();
-					maxNeighbor = currentNeighbor;
-				}
-				return new ActionBySim((maxChemical >= chemicalThreshold) );	
-			}
-		}			
-		return new ActionBySim(false);*/
 	}
 
-	//get the ground grid -> increase chemical in that one
 	public void releaseChemical(){
 		if(!hasReleasedChem){
-
 		}
-		//cannot release 
 		hasReleasedChem = true;
 	}
 

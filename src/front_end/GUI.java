@@ -27,31 +27,31 @@ public class GUI
 	private int sceneWidth, sceneHeight;
 	private Shape[][] grid;
 	private ControlPanel panel;
-	
+
 	public GUI (int sceneWidth, int sceneHeight)
 	{
 		this.sceneWidth = sceneWidth;
 		this.sceneHeight = sceneHeight;
 		root = new BorderPane();
 	}
-	
+
 	public Scene buildScene()
 	{
 		Scene myScene = new Scene(root, sceneWidth, sceneHeight, Color.WHITE);
 		panel = new ControlPanel(root);
 		return myScene;
 	}
-	
+
 	public void initGrid(Grid gridObject)
 	{
 		int gridHeight = gridObject.getNumRows();
 		int gridWidth = gridObject.getNumCols();
-		
+
 		grid = new Shape[gridHeight][gridWidth];
 		Group gridContainer = new Group();
 		root.setCenter(gridContainer);
 		int cellSize = Math.min((sceneWidth-100)/gridWidth, (sceneHeight-100)/gridHeight);
-		
+
 		for (int x = 0; x < gridHeight; x++)
 		{
 			for (int y = 0; y < gridWidth; y++)
@@ -64,7 +64,7 @@ public class GUI
 		}
 		renderGrid(gridObject);
 	}
-	
+
 	public void renderGrid(Grid cellGrid)
 	{
 		for (int x = 0; x <cellGrid.getNumRows(); x++)
@@ -136,7 +136,7 @@ public class GUI
 		double hexHeight = cellSize;
 		double hexWidth = hexHeight*Math.sqrt(3)/2;
 		double hexHeightOffset = Math.tan(Math.PI/6)*hexWidth*.5;
-		
+
 		if (x%2 == 0)
 		{
 			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
@@ -168,20 +168,20 @@ public class GUI
 		if ((x%2==0 && y%2==0) || (x%2==1 && y%2==1))
 		{
 			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
-			{
-					(double) (y*cellSize/2), (double) (x*cellSize + cellSize),
-					(double) (y*cellSize/2 + cellSize/2), (double) (x*cellSize),
-					(double)(y*cellSize/2 + cellSize), (double)(x*cellSize + cellSize)
-			});
+					{
+							(double) (y*cellSize/2), (double) (x*cellSize + cellSize),
+							(double) (y*cellSize/2 + cellSize/2), (double) (x*cellSize),
+							(double)(y*cellSize/2 + cellSize), (double)(x*cellSize + cellSize)
+					});
 		}
 		else
 		{
 			((Polygon) grid[x][y]).getPoints().addAll(new Double[]
-			{
-					(double) (y*cellSize/2), (double) (x*cellSize),
-					(double) (y*cellSize/2 + cellSize), (double) (x*cellSize),
-					(double)(y*cellSize/2 + cellSize/2), (double)(x*cellSize + cellSize)
-			});
+					{
+							(double) (y*cellSize/2), (double) (x*cellSize),
+							(double) (y*cellSize/2 + cellSize), (double) (x*cellSize),
+							(double)(y*cellSize/2 + cellSize/2), (double)(x*cellSize + cellSize)
+					});
 		}
 	}
 

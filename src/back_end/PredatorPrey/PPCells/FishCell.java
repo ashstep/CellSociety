@@ -10,8 +10,8 @@ import back_end.PredatorPrey.PredatorPreyCell;
 import back_end.PredatorPrey.PredatorPreySimInfo;
 
 public class FishCell extends PredatorPreyCell{
-	private final int MY_TYPE=1;
-	private final int EMPTY=0;
+	private final int MY_TYPE = 1;
+	private final int EMPTY = 0;
 	
 	/**
 	 * default constructor
@@ -27,7 +27,6 @@ public class FishCell extends PredatorPreyCell{
 	public FishCell(FishCell anotherFishCell){
 		super(1, anotherFishCell.getTimeSinceBreed());
 	}
-	
 	
 	/**
 	 * checks neighbors, makes actions

@@ -12,9 +12,7 @@ public abstract class Cell {
 	 * represents the type of the cell in the simulation, starts from 0
 	 */
 	private int myType;
-	
-	
-	
+
 	public Cell(int type) {
 		myType=type;
 	}
@@ -37,6 +35,7 @@ public abstract class Cell {
 	public int getMyType() {
 		return myType;
 	}
+	
 	/**
 	 * setter
 	 * @param type
@@ -46,7 +45,6 @@ public abstract class Cell {
 	}
 	
 	/**
-	 * 
 	 * @return an empty/dead GameOfLifeCell
 	 */
 	public abstract Cell makeEmptyCell();

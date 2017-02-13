@@ -23,14 +23,11 @@ public class SegregationSim extends Simulation {
 	 * @param threshold
 	 *            satisfaction threshold for each cell, environment attribute
 	 */
-	// repeated code for setting up Grid?
 	public SegregationSim(int[][] typeGrid, int threshold, String boundsType, String shapeType) {
 		myInfo = new SegregationSimInfo(threshold);
-
 		int numRows = typeGrid.length;
 		int numCols = typeGrid[0].length;
 		SegregationCell[][] cellGrid = new SegregationCell[numRows][numCols];
-
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				cellGrid[row][col] = new SegregationCell(typeGrid[row][col]);
@@ -49,7 +46,6 @@ public class SegregationSim extends Simulation {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
 		Grid copy = createCellGrid(super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid = super.getCellGrid();
-//		Grid oldGridCopy=new RectangleFiniteGrid(deepCopyCellArray(super.getGrid().getContainer()), TYPE_CELL);
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				SegregationCell cell=new SegregationCell ((SegregationCell)(copy.getCellAt(new GridLocation(row, col))));
@@ -91,7 +87,7 @@ public class SegregationSim extends Simulation {
 		newGrid.setCellAt(newPos, new SegregationCell(cell.getMyType()));
 	}
 
-	
+
 	/**
 	 * generates a position where newGrid contains an empty type cell
 	 */
@@ -156,7 +152,7 @@ public class SegregationSim extends Simulation {
 	public SimulationInfo getSimInfo() {
 		return myInfo;
 	}
-	
+
 	/**
 	 * updates the threshold for the cells to be satisfied.
 	 * 
@@ -185,7 +181,6 @@ public class SegregationSim extends Simulation {
 		return copiedArray;
 	}
 
-
 	@Override
 	public ArrayList<String> getParameterList()
 	{
@@ -193,7 +188,6 @@ public class SegregationSim extends Simulation {
 		parameterList.add("Threshold");
 		return parameterList;
 	}
-
 
 	@Override
 	public Consumer<Number> getChangeMethod(String x)
@@ -203,14 +197,12 @@ public class SegregationSim extends Simulation {
 		return r;
 	}
 
-
 	@Override
 	public double getSliderLowerBound(String x)
 	{
-		 if (x.equals("Threshold"))return 1;
-		 return 0;
+		if (x.equals("Threshold"))return 1;
+		return 0;
 	}
-
 
 	@Override
 	public double getSliderUpperBound(String x)
@@ -218,7 +210,6 @@ public class SegregationSim extends Simulation {
 		if (x.equals("Threshold")) return 100;
 		return 0;
 	}
-
 
 	@Override
 	public double getCurrentValue(String x)
