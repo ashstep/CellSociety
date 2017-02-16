@@ -53,7 +53,7 @@ public class GameOfLifeSim extends Simulation {
 				oldGrid.getCellAt(location).checkAndTakeAction(copy.getNeighbors(location, NEIGHBOR_FLAG), null);
 			}
 		}
-		super.setGrid(oldGrid);
+		super.setCellGrid(oldGrid);
 		return oldGrid;
 	}
 

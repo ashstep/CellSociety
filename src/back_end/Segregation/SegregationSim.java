@@ -63,7 +63,7 @@ public class SegregationSim extends Simulation {
 				}
 			}
 		}
-		super.setGrid(oldGrid);
+		super.setCellGrid(oldGrid);
 		return oldGrid;
 	}
 

@@ -61,7 +61,7 @@ public class PredatorPreySim extends Simulation {
 		Grid oldGrid=super.getCellGrid();
 		updateSharks(oldGrid, copy);	
 		updateFish(oldGrid, copy);
-		super.setGrid(oldGrid);
+		super.setCellGrid(oldGrid);
 		return oldGrid;
 	}
 

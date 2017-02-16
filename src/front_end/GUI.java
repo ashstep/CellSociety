@@ -13,10 +13,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import utilities.GridLocation;
 
-//class that handles the front end of the game. uses an instance of ControlPanel to take
-//care of buttons and sliders; uses a grid of shapes to handle rendering the grid object
-//as its passed in from the back end.
-/**
+/**class that handles the front end of the game. uses an instance of ControlPanel to take
+ *care of buttons and sliders; uses a grid of shapes to handle rendering the grid object
+ *as its passed in from the back end.
+ *
  * 
  * @author Juan
  *

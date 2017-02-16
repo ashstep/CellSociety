@@ -74,7 +74,7 @@ public class SlimeSim extends Simulation {
 			}
 		}
 		updateGroundGrid();
-		super.setGrid(oldCellGrid);
+		super.setCellGrid(oldCellGrid);
 		return oldCellGrid;
 	}
 
