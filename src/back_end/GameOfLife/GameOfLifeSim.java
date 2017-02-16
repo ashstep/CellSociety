@@ -44,7 +44,6 @@ public class GameOfLifeSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		// TODO: how to switch the Grid object?
 		Grid copy = createCellGrid(super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid = super.getCellGrid();
 		for (int row = 0; row < numRows; row++) {

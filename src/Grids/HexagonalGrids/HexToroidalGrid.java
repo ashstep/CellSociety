@@ -66,7 +66,4 @@ public class HexToroidalGrid extends HexagonalGrid {
 		}
 		return output;
 	}
-
-	
-
 }

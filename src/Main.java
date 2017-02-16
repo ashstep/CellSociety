@@ -1,7 +1,6 @@
 import front_end.GUI;
 
 import java.util.function.Consumer;
-
 import back_end.Simulation;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
