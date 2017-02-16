@@ -1,6 +1,7 @@
 package back_end.Fire;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 import Grids.*;
 import back_end.Simulation;
@@ -88,7 +89,7 @@ public class FireSim extends Simulation {
 
 
 	@Override
-	public ArrayList<String> getParameterList(){
+	public Collection<String> getParameterList(){
 		ArrayList<String> parameterList = new ArrayList<String>();
 		parameterList.add("probCatch");
 		return parameterList;

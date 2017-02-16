@@ -2,7 +2,7 @@ package back_end;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 import Grids.Grid;
 import Grids.HexagonalGrids.*;
@@ -214,7 +214,7 @@ public abstract class Simulation
 	 * returns a list of names of the parameters specific to the simulation
 	 * @return
 	 */
-	public abstract ArrayList<String> getParameterList();
+	public abstract Collection<String> getParameterList();
 	
 	/**
 	 * gets the method to change a particular parameter based on the names of the parameters given in getParameterlist

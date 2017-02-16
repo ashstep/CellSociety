@@ -1,6 +1,7 @@
 package back_end.slime;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 
 import Grids.Grid;
@@ -143,7 +144,7 @@ public class SlimeSim extends Simulation {
 	 * The following are implementation of visuals as discussed in abstracted class:
 	 */
 	@Override
-	public ArrayList<String> getParameterList() {
+	public Collection<String> getParameterList() {
 		ArrayList<String> parameterList = new ArrayList<String>();
 		parameterList.add("probWiggle");
 		parameterList.add("wiggleAngle");

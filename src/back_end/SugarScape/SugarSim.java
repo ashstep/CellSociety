@@ -3,7 +3,7 @@
  */
 package back_end.SugarScape;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 import Grids.Grid;
 import Grids.RectangleGrids.RectangleFiniteGrid;
@@ -80,7 +80,7 @@ public class SugarSim extends Simulation {
 	 * @see back_end.Simulation#getParameterList()
 	 */
 	@Override
-	public ArrayList<String> getParameterList() {
+	public Collection<String> getParameterList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,6 +1,7 @@
 package back_end.PredatorPrey;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
@@ -314,7 +315,7 @@ public class PredatorPreySim extends Simulation {
 	 */
 
 	@Override
-	public ArrayList<String> getParameterList()
+	public Collection<String> getParameterList()
 	{
 		ArrayList<String> parameterList = new ArrayList<String>();
 		parameterList.add("SharkBreedTime");

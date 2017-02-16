@@ -2,7 +2,6 @@ package utilities;
 
 import java.util.HashMap;
 import java.util.Iterator;
-
 import Grids.Grid;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;

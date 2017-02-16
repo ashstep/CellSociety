@@ -2,6 +2,7 @@ package back_end.GameOfLife;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 import Grids.*;
 import back_end.Simulation;
@@ -78,7 +79,7 @@ public class GameOfLifeSim extends Simulation {
 	}
 
 	@Override
-	public ArrayList<String> getParameterList() {
+	public Collection<String> getParameterList() {
 		return new ArrayList<String>();
 	}
 
