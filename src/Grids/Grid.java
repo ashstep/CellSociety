@@ -6,6 +6,12 @@ import javafx.scene.paint.Color;
 import utilities.GridLocation;
 /**
  * 
+ * Abstraction of the grid object in Simulation
+ * Has its own abstracted indices (only after it resizes), so that indices on this grid does not change  after resizing.
+ * This feature is mainly for infinite grid, but we did not have enough time to incorporate infinite grid to our code. 
+ *  
+ *  This still works with normal and toroidal.
+ *  
  * @author Ashka Stephen
  * @author Yuxiang He
  */
@@ -15,10 +21,10 @@ public abstract class Grid {
 	private int topLeftRowNum;
 	private int topLeftColNum;
 	private boolean hasLines;
+	
+	
 	/**
-	 * keep this constructor?
-	 * Bad: exposes the inner working of the class i.e. uses a Cell[][]?
-	 * Good: no need for messy coordinate system
+	 * creates a grid object from a Cell[][]
 	 * @param cellGrid
 	 */
 	public Grid(Cell[][] cellGrid){
@@ -27,16 +33,29 @@ public abstract class Grid {
 		topLeftColNum=0;
 	}
 
-	public Cell[][] getContainer(){
-		return container;
-	}
-
+	/**
+	 * initializes a grid with numRows rows and numCols cols
+	 * @param numRows
+	 * @param numCols
+	 */
 	public Grid(int numRows, int numCols){
 		container=new Cell[numRows][numCols];
 		topLeftRowNum=0;
 		topLeftColNum=0;
 	}
+	
+	/**
+	 * getter for the internal Cell[][]
+	 * @return
+	 */
+	public Cell[][] getContainer(){
+		return container;
+	}
 
+	/**
+	 * 
+	 * @return the top-left abstracted corner position
+	 */
 	public GridLocation getTLIndex(){
 		return new GridLocation(topLeftRowNum, topLeftColNum);
 	}
@@ -63,6 +82,7 @@ public abstract class Grid {
 	}
 
 	/**
+	 * Set cell at abstractedLocation to be cell
 	 * @param abstractedLocation
 	 * @param cell
 	 * @throws IllegalArgumentException
@@ -77,7 +97,9 @@ public abstract class Grid {
 					String.format("Grid.setCellAt: row out of bounds: %b, Col out of bounds: %b", 
 							abstractedRowOutOfBounds(abstractedLocation.getRow()), abstractedColOutOfBounds(abstractedLocation.getCol())
 							)
-					);}	}
+					);}
+		}
+	
 
 	/**
 	 * returns the cell at the location specified by abstractedLocation
@@ -97,7 +119,7 @@ public abstract class Grid {
 	}
 
 	/**
-	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
+	 * checks whether the position specified by (row, col) is valid i.e. won't cause ArrayOutOfBoundsException.
 	 * Assumes each row of myGrid has the same number of columns
 	 * @param abstractedRow
 	 * @param abstractedCol
@@ -109,7 +131,7 @@ public abstract class Grid {
 	}
 
 	/**
-	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
+	 * checks whether the position specified by abstractedLocation is valid i.e. won't cause ArrayOutOfBoundsException.
 	 * Assumes each row of myGrid has the same number of columns
 	 * @param abstractedLocation
 	 * @return true if the position is valid
@@ -180,6 +202,11 @@ public abstract class Grid {
 		container=newContainer;
 	}
 
+	/**
+	 * fills the newContainer with the corresponding cells
+	 * @param newContainer
+	 * @param newAbstractedTLCorner
+	 */
 	private void fillInResizedContainer(Cell[][] newContainer, GridLocation newAbstractedTLCorner) {
 		int newNumRows=newContainer.length, newNumCols=newContainer[0].length;
 
@@ -207,12 +234,19 @@ public abstract class Grid {
 		topLeftColNum=newAbstractedTLCorner.getCol();
 	}
 
+	
+	/**
+	 * calculates the new top-left corner indices should the container gets resized when it needs to incorporate invalidLocation
+	 * @param invalidLocation
+	 * @return GridLocation specifying the new top-left corner
+	 */
 	private GridLocation calculateNewTopLeftCorner(GridLocation invalidLocation){
 		int newTopLeftRow=topLeftRowNum>invalidLocation.getRow()? invalidLocation.getRow(): topLeftRowNum;
 		int newtopLeftCol=topLeftColNum>invalidLocation.getCol()? invalidLocation.getCol(): topLeftColNum;
 		return new GridLocation(newTopLeftRow, newtopLeftCol);
 	}
 
+	
 	/**
 	 * set the cell at location to be the next state cell.
 	 * Helps front end for user setting state of cell
@@ -225,19 +259,48 @@ public abstract class Grid {
 
 	/**
 	 * given the location specified by abstractedLocation, return the neighbors
-	 * @return
+	 * @param flag signals which neighbors (cardinal, or all) to be collected
+	 * @return Collection of neighbors
 	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int flag);
+	
+	/**
+	 * given the location specified by abstractedLocation, return the neighbors
+	 * Overloads getNeighbors(). Now can customize which neighbors to collect though rowOffset and colOffset array
+	 * 
+	 * @param int[] rowOffset
+	 * @param int[] colOffset
+	 * @return Collection of neighbors
+	 */
 	public abstract Collection<Cell> getNeighbors(GridLocation abstractedLocation, int[] rowOffset, int[] colOffset);
+	
+	
+	/**
+	 * given the location specified by abstractedLocation, return the neighbors of a specified type
+	 * @param flag signals which neighbors (cardinal, or all) to be collected
+	 * @return Collection of neighbors' locations
+	 */
 	public abstract Collection<GridLocation> getNeighborLocationByType(GridLocation location, int neighborType, int flag);
+	
+	/**
+	 * 
+	 * @param flag cardinal or all neighbors
+	 * @return rowOffsetArray for cardinal or all neighbors, depending on flag
+	 */
 	protected abstract int[] getRowOffsetArray(int flag);
+	
+	/**
+	 * 
+	 * @param flag cardinal or all neighbors
+	 * @return colOffsetArray for cardinal or all neighbors, depending on flag
+	 */
 	protected abstract int[] getColOffsetArray(int flag);
 
 	/**
 	 * 
 	 * @param x
 	 * @param y
-	 * @return
+	 * @return color of the cell at position [x, y]
 	 */
 	public Color getColorAt(int x, int y){
 		if(isValidAbstractedPosition(x, y)){
@@ -248,12 +311,20 @@ public abstract class Grid {
 	}
 
 
+	/**
+	 * 
+	 * @return collection of string each specifies each tupe of cell in this grid
+	 */
 	public Collection<String> getCellTypes()
 	{
 		return container[0][0].getTypeNames();
 	}
 
-	
+	/**
+	 * 
+	 * @param x specifies the type of the cell
+	 * @return total number of the cell in this grid
+	 */
 	public Number getCountByType(String x)
 	{
 		int counter = 0;
@@ -269,13 +340,24 @@ public abstract class Grid {
 		}
 		return counter;
 	}
+	
+	
+	/**
+	 * sets whether the cells on the front end has border lines
+	 * @param inLines true if  the cells on the front end has border lines
+	 */
 	public void setLines(boolean inLines)
 	{
 		hasLines = inLines;
 	}
+	
+	
+	/**
+	 * 
+	 * @return true if  the cells on the front end has border lines
+	 */
 	public boolean hasLines()
 	{
 		return hasLines;
 	}
-
 }

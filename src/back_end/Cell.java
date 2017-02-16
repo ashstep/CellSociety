@@ -1,18 +1,24 @@
 package back_end;
 
+/**
+ * Abstract super class that describes the properties and actions (APIs) shared by cells of all simulations
+ * @author Yuxiang He
+ */
 import java.util.Collection;
 import javafx.scene.paint.Color;
-/**
- * Abstract super class that describes the properties shared by cells of all simulations
- * @author Yuxiang He
- *
- */
+
 public abstract class Cell {
+	
 	/**
-	 * represents the type of the cell in the simulation, starts from 0
+	 * represents the type of the cell in the simulation. 
+	 * The number representing each of type of cell is up to the implementation of sub-classes
 	 */
 	private int myType;
 
+	/**
+	 * Constructor. sets the type of the cell
+	 * @param type
+	 */
 	public Cell(int type) {
 		myType=type;
 	}
@@ -23,14 +29,20 @@ public abstract class Cell {
 	 */
 	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo);
 	
+	
+	/**
+	 * Just for testing and debugging
+	 * Easier to see the type of the cell in debug mode (instead of seeing a chain of hex numbers)
+	 */
 	@Override
 	public String toString(){
 		return ""+getMyType();
 	}
 	
+	
 	/**
 	 * getter
-	 * @return
+	 * @return myType
 	 */
 	public int getMyType() {
 		return myType;

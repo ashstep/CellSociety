@@ -2,6 +2,7 @@ package back_end.GameOfLife;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 import Grids.*;
 import back_end.Simulation;
@@ -43,7 +44,6 @@ public class GameOfLifeSim extends Simulation {
 	@Override
 	public Grid updateGrid() {
 		int numRows = super.getNumRows(), numCols = super.getNumCols();
-		// TODO: how to switch the Grid object?
 		Grid copy = createCellGrid(super.deepCopyCellArray(super.getCellGrid().getContainer()));
 		Grid oldGrid = super.getCellGrid();
 		for (int row = 0; row < numRows; row++) {
@@ -66,7 +66,7 @@ public class GameOfLifeSim extends Simulation {
 	}
 
 	@Override
-	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -78,7 +78,7 @@ public class GameOfLifeSim extends Simulation {
 	}
 
 	@Override
-	public ArrayList<String> getParameterList() {
+	public Collection<String> getParameterList() {
 		return new ArrayList<String>();
 	}
 

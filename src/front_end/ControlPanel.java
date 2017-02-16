@@ -40,8 +40,7 @@ public class ControlPanel
 		try {
 			appProps.load(getClass().getClassLoader().getResourceAsStream("gameText.properties"));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new Error("gameText.properties not found or something else created an IO error");
 		}
 		pause = new Button(appProps.getProperty("pauseButton"));
 		play = new Button(appProps.getProperty("playButton"));

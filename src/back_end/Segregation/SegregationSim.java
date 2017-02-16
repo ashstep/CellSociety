@@ -1,20 +1,28 @@
+// This entire file is my masterpiece.
+// Yuxiang He
 package back_end.Segregation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 import java.util.function.Consumer;
 import Grids.Grid;
-import back_end.Cell;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
 
+/**
+ * @author Yuxiang He
+ * Simulation class for Segregation. Maintains and updates the cell grid.
+ *
+ */
 public class SegregationSim extends Simulation {
 	private final int TYPE_EMPTY = 0;
 	private SegregationSimInfo myInfo;
-	private final int RANDOM_ITER_LIMIT = 2000;
-
 	private final int NEIGHBOR_FLAG=0;
+	private final int RANDOM_ITER_LIMIT = 2000;
+	
+	
 	/**
 	 * 
 	 * @param typeGrid
@@ -49,10 +57,10 @@ public class SegregationSim extends Simulation {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numCols; col++) {
 				SegregationCell cell=new SegregationCell ((SegregationCell)(copy.getCellAt(new GridLocation(row, col))));
-				GridLocation location=new GridLocation(row, col);
 				if (cell.getMyType() == TYPE_EMPTY) {
 					continue;
 				}
+				GridLocation location=new GridLocation(row, col);
 				boolean isMoving = cell.checkAndTakeAction(copy.getNeighbors(location, NEIGHBOR_FLAG), myInfo).toMove();
 				if (isMoving) {
 					moveToNewSpot(oldGrid, row, col, cell);
@@ -63,18 +71,23 @@ public class SegregationSim extends Simulation {
 				}
 			}
 		}
-		super.setCellGrid(oldGrid);
 		return oldGrid;
 	}
 
+	/**
+	 * moves the cell to a new spot if the position [row, col] is already taken
+	 * @param newGrid
+	 * @param row
+	 * @param col
+	 * @param cell
+	 */
 	private void relocateToNewSpot(Grid newGrid, int row, int col, SegregationCell cell) {
-		GridLocation newPos = findEmptySpots(newGrid, row, col);
+		GridLocation newPos = findEmptySpot(newGrid, row, col);
 		newGrid.setCellAt(newPos, new SegregationCell(cell.getMyType()));
 	}
 
 	/**
-	 * given the current position of the cell, move it to a new position in
-	 * newGrid
+	 * given the current position of the cell, move it to a new position in newGrid
 	 * 
 	 * @param newGrid
 	 * @param row current row
@@ -82,16 +95,18 @@ public class SegregationSim extends Simulation {
 	 * @param cell  the cell
 	 */
 	private void moveToNewSpot(Grid newGrid, int row, int col, SegregationCell cell) {
-		GridLocation newPos = findEmptySpots(newGrid, row, col);
+		GridLocation newPos = findEmptySpot(newGrid, row, col);
 		newGrid.setCellAt(new GridLocation(row, col), new SegregationCell(TYPE_EMPTY));
 		newGrid.setCellAt(newPos, new SegregationCell(cell.getMyType()));
 	}
 
 
 	/**
-	 * generates a position where newGrid contains an empty type cell
+	 * generates a GridLocation where grid contains an empty type cell
+	 * and GridLocation is not the same location as [currentRow, currentCol]
+	 * @param grid
 	 */
-	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
 		int iter = 0;
 		Random rn = new Random();
 		ArrayList<GridLocation> emptySpaces = findPotentialEmptySpaces(grid);
@@ -148,6 +163,10 @@ public class SegregationSim extends Simulation {
 		}
 	}
 
+	/**
+	 * getter for myInfo
+	 * @return mtInfo
+	 */
 	@Override
 	public SimulationInfo getSimInfo() {
 		return myInfo;
@@ -163,26 +182,13 @@ public class SegregationSim extends Simulation {
 		myInfo.setThreshold(newThreshold);
 	}
 
+	
 	/**
-	 * makes a copy of an old array. Each element is also points to a new copy
+	 * Please see the abstract class declaration for the following methods
 	 * 
-	 * @param oldArray
-	 * @return newArray
 	 */
-	protected Cell[][] deepCopyCellArray(Cell[][] oldArray) {
-		int numRows = oldArray.length;
-		int numCols = oldArray[0].length;
-		SegregationCell[][] copiedArray = new SegregationCell[numRows][numCols];
-		for (int row = 0; row < numRows; row++) {
-			for (int col = 0; col < numCols; col++) {
-				copiedArray[row][col] = new SegregationCell((SegregationCell) oldArray[row][col]);
-			}
-		}
-		return copiedArray;
-	}
-
 	@Override
-	public ArrayList<String> getParameterList()
+	public Collection<String> getParameterList()
 	{
 		ArrayList<String> parameterList = new ArrayList<String>();
 		parameterList.add("Threshold");

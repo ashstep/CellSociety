@@ -1,24 +1,33 @@
 package back_end.Fire;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Consumer;
 import Grids.*;
 import back_end.Simulation;
 import back_end.SimulationInfo;
 import utilities.GridLocation;
 /**
- * Class that implements the unique properties of the fire simulation
+ * Purpose: Class that implements the unique properties of the fire simulation.
+ * Assumptions: Each cell will change (or not) based on its neighbors and current state
+ * Dependencies: Extends simulation class and thus has base implemented methods which are assumed to be performed in each FireSom
+ * Example of use: When a file is read this class is the main one that brings all the information together (all cells take on the 
+ * properties in FireSimInfo and act according to properties in FireCell).
  * @author Ashka Stephen
- *
  */
 
 public class FireSim extends Simulation {
 	private FireSimInfo myInfo;
 	private final int NEIGHBOR_FLAG = 0;
+	
 	/**
 	 * Constructor
-	 * @param probablilty of the tree catching on fire and a int[][] that holds the location 
+	 * @param probCatch - probability of the tree catching on fire and a int[][] that holds the location 
 	 * of each fire cell
+	 * @param typeGrid - grid on which the cells will interact with each other 
+	 * @param boundsType - infinite/finite
+	 * @param shapeType - visual representation of this class
+	 * @return object that takes in information and will be used to implement the changing display
 	 */
 	public FireSim(int[][] typeGrid, double probCatch, String boundsType, String shapeType)
 	{
@@ -37,7 +46,7 @@ public class FireSim extends Simulation {
 
 
 	/**
-	 * Creates a new grid which stores updated values of the cells based on interactions
+	 * Function: Creates a new grid which stores updated values of the cells based on interactions outlined in other classes.
 	 */
 	@Override
 	public Grid updateGrid() {
@@ -56,10 +65,14 @@ public class FireSim extends Simulation {
 	}
 	
 	@Override
-	protected GridLocation findEmptySpots(Grid newgrid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid newgrid, int currentRow, int currentCol) {
 		return null;
 	}
 
+	/**
+	 * Function: check info passed
+	 * @param newInfo = passes information relevant to this simulation (probaility that a tree catches on fire).
+	 */
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
 		if(newInfo instanceof FireSimInfo){
@@ -76,7 +89,7 @@ public class FireSim extends Simulation {
 
 
 	@Override
-	public ArrayList<String> getParameterList(){
+	public Collection<String> getParameterList(){
 		ArrayList<String> parameterList = new ArrayList<String>();
 		parameterList.add("probCatch");
 		return parameterList;
