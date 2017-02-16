@@ -53,7 +53,10 @@ public class ControlPanel
 
 		bar.getItems().addAll(play,pause,step,newSim, newWindow, sliderLabel, slider);
 	}
-
+	/**
+	 * the following methods define what the button will do if pressed, based on a function defined in the main
+	 * @param r
+	 */
 	public void setPause(Runnable r)
 	{
 		pause.setOnAction(new EventHandler<ActionEvent>()
@@ -105,6 +108,11 @@ public class ControlPanel
 			}
 		});
 	}
+	/**
+	 * the action of the slider is defined similar to the buttons, but the method called when the value of the slider
+	 * changes uses the new value of the slider to change the sim speed parameter
+	 * @param r
+	 */
 	public void setSlider(Consumer<Number> r)
 	{
 		slider.valueProperty().addListener (
@@ -115,14 +123,23 @@ public class ControlPanel
 	{
 		return slider.getValue();
 	}
-
+	/**
+	 * adds a new slider that will modify the parameters of the simulation
+	 * @param r
+	 * @param sliderName
+	 * @param d
+	 * @param e
+	 * @param f
+	 */
 	public void addSimSlider(Consumer<Number> r, String sliderName, double d, double e, double f)
 	{
 		Text sliderText = new Text(sliderName);
 		Slider slider = new Slider();
+		
 		slider.setMin(d);
 		slider.setMax(e);
 		slider.setValue(f);
+		
 		slider.valueProperty().addListener (
 				(ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> r.accept(new_val));
 
@@ -130,6 +147,10 @@ public class ControlPanel
 		simSliders.add(slider);
 		simSliders.add(sliderText);
 	}
+	/**
+	 * used when starting a new simulation to clear the sliders being used for a certain sim to be replaced by whatever is needed
+	 * in the next one
+	 */
 	public void clearSimSliders()
 	{
 		bar.getItems().removeAll(simSliders);

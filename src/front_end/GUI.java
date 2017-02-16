@@ -13,10 +13,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import utilities.GridLocation;
 
-//class that handles the front end of the game. uses an instance of ControlPanel to take
-//care of buttons and sliders; uses a grid of shapes to handle rendering the grid object
-//as its passed in from the back end.
-/**
+/**class that handles the front end of the game. uses an instance of ControlPanel to take
+ *care of buttons and sliders; uses a grid of shapes to handle rendering the grid object
+ *as its passed in from the back end.
+ *
  * 
  * @author Juan
  *
@@ -34,14 +34,20 @@ public class GUI
 		this.sceneHeight = sceneHeight;
 		root = new BorderPane();
 	}
-
+	/**
+	 * builds the scene to be rendered in the main stage
+	 * @return
+	 */
 	public Scene buildScene()
 	{
 		Scene myScene = new Scene(root, sceneWidth, sceneHeight, Color.WHITE);
 		panel = new ControlPanel(root);
 		return myScene;
 	}
-
+	/**
+	 * initializes the grid to be rendered based on the grid object being passed through
+	 * @param gridObject
+	 */
 	public void initGrid(Grid gridObject)
 	{
 		int gridHeight = gridObject.getNumRows();
@@ -64,7 +70,10 @@ public class GUI
 		}
 		renderGrid(gridObject);
 	}
-
+	/**
+	 * renders the grid based on the color of every cell in the grid object
+	 * @param cellGrid
+	 */
 	public void renderGrid(Grid cellGrid)
 	{
 		for (int x = 0; x <cellGrid.getNumRows(); x++)
@@ -75,43 +84,86 @@ public class GUI
 			}
 		}
 	}
+	/**
+	 * sets the actions of the core three buttons
+	 * @param playMethod
+	 * @param pauseMethod
+	 * @param stepMethod
+	 */
 	public void initSimParameterInterface(Runnable playMethod, Runnable pauseMethod, Runnable stepMethod)
 	{
 		panel.setPlay(playMethod);
 		panel.setPause(pauseMethod);
 		panel.setStep(stepMethod);
-	}	
+	}
+	/**
+	 * sets the action of the new simulation button
+	 * @param newSimMethod
+	 */
 	public void initNewSimButton(Runnable newSimMethod)
 	{
 		panel.setNewSim(newSimMethod);
 	}
-
+	/**
+	 * sets the action of the sim speed slider
+	 * @param r
+	 */
 	public void initSpeedSlider(Consumer<Number> r)
 	{
 		panel.setSlider(r);
 	}
+	/**
+	 * returns current value of the slider
+	 * @return
+	 */
 	public double getSpeedSliderValue()
 	{
 		return panel.getSliderDouble();
 	}
+	/**
+	 * sets the action and initial values of any parameter slider
+	 * @param r
+	 * @param sliderName
+	 * @param d
+	 * @param e
+	 * @param f
+	 */
 	public void createSimSlider(Consumer<Number> r, String sliderName, double d, double e, double f)
 	{
 		panel.addSimSlider(r, sliderName, d, e, f);
 	}
+	/**
+	 * removes parameter sliders
+	 */
 	public void clearSimSliders()
 	{
 		panel.clearSimSliders();
 	}
+	/**
+	 * sets the action of the new window button
+	 * @param r
+	 */
 	public void initNewWinButton(Runnable r)
 	{
 		panel.setNewWindow(r);
 	}
-	
+	/**
+	 * checks to see if the grid should have gridlines to be rendered and adds the lines to the cell if so
+	 * @param x
+	 * @param y
+	 * @param gridObject
+	 */
 	private void checkStroke(int x, int y, Grid gridObject)
 	{
 		if (gridObject.hasLines()) grid[x][y].setStroke(Color.BLACK);
 	}
-
+	/**
+	 * creates a shape representing the cell depending on what shape the grid is made up of
+	 * @param cellSize
+	 * @param x
+	 * @param y
+	 * @param gridObject
+	 */
 	private void createShape(int cellSize, int x, int y, Grid gridObject)
 	{
 		if (gridObject.getClass().toString().contains("Rectangle"))
@@ -130,7 +182,9 @@ public class GUI
 		}
 		else throw new Error("Incorrect shape");
 	}
-
+	/*
+	 * the following methods build each type of shape
+	 */
 	private void buildHexagon(int cellSize, int x, int y)
 	{
 		double hexHeight = cellSize;
@@ -191,7 +245,12 @@ public class GUI
 		((Rectangle) grid[x][y]).setX(y*cellSize);
 		((Rectangle) grid[x][y]).setY(x*cellSize);
 	}
-
+	/**
+	 * adds an action to each cell so it will change state when clicked
+	 * @param x
+	 * @param y
+	 * @param gridObject
+	 */
 	private void setClickAction(int x, int y, Grid gridObject)
 	{
 		grid[x][y].setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -204,6 +263,12 @@ public class GUI
 		    }
 		});
 	}
+	/**
+	 * renders a cell at a location rather than the whole grid
+	 * @param x
+	 * @param y
+	 * @param gridObject
+	 */
 	private void renderCell(int x, int y, Grid gridObject)
 	{
 		grid[x][y].setFill(gridObject.getColorAt(x, y));

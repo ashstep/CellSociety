@@ -51,7 +51,7 @@ public class FireSim extends Simulation {
 				oldGrid.getCellAt(location).checkAndTakeAction(copy.getNeighbors(location, NEIGHBOR_FLAG), myInfo);
 			}
 		}
-		super.setGrid(oldGrid);
+		super.setCellGrid(oldGrid);
 		return oldGrid;
 	}
 	
