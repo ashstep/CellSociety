@@ -19,10 +19,12 @@ import javafx.stage.Stage;
 /**
  * 
  * @author Juan
- * My favorite class <3
+ * 
  * Handles construction of the simulation based on the XML file and the config file
  *
  */
+//This entire file is part of my masterpiece
+//JUAN PHILIPPE
 public class SimulationBuilder
 {
 	private FileChooser fileChooser;
