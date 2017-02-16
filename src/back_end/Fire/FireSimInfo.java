@@ -1,6 +1,7 @@
 package back_end.Fire;
 
 import back_end.SimulationInfo;
+
 /**
 * Purpose: Class that implements the unique properties THAT ALL CELLS SHARE in the fire simulation, specifically the probability of a cell catching on fire.
 * Assumptions: All cells in the simulation have the same probability of catching on fire. If the simulation were extended in such a way
