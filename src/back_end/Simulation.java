@@ -211,34 +211,35 @@ public abstract class Simulation
 	}
 
 	/**
-	 * 
+	 * returns a list of names of the parameters specific to the simulation
 	 * @return
 	 */
 	public abstract ArrayList<String> getParameterList();
 	
 	/**
-	 * 
+	 * gets the method to change a particular parameter based on the names of the parameters given in getParameterlist
+	 * used in the sliders
 	 * @param x
 	 * @return
 	 */
 	public abstract Consumer<Number> getChangeMethod(String x);
 	
 	/**
-	 * 
+	 * gets the lower bound of a slider based on a particular parameter in the sim
 	 * @param x
 	 * @return
 	 */
 	public abstract double getSliderLowerBound(String x);
 	
 	/**
-	 * 
+	 * gets the upper bound of a slider based on a particular parameter in the sim
 	 * @param x
 	 * @return
 	 */
 	public abstract double getSliderUpperBound(String x);
 	
 	/**
-	 * 
+	 * gets the current value of a given parameter to initialize the slider with
 	 * @param x
 	 * @return
 	 */

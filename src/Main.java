@@ -32,7 +32,7 @@ public class Main extends Application
 	private GraphHandler graphHandler;
 
 	/**
-	 * Initialize what will be displayed and how it will be updated.
+	 * Initializes various components of GUI, including windows, buttons and contents
 	 */
 	public void start (Stage s)
 	{	
@@ -78,7 +78,11 @@ public class Main extends Application
 		});
 		
 	}
-
+	/**
+	 * Adds the scene to the stage, positions the stage and renders it
+	 * @param s
+	 * @param container
+	 */
 	private void setMainStage(Stage s, GUI container)
 	{
 		s.setScene(container.buildScene());
@@ -86,7 +90,9 @@ public class Main extends Application
 		s.setY(0);
 		s.show();
 	}
-
+	/**
+	 * creates a stage for the graph, builds the graph and renders it
+	 */
 	private void createGraph()
 	{
 		Stage graphStage = new Stage();
@@ -96,7 +102,10 @@ public class Main extends Application
 		graphStage.setY(0);
 		graphStage.show();
 	}
-
+	/**
+	 * initializes the sliders that modify the parameters of the simulation
+	 * @param container
+	 */
 	private void initializeSimSliders(GUI container)
 	{
 		container.clearSimSliders();
@@ -107,7 +116,10 @@ public class Main extends Application
 					simulation.getCurrentValue(x));
 		}
 	}
-
+	/**
+	 * updates the back end and updates the front end based on that step in the back end
+	 * @param inContainer
+	 */
 	private void step (GUI inContainer)
 	{
 		inContainer.renderGrid(simulation.updateGrid());

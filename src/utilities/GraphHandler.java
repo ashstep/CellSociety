@@ -27,7 +27,10 @@ public class GraphHandler
 		root = new BorderPane();
 		return new Scene(root, 400,300);
 	}
-	
+	/**
+	 * initializes the graph based on the types of cells in the simulation, gotten from Grid object
+	 * @param grid
+	 */
 	public void initGraph(Grid grid)
 	{
 		counter = 0;
@@ -50,7 +53,9 @@ public class GraphHandler
         }
         renderGraph(grid);
 	}
-	
+	/**
+	 * renders the graph for any types of non-empty cells
+	 */
 	public void renderGraph(Grid grid)
 	{
 		for (String x : seriesContainer.keySet())
@@ -60,8 +65,10 @@ public class GraphHandler
 		checkRange(grid);
 		counter++;
 	}
-	//checks to see if there are more than 30 data points being rendered
-	//if there are it effectively shifts the graph to the right
+	/**
+	 * checks to see if there are more than 30 data points being rendered
+	 * if there are it effectively shifts the graph to the right
+	 */
 	private void checkRange(Grid grid)
 	{
 		Iterator<String> iter=grid.getCellTypes().iterator();

@@ -38,7 +38,10 @@ public class SimulationBuilder
 
 		configuration = new ConfigHandler();
 	}
-
+	/**
+	 * builds the simulation and returns it to the main to be accessed and updated
+	 * @return
+	 */
 	public Simulation getSimulation()
 	{
 		Simulation sim = chooseSimType();
@@ -46,6 +49,10 @@ public class SimulationBuilder
 
 		return sim;
 	}
+	/**
+	 * opens a window to pick an XML file to base the simulation on
+	 * @param s
+	 */
 	public void chooseFile(Stage s)
 	{
 		File selectedFile = fileChooser.showOpenDialog(s);
@@ -62,6 +69,10 @@ public class SimulationBuilder
 			throw new Error("incorrect file type");
 		}
 	}
+	/**
+	 * uses the XML file to decide the type of simulation to build
+	 * @return
+	 */
 	private Simulation chooseSimType()
 	{
 		try
@@ -78,7 +89,10 @@ public class SimulationBuilder
 			throw new Error("invalid simulation parameters");
 		}
 	}
-
+	/*
+	 * the following methods retrieve the parameters of their particular simulation 
+	 * and then build a simulation object based on the parameters
+	 */
 	private Simulation createSegregationSim()
 	{
 		NodeList nList = doc.getElementsByTagName("threshold");
@@ -131,7 +145,10 @@ public class SimulationBuilder
 		return new SlimeSim(createGrid(), createGroundGrid(),  probWiggle, wiggleAngle, sniffThreshold, sniffAngle, 
 				configuration.getBoundsType(), configuration.getShapeType());
 	}
-
+	/**
+	 * uses the configuration file to decide how to set the initial state of the grid
+	 * @return
+	 */
 	private int[][] createGrid()
 	{
 
@@ -140,7 +157,9 @@ public class SimulationBuilder
 		else if (configuration.getGridBuilderType().equals("Probability")) return createProbabilityGrid();
 		else throw new Error("Incorrect grid builder config");
 	}
-
+	/*
+	 * didn't have time to implement other two, but am showing how it would be done
+	 */
 	private int[][] createProbabilityGrid()
 	{
 		return null;
@@ -150,7 +169,10 @@ public class SimulationBuilder
 	{
 		return null;
 	}
-
+	/**
+	 * builds the grid based on the values from the XML file
+	 * @return
+	 */
 	private int[][] createDataGrid() 
 	{
 		Scanner scanner;
@@ -174,6 +196,10 @@ public class SimulationBuilder
 		}
 		return testGrid;
 	}
+	/**
+	 * does the same thing as creategrid, but is used by simulations that need a ground grid
+	 * @return
+	 */
 	private int[][] createGroundGrid()
 	{
 		Scanner scanner;
@@ -190,7 +216,10 @@ public class SimulationBuilder
 		}
 		return testGrid;
 	}
-
+	/**
+	 * these retrieve the bounds of the grid as defined in the XML file
+	 * @return
+	 */
 	private int getNumRows()
 	{
 		NodeList nList = doc.getElementsByTagName("GridHeight");
