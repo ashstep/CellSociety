@@ -28,7 +28,16 @@ public class SlimeSim extends Simulation {
 	private final int NEIGHBOR_FLAG=1;
 	
 	/**
-	 * constructor
+	 * Constructor
+	 * @param typeGrid - grid on which the agent slime cells will interact with each other 
+	 * @param groundGrid - grid on which the chemical CAMP cells will interact with each other (and later affect the above grid of slime)
+	 * @param wiggleProb - probability of the slime wiggling in a given direction
+	 * @param wiggleAngle - the given direction 0-360
+	 * @param thisSniffThreshold - how much chemical is needed to be detected 0-100 scale
+	 * @param thisSniffAngle - angle in which the agent is looking (cannot register otherwise) -> on top grid
+	 * @param shapeType - visual representation of this class
+	 * @param boundsType - finite / infinite
+	 * @return object that takes in information and will be used to implement the changing display
 	 */
 	public SlimeSim(int[][] typegrid, int[][] groundGrid,  double wiggleProb,int wiggleAngle, int thisSniffThreshold, int thisSniffAngle,
 			String boundsType, String shapeType)
@@ -38,8 +47,9 @@ public class SlimeSim extends Simulation {
 	}
 
 	/**
-	 * helper method for constructor, sets the cellGrid from typeGrid
-	 * @param typeGrid
+	 * Helper method for constructor, sets the cellGrid from typeGrid, which is the top grid that the user will see and interact with 
+	 * @param typeGrid - grid on which the agent slime cells will interact with each other 
+	 * @return visual representation of the cell grid
 	 */
 	private void setCellGrid(int[][] typeGrid, int[][] groundTypeGrid, String boundsType, String shapeType) {
 		int numRows = typeGrid.length;
@@ -57,7 +67,7 @@ public class SlimeSim extends Simulation {
 	}
 
 	/**
-	 * updates cell grid AND the ground grid which holds the values for the chemical CAMP released by the slime cells as they age.
+	 * Function: Updates cell grid that is seen by the user. 
 	 */
 	@Override
 	public Grid updateGrid() {
@@ -80,7 +90,8 @@ public class SlimeSim extends Simulation {
 
 
 	/**
-	 * updates ground grid
+	 * Function: Updates ground grid not seen by the user.
+	 * Shortcoming: A shortcoming is that this uses some duplicated code from the function above.
 	 */
 	public Grid updateGroundGrid() {
 		int numRows=super.getNumRows(), numCols=super.getNumCols();
@@ -112,21 +123,24 @@ public class SlimeSim extends Simulation {
 		}
 	}
 	
+	/**
+	 * FunctionL Creates a cell of type specified
+	 * @param cellType - type of cell given by integer
+	 * @param grid
+	 * @param location of the grid
+	 */
 	@Override
 	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setSimInfo(SimulationInfo newInfo) {
-		// TODO Auto-generated method stub
 	}
 
 	
-	/*
-	 * probWiggle is -1 to 1 (0 means it moves straight)
-	 * wiggleAngle is 0 -> 360 (angle it faces)
+	/**
+	 * The following are implementation of visuals as discussed in abstracted class:
 	 */
 	@Override
 	public ArrayList<String> getParameterList() {

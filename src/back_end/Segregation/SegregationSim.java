@@ -13,8 +13,9 @@ public class SegregationSim extends Simulation {
 	private final int TYPE_EMPTY = 0;
 	private SegregationSimInfo myInfo;
 	private final int RANDOM_ITER_LIMIT = 2000;
-
 	private final int NEIGHBOR_FLAG=0;
+	
+	
 	/**
 	 * 
 	 * @param typeGrid
@@ -63,7 +64,6 @@ public class SegregationSim extends Simulation {
 				}
 			}
 		}
-		super.setCellGrid(oldGrid);
 		return oldGrid;
 	}
 
