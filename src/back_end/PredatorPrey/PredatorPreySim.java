@@ -268,7 +268,7 @@ public class PredatorPreySim extends Simulation {
 	 */
 	private boolean createCellInVincinity(Grid grid, GridLocation currentLocation, int cellType) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
-		GridLocation newPos = findEmptySpots(grid, row, col);
+		GridLocation newPos = findEmptySpot(grid, row, col);
 		createPPCellAt(grid, newPos, cellType);
 		return newPos.equals(currentLocation);
 	}
@@ -285,7 +285,7 @@ public class PredatorPreySim extends Simulation {
 	 */
 	private GridLocation copyCellInVincinity(Grid grid, GridLocation currentLocation, PredatorPreyCell cell) {
 		int row = currentLocation.getRow(), col = currentLocation.getCol();
-		GridLocation newPos = findEmptySpots(grid, row, col);
+		GridLocation newPos = findEmptySpot(grid, row, col);
 		makeCellCopyAt(grid, newPos, cell);
 		return newPos;
 	}
@@ -296,7 +296,7 @@ public class PredatorPreySim extends Simulation {
 	 * 
 	 */
 	@Override
-	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
 		ArrayList<GridLocation> emptySpaces = (ArrayList<GridLocation>) grid.getNeighborLocationByType(new GridLocation(currentRow, currentCol), EMPTY, NEIGHBOR_FLAG);
 		GridLocation location;
 		Random rn=new Random();
@@ -354,5 +354,4 @@ public class PredatorPreySim extends Simulation {
 		else if (x.equals("SharkStarveTime")) r = myInfo.getSharkStarveTime();
 		return r;
 	}
-
 }

@@ -56,7 +56,7 @@ public class FireSim extends Simulation {
 	}
 	
 	@Override
-	protected GridLocation findEmptySpots(Grid newgrid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid newgrid, int currentRow, int currentCol) {
 		return null;
 	}
 

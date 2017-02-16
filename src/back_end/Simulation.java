@@ -94,7 +94,7 @@ public abstract class Simulation
 	 * simulates a cell moving to somewhere else
 	 * @return GridLocation specifies a new empty location in myGrid
 	 */
-	protected abstract GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol);
+	protected abstract GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol);
 	
 	
 	/**
@@ -202,7 +202,7 @@ public abstract class Simulation
 	}
 	
 	/**
-	 * sets whether there are lines surronding the cells
+	 * sets whether there are lines surrounding the cells
 	 * @param linesOn
 	 */
 	public void setLines(boolean linesOn)

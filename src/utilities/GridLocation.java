@@ -40,9 +40,9 @@ public class GridLocation {
 	}
 	
 	/**
-	 * checks if two ArrayLocaiton specify the same location
+	 * checks if two GridLocaiton specify the same location
 	 * @param otherLocation
-	 * @return
+	 * @return true if they specify the same location
 	 */
 	public boolean equals(GridLocation otherLocation){
 		return this.getRow()==otherLocation.getRow() && this.getCol()==otherLocation.getCol();

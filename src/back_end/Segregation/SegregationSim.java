@@ -68,7 +68,7 @@ public class SegregationSim extends Simulation {
 	}
 
 	private void relocateToNewSpot(Grid newGrid, int row, int col, SegregationCell cell) {
-		GridLocation newPos = findEmptySpots(newGrid, row, col);
+		GridLocation newPos = findEmptySpot(newGrid, row, col);
 		newGrid.setCellAt(newPos, new SegregationCell(cell.getMyType()));
 	}
 
@@ -82,7 +82,7 @@ public class SegregationSim extends Simulation {
 	 * @param cell  the cell
 	 */
 	private void moveToNewSpot(Grid newGrid, int row, int col, SegregationCell cell) {
-		GridLocation newPos = findEmptySpots(newGrid, row, col);
+		GridLocation newPos = findEmptySpot(newGrid, row, col);
 		newGrid.setCellAt(new GridLocation(row, col), new SegregationCell(TYPE_EMPTY));
 		newGrid.setCellAt(newPos, new SegregationCell(cell.getMyType()));
 	}
@@ -91,7 +91,7 @@ public class SegregationSim extends Simulation {
 	/**
 	 * generates a position where newGrid contains an empty type cell
 	 */
-	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
 		int iter = 0;
 		Random rn = new Random();
 		ArrayList<GridLocation> emptySpaces = findPotentialEmptySpaces(grid);

@@ -113,7 +113,7 @@ public class SlimeSim extends Simulation {
 	}
 	
 	@Override
-	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
 		// TODO Auto-generated method stub
 		return null;
 	}

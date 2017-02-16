@@ -14,8 +14,8 @@ import javafx.scene.paint.Color;
 public abstract class PredatorPreyCell extends Cell{
 	/*
 	 * note regarding myType in Cell class
-	 * 1: type 1
-	 * 2: type 2
+	 * 1: fish
+	 * 2: shark
 	 * 0: empty
 	 */
 	private final int FISH=1;
@@ -82,7 +82,7 @@ public abstract class PredatorPreyCell extends Cell{
 	/**
 	 * re-setter for timeSinceBreed
 	 */
-	public void resetTimeSinceBreed(){
+	protected void resetTimeSinceBreed(){
 		System.out.println("breed t reset");
 		timeSinceBreed=0;
 	}
@@ -142,6 +142,7 @@ public abstract class PredatorPreyCell extends Cell{
 		nameList.add("Shark");
 		return nameList;
 	}
+	
 	public String getTypeName()
 	{
 		if (getMyType() == 1) return "Fish";
