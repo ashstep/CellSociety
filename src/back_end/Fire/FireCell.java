@@ -9,10 +9,14 @@ import back_end.SimulationInfo;
 import javafx.scene.paint.Color;
 
 /**
- * Class that implements the unique properties of each cell in the fire simulation
+ * Purpose: Class that implements the unique properties of A SINGLE CELL in the fire simulation.
+ * Assumptions: Each cell only deals with information pertinent to itself and does not look at other cells.
+ * Each cell has three possible states (empty, tree present, or burning) and these states determine (in part) what action will be taken by each cell)
+ * Dependencies: Dependent on FireSimInfo since that holds the probability each cell catches on fire.
+ * Example of use: Each cell's state is determined and that leads to how it reacts to its neighbors. The most important method is checkAndTakeAction().
  * @author Ashka Stephen
- *
  */
+
 public class FireCell extends Cell {
 	private final int STATE_EMPTY = 0;
 	private final int STATE_TREE = 1;
@@ -22,26 +26,32 @@ public class FireCell extends Cell {
 	private final Color EMPTY_COLOR = Color.WHITE;
 	
 	/**
-	 * default constructor
-	 * @param type of the cell
+	 * Default Constructor
+	 * Purpose: creation of each cell and its inherent properties
+	 * May fail if there are more than 3 states (because type is only valid for 0/1/2.
+	 * @param type of the cell -> specifics outlined above
 	 */
 	public FireCell(int type) {
 		super(type);
 	}
 
 	/**
-	 * makes copy
-	 * @param type type of the cell
+	 * Creates Copy
+	 * This would be used to update the grid information. We copy over all cells and determine action from there.
+	 * @param the copied cell
+	 * @return same properties of previous cell
 	 */
 	public FireCell(FireCell anotherCell) {
 		this(anotherCell.getMyType());
 	}
 
 	/**
-	 * only need to check status of neighbors, simInfo is unused
-	 * returns false because game of life cells do not move
+	 * @param Collection of neighbors so that the cell determines action based on neighbors' states (inherent assumption here)
+	 * @param SimulationInfo object to pass on properties shared by all cells
+	 * Additional Notes:
+	 * Only need to check status of neighbors, simInfo is unused
+	 * Returns false because cells do not move
 	 */
-
 	@Override
 	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		int burningNeighbors = 0;
@@ -68,10 +78,9 @@ public class FireCell extends Cell {
 
 
 	/**
-	 * Getters and setters for the state of the tree
+	 * The following are getters and setters for the state of the tree
 	 *
 	 */
-
 	private boolean isAlive(){
 		return getMyType() == STATE_TREE;
 	}
