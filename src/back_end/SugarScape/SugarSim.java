@@ -53,7 +53,7 @@ public class SugarSim extends Simulation {
 	 * @see back_end.Simulation#findEmptySpots(Grids.Grid, int, int)
 	 */
 	@Override
-	protected GridLocation findEmptySpots(Grid grid, int currentRow, int currentCol) {
+	protected GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol) {
 		// TODO Auto-generated method stub
 		return null;
 	}
