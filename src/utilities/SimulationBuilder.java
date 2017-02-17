@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  * Handles construction of the simulation based on the XML file and the config file
  *
  */
-//This entire file is part of my masterpiece
+//This entire file is part of my masterpiece 
 //JUAN PHILIPPE
 public class SimulationBuilder
 {
