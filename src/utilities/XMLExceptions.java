@@ -12,7 +12,6 @@ public class XMLExceptions extends Exception{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//main should extend runtime exception
 	public XMLExceptions(String message){
 		super(message);
 	}
@@ -30,18 +29,8 @@ public class XMLExceptions extends Exception{
 		String errorInfo = "Error at line =" + exception.getLineNumber() + ": " + message;
 		return errorInfo;
 	}
-
-
 	public void error(SAXParseException exception) throws SAXException {
 		String message = "Error: " + getParseExceptionInfo(exception);
 		throw new SAXException(message);
 	}
-
-
-    
-    
-    
-    
-
-
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation type = "Slime">
+  <title>test</title>
+  <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
+  <SimParameters>
+	<wiggleAngle>30</wiggleAngle>
+	<probWiggle>1</probWiggle>
+	<sniffThreshold>20</sniffThreshold>
+	<sniffAngle>10</sniffAngle>
+  </SimParameters>
+  <Dimensions>
+    <GridWidth>3</GridWidth>
+    <GridHeight>3</GridHeight>
+  </Dimensions>
+  <InitialGridState>
+	<row>0 1 1</row>
+	<row>0 1 1</row>
+	<row>0 1 0</row>
+  </InitialGridState>
+   <InitialGroundState>
+	<grow>0 2 2</grow>
+	<grow>0 2 2</grow>
+	<grow>0 2 0</grow>
+  </InitialGroundState>
+</Simulation>

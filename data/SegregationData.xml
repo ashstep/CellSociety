@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Simulation type = "Segregation">
   <title>test</title>
-  <author>Juan Philippe, Askha Stephe, Yuxiang He</author>
+  <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
   <SimParameters>
-	<threshold>30</threshold>
+	<threshold>70</threshold>
   </SimParameters>
   <Dimensions>
-    <GridWidth>6</GridWidth>
-    <GridHeight>4</GridHeight>
+    <GridWidth>5</GridWidth>
+    <GridHeight>6</GridHeight>
   </Dimensions>
   <InitialGridState>
-	<row>1 1 2 0 0 0</row>
-	<row>2 2 0 0 0 2</row>
-	<row>0 0 1 1 0 1</row>
-	<row>0 0 1 1 0 0</row>
+	<row>1 1 2 1 2</row>
+	<row>0 2 2 2 2</row>
+	<row>1 1 0 0 0</row>
+	<row>1 2 1 1 1</row>
+	<row>1 2 2 0 2 </row>
+	<row>1 1 1 1 1</row>
   </InitialGridState>
 </Simulation>

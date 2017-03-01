@@ -1,82 +1,247 @@
 package back_end;
-import java.util.ArrayList;
-public abstract class Simulation{
-	
-	private Cell[][] myGrid;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.function.Consumer;
+import Grids.Grid;
+import Grids.HexagonalGrids.*;
+import Grids.RectangleGrids.*;
+import Grids.TriangularGrid.*;
+import utilities.GridLocation;
+/**
+ * Abstract class that captures the concept of a simulation. 
+ * Contains the Grid of cells, and updates the cell when the API updateCells() is called. 
+ * 
+ * 
+ * @author Yuxiang He
+ *@author Ashka Stephen
+ *@author Juan Philippe
+ */
+public abstract class Simulation
+{
+	private Grid myCellGrid;
+	private Grid myGroundGrid;
 	
 	/**
 	 * update the grid based on the cells' current state
 	 * @return the updated myGrid
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 */
-	public abstract Cell[][] updateGrid();
-	
+	public abstract Grid updateGrid();
+
 	
 	/**
-	 * 
-	 * @param row the row of the current cell
-	 * @param col the col of the current cell
-	 * @return the Cell neighbors of the current cell
+	 * creates a Grid object filled with the cell types specified by cellArray
+	 * @param cellArray
+	 * @return
 	 */
-	protected abstract ArrayList<Cell> getNeighbors(int row, int col);
+	public Grid createCellGrid(Cell[][] cellArray)
+	{
+		Constructor<? extends Grid> constructor = null;
+		try {
+			constructor = myCellGrid.getClass().getConstructor(Cell[][].class);
+		} catch (NoSuchMethodException | SecurityException e) {
+			throw new Error("No such constructor");
+		}
+		try {
+			return constructor.newInstance(cellArray);
+		} catch (Exception e) {
+			throw new Error("No such constructor");
+		}
+	}
 	
 	/**
-	 * generates a [row, column] pair such that newGrid[row][column] is empty for putting a new cell
-	 * @return int[]. 0 position is row,1 position is column
+	 * Creates a copy of a Cell[][] array, with each cell in the returned array also a copy of the corresponding original one. 
+	 * Used for updateGrid in sub-classes. Since the new, updated grid needs information about its current state, 
+	 * the array copied by this method provides a 'snapshot' of the previous-iteration state while the myGrid is being updated. 
+	 * @param oldArray
+	 * @return copiedArray a copy of old array
+	 * @throws Error when there is no such constructor found for the cell. Not possible in our current code.
 	 */
-	//TODO rename move to findEmptySpot
-	protected abstract int[] move(Cell[][] newGrid);
+	protected Cell[][] deepCopyCellArray(Cell[][] oldArray){
+		int numRows = oldArray.length;
+		int numCols = oldArray[0].length;
+		Cell[][] copiedArray = new Cell[numRows][numCols];
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numCols; col++) {
+				Constructor<? extends Cell> constructor = null;
+				try {
+					constructor = oldArray[row][col].getClass().getConstructor(oldArray[row][col].getClass());
+				} catch (NoSuchMethodException | SecurityException e) {
+					throw new Error("No available constructor");
+				}
+				try {
+					Cell oldLocation = oldArray[row][col];
+					copiedArray[row][col] = constructor.newInstance(oldLocation);
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e) {
+					throw new Error("No available constructor");
+				}
+			}
+		}
+		return copiedArray;
+	}
 	
-	
+	/**
+	 * generates a GridLocation such that myGrid.getCellAt(GridLocation) is empty for putting a new cell
+	 * AND GridLocation is not its current position
+	 * simulates a cell moving to somewhere else
+	 * @return GridLocation specifies a new empty location in myGrid
+	 */
+	protected abstract GridLocation findEmptySpot(Grid grid, int currentRow, int currentCol);
 	
 	
 	/**
 	 * getter method
-	 * @return myGrid
+	 * @return Grid containing cell info
 	 */
-	public Cell[][] getGrid(){
-		return myGrid;
+	public Grid getCellGrid(){
+		return myCellGrid;
 	}
 	
 	/**
-	 * setter method for myGrid
+	 * getter method
+	 * @return Grid containing ground info
 	 */
-	public void setGrid(Cell[][] newGrid){
-		myGrid=newGrid;
+	public Grid getGroundGrid(){
+		return myGroundGrid;
 	}
 	
+	
+	/**
+	 * setter method for myCellGrid
+	 */
+	protected void setCellGrid(Grid grid){
+		myCellGrid=grid;
+	}
+
+	/**
+	 * setter method for  myGroundGrid
+	 */
+	protected void setGroundGrid(Grid groundGrid){
+		myGroundGrid = groundGrid;
+	}
+	
+
+    /**
+	 * creates a new grid with the defined configuration (whose origin lies in simulation builder) in terms of bounds, shapes  and celltype
+	 * @param gridBoundsType
+	 * @param shapeType
+	 * @param cellArray
+	 */
+	protected void makeGrid(String gridBoundsType, String shapeType, Cell[][] cellArray)
+	{
+		if (gridBoundsType.equals("Toroidal") && shapeType.equals("Rectangular"))
+			setCellGrid(new RectangleToroidalGrid(cellArray));
+		else if (gridBoundsType.equals("Finite") && shapeType.equals("Rectangular"))
+			setCellGrid(new RectangleFiniteGrid(cellArray));
+		else if (gridBoundsType.equals("Infinite") && shapeType.equals("Rectangular"))
+			setCellGrid(new RectangleInfiniteGrid(cellArray));
+		
+		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Triangular"))
+			setCellGrid(new TriangularToroidalGrid(cellArray));
+		else if (gridBoundsType.equals("Finite") && shapeType.equals("Triangular"))
+			setCellGrid(new TriangularFiniteGrid(cellArray));
+		else if (gridBoundsType.equals("Toroidal") && shapeType.equals("Hexagonal"))
+			setCellGrid(new HexToroidalGrid(cellArray));
+		else if (gridBoundsType.equals("Finite") && shapeType.equals("Hexagonal"))
+			setCellGrid(new HexFiniteGrid(cellArray));
+		else
+			throw new Error("Incorrect Grid Type");
+	}
+	
+
 	/**
 	 * setter method. Sets sim's myInfo to newInfo
 	 * @param newInfo
 	 */
 	public abstract void setSimInfo(SimulationInfo newInfo);
+	
+	/**
+	 * getter method. Sets sim's myInfo to newInfo
+	 * @param newInfo
+	 */
+	public abstract SimulationInfo getSimInfo();
 
 	
 	/**
 	 * 
-	 * @return number of rows in myGrid
+	 * @return number of rows in myCellGrid
 	 */
 	public int getNumRows(){
-		return myGrid.length;
+		return myCellGrid.getNumRows();
 	}
 	
 	/**
 	 * 
-	 * @return number of columns in myGrid
+	 * @return number of rows in myGroundGrid
+	 * used for ground and regular grid
 	 */
-	public int getNumCols(){
-		return myGrid[0].length;
+	public int getNumRowsGround(){
+		return myGroundGrid.getNumRows();
 	}
 	
 	/**
-	 * checks whether the position specified by (row, col) is valid i.e. won't cause OutOfBoundsException.
-	 * Assumes each row of myGrid has the same number of columns
-	 * @param row
-	 * @param col
-	 * @return true if the position is valid
+	 * @return number of columns in myCellGrid
 	 */
-	//added this util method. helpful for all subclass simulations as they need to check for boundaries
-	protected boolean isValidPosition(int row, int col){
-		return row < myGrid.length && row>=0 
-				&& col<myGrid[0].length &&     col>=0;
+	public int getNumCols(){
+		return myCellGrid.getNumCols();
 	}
+	
+	/**
+	 * @return number of columns in myGroundGrid
+	 */
+	public int getNumColsGround(){
+		return myGroundGrid.getNumCols();
+	}
+	
+	/**
+	 * sets whether there are lines surrounding the cells
+	 * @param linesOn
+	 */
+	public void setLines(boolean linesOn)
+	{
+		myCellGrid.setLines(linesOn);
+	}
+
+	/**
+	 * returns a list of names of the parameters specific to the simulation
+	 * @return
+	 */
+	public abstract Collection<String> getParameterList();
+	
+	/**
+	 * gets the method to change a particular parameter based on the names of the parameters given in getParameterlist
+	 * used in the sliders
+	 * @param x
+	 * @return
+	 */
+	public abstract Consumer<Number> getChangeMethod(String x);
+	
+	/**
+	 * gets the lower bound of a slider based on a particular parameter in the sim
+	 * @param x
+	 * @return
+	 */
+	public abstract double getSliderLowerBound(String x);
+	
+	/**
+	 * gets the upper bound of a slider based on a particular parameter in the sim
+	 * @param x
+	 * @return
+	 */
+	public abstract double getSliderUpperBound(String x);
+	
+	/**
+	 * gets the current value of a given parameter to initialize the slider with
+	 * @param x
+	 * @return
+	 */
+	public abstract double getCurrentValue(String x);
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation type = "Game of Life" title="test">
+  <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
+  <SimParameters>
+
+  </SimParameters>
+  <Dimensions>
+    <GridWidth>8</GridWidth>
+    <GridHeight>8</GridHeight>
+  </Dimensions>
+  <InitialGridState>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+	<row>0 0 0 0 0 0 0 0</row>
+  </InitialGridState>
+</Simulation>

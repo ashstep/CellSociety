@@ -1,19 +1,23 @@
 package back_end.PredatorPrey;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
+import back_end.PredatorPrey.PPCells.EmptyPPCell;
+import back_end.PredatorPrey.PPCells.FishCell;
+import back_end.PredatorPrey.PPCells.SharkCell;
 import javafx.scene.paint.Color;
 
 public abstract class PredatorPreyCell extends Cell{
 	/*
 	 * note regarding myType in Cell class
-	 * 1: type 1
-	 * 2: type 2
+	 * 1: fish
+	 * 2: shark
 	 * 0: empty
 	 */
-	
 	private final int FISH=1;
 	private final int SHARK=2;
 	private final int EMPTY=0;
@@ -31,20 +35,13 @@ public abstract class PredatorPreyCell extends Cell{
 		timeSinceBreed=0;
 	}
 	
-//	/**
-//	 * makes a copy of another PredatorPreyCell 
-//	 * @param anotherCell
-//	 */
-//	//refactor to abstract class?
-//	public PredatorPreyCell(PredatorPreyCell anotherCell) {
-//		this(anotherCell.getMyType());
-//	}
-	
+	public PredatorPreyCell(int type, int timeSinceBreeding) {
+		super(type);
+		timeSinceBreed=timeSinceBreeding;
+	}
 	
 	@Override
-	public abstract ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) ;
-	
-	
+	public abstract ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) ;
 	
 	/**
 	 * kills a cell (fish or shark)
@@ -54,7 +51,6 @@ public abstract class PredatorPreyCell extends Cell{
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is fish
 	 */
 	public boolean isFish(){
@@ -62,7 +58,6 @@ public abstract class PredatorPreyCell extends Cell{
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is shark
 	 */
 	public boolean isShark(){
@@ -70,7 +65,6 @@ public abstract class PredatorPreyCell extends Cell{
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is empty
 	 */
 	public boolean isEmpty(){
@@ -88,7 +82,8 @@ public abstract class PredatorPreyCell extends Cell{
 	/**
 	 * re-setter for timeSinceBreed
 	 */
-	public void resetTimeSinceBreed(){
+	protected void resetTimeSinceBreed(){
+		System.out.println("breed t reset");
 		timeSinceBreed=0;
 	}
 	
@@ -96,7 +91,34 @@ public abstract class PredatorPreyCell extends Cell{
 	 * setter for timeSinceBreed
 	 */
 	protected void incrementTimeSinceBreed(){
-		timeSinceBreed++;
+		timeSinceBreed+=1;
+	}
+	
+	@Override
+	public Cell makeEmptyCell() {
+		return new EmptyPPCell();
+	}
+	
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException{
+		if(type==FISH){
+			return new FishCell();
+		} else if(type==SHARK){
+			return new SharkCell();
+		} else if(type==EMPTY){
+			return new EmptyPPCell();
+		} else {
+			throw new IllegalArgumentException("Invalid PPCell type");
+		}
+	}
+	
+	@Override
+	public Cell makeNextStateCell() {
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(EMPTY);
+		}
 	}
 	
 	/**
@@ -112,5 +134,19 @@ public abstract class PredatorPreyCell extends Cell{
 			return EMPTY_COLOR;
 		}
 	}
-
+	
+	public Collection<String> getTypeNames()
+	{
+		Collection<String> nameList = new ArrayList<String>();
+		nameList.add("Fish");
+		nameList.add("Shark");
+		return nameList;
+	}
+	
+	public String getTypeName()
+	{
+		if (getMyType() == 1) return "Fish";
+		else if (getMyType() == 2) return "Shark";
+		else return "";
+	}
 }

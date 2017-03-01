@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation type = "Fire">
+  <title>test</title>
+  <author>Juan Philippe, Ashka Stephen, Yuxiang He</author>
+  <SimParameters>
+	<FireProbability>1.0</FireProbability>
+  </SimParameters>
+  <Dimensions>
+    <GridWidth>8</GridWidth>
+    <GridHeight>8</GridHeight>
+  </Dimensions>
+  <InitialGridState>
+	<row>0 1 1 1 1 1 1 1</row>
+	<row>0 1 1 1 1 1 1 1</row>
+	<row>0 1 0 0 0 1 1 1</row>
+	<row>0 0 1 1 1 1 1 1</row>
+	<row>1 1 1 1 0 1 1 1</row>
+	<row>1 1 2 1 0 1 1 1</row>
+	<row>1 1 1 1 0 1 1 1</row>
+	<row>1 1 1 1 0 1 1 1</row>	
+  </InitialGridState>
+</Simulation>

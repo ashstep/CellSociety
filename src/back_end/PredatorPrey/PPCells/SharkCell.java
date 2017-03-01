@@ -1,6 +1,7 @@
 package back_end.PredatorPrey.PPCells;
 
-import java.util.ArrayList;
+import java.util.Collection;
+
 import back_end.ActionBySim;
 import back_end.Cell;
 import back_end.SimulationInfo;
@@ -27,14 +28,20 @@ public class SharkCell extends PredatorPreyCell{
 	 * makes a copy of another SharkCell
 	 */
 	public SharkCell(SharkCell anotherSharkCell) {
-		super(2);
+		super(2, anotherSharkCell.getTimeSinceBreed());
 		this.timeSinceDinner=anotherSharkCell.timeSinceDinner;
+		
 	}
-
+	
+	/**
+	 *if there is a fish adjacent to a shark the shark eats it
+	 *If there are no adjacent fish the shark moves
+	 */
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		timeSinceDinner++;
 		super.incrementTimeSinceBreed();	
+		
 		int starveThreshold=((PredatorPreySimInfo) simInfo).getSharkStarveTime(),
 				breedTime=((PredatorPreySimInfo) simInfo).getSharkBreedTime();
 		if(isStarvedToDeath(starveThreshold)){
@@ -54,8 +61,6 @@ public class SharkCell extends PredatorPreyCell{
 			boolean reproducing = checkThenReproduce(breedTime);
 			boolean moving=false;
 			boolean eating=false;	
-			//if there is a fish adjacent to a shark the shark eats it
-			//If there are no adjacent fish the shark moves
 			if(fishNeighbors>0){
 				eating=true;
 				timeSinceDinner=0;
@@ -68,25 +73,26 @@ public class SharkCell extends PredatorPreyCell{
 	}
 
 	/**
-	 * 
 	 * @param breedTime time between breeding of a shark
 	 * @param emptyNeighbors  number of empty neighbors
 	 * @return true if wants to breeding
 	 */
 	private boolean checkThenReproduce(int breedTime) {
 		boolean reproducing=super.getTimeSinceBreed()>breedTime;
+		if(reproducing) System.out.println("shark reproducing");
 		return reproducing;
 	}
 
-	
 	/**
-	 * 
+	 * Given the starve threshold, determine if the shark is starved to death
 	 * @param starveThreshold
 	 * @return true if the shark has died
 	 */
 	private boolean isStarvedToDeath(int starveThreshold){
 		return timeSinceDinner>starveThreshold;
 	}
-	
-	
+
+	public void resetTimeSinceDinner(){
+		timeSinceDinner=0;
+	}
 }

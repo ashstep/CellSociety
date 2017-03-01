@@ -1,6 +1,7 @@
 package back_end.Segregation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import back_end.ActionBySim;
 import back_end.Cell;
@@ -21,7 +22,6 @@ public class SegregationCell extends Cell {
 	private final Color TYPE_TWO_COLOR=Color.BLUE;
 	private final Color TYPE_EMPTY_COLOR=Color.WHITE;
 	
-	
 	/**
 	 * default constructor
 	 * @param type
@@ -34,7 +34,6 @@ public class SegregationCell extends Cell {
 	 * makes a copy of another SegregationCell
 	 * @param anotherCell
 	 */
-	//refactor to abstract class?
 	public SegregationCell(SegregationCell anotherCell){
 		this(anotherCell.getMyType());
 	}
@@ -44,7 +43,7 @@ public class SegregationCell extends Cell {
 	 * Also assumes neighbors is just an ArrayList of SegregationCell
 	 */
 	@Override
-	public ActionBySim checkAndTakeAction(ArrayList<Cell> neighbors, SimulationInfo simInfo) {
+	public ActionBySim checkAndTakeAction(Collection<Cell> neighbors, SimulationInfo simInfo) {
 		if(isTypeEmpty()){
 			return new ActionBySim(false);
 		}
@@ -59,13 +58,17 @@ public class SegregationCell extends Cell {
 				totalNeighbors++;
 			}
 		}
-		int percentage=100*myTypeCells/totalNeighbors;
-		return new ActionBySim(percentage<threshold);
+		if(totalNeighbors!=0){
+			int percentage=100*myTypeCells/totalNeighbors;
+			return new ActionBySim(percentage<threshold);
+		} else {
+			//no neighbors, move to new place
+			return new ActionBySim(true);
+		}
 	}
 	
 	
 	/**
-	 * 
 	 * @return true if cell is type 1
 	 */
 	public boolean isTypeOne(){
@@ -73,7 +76,6 @@ public class SegregationCell extends Cell {
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is type 2
 	 */
 	public boolean isTypeTwo(){
@@ -81,7 +83,6 @@ public class SegregationCell extends Cell {
 	}
 	
 	/**
-	 * 
 	 * @return true if cell is type empty
 	 */
 	public boolean isTypeEmpty(){
@@ -99,5 +100,49 @@ public class SegregationCell extends Cell {
 			return TYPE_TWO_COLOR;
 		}
 		return TYPE_EMPTY_COLOR;
+	}
+
+	@Override
+	public Collection<String> getTypeNames()
+	{
+		Collection<String> nameList = new ArrayList<String>();
+		nameList.add("Population 1");
+		nameList.add("Population 2");
+		return nameList;
+	}
+
+	@Override
+	public String getTypeName()
+	{
+		if (getMyType() == TYPE_ONE) return "Population 1";
+		else if (getMyType() == TYPE_TWO) return "Population 2";
+		else return "";
+	}
+	
+	@Override
+	public Cell makeEmptyCell() {
+		return new SegregationCell(TYPE_EMPTY);
+	}
+
+	@Override
+	public Cell makeCellofType(int type) throws IllegalArgumentException {
+		if(type==TYPE_ONE){
+			return new SegregationCell(TYPE_ONE);
+		} else if(type==TYPE_TWO){
+			return new SegregationCell(TYPE_TWO);
+		} else if(type==TYPE_EMPTY){
+			return new SegregationCell(TYPE_EMPTY);
+		} else {
+			throw new IllegalArgumentException("Invalid SegregationCell type");
+		}
+	}
+
+	@Override
+	public Cell makeNextStateCell() {
+		try{
+			return makeCellofType(getMyType()+1);
+		} catch (IllegalArgumentException e){
+			return makeCellofType(TYPE_EMPTY);
+		}
 	}
 }
